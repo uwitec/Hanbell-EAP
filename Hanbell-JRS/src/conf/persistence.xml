@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="RESTPU_shberp" transaction-type="JTA">
+    <jta-data-source>jdbc/shberp</jta-data-source>
+    <class>cn.hanbell.erp.entity.Armhad</class>
+    <class>cn.hanbell.erp.entity.ArmhadSum</class>
+    <class>cn.hanbell.erp.entity.Cdrcus</class>
+    <class>cn.hanbell.erp.entity.Cdrcusman</class>
+    <class>cn.hanbell.erp.entity.Cdrdmas</class>
+    <class>cn.hanbell.erp.entity.Cdrdmmodel</class>
+    <class>cn.hanbell.erp.entity.Cdrdta</class>
+    <class>cn.hanbell.erp.entity.Cdrhad</class>
+    <class>cn.hanbell.erp.entity.Cdrhmas</class>
+    <class>cn.hanbell.erp.entity.Cdrschedule</class>
+    <class>cn.hanbell.erp.entity.Invbal</class>
+    <class>cn.hanbell.erp.entity.Invwh</class>
+    <class>cn.hanbell.erp.entity.ItemCategory</class>
+    <class>cn.hanbell.erp.entity.ItemFault</class>
+    <class>cn.hanbell.erp.entity.ItemKind</class>
+    <class>cn.hanbell.erp.entity.ItemMaster</class>
+    <class>cn.hanbell.erp.entity.ItemModel</class>
+    <class>cn.hanbell.erp.entity.Pricing</class>
+    <class>cn.hanbell.erp.entity.PricingGroup</class>
+    <class>cn.hanbell.erp.entity.PricingPolicy</class>
+    <exclude-unlisted-classes>true</exclude-unlisted-classes>
+    <properties/>
+  </persistence-unit>
+  <persistence-unit name="RESTPU_gzerp" transaction-type="JTA">
+    <jta-data-source>jdbc/gzerp</jta-data-source>
+    <class>cn.hanbell.erp.entity.Invbal</class>
+    <class>cn.hanbell.erp.entity.Invwh</class>
+    <exclude-unlisted-classes>true</exclude-unlisted-classes>
+    <properties>
+    </properties>
+  </persistence-unit>
+  <persistence-unit name="RESTPU_njerp" transaction-type="JTA">
+    <jta-data-source>jdbc/njerp</jta-data-source>
+    <class>cn.hanbell.erp.entity.Invbal</class>
+    <class>cn.hanbell.erp.entity.Invwh</class>
+    <exclude-unlisted-classes>true</exclude-unlisted-classes>
+    <properties>
+    </properties>
+  </persistence-unit>
+  <persistence-unit name="RESTPU_jnerp" transaction-type="JTA">
+    <jta-data-source>jdbc/jnerp</jta-data-source>
+    <class>cn.hanbell.erp.entity.Invbal</class>
+    <class>cn.hanbell.erp.entity.Invwh</class>
+    <exclude-unlisted-classes>true</exclude-unlisted-classes>
+    <properties/>
+  </persistence-unit>
+</persistence>
