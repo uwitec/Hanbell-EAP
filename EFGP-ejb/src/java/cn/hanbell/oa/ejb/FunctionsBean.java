@@ -9,8 +9,6 @@ import cn.hanbell.oa.comm.SuperEJBForEFGP;
 import cn.hanbell.oa.entity.Functions;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
-import javax.ejb.Remote;
-import javax.ejb.Startup;
 import javax.persistence.Query;
 
 /**

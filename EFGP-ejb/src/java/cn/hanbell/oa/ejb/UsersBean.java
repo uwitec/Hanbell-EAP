@@ -9,7 +9,6 @@ import cn.hanbell.oa.comm.SuperEJBForEFGP;
 import cn.hanbell.oa.entity.Users;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
-import javax.ejb.Startup;
 
 /**
  *

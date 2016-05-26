@@ -62,6 +62,22 @@ public abstract class SuperEJBForEFGP<T> extends SuperEJB<T> {
         }
     }
 
+    public Users findUserByUserno(String userno) {
+        try {
+            return usersBean.findById(userno);
+        } catch (Exception ex) {
+            return null;
+        }
+    }
+
+    public OrganizationUnit findOrgUnitByDeptno(String deptno) {
+        try {
+            return organizationUnitBean.findById(deptno);
+        } catch (Exception ex) {
+            return null;
+        }
+    }
+
     public void initUserInfo(String userid) {
         this.currentUser = usersBean.findById(userid);
         this.userFunction = functionsBean.findByUserOID(getCurrentUser().getOid());
