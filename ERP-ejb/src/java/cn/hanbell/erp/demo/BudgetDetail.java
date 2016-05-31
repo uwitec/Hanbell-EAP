@@ -11,7 +11,6 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  * @author C0160
  */
-
 @XmlRootElement
 public class BudgetDetail {
 
@@ -26,7 +25,7 @@ public class BudgetDetail {
 
     }
 
-    public BudgetDetail(String seq,String summary, String budgetacc, String accname, String yl, String pl) {
+    public BudgetDetail(String seq, String summary, String budgetacc, String accname, String yl, String pl) {
         this.seq = seq;
         this.summary = summary;
         this.budgetacc = budgetacc;
