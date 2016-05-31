@@ -6,8 +6,16 @@
 package cn.hanbell.erp.comm;
 
 import cn.hanbell.util.SuperEJB;
+import java.io.StringReader;
+import java.lang.reflect.Field;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
 
 /**
  *
@@ -16,22 +24,8 @@ import javax.persistence.PersistenceContext;
  */
 public abstract class SuperEJBForERP<T> extends SuperEJB<T> {
 
-    protected EntityManager em;
-
     @PersistenceContext(unitName = "ERP-ejbPU")
-    private EntityManager em_default;
-
-    @PersistenceContext(unitName = "PU_shberp")
-    private EntityManager em_shberp;
-
-    @PersistenceContext(unitName = "PU_gzerp")
-    private EntityManager em_gzerp;
-
-    @PersistenceContext(unitName = "PU_jnerp")
-    private EntityManager em_jnerp;
-
-    @PersistenceContext(unitName = "PU_njerp")
-    private EntityManager em_njerp;
+    private EntityManager em;
 
     public SuperEJBForERP(Class<T> entityClass) {
         super(entityClass);
@@ -39,33 +33,20 @@ public abstract class SuperEJBForERP<T> extends SuperEJB<T> {
 
     @Override
     public EntityManager getEntityManager() {
-        return em != null ? em : em_default;
+        return em;
     }
 
-    public void setEntityManagerByCompany(String facno) {
-        switch (facno) {
-            case "C":
-                setEntityManager(em_shberp);
-                break;
-            case "G":
-                setEntityManager(em_gzerp);
-                break;
-            case "J":
-                setEntityManager(em_jnerp);
-                break;
-            case "N":
-                setEntityManager(em_njerp);
-                break;
-            default:
-                setEntityManager(em_default);
+    protected T buildObjectByXmlString(String xmlString) {
+        try {
+            JAXBContext context = JAXBContext.newInstance(entityClass.getClass());
+            Unmarshaller unmarshaller = context.createUnmarshaller();
+            //Unmarshal the XML in the stringWriter back into an object  
+            T entity = (T) unmarshaller.unmarshal(new StringReader(xmlString));
+            return entity;
+        } catch (JAXBException ex) {
+            Logger.getLogger(entityClass.getClass().getName()).log(Level.SEVERE, null, ex);
+            return null;
         }
-    }
-
-    /**
-     * @param em the em to set
-     */
-    protected void setEntityManager(EntityManager em) {
-        this.em = em;
     }
 
 }

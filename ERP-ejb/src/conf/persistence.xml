@@ -14,28 +14,22 @@
     <jta-data-source>jdbc/gzerp</jta-data-source>
     <class>cn.hanbell.erp.entity.Invbal</class>
     <class>cn.hanbell.erp.entity.Invwh</class>
-    <class>cn.hanbell.erp.entity.Apmsys</class>
-    <class>cn.hanbell.erp.entity.Apmrno</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
-        </properties>
+    </properties>
   </persistence-unit>
   <persistence-unit name="PU_njerp" transaction-type="JTA">
     <jta-data-source>jdbc/njerp</jta-data-source>
     <class>cn.hanbell.erp.entity.Invbal</class>
     <class>cn.hanbell.erp.entity.Invwh</class>
-    <class>cn.hanbell.erp.entity.Apmsys</class>
-    <class>cn.hanbell.erp.entity.Apmrno</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
-        </properties>
+    </properties>
   </persistence-unit>
   <persistence-unit name="PU_jnerp" transaction-type="JTA">
     <jta-data-source>jdbc/jnerp</jta-data-source>
     <class>cn.hanbell.erp.entity.Invbal</class>
     <class>cn.hanbell.erp.entity.Invwh</class>
-    <class>cn.hanbell.erp.entity.Apmsys</class>
-    <class>cn.hanbell.erp.entity.Apmrno</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties/>
   </persistence-unit>
