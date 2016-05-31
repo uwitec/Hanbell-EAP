@@ -62,6 +62,21 @@ public abstract class SuperEJBForEFGP<T> extends SuperEJB<T> {
         }
     }
 
+    public T findByPSN(Object value) {
+        Query query = getEntityManager().createNamedQuery(getClassName() + ".findByPSN");
+        query.setParameter("psn", value);
+        try {
+            Object entity = query.getSingleResult();
+            if (entity != null) {
+                return (T) entity;
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
     public Users findUserByUserno(String userno) {
         try {
             return usersBean.findById(userno);
@@ -81,17 +96,6 @@ public abstract class SuperEJBForEFGP<T> extends SuperEJB<T> {
     public void initUserInfo(String userid) {
         this.currentUser = usersBean.findById(userid);
         this.userFunction = functionsBean.findByUserOID(getCurrentUser().getOid());
-    }
-
-    public String replaceVariables(String content) {
-        if (currentUser == null || userFunction == null) {
-            return content;
-        }
-        String formInstance;
-        formInstance = content.replace("$creatorName$", currentUser.getUserName()).replace("$creatorHidden$", currentUser.getOid());
-        formInstance = formInstance.replace("$applyuserName$", currentUser.getUserName()).replace("$applyuserHidden$", currentUser.getOid());;
-        formInstance = formInstance.replace("$deptName$", getUserFunction().getOrganizationUnit().getOrganizationUnitName()).replace("$deptHidden$", getUserFunction().getOrganizationUnit().getOid());
-        return formInstance;
     }
 
     /**
