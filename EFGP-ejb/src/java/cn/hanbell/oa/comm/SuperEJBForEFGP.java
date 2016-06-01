@@ -12,6 +12,7 @@ import cn.hanbell.oa.entity.Functions;
 import cn.hanbell.oa.entity.OrganizationUnit;
 import cn.hanbell.oa.entity.Users;
 import cn.hanbell.util.SuperEJB;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -72,6 +73,16 @@ public abstract class SuperEJBForEFGP<T> extends SuperEJB<T> {
             } else {
                 return null;
             }
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public List<T> findByFSN(Object value) {
+        Query query = getEntityManager().createNamedQuery(getClassName() + ".findByFSN");
+        query.setParameter("fsn", value);
+        try {
+            return query.getResultList();
         } catch (Exception e) {
             return null;
         }
