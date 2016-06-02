@@ -6,6 +6,11 @@
 package cn.hanbell.erp.comm;
 
 import cn.hanbell.util.SuperEJB;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map.Entry;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -40,6 +45,24 @@ public abstract class SuperEJBForERP<T> extends SuperEJB<T> {
     @Override
     public EntityManager getEntityManager() {
         return em != null ? em : em_default;
+    }
+
+    //新增一笔资料,一个表头多个明细
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public void persist(T entity, HashMap<SuperEJBForERP, List<?>> detailAdded) {
+        try {
+            getEntityManager().persist(entity);
+            if (detailAdded != null && !detailAdded.isEmpty()) {
+                for (Entry<SuperEJBForERP, List<?>> entry : detailAdded.entrySet()) {
+                    entry.getKey().setEntityManager(getEntityManager());
+                    for (Object o : entry.getValue()) {
+                        entry.getKey().persist(o);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void setEntityManagerByCompany(String facno) {
