@@ -5,6 +5,7 @@
  */
 package cn.hanbell.jws;
 
+import cn.hanbell.erp.ejb.ApmpayBean;
 import cn.hanbell.erp.ejb.ApmsysBean;
 import cn.hanbell.erp.ejb.CdrcusBean;
 import cn.hanbell.util.BaseLib;
@@ -27,7 +28,7 @@ import javax.jws.soap.SOAPBinding;
 public class SHBERPWebService {
 
     @EJB
-    private ApmsysBean apmsysBean;
+    private ApmpayBean apmpayBean;
 
     @EJB
     private CdrcusBean cdrcusBean;
@@ -47,16 +48,19 @@ public class SHBERPWebService {
         return "";
     }
 
-    @WebMethod(operationName = "getAPM525FormId")
-    public String getAPM525FormId(@WebParam(name = "facno") String facno) {
-        String id = "";
+    @WebMethod(operationName = "createAPM525ByOAPSN")
+    public String createAPM525ByOAPSN(@WebParam(name = "psn") String psn) {
+        Boolean ret =false;
         try {
-            apmsysBean.setEntityManagerByCompany(facno);
-            id = apmsysBean.getFormId(facno, "APM525", BaseLib.getDate(), Boolean.TRUE);
+            ret = apmpayBean.initByOAPSN(psn);
         } catch (Exception ex) {
             Logger.getLogger(SHBERPWebService.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return id;
+        if(ret){
+            return "200";
+        }else{
+            return "404";
+        }
     }
 
 }

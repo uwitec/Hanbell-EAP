@@ -31,7 +31,7 @@ public class ApmsysBean extends SuperEJBForERP<Apmsys> {
     public ApmsysBean() {
         super(Apmsys.class);
     }
-    
+
     public String getFormId(String facno, String prgno, Date date, Boolean flag) throws Exception {
         String maxid, newid;
         String prg, code, format, header;
@@ -56,7 +56,8 @@ public class ApmsysBean extends SuperEJBForERP<Apmsys> {
                 format = "";
         }
         header = code + format;
-        apmrnoBean.setEntityManagerByCompany(facno);
+        apmrnoBean.setCompany(facno);
+        //apmrnoBean.setEntityManagerByCompany(facno);
         Apmrno n = apmrnoBean.findMaxByPK(facno, prg, header + "%");
         if (n != null) {
             maxid = n.getApmrnoPK().getMaxnumber();
