@@ -47,6 +47,10 @@ public abstract class SuperEJBForERP<T> extends SuperEJB<T> {
         return em != null ? em : em_default;
     }
 
+    public Boolean initByOAPSN(String psn) {
+        return true;
+    }
+
     //新增一笔资料,一个表头多个明细
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void persist(T entity, HashMap<SuperEJBForERP, List<?>> detailAdded) {
