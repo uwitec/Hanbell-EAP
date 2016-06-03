@@ -12,6 +12,7 @@ import java.util.Map.Entry;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
+import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 
 /**
@@ -22,6 +23,8 @@ import javax.persistence.PersistenceContext;
 public abstract class SuperEJBForERP<T> extends SuperEJB<T> {
 
     protected EntityManager em;
+
+    protected String company;
 
     @PersistenceContext(unitName = "ERP-ejbPU")
     private EntityManager em_default;
@@ -44,7 +47,7 @@ public abstract class SuperEJBForERP<T> extends SuperEJB<T> {
 
     @Override
     public EntityManager getEntityManager() {
-        return em != null ? em : em_default;
+        return getEntityManager(getCompany());
     }
 
     public Boolean initByOAPSN(String psn) {
@@ -58,7 +61,7 @@ public abstract class SuperEJBForERP<T> extends SuperEJB<T> {
             getEntityManager().persist(entity);
             if (detailAdded != null && !detailAdded.isEmpty()) {
                 for (Entry<SuperEJBForERP, List<?>> entry : detailAdded.entrySet()) {
-                    entry.getKey().setEntityManager(getEntityManager());
+                    entry.getKey().setCompany(company);
                     for (Object o : entry.getValue()) {
                         entry.getKey().persist(o);
                     }
@@ -69,30 +72,33 @@ public abstract class SuperEJBForERP<T> extends SuperEJB<T> {
         }
     }
 
-    public void setEntityManagerByCompany(String facno) {
+    protected EntityManager getEntityManager(String facno) {
         switch (facno) {
             case "C":
-                setEntityManager(em_shberp);
-                break;
+                return em_shberp;
             case "G":
-                setEntityManager(em_gzerp);
-                break;
+                return em_gzerp;
             case "J":
-                setEntityManager(em_jnerp);
-                break;
+                return em_jnerp;
             case "N":
-                setEntityManager(em_njerp);
-                break;
+                return em_njerp;
             default:
-                setEntityManager(em_default);
+                return em_default;
         }
     }
 
     /**
-     * @param em the em to set
+     * @return the company
      */
-    protected void setEntityManager(EntityManager em) {
-        this.em = em;
+    public String getCompany() {
+        return company;
+    }
+
+    /**
+     * @param company the company to set
+     */
+    public void setCompany(String company) {
+        this.company = company;
     }
 
 }
