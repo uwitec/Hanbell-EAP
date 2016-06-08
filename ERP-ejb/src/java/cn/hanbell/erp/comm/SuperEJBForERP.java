@@ -5,14 +5,15 @@
  */
 package cn.hanbell.erp.comm;
 
+import cn.hanbell.erp.ejb.MiscodeBean;
 import cn.hanbell.util.SuperEJB;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
+import javax.ejb.EJB;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
-import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 
 /**
@@ -22,7 +23,8 @@ import javax.persistence.PersistenceContext;
  */
 public abstract class SuperEJBForERP<T> extends SuperEJB<T> {
 
-    protected EntityManager em;
+    @EJB
+    public MiscodeBean miscodeBean;
 
     protected String company;
 

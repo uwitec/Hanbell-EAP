@@ -7,7 +7,6 @@ package cn.hanbell.erp.ejb;
 
 import cn.hanbell.erp.comm.SuperEJBForERP;
 import cn.hanbell.erp.entity.Apmrno;
-import cn.hanbell.erp.entity.ApmrnoPK;
 import cn.hanbell.erp.entity.Apmsys;
 import cn.hanbell.util.BaseLib;
 import java.util.Calendar;
@@ -15,7 +14,6 @@ import java.util.Date;
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
 
 /**
  *
@@ -24,10 +22,10 @@ import javax.persistence.EntityManager;
 @Stateless
 @LocalBean
 public class ApmsysBean extends SuperEJBForERP<Apmsys> {
-    
+
     @EJB
     private ApmrnoBean apmrnoBean;
-    
+
     public ApmsysBean() {
         super(Apmsys.class);
     }
@@ -50,14 +48,13 @@ public class ApmsysBean extends SuperEJBForERP<Apmsys> {
                 seqlen = Integer.parseInt(e.getAutnrformat1().substring(5));
                 break;
             default:
-                seqlen = 0;
                 prg = "";
                 code = "";
                 format = "";
+                seqlen = 0;
         }
         header = code + format;
         apmrnoBean.setCompany(facno);
-        //apmrnoBean.setEntityManagerByCompany(facno);
         Apmrno n = apmrnoBean.findMaxByPK(facno, prg, header + "%");
         if (n != null) {
             maxid = n.getApmrnoPK().getMaxnumber();
@@ -74,11 +71,11 @@ public class ApmsysBean extends SuperEJBForERP<Apmsys> {
             }
         }
         return newid;
-        
+
     }
-    
+
     protected String getFormCode(String facno, Date date, String code) {
-        
+
         String trno = "", dateString;
         Integer month;
         Calendar c = Calendar.getInstance();
@@ -131,5 +128,5 @@ public class ApmsysBean extends SuperEJBForERP<Apmsys> {
         }
         return trno;
     }
-    
+
 }
