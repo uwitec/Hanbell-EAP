@@ -56,8 +56,8 @@ public class ApmpayBean extends SuperEJBForERP<Apmpay> {
 
             apmsysBean.setCompany(facno);
             ApmpayPK pk = new ApmpayPK();
-            pk.setFacno("C");
-            pk.setPaycode('1');
+            pk.setFacno(facno);
+            pk.setPaycode('2');
             pk.setPayno(apmsysBean.getFormId(facno, "APM525", BaseLib.getDate(), Boolean.TRUE));
 
             setCompany(facno);
@@ -69,6 +69,9 @@ public class ApmpayBean extends SuperEJBForERP<Apmpay> {
             h.setSumry("EFGP");
             h.setUsrno("C0160");
             h.setPaystat('0');
+            h.setSrckind("3");
+            h.setBilltype("EFGP");
+            h.setSrcno(psn);
 
             persist(h);
             return true;
