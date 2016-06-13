@@ -5,6 +5,8 @@
  */
 package cn.hanbell.erp.ejb;
 
+import cn.hanbell.crm.ejb.CRMGGBean;
+import cn.hanbell.crm.entity.CRMGG;
 import cn.hanbell.erp.comm.SuperEJBForERP;
 import cn.hanbell.erp.entity.Cdrcus;
 import cn.hanbell.erp.entity.Cdrcusman;
@@ -30,6 +32,9 @@ import javax.ejb.LocalBean;
 @Stateless
 @LocalBean
 public class CdrcusBean extends SuperEJBForERP<Cdrcus> {
+
+    @EJB
+    private CRMGGBean beanCRMGG;
 
     @EJB
     private SyncGZBean syncGZBean;
@@ -197,6 +202,15 @@ public class CdrcusBean extends SuperEJBForERP<Cdrcus> {
         transwahList.add(t);
         miscodeList.add(c);
 
+        CRMGG crmgg = beanCRMGG.findById("2010000001");
+        if (crmgg != null) {
+            crmgg.setGg008(cdrcus.getAreacode());
+            crmgg.setGg009(cdrcus.getSacode());
+            crmgg.setGg010(cdrcus.getCuycode());
+            crmgg.setGg011(cdrcus.getCuskind());
+            //回写更多内容
+        }
+
         try {
             persist(cdrcus, details);
             getEntityManager().flush();
@@ -212,6 +226,11 @@ public class CdrcusBean extends SuperEJBForERP<Cdrcus> {
             resetFacno("N");
             syncNJBean.syncPersist(cdrcus, details);
             syncNJBean.getEntityManager().flush();
+
+            if (crmgg != null) {
+                beanCRMGG.syncUpdate(crmgg, null);
+                beanCRMGG.getEntityManager().flush();
+            }
 
             return doAfterPersist();
 
