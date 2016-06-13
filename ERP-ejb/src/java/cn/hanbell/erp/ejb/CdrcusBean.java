@@ -32,11 +32,11 @@ import javax.ejb.LocalBean;
 public class CdrcusBean extends SuperEJBForERP<Cdrcus> {
 
     @EJB
-    private CdrcusBean_GZ cdrcusBean_GZ;
+    private SyncGZBean syncGZBean;
     @EJB
-    private CdrcusBean_JN cdrcusBean_JN;
+    private SyncJNBean syncJNBean;
     @EJB
-    private CdrcusBean_NJ cdrcusBean_NJ;
+    private SyncNJBean syncNJBean;
 
     @EJB
     private CdrivoBean cdrivoBean;
@@ -116,6 +116,8 @@ public class CdrcusBean extends SuperEJBForERP<Cdrcus> {
 
         cdrcus.setIndate(BaseLib.getDate());
         cdrcus.setUserno("C0160");
+        cdrcus.setShr("C0160");
+        cdrcus.setShzt("Y");
 
         newcusno = getFormId(cdrcus.getIndate(), "S" + cdrcus.getCuycode(), null, 5, "cdrcus", "cusno");
         cdrcus.setCusno(newcusno);
@@ -200,16 +202,16 @@ public class CdrcusBean extends SuperEJBForERP<Cdrcus> {
             getEntityManager().flush();
             //同步广州ERP
             resetFacno("G");
-            cdrcusBean_GZ.sync(cdrcus, details);
-            cdrcusBean_GZ.getEntityManager().flush();
+            syncGZBean.syncPersist(cdrcus, details);
+            syncGZBean.getEntityManager().flush();
             //同步济南ERP
             resetFacno("J");
-            cdrcusBean_JN.sync(cdrcus, details);
-            cdrcusBean_JN.getEntityManager().flush();
+            syncJNBean.syncPersist(cdrcus, details);
+            syncJNBean.getEntityManager().flush();
             //同步南京ERP
             resetFacno("N");
-            cdrcusBean_NJ.sync(cdrcus, details);
-            cdrcusBean_NJ.getEntityManager().flush();
+            syncNJBean.syncPersist(cdrcus, details);
+            syncNJBean.getEntityManager().flush();
 
             return doAfterPersist();
 
