@@ -6,6 +6,8 @@
 package cn.hanbell.erp.ejb;
 
 import cn.hanbell.erp.comm.SuperEJBForERP;
+import cn.hanbell.erp.entity.Apmpad;
+import cn.hanbell.erp.entity.ApmpadPK;
 import cn.hanbell.erp.entity.Apmpay;
 import cn.hanbell.erp.entity.ApmpayPK;
 import cn.hanbell.oa.ejb.BXDDetail01Bean;
@@ -13,7 +15,10 @@ import cn.hanbell.oa.ejb.BxdBean;
 import cn.hanbell.oa.entity.BXDDetail01;
 import cn.hanbell.oa.entity.Bxd;
 import cn.hanbell.util.BaseLib;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -27,6 +32,9 @@ import javax.ejb.LocalBean;
 @Stateless
 @LocalBean
 public class ApmpayBean extends SuperEJBForERP<Apmpay> {
+
+    @EJB
+    private ApmpadBean apmpadBean;
 
     @EJB
     private ApmsysBean apmsysBean;
@@ -44,7 +52,6 @@ public class ApmpayBean extends SuperEJBForERP<Apmpay> {
     public Boolean initByOAPSN(String psn) {
         String facno;
         Bxd b = bxdBean.findByPSN(psn);
-        List<BXDDetail01> details = bxdDetail01Bean.findByFSN(b.getFormSerialNumber());
 
         if (b.getBmpa02c().equals("0")) {
             facno = "C";
@@ -70,7 +77,36 @@ public class ApmpayBean extends SuperEJBForERP<Apmpay> {
             h.setUsrno("C0160");
             h.setPaystat('0');
 
-            persist(h);
+            List<BXDDetail01> details = bxdDetail01Bean.findByFSN(b.getFormSerialNumber());
+            List<Apmpad> apmpads = new ArrayList<>();
+            for (int i = 0; i < details.size(); i++) {
+                System.out.println(details.get(i));
+                BXDDetail01 detail = details.get(i);
+
+                Apmpad apmpad = new Apmpad();
+                ApmpadPK apmpadPK = new ApmpadPK();
+                apmpadPK.setFacno(facno);
+                apmpadPK.setPaycode('1');
+                apmpadPK.setPayno(pk.getPayno());
+                apmpadPK.setTrse((short) (i + 1));
+                apmpad.setApmpadPK(apmpadPK);
+
+                apmpad.setAccno(detail.getBudgetacc());
+                
+                
+
+                apmpads.add(apmpad);
+            }
+
+            for (BXDDetail01 detail : details) {
+
+            }
+
+            HashMap<SuperEJBForERP, List<?>> detailAdded = new HashMap<>();
+            detailAdded.put(apmpadBean, apmpads);
+            
+            persist(h, detailAdded);
+            
             return true;
         } catch (Exception ex) {
             Logger.getLogger(ApmpayBean.class.getName()).log(Level.SEVERE, null, ex);

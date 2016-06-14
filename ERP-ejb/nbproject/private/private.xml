@@ -3,11 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/G:/myWorkSpace/SHB/Hanbell-EAP/ERP-ejb/src/java/cn/hanbell/erp/entity/Apmpay.java</file>
-            <file>file:/G:/myWorkSpace/SHB/Hanbell-EAP/ERP-ejb/src/java/cn/hanbell/erp/entity/ApmpadPK.java</file>
-            <file>file:/G:/myWorkSpace/SHB/Hanbell-EAP/ERP-ejb/src/java/cn/hanbell/erp/entity/ApmpayPK.java</file>
-            <file>file:/G:/myWorkSpace/SHB/Hanbell-EAP/ERP-ejb/src/java/cn/hanbell/erp/ejb/ApmpayBean.java</file>
-            <file>file:/G:/myWorkSpace/SHB/Hanbell-EAP/ERP-ejb/src/java/cn/hanbell/erp/entity/Apmpad.java</file>
+            <file>file:/E:/Hanbell-EAP/ERP-ejb/src/java/cn/hanbell/erp/ejb/ApmpadBean.java</file>
+            <file>file:/E:/Hanbell-EAP/ERP-ejb/src/java/cn/hanbell/erp/ejb/ApmpayBean.java</file>
+            <file>file:/E:/Hanbell-EAP/ERP-ejb/src/java/cn/hanbell/erp/comm/SuperEJBForERP.java</file>
         </group>
     </open-files>
 </project-private>

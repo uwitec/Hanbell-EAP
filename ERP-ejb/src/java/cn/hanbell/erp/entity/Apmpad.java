@@ -121,32 +121,8 @@ public class Apmpad implements Serializable {
     @Size(max = 2)
     @Column(name = "trntype")
     private String trntype;
-    @JoinColumns({
-        @JoinColumn(name = "facno", referencedColumnName = "facno", insertable = false, updatable = false),
-        @JoinColumn(name = "paycode", referencedColumnName = "paycode", insertable = false, updatable = false),
-        @JoinColumn(name = "payno", referencedColumnName = "payno", insertable = false, updatable = false)})
-    @ManyToOne(optional = false)
-    private Apmpay apmpay;
-
+    
     public Apmpad() {
-    }
-
-    public Apmpad(ApmpadPK apmpadPK) {
-        this.apmpadPK = apmpadPK;
-    }
-
-    public Apmpad(ApmpadPK apmpadPK, BigDecimal dramt, BigDecimal cramt, BigDecimal dramtfs, BigDecimal cramtfs, String coin, BigDecimal ratio, BigDecimal tnfamt, BigDecimal tnfamtfs, BigDecimal refamt, BigDecimal refamtfs) {
-        this.apmpadPK = apmpadPK;
-        this.dramt = dramt;
-        this.cramt = cramt;
-        this.dramtfs = dramtfs;
-        this.cramtfs = cramtfs;
-        this.coin = coin;
-        this.ratio = ratio;
-        this.tnfamt = tnfamt;
-        this.tnfamtfs = tnfamtfs;
-        this.refamt = refamt;
-        this.refamtfs = refamtfs;
     }
 
     public Apmpad(String facno, Character paycode, String payno, short trse) {
@@ -303,14 +279,6 @@ public class Apmpad implements Serializable {
 
     public void setTrntype(String trntype) {
         this.trntype = trntype;
-    }
-
-    public Apmpay getApmpay() {
-        return apmpay;
-    }
-
-    public void setApmpay(Apmpay apmpay) {
-        this.apmpay = apmpay;
     }
 
     @Override
