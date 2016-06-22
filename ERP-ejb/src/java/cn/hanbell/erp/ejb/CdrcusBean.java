@@ -6,6 +6,7 @@
 package cn.hanbell.erp.ejb;
 
 import cn.hanbell.crm.ejb.CRMGGBean;
+import cn.hanbell.crm.ejb.SyncCRMBean;
 import cn.hanbell.crm.entity.CRMGG;
 import cn.hanbell.erp.comm.SuperEJBForERP;
 import cn.hanbell.erp.entity.Cdrcus;
@@ -16,11 +17,14 @@ import cn.hanbell.erp.entity.Invwh;
 import cn.hanbell.erp.entity.Invwhclk;
 import cn.hanbell.erp.entity.Miscode;
 import cn.hanbell.erp.entity.Transwah;
+import cn.hanbell.oa.ejb.HKYX006Bean;
+import cn.hanbell.oa.ejb.SyncEFGPBean;
+import cn.hanbell.oa.entity.HKYX006;
 import cn.hanbell.util.BaseLib;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Random;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
@@ -34,7 +38,14 @@ import javax.ejb.LocalBean;
 public class CdrcusBean extends SuperEJBForERP<Cdrcus> {
 
     @EJB
+    private HKYX006Bean beanHKYX006;
+    @EJB
     private CRMGGBean beanCRMGG;
+
+    @EJB
+    private SyncCRMBean syncCRMBean;
+    @EJB
+    private SyncEFGPBean syncEFGPBean;
 
     @EJB
     private SyncGZBean syncGZBean;
@@ -75,7 +86,18 @@ public class CdrcusBean extends SuperEJBForERP<Cdrcus> {
     public Boolean initByOAPSN(String psn) {
 
         String newcusno, facno;
-        facno = "C";//遇到Hanson\QTC等时需要变更
+
+        HKYX006 oa = beanHKYX006.findByPSN(psn);
+        if (oa == null) {
+            throw new NullPointerException();
+        }
+
+        CRMGG crmgg = beanCRMGG.findById(oa.getGg001());
+        if (crmgg == null) {
+            throw new NullPointerException();
+        }
+
+        facno = oa.getFacno();
 
         details.put(transwahBean, transwahList);
         details.put(invwhclkBean, invwhclkList);
@@ -85,43 +107,48 @@ public class CdrcusBean extends SuperEJBForERP<Cdrcus> {
         details.put(cdrivoBean, cdrivoList);
         details.put(miscodeBean, miscodeList);
 
-        //<---------------------------------
-        //获取OA资料转换成ERP对象        
-        //--------------------------------->
-        setCompany(facno);
-        //测试随机生成一个客户简称
-        Random r = new Random();
+        setCompany(facno);//遇到Hanson\QTC等时需要变更
+
         cdrcus = new Cdrcus();
         cdrcus.setPrnyn('N');
-        cdrcus.setDecode('1');
-        cdrcus.setCusna("EFGP" + r.nextInt(1000));
-        cdrcus.setCusds("EFGP" + r.nextInt(1000) + "完整名称");
-        cdrcus.setCuskind("R");
-        cdrcus.setSacode("01");
-        cdrcus.setAreacode("HD");
-        cdrcus.setCuycode("ZJ");
-        cdrcus.setAddress1("XXXXXXXX");
+        cdrcus.setDecode(oa.getDecode().charAt(0));
+        cdrcus.setCusna(oa.getGg003());
+        cdrcus.setCusds(oa.getGg004());
+        cdrcus.setCussta(oa.getCussta().charAt(0));
+        cdrcus.setDecode(oa.getDecode().charAt(0));
+        cdrcus.setCuskind(oa.getGg011());
+        cdrcus.setDmcode(oa.getDmcode().charAt(0));
+        if (oa.getGg036().length() <= 40) {
+            cdrcus.setAddress1(oa.getGg036());
+        } else if (oa.getGg036().length() > 40) {
+            cdrcus.setAddress1(oa.getGg036().substring(0, 40));
+            cdrcus.setAddress2(oa.getGg036().substring(40));
+        }
+        cdrcus.setUniform(oa.getGg030());
+        cdrcus.setBilnum(oa.getGg109());
+        cdrcus.setCoin(oa.getGg084());
+        cdrcus.setTax(oa.getGg098().charAt(0));
+        cdrcus.setSndcode(oa.getSndcode());
+        cdrcus.setPaycode(oa.getGg113().charAt(0));
+        cdrcus.setTermcode(oa.getGg112());
 
-        cdrcus.setUniform("310116" + r.nextInt(100000000));
-        cdrcus.setCoin("RMB");
-        cdrcus.setTax('4');
-        cdrcus.setBilnum("A");
-        cdrcus.setDmcode('1');
-        cdrcus.setPaycode('3');
-        cdrcus.setHandays1((short) 30);
-        cdrcus.setSndcode("001");
-        cdrcus.setTermcode("C&F");
+        cdrcus.setHandays1(oa.getHandays1().shortValue());
+        cdrcus.setSacode(oa.getGg009());
+        cdrcus.setAreacode(oa.getGg008());
+        cdrcus.setCuycode(oa.getGg010());
 
-        cdrcus.setBoss("李老板");
-        cdrcus.setContactman("李老板");
-        cdrcus.setTel1("57350280");
-        cdrcus.setFax("57352004");
-        cdrcus.setBegdate(BaseLib.getDate());
-        cdrcus.setCapamt(1000000l);
+        cdrcus.setBoss(oa.getGg018());
+        cdrcus.setContactman(oa.getContactman());
+        cdrcus.setTel1(oa.getGg024());
+        cdrcus.setFax(oa.getGg027());
+        cdrcus.setBegdate(oa.getGg017());
+        if (oa.getGg031() != null) {
+            cdrcus.setCapamt(oa.getGg031().longValue());
+        }
 
         cdrcus.setIndate(BaseLib.getDate());
-        cdrcus.setUserno("C0160");
-        cdrcus.setShr("C0160");
+        cdrcus.setUserno(oa.getGg078());
+        cdrcus.setShr("mis");
         cdrcus.setShzt("Y");
 
         newcusno = getFormId(cdrcus.getIndate(), "S" + cdrcus.getCuycode(), null, 5, "cdrcus", "cusno");
@@ -162,7 +189,7 @@ public class CdrcusBean extends SuperEJBForERP<Cdrcus> {
 
         //生成负责业务
         Cdrcusman m = new Cdrcusman(facno, newcusno);
-        m.setMan("mis");
+        m.setMan(oa.getSalesman());
         m.setLatdate(cdrcus.getIndate());
 
         //生成借客户仓
@@ -170,7 +197,11 @@ public class CdrcusBean extends SuperEJBForERP<Cdrcus> {
         w.setFacno(facno);
         w.setProno("1");
         w.setWareh("JC" + newcusno);
-        w.setWhdsc("借-" + cdrcus.getCusna());
+        if (cdrcus.getCusna().length() < 6) {
+            w.setWhdsc("借-" + cdrcus.getCusna());
+        } else {
+            w.setWhdsc("借-" + cdrcus.getCusna().substring(0, 5));
+        }
         w.setMrpco('N');
         w.setCostyn('Y');
         w.setWclerk(m.getMan());
@@ -202,18 +233,41 @@ public class CdrcusBean extends SuperEJBForERP<Cdrcus> {
         transwahList.add(t);
         miscodeList.add(c);
 
-        CRMGG crmgg = beanCRMGG.findById("2010000001");
-        if (crmgg != null) {
-            crmgg.setGg008(cdrcus.getAreacode());
-            crmgg.setGg009(cdrcus.getSacode());
-            crmgg.setGg010(cdrcus.getCuycode());
-            crmgg.setGg011(cdrcus.getCuskind());
-            //回写更多内容
+        crmgg.setGg004(cdrcus.getCusds());
+        crmgg.setGg008(cdrcus.getAreacode());
+        crmgg.setGg009(cdrcus.getSacode());
+        crmgg.setGg010(cdrcus.getCuycode());
+        crmgg.setGg011(cdrcus.getCuskind());
+
+        crmgg.setGg017(BaseLib.formatDate("yyyy-MM-dd", cdrcus.getBegdate()));
+        crmgg.setGg018(cdrcus.getBoss());
+        crmgg.setGg024(cdrcus.getTel1());
+        crmgg.setGg027(cdrcus.getFax());
+        crmgg.setGg030(cdrcus.getUniform());
+        if (cdrcus.getCapamt() != null) {
+            crmgg.setGg031(BigDecimal.valueOf(cdrcus.getCapamt()));
         }
+        crmgg.setGg036(oa.getGg036());
+        crmgg.setGg043(newcusno);
+
+        crmgg.setGg084(cdrcus.getCoin());
+        crmgg.setGg098(cdrcus.getTax());
+        crmgg.setGg105(cdrcus.getCusdse());
+        crmgg.setGg109(cdrcus.getBilnum());
+        //交易类别字段形态不符
+        crmgg.setGg113(cdrcus.getPaycode());
+        //回写更多内容
 
         try {
             persist(cdrcus, details);
             getEntityManager().flush();
+
+            syncCRMBean.syncUpdate(crmgg, null);
+            syncCRMBean.getEntityManager().flush();
+
+            syncEFGPBean.syncUpdate(oa, null);
+            syncEFGPBean.getEntityManager().flush();
+
             //同步广州ERP
             resetFacno("G");
             syncGZBean.syncPersist(cdrcus, details);
@@ -226,11 +280,6 @@ public class CdrcusBean extends SuperEJBForERP<Cdrcus> {
             resetFacno("N");
             syncNJBean.syncPersist(cdrcus, details);
             syncNJBean.getEntityManager().flush();
-
-            if (crmgg != null) {
-                beanCRMGG.syncUpdate(crmgg, null);
-                beanCRMGG.getEntityManager().flush();
-            }
 
             return doAfterPersist();
 

@@ -5,4 +5,8 @@
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties/>
   </persistence-unit>
+  <persistence-unit name="EFGP-syncPU" transaction-type="JTA">
+    <jta-data-source>jdbc/syncEFGP</jta-data-source>
+    <properties/>
+  </persistence-unit>
 </persistence>
