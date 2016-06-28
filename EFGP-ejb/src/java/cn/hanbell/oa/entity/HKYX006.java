@@ -163,8 +163,9 @@ public class HKYX006 implements Serializable {
     @Size(max = 255)
     @Column(name = "GG011")
     private String gg011;
+    @Size(max = 255)
     @Column(name = "cusacctno")
-    private Integer cusacctno;
+    private String cusacctno;
     @Size(max = 255)
     @Column(name = "skfs1")
     private String skfs1;
@@ -527,11 +528,11 @@ public class HKYX006 implements Serializable {
         this.gg011 = gg011;
     }
 
-    public Integer getCusacctno() {
+    public String getCusacctno() {
         return cusacctno;
     }
 
-    public void setCusacctno(Integer cusacctno) {
+    public void setCusacctno(String cusacctno) {
         this.cusacctno = cusacctno;
     }
 

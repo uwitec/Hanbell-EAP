@@ -6,7 +6,6 @@
 package cn.hanbell.erp.ejb;
 
 import cn.hanbell.crm.ejb.CRMGGBean;
-import cn.hanbell.crm.ejb.SyncCRMBean;
 import cn.hanbell.crm.entity.CRMGG;
 import cn.hanbell.erp.comm.SuperEJBForERP;
 import cn.hanbell.erp.entity.Cdrcus;
@@ -42,8 +41,6 @@ public class CdrcusBean extends SuperEJBForERP<Cdrcus> {
     @EJB
     private CRMGGBean beanCRMGG;
 
-    @EJB
-    private SyncCRMBean syncCRMBean;
     @EJB
     private SyncEFGPBean syncEFGPBean;
 
@@ -97,7 +94,17 @@ public class CdrcusBean extends SuperEJBForERP<Cdrcus> {
             throw new NullPointerException();
         }
 
-        facno = oa.getFacno();
+        switch (oa.getFacno()) {
+            //SHB和分公司统一到SHB下
+            case "C":
+            case "G":
+            case "J":
+            case "N":
+                facno = "C";
+                break;
+            default:
+                facno = "C";
+        }
 
         details.put(transwahBean, transwahList);
         details.put(invwhclkBean, invwhclkList);
@@ -145,6 +152,8 @@ public class CdrcusBean extends SuperEJBForERP<Cdrcus> {
         if (oa.getGg031() != null) {
             cdrcus.setCapamt(oa.getGg031().longValue());
         }
+        cdrcus.setCusbakna(oa.getCusbakna());
+        cdrcus.setCusacctno(oa.getCusacctno());
 
         cdrcus.setIndate(BaseLib.getDate());
         cdrcus.setUserno(oa.getGg078());
@@ -262,29 +271,33 @@ public class CdrcusBean extends SuperEJBForERP<Cdrcus> {
             persist(cdrcus, details);
             getEntityManager().flush();
 
-            syncCRMBean.syncUpdate(crmgg, null);
-            syncCRMBean.getEntityManager().flush();
+            beanCRMGG.update(crmgg);
 
+            beanHKYX006.getEntityManager().detach(oa);
+            oa.setPz(newcusno);
             syncEFGPBean.syncUpdate(oa, null);
             syncEFGPBean.getEntityManager().flush();
+            syncEFGPBean.getEntityManager().clear();
 
             //同步广州ERP
             resetFacno("G");
-            syncGZBean.syncPersist(cdrcus, details);
+            syncGZBean.persist(cdrcus, details);
             syncGZBean.getEntityManager().flush();
             //同步济南ERP
             resetFacno("J");
-            syncJNBean.syncPersist(cdrcus, details);
+            syncJNBean.persist(cdrcus, details);
             syncJNBean.getEntityManager().flush();
             //同步南京ERP
             resetFacno("N");
-            syncNJBean.syncPersist(cdrcus, details);
+            syncNJBean.persist(cdrcus, details);
             syncNJBean.getEntityManager().flush();
 
-            return doAfterPersist();
+            return true;
 
         } catch (Exception ex) {
             return false;
+        } finally {
+            doAfterPersist();
         }
     }
 
