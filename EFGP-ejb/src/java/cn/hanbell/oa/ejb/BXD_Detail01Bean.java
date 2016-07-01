@@ -6,7 +6,7 @@
 package cn.hanbell.oa.ejb;
 
 import cn.hanbell.oa.comm.SuperEJBForEFGP;
-import cn.hanbell.oa.entity.BXD;
+import cn.hanbell.oa.entity.BXD_Detail01;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 
@@ -16,10 +16,10 @@ import javax.ejb.LocalBean;
  */
 @Stateless
 @LocalBean
-public class BXDBean extends SuperEJBForEFGP<BXD>{
+public class BXD_Detail01Bean extends SuperEJBForEFGP<BXD_Detail01> {
 
-    public BXDBean(){
-        super(BXD.class);
+    public BXD_Detail01Bean() {
+        super(BXD_Detail01.class);
     }
     
 }
