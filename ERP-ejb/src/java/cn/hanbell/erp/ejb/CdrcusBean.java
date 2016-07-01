@@ -82,7 +82,7 @@ public class CdrcusBean extends SuperEJBForERP<Cdrcus> {
     @Override
     public Boolean initByOAPSN(String psn) {
 
-        String newcusno, facno;
+        String facno, code, newcusno;
 
         HKYX006 oa = beanHKYX006.findByPSN(psn);
         if (oa == null) {
@@ -101,9 +101,11 @@ public class CdrcusBean extends SuperEJBForERP<Cdrcus> {
             case "J":
             case "N":
                 facno = "C";
+                code = "S";
                 break;
             default:
-                facno = "C";
+                facno = oa.getFacno();
+                code = facno;
         }
 
         details.put(transwahBean, transwahList);
@@ -114,13 +116,14 @@ public class CdrcusBean extends SuperEJBForERP<Cdrcus> {
         details.put(cdrivoBean, cdrivoList);
         details.put(miscodeBean, miscodeList);
 
-        setCompany(facno);//遇到Hanson\QTC等时需要变更
+        setCompany(facno);
 
         cdrcus = new Cdrcus();
         cdrcus.setPrnyn('N');
         cdrcus.setDecode(oa.getDecode().charAt(0));
         cdrcus.setCusna(oa.getGg003());
         cdrcus.setCusds(oa.getGg004());
+        cdrcus.setCusdse(oa.getGg105());
         cdrcus.setCussta(oa.getCussta().charAt(0));
         cdrcus.setDecode(oa.getDecode().charAt(0));
         cdrcus.setCuskind(oa.getGg011());
@@ -154,13 +157,13 @@ public class CdrcusBean extends SuperEJBForERP<Cdrcus> {
         }
         cdrcus.setCusbakna(oa.getCusbakna());
         cdrcus.setCusacctno(oa.getCusacctno());
-
+        cdrcus.setSkfs(oa.getSkfs2());
         cdrcus.setIndate(BaseLib.getDate());
         cdrcus.setUserno(oa.getGg078());
         cdrcus.setShr("mis");
         cdrcus.setShzt("Y");
 
-        newcusno = getFormId(cdrcus.getIndate(), "S" + cdrcus.getCuycode(), null, 5, "cdrcus", "cusno");
+        newcusno = getFormId(cdrcus.getIndate(), code + cdrcus.getCuycode(), null, 5, "cdrcus", "cusno");
         cdrcus.setCusno(newcusno);
 
         //生成发票客户资料

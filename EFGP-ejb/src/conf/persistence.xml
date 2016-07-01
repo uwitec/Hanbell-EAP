@@ -3,10 +3,15 @@
   <persistence-unit name="EFGP-ejbPU" transaction-type="JTA">
     <jta-data-source>jdbc/NaNaTEST</jta-data-source>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
-    <properties/>
+    <validation-mode>NONE</validation-mode>
+    <properties>
+    </properties>
   </persistence-unit>
   <persistence-unit name="EFGP-syncPU" transaction-type="JTA">
     <jta-data-source>jdbc/syncEFGP</jta-data-source>
-    <properties/>
+    <validation-mode>NONE</validation-mode>
+    <properties>
+      <property name="eclipselink.canonicalmodel.subpackage" value="sync"/>
+    </properties>
   </persistence-unit>
 </persistence>
