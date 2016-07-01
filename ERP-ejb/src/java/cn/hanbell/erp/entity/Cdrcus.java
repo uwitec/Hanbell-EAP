@@ -33,16 +33,10 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Cdrcus.findByCusno", query = "SELECT c FROM Cdrcus c WHERE c.cusno = :cusno"),
     @NamedQuery(name = "Cdrcus.findByCusna", query = "SELECT c FROM Cdrcus c WHERE c.cusna = :cusna"),
     @NamedQuery(name = "Cdrcus.findByCusds", query = "SELECT c FROM Cdrcus c WHERE c.cusds = :cusds"),
-    @NamedQuery(name = "Cdrcus.findByCusdse", query = "SELECT c FROM Cdrcus c WHERE c.cusdse = :cusdse"),
     @NamedQuery(name = "Cdrcus.findByCussta", query = "SELECT c FROM Cdrcus c WHERE c.cussta = :cussta"),
     @NamedQuery(name = "Cdrcus.findByDecode", query = "SELECT c FROM Cdrcus c WHERE c.decode = :decode"),
     @NamedQuery(name = "Cdrcus.findByCuskind", query = "SELECT c FROM Cdrcus c WHERE c.cuskind = :cuskind"),
     @NamedQuery(name = "Cdrcus.findByDmcode", query = "SELECT c FROM Cdrcus c WHERE c.dmcode = :dmcode"),
-    @NamedQuery(name = "Cdrcus.findByAddress1", query = "SELECT c FROM Cdrcus c WHERE c.address1 = :address1"),
-    @NamedQuery(name = "Cdrcus.findByAddress2", query = "SELECT c FROM Cdrcus c WHERE c.address2 = :address2"),
-    @NamedQuery(name = "Cdrcus.findByAddress3", query = "SELECT c FROM Cdrcus c WHERE c.address3 = :address3"),
-    @NamedQuery(name = "Cdrcus.findByAddress4", query = "SELECT c FROM Cdrcus c WHERE c.address4 = :address4"),
-    @NamedQuery(name = "Cdrcus.findByAddress5", query = "SELECT c FROM Cdrcus c WHERE c.address5 = :address5"),
     @NamedQuery(name = "Cdrcus.findByUniform", query = "SELECT c FROM Cdrcus c WHERE c.uniform = :uniform"),
     @NamedQuery(name = "Cdrcus.findByBilnum", query = "SELECT c FROM Cdrcus c WHERE c.bilnum = :bilnum"),
     @NamedQuery(name = "Cdrcus.findByCoin", query = "SELECT c FROM Cdrcus c WHERE c.coin = :coin"),
@@ -71,11 +65,11 @@ public class Cdrcus implements Serializable {
     private String cusdse;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "cussta")
+    @Column(name = "cussta")//默认2
     private Character cussta;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "decode")
+    @Column(name = "decode")//国内外码
     private Character decode;
     @Basic(optional = false)
     @NotNull
@@ -124,16 +118,16 @@ public class Cdrcus implements Serializable {
     private Character tax;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "shptrseq")
+    @Column(name = "shptrseq")//Default:1
     private short shptrseq;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "ivotrseq")
+    @Column(name = "ivotrseq")//Default:1
     private short ivotrseq;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 8)
-    @Column(name = "sndcode")
+    @Column(name = "sndcode")//Default:"001"
     private String sndcode;
     @Basic(optional = false)
     @NotNull
@@ -144,7 +138,7 @@ public class Cdrcus implements Serializable {
     @Size(min = 1, max = 8)
     @Column(name = "termcode")
     private String termcode;
-    @Column(name = "paysepcode")
+    @Column(name = "paysepcode")//Default:'1'
     private Character paysepcode;
     @Column(name = "seldate1")
     private Short seldate1;
@@ -302,35 +296,16 @@ public class Cdrcus implements Serializable {
     private String skfs;
 
     public Cdrcus() {
+        this.decode = '1';
+        this.cussta = '2';
+        this.paysepcode = '1';
+        this.setTickdays((short) 0);
+        this.shptrseq = 1;
+        this.ivotrseq = 1;
     }
 
     public Cdrcus(String cusno) {
         this.cusno = cusno;
-    }
-
-    public Cdrcus(String cusno, String cusna, String cusds, Character cussta, Character decode, String cuskind, Character dmcode, String address1, String uniform, String bilnum, String coin, Character tax, short shptrseq, short ivotrseq, String sndcode, Character paycode, String termcode, String sacode, String areacode, String cuycode, Date indate, String userno) {
-        this.cusno = cusno;
-        this.cusna = cusna;
-        this.cusds = cusds;
-        this.cussta = cussta;
-        this.decode = decode;
-        this.cuskind = cuskind;
-        this.dmcode = dmcode;
-        this.address1 = address1;
-        this.uniform = uniform;
-        this.bilnum = bilnum;
-        this.coin = coin;
-        this.tax = tax;
-        this.shptrseq = shptrseq;
-        this.ivotrseq = ivotrseq;
-        this.sndcode = sndcode;
-        this.paycode = paycode;
-        this.termcode = termcode;
-        this.sacode = sacode;
-        this.areacode = areacode;
-        this.cuycode = cuycode;
-        this.indate = indate;
-        this.userno = userno;
     }
 
     public String getCusno() {
@@ -965,5 +940,5 @@ public class Cdrcus implements Serializable {
     public String toString() {
         return "cn.hanbell.erp.entity.Cdrcus[ cusno=" + cusno + " ]";
     }
-    
+
 }

@@ -16,7 +16,7 @@
     <class>cn.hanbell.erp.entity.Invwh</class>
     <class>cn.hanbell.erp.entity.Apmsys</class>
     <class>cn.hanbell.erp.entity.Apmrno</class>
-    <exclude-unlisted-classes>true</exclude-unlisted-classes>
+    <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
         </properties>
   </persistence-unit>
@@ -26,7 +26,7 @@
     <class>cn.hanbell.erp.entity.Invwh</class>
     <class>cn.hanbell.erp.entity.Apmsys</class>
     <class>cn.hanbell.erp.entity.Apmrno</class>
-    <exclude-unlisted-classes>true</exclude-unlisted-classes>
+    <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
         </properties>
   </persistence-unit>
@@ -36,7 +36,7 @@
     <class>cn.hanbell.erp.entity.Invwh</class>
     <class>cn.hanbell.erp.entity.Apmsys</class>
     <class>cn.hanbell.erp.entity.Apmrno</class>
-    <exclude-unlisted-classes>true</exclude-unlisted-classes>
+    <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties/>
   </persistence-unit>
 </persistence>

@@ -54,11 +54,6 @@ public class Cdrcusman implements Serializable {
         this.cdrcusmanPK = cdrcusmanPK;
     }
 
-    public Cdrcusman(CdrcusmanPK cdrcusmanPK, String man) {
-        this.cdrcusmanPK = cdrcusmanPK;
-        this.man = man;
-    }
-
     public Cdrcusman(String facno, String cusno) {
         this.cdrcusmanPK = new CdrcusmanPK(facno, cusno);
     }

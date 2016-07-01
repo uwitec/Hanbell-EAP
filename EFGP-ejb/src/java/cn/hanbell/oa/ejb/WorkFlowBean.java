@@ -64,7 +64,7 @@ public class WorkFlowBean extends SuperEJBForEFGP<FormInstance> implements Seria
         for (Field f : fields) {
             try {
                 f.setAccessible(true);
-                if (f.getName().equals("creator") || f.getName().endsWith("user")) {
+                if (f.getName().equals("creator") || f.getName().endsWith("user") || f.getName().endsWith("User")) {
                     Users user = this.findUserByUserno(f.get(master).toString());
                     if (user == null) {
                         Logger.getLogger(this.getClass().getName()).log(Level.INFO, null, f.get(master).toString() + "用户不存在");
@@ -73,7 +73,7 @@ public class WorkFlowBean extends SuperEJBForEFGP<FormInstance> implements Seria
                     builder.append("<").append(f.getName()).append("  id=\"").append(f.getName()).append("\" label=\"").append(user.getUserName()).append("\"");
                     builder.append("  hidden=\"").append(user.getOid()).append("\" list_hidden=\"\"");
                     builder.append("  dataType=\"").append(f.getType().getName()).append("\">").append(f.get(master)).append("</").append(f.getName()).append(">");
-                } else if (f.getName().equals("dept") || f.getName().equals("department") || f.getName().endsWith("dept")) {
+                } else if (f.getName().equals("dept") || f.getName().equals("department") || f.getName().endsWith("dept") || f.getName().endsWith("Dept")) {
                     OrganizationUnit dept = this.findOrgUnitByDeptno(f.get(master).toString());
                     if (dept == null) {
                         Logger.getLogger(this.getClass().getName()).log(Level.INFO, null, f.get(master).toString() + "部门不存在");

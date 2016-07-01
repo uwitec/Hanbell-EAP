@@ -39,6 +39,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Invwh.findByUserno", query = "SELECT i FROM Invwh i WHERE i.userno = :userno"),
     @NamedQuery(name = "Invwh.findByIndate", query = "SELECT i FROM Invwh i WHERE i.indate = :indate")})
 public class Invwh implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Basic(optional = false)
     @NotNull
@@ -64,9 +65,9 @@ public class Invwh implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "mrpco")
-    private String mrpco;
+    private Character mrpco;
     @Column(name = "costyn")
-    private String costyn;
+    private Character costyn;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 8)
@@ -90,7 +91,7 @@ public class Invwh implements Serializable {
         this.wareh = wareh;
     }
 
-    public Invwh(String wareh, String facno, String prono, String whdsc, String mrpco, String wclerk, String userno, Date indate) {
+    public Invwh(String wareh, String facno, String prono, String whdsc, Character mrpco, String wclerk, String userno, Date indate) {
         this.wareh = wareh;
         this.facno = facno;
         this.prono = prono;
@@ -133,19 +134,19 @@ public class Invwh implements Serializable {
         this.whdsc = whdsc;
     }
 
-    public String getMrpco() {
+    public Character getMrpco() {
         return mrpco;
     }
 
-    public void setMrpco(String mrpco) {
+    public void setMrpco(Character mrpco) {
         this.mrpco = mrpco;
     }
 
-    public String getCostyn() {
+    public Character getCostyn() {
         return costyn;
     }
 
-    public void setCostyn(String costyn) {
+    public void setCostyn(Character costyn) {
         this.costyn = costyn;
     }
 
@@ -195,7 +196,7 @@ public class Invwh implements Serializable {
 
     @Override
     public String toString() {
-        return "cn.hanbell.shb.erp.Invwh[ wareh=" + wareh + " ]";
+        return "cn.hanbell.erp.entity.Invwh[ wareh=" + wareh + " ]";
     }
     
 }

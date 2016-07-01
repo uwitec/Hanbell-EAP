@@ -6,9 +6,7 @@
 package cn.hanbell.jws;
 
 import cn.hanbell.erp.ejb.ApmpayBean;
-import cn.hanbell.erp.ejb.ApmsysBean;
 import cn.hanbell.erp.ejb.CdrcusBean;
-import cn.hanbell.util.BaseLib;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -38,27 +36,33 @@ public class SHBERPWebService {
         return "Hello " + txt + " !";
     }
 
-    @WebMethod(operationName = "createCustomerByXmlString")
-    public String createCustomerByXmlString(@WebParam(name = "object") String xmlString) {
-        return "";
-    }
-
-    @WebMethod(operationName = "createCustomerByOAFormId")
-    public String createCustomerByOAFormId(@WebParam(name = "formid") String formid) {
-        return "";
+    @WebMethod(operationName = "createCustomerByOAPSN")
+    public String createCustomerByOAPSN(@WebParam(name = "psn") String psn) {
+        
+        Boolean ret = false;
+        try {
+            ret = cdrcusBean.initByOAPSN(psn);
+        } catch (Exception ex) {
+            Logger.getLogger(SHBERPWebService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (ret) {
+            return "200";
+        } else {
+            return "404";
+        }
     }
 
     @WebMethod(operationName = "createAPM525ByOAPSN")
     public String createAPM525ByOAPSN(@WebParam(name = "psn") String psn) {
-        Boolean ret =false;
+        Boolean ret = false;
         try {
             ret = apmpayBean.initByOAPSN(psn);
         } catch (Exception ex) {
             Logger.getLogger(SHBERPWebService.class.getName()).log(Level.SEVERE, null, ex);
         }
-        if(ret){
+        if (ret) {
             return "200";
-        }else{
+        } else {
             return "404";
         }
     }
