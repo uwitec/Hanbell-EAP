@@ -34,6 +34,16 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class BXD implements Serializable {
 
     @Size(max = 255)
+    @Column(name = "bmpa11c")
+    private String bmpa11c;
+    @Size(max = 255)
+    @Column(name = "bmpa12f")
+    private String bmpa12f;
+    
+    @Column(name = "ratio")
+    private Double ratio;
+
+    @Size(max = 255)
     @Column(name = "centerid")
     private String centerid;
     @Size(max = 255)
@@ -83,9 +93,6 @@ public class BXD implements Serializable {
     @Column(name = "bmpc15c")
     private String bmpc15c;
     @Size(max = 255)
-    @Column(name = "bmpa11c")
-    private String bmpa11c;
-    @Size(max = 255)
     @Column(name = "bmpb13c")
     private String bmpb13c;
     @Size(max = 255)
@@ -132,8 +139,8 @@ public class BXD implements Serializable {
     @Column(name = "bmpc12c")
     private Double bmpc12c;
     @Size(max = 255)
-    @Column(name = "bmpa12f")
-    private String bmpa12f;
+    @Column(name = "coin")
+    private String coin;
     @Id
     @Basic(optional = false)
     @NotNull
@@ -299,13 +306,6 @@ public class BXD implements Serializable {
         this.bmpc15c = bmpc15c;
     }
 
-    public String getBmpa11c() {
-        return bmpa11c;
-    }
-
-    public void setBmpa11c(String bmpa11c) {
-        this.bmpa11c = bmpa11c;
-    }
 
     public String getBmpb13c() {
         return bmpb13c;
@@ -451,12 +451,12 @@ public class BXD implements Serializable {
         this.bmpc12c = bmpc12c;
     }
 
-    public String getBmpa12f() {
-        return bmpa12f;
+    public String getCoin() {
+        return coin;
     }
 
-    public void setBmpa12f(String bmpa12f) {
-        this.bmpa12f = bmpa12f;
+    public void setCoin(String coin) {
+        this.coin = coin;
     }
 
     public String getOid() {
@@ -804,6 +804,30 @@ public class BXD implements Serializable {
 
     public void setBudgetAcc(String budgetAcc) {
         this.budgetAcc = budgetAcc;
+    }
+
+    public String getBmpa11c() {
+        return bmpa11c;
+    }
+
+    public void setBmpa11c(String bmpa11c) {
+        this.bmpa11c = bmpa11c;
+    }
+
+    public String getBmpa12f() {
+        return bmpa12f;
+    }
+
+    public void setBmpa12f(String bmpa12f) {
+        this.bmpa12f = bmpa12f;
+    }
+
+    public Double getRatio() {
+        return ratio;
+    }
+
+    public void setRatio(Double ratio) {
+        this.ratio = ratio;
     }
     
 }

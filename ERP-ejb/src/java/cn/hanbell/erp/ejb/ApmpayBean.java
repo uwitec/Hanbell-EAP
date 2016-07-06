@@ -6,10 +6,12 @@
 package cn.hanbell.erp.ejb;
 
 import cn.hanbell.erp.comm.SuperEJBForERP;
+
 import cn.hanbell.erp.entity.Apmpad;
 import cn.hanbell.erp.entity.ApmpadPK;
 import cn.hanbell.erp.entity.Apmpay;
 import cn.hanbell.erp.entity.ApmpayPK;
+import cn.hanbell.erp.entity.BudgetDetail;
 import cn.hanbell.oa.ejb.BXD_Detail01Bean;
 import cn.hanbell.oa.ejb.BXDBean;
 import cn.hanbell.oa.entity.BXD_Detail01;
@@ -39,6 +41,9 @@ public class ApmpayBean extends SuperEJBForERP<Apmpay> {
     private AccrnoBean accrnoBean;
 
     @EJB
+    private BudgetDetailBean budgetDetailBean;
+
+    @EJB
     private AccacrBean accacrBean;
 
     @EJB
@@ -58,9 +63,39 @@ public class ApmpayBean extends SuperEJBForERP<Apmpay> {
 
     @Override
     public Boolean initByOAPSN(String psn) {
-        String facno;
+        String facno, period;
         Date date;
         BXD b = BXDBean.findByPSN(psn);
+
+        List<BudgetDetail> budgetDetails = new ArrayList<>();
+        
+//        switch (b.getBmpa02c()) {
+//            case "0":
+//                facno = "C";
+//                break;
+//            case "1":
+//                facno = "N";
+//                break;
+//            case "2":
+//                facno = "G";
+//                break;
+//            case "3":
+//                facno = "J";
+//                break;
+//            case "4":
+//                facno = "H";
+//                break;
+//            case "5":
+//                facno = "K";
+//                break;
+//            case "6":
+//                facno = "W";
+//                break;
+//            case "7":
+//                facno = "Q";
+//                break;
+//
+//        }
 
         if (b.getBmpa02c().equals("0")) {
             facno = "C";
@@ -71,10 +106,11 @@ public class ApmpayBean extends SuperEJBForERP<Apmpay> {
         try {
 
             date = BaseLib.getDate("yyyy/MM/dd", BaseLib.formatDate("yyyy/MM/dd", BaseLib.getDate())); //付款日期
+            period = BaseLib.formatDate("yyyyMM", date);
 
             apmsysBean.setCompany(facno);
             ApmpayPK pk = new ApmpayPK();
-            pk.setFacno("C");
+            pk.setFacno(facno);
             pk.setPaycode('2');
             pk.setPayno(apmsysBean.getFormId(facno, "APM525", date, Boolean.TRUE));
 
@@ -115,17 +151,17 @@ public class ApmpayBean extends SuperEJBForERP<Apmpay> {
 
                 BXD_Detail01 detail0l = details01.get(i);
 
-                apmpad.setAccno(detail0l.getBudgetAcc());  //设置会计科目
-                apmpad.setCoin(b.getBmpa11c());  //设置币别
-                apmpad.setRatio(BigDecimal.valueOf(Double.parseDouble(b.getBmpa12f()))); //设置汇率
+                apmpad.setAccno(detail0l.getAccno());  //设置会计科目
+                apmpad.setCoin(b.getCoin());  //设置币别
+                apmpad.setRatio(BigDecimal.valueOf(b.getRatio())); //设置汇率
 
                 if ("53".equals(apmpad.getAccno().substring(0, 2))) {
                     apmpad.setCuskind("9J");
                     apmpad.setVdrna(detail0l.getBmpb07c());
-                }else{
-                apmpad.setCuskind("GE");   //设置对象代号类别（cuskind）
-                apmpad.setVdrno(detail0l.getBudgetDepttxt());  //设置费用部门（预算部门）
-                apmpad.setVdrna(detail0l.getBudgetDeptlbl());
+                } else {
+                    apmpad.setCuskind("GE");   //设置对象代号类别（cuskind）
+                    apmpad.setVdrno(detail0l.getBudgetDepttxt());  //设置费用部门（预算部门）
+                    apmpad.setVdrna(detail0l.getBudgetDeptlbl());
                 }
                 apmpad.setTnfamt(BigDecimal.ZERO);  //本次冲账金额（人民币/本币）
                 apmpad.setTnfamtfs(BigDecimal.ZERO);    //本次冲账金额（原币）
@@ -137,14 +173,14 @@ public class ApmpayBean extends SuperEJBForERP<Apmpay> {
                     double d1 = Double.parseDouble(detail0l.getBmpb02f());
                     apmpad.setDramtfs(BigDecimal.valueOf(d1));
                     //设置dramtfs（借方）原币
-                    double d2 = (d1 * (Double.parseDouble(b.getBmpa12f())));
+                    double d2 = (d1 * (b.getRatio()));
                     apmpad.setDramt(BigDecimal.valueOf(d2));       //设置dramt（借方）人民币
-                }else{
-                double d1 = Double.parseDouble(detail0l.getBmpb08f());
-                apmpad.setDramtfs(BigDecimal.valueOf(d1));
-                //设置dramtfs（借方）原币
-                double d2 = (d1 * (Double.parseDouble(b.getBmpa12f())));
-                apmpad.setDramt(BigDecimal.valueOf(d2));       //设置dramt（借方）人民币
+                } else {
+                    double d1 = detail0l.getBmpb08f();
+                    apmpad.setDramtfs(BigDecimal.valueOf(d1));
+                    //设置dramtfs（借方）原币
+                    double d2 = (d1 * (b.getRatio()));
+                    apmpad.setDramt(BigDecimal.valueOf(d2));       //设置dramt（借方）人民币
                 }
                 apmpad.setCramtfs(BigDecimal.ZERO);     //设置 cramtfs(0)
                 apmpad.setCramt(BigDecimal.ZERO);    //设置 cramt(0)
@@ -154,9 +190,15 @@ public class ApmpayBean extends SuperEJBForERP<Apmpay> {
                 apmpad.setConfig(accacrBean.getConfig(facno, "APM", "3", h.getRkd(), apmpad.getAccno(), 'D')); //设置config参数
                 //            apmpad.setConfig(accacrBean.getConfig(facno, "APM","3" , h.getRkd(), apmpad.getAccno(),'C' )); //设置config参数
                 apmpads.add(apmpad);
+
+                //预算金额更新逻辑
+                BudgetDetail u;
+                u = new BudgetDetail(facno, "", period,detail0l.getCenterid(), detail0l.getAccno(), "R", apmpadPK.getTrse(), BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.valueOf(detail0l.getBmpb08f()), BigDecimal.ZERO);
+                budgetDetails.add(u);
+
             }
-            
-               if (b.getBmpa08f() > 0) {
+
+            if (b.getBmpa08f() > 0) {
                 Apmpad apmpad3 = new Apmpad();
                 ApmpadPK apmpadPK3 = new ApmpadPK();
                 apmpadPK3.setFacno(facno);
@@ -167,10 +209,10 @@ public class ApmpayBean extends SuperEJBForERP<Apmpay> {
 
                 apmpad3.setDramt(BigDecimal.ZERO);
                 apmpad3.setDramtfs(BigDecimal.ZERO);
-                apmpad3.setCoin(b.getBmpa11c());   //设置币别
-                apmpad3.setRatio(BigDecimal.valueOf(Double.parseDouble(b.getBmpa12f())));    //设置汇率
+                apmpad3.setCoin(b.getCoin());   //设置币别
+                apmpad3.setRatio(BigDecimal.valueOf(b.getRatio()));    //设置汇率
                 apmpad3.setDramtfs(BigDecimal.valueOf(b.getBmpa08f()));                    //设置dramtfs（借方）原币税金
-                Double sjdramt = b.getBmpa08f() * (Double.parseDouble(b.getBmpa12f()));
+                Double sjdramt = b.getBmpa08f() * (b.getRatio());
                 apmpad3.setDramt(BigDecimal.valueOf(sjdramt));       //设置dramt（借方）人民币
 
                 apmpad3.setCramtfs(BigDecimal.ZERO);     //设置 cramtfs(0)
@@ -194,13 +236,15 @@ public class ApmpayBean extends SuperEJBForERP<Apmpay> {
             apmpadPK2.setPayno(pk.getPayno());
             if (b.getBmpa08f() > 0) {
                 apmpadPK2.setTrse((short) (details01.size() + 2));
+            } else {
+                apmpadPK2.setTrse((short) (details01.size() + 1));
             }
             apmpad2.setApmpadPK(apmpadPK2);
 
             apmpad2.setDramt(BigDecimal.ZERO);
             apmpad2.setDramtfs(BigDecimal.ZERO);
-            apmpad2.setCoin(b.getBmpa11c());   //设置币别
-            apmpad2.setRatio(BigDecimal.valueOf(Double.parseDouble(b.getBmpa12f())));    //设置汇率
+            apmpad2.setCoin(b.getCoin());   //设置币别
+            apmpad2.setRatio(BigDecimal.valueOf(b.getRatio()));    //设置汇率
             double c1 = b.getBmpa09f();
             apmpad2.setCramt(BigDecimal.valueOf(c1));    //设置 cramt(人民币报销 总额)
             double c2 = b.getBmpa06f();
@@ -217,8 +261,6 @@ public class ApmpayBean extends SuperEJBForERP<Apmpay> {
 
             apmpads.add(apmpad2);
 
-         
-
             HashMap<SuperEJBForERP, List<?>> detailAdded = new HashMap<>();
             detailAdded.put(apmpadBean, apmpads);
 
@@ -229,6 +271,10 @@ public class ApmpayBean extends SuperEJBForERP<Apmpay> {
             for (Apmpad apmpad : apmpads) {
                 apmpadBean.persist(apmpad);
             }
+
+            budgetDetailBean.setCompany(facno);
+            budgetDetailBean.add(budgetDetails);
+            budgetDetailBean.getEntityManager().flush();
 
             return true;
         } catch (Exception ex) {

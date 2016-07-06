@@ -31,6 +31,19 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class BXD_Detail01 implements Serializable {
 
     @Size(max = 255)
+    @Column(name = "bmpb08f")
+    private Float bmpb08f;
+    @Size(max = 255)
+    @Column(name = "centerid")
+    private String centerid;
+    @Size(max = 255)
+    @Column(name = "accno")
+    private String accno;
+    @Size(max = 255)
+    @Column(name = "accName")
+    private String accName;
+
+    @Size(max = 255)
     @Column(name = "budgetDept_txt")
     private String budgetDepttxt;
     @Size(max = 255)
@@ -87,9 +100,6 @@ public class BXD_Detail01 implements Serializable {
     @Column(name = "bmpb02f")
     private String bmpb02f;
     @Size(max = 255)
-    @Column(name = "bmpb08f")
-    private String bmpb08f;
-    @Size(max = 255)
     @Column(name = "bmpb01c")
     private String bmpb01c;
     @Size(max = 255)
@@ -135,13 +145,6 @@ public class BXD_Detail01 implements Serializable {
         this.bmpb02f = bmpb02f;
     }
 
-    public String getBmpb08f() {
-        return bmpb08f;
-    }
-
-    public void setBmpb08f(String bmpb08f) {
-        this.bmpb08f = bmpb08f;
-    }
 
     public String getBmpb01c() {
         return bmpb01c;
@@ -287,6 +290,39 @@ public class BXD_Detail01 implements Serializable {
 
     public void setBmpb10cTxt(String bmpb10cTxt) {
         this.bmpb10cTxt = bmpb10cTxt;
+    }
+
+
+    public Float getBmpb08f() {
+        return bmpb08f;
+    }
+
+    public void setBmpb08f(Float bmpb08f) {
+        this.bmpb08f = bmpb08f;
+    }
+
+    public String getCenterid() {
+        return centerid;
+    }
+
+    public void setCenterid(String centerid) {
+        this.centerid = centerid;
+    }
+
+    public String getAccno() {
+        return accno;
+    }
+
+    public void setAccno(String accno) {
+        this.accno = accno;
+    }
+
+    public String getAccName() {
+        return accName;
+    }
+
+    public void setAccName(String accName) {
+        this.accName = accName;
     }
     
 }
