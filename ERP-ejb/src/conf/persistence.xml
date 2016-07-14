@@ -8,7 +8,9 @@
   <persistence-unit name="PU_shberp" transaction-type="JTA">
     <jta-data-source>jdbc/shberp</jta-data-source>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
-    <properties/>
+    <properties>
+      <property name="eclipselink.canonicalmodel.subpackage" value="shb"/>
+    </properties>
   </persistence-unit>
   <persistence-unit name="PU_gzerp" transaction-type="JTA">
     <jta-data-source>jdbc/gzerp</jta-data-source>
@@ -18,7 +20,8 @@
     <class>cn.hanbell.erp.entity.Apmrno</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
-        </properties>
+      <property name="eclipselink.canonicalmodel.subpackage" value="gz"/>
+    </properties>
   </persistence-unit>
   <persistence-unit name="PU_njerp" transaction-type="JTA">
     <jta-data-source>jdbc/njerp</jta-data-source>
@@ -28,7 +31,8 @@
     <class>cn.hanbell.erp.entity.Apmrno</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
-        </properties>
+      <property name="eclipselink.canonicalmodel.subpackage" value="nj"/>
+    </properties>
   </persistence-unit>
   <persistence-unit name="PU_jnerp" transaction-type="JTA">
     <jta-data-source>jdbc/jnerp</jta-data-source>
@@ -37,6 +41,26 @@
     <class>cn.hanbell.erp.entity.Apmsys</class>
     <class>cn.hanbell.erp.entity.Apmrno</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
-    <properties/>
+    <properties>
+      <property name="eclipselink.canonicalmodel.subpackage" value="jn"/>
+    </properties>
+  </persistence-unit>
+  <persistence-unit name="PU_hansonerp" transaction-type="JTA">
+    <jta-data-source>jdbc/shberp</jta-data-source>
+    <properties>
+      <property name="eclipselink.canonicalmodel.subpackage" value="hanson"/>
+    </properties>
+  </persistence-unit>
+  <persistence-unit name="PU_comererp" transaction-type="JTA">
+    <jta-data-source>jdbc/shberp</jta-data-source>
+    <properties>
+      <property name="eclipselink.canonicalmodel.subpackage" value="comer"/>
+    </properties>
+  </persistence-unit>
+  <persistence-unit name="PU_qtcerp" transaction-type="JTA">
+    <jta-data-source>jdbc/shberp</jta-data-source>
+    <properties>
+      <property name="eclipselink.canonicalmodel.subpackage" value="qtc"/>
+    </properties>
   </persistence-unit>
 </persistence>

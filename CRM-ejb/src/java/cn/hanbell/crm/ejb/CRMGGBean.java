@@ -9,6 +9,7 @@ import cn.hanbell.crm.comm.SuperEJBForCRM;
 import cn.hanbell.crm.entity.CRMGG;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
+import javax.persistence.Query;
 
 /**
  *
@@ -20,6 +21,17 @@ public class CRMGGBean extends SuperEJBForCRM<CRMGG> {
 
     public CRMGGBean() {
         super(CRMGG.class);
+    }
+
+    public CRMGG findByERPCusno(String cusno) {
+        Query query = getEntityManager().createNamedQuery("CRMGG.findByERPCusno");
+        query.setParameter("cusno", cusno);
+        try {
+            Object o = query.getSingleResult();
+            return (CRMGG) o;
+        } catch (Exception ex) {
+            return null;
+        }
     }
 
 }

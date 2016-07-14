@@ -42,6 +42,40 @@ public abstract class SuperSyncBean implements Serializable {
     }
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public void update(Object entity, HashMap<SuperEJBForERP, List<?>> detailAdded, HashMap<SuperEJBForERP, List<?>> detailEdited, HashMap<SuperEJBForERP, List<?>> detailDeleted) {
+        try {
+            getEntityManager().merge(entity);
+            if (detailEdited != null && !detailEdited.isEmpty()) {
+                for (Entry<SuperEJBForERP, List<?>> entry : detailEdited.entrySet()) {
+                    for (Object o : entry.getValue()) {
+                        getEntityManager().merge(o);
+                    }
+                }
+            }
+            if (detailDeleted != null && !detailDeleted.isEmpty()) {
+                for (Entry<SuperEJBForERP, List<?>> entry : detailDeleted.entrySet()) {
+                    for (Object o : entry.getValue()) {
+                        if (getEntityManager().contains(o)) {
+                            getEntityManager().remove(o);
+                        } else {
+                            getEntityManager().remove(getEntityManager().merge(o));
+                        }
+                    }
+                }
+            }
+            if (detailAdded != null && !detailAdded.isEmpty()) {
+                for (Entry<SuperEJBForERP, List<?>> entry : detailAdded.entrySet()) {
+                    for (Object o : entry.getValue()) {
+                        getEntityManager().persist(o);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void update(Object entity, HashMap<SuperEJBForERP, List<?>> detailEdited) {
         try {
             getEntityManager().merge(entity);
