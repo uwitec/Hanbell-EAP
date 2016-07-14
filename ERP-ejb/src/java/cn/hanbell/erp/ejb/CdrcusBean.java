@@ -16,14 +16,21 @@ import cn.hanbell.erp.entity.Invwh;
 import cn.hanbell.erp.entity.Invwhclk;
 import cn.hanbell.erp.entity.Miscode;
 import cn.hanbell.erp.entity.Transwah;
+import cn.hanbell.oa.ejb.HKYX006Bean;
+import cn.hanbell.oa.ejb.HKYX007Bean;
+import cn.hanbell.oa.ejb.SyncEFGPBean;
+import cn.hanbell.oa.entity.HKYX006;
+import cn.hanbell.oa.entity.HKYX007;
 import cn.hanbell.util.BaseLib;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Random;
+import java.util.Objects;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
+import javax.persistence.Query;
 
 /**
  *
@@ -34,7 +41,14 @@ import javax.ejb.LocalBean;
 public class CdrcusBean extends SuperEJBForERP<Cdrcus> {
 
     @EJB
+    private HKYX006Bean beanHKYX006;
+    @EJB
+    private HKYX007Bean beanHKYX007;
+    @EJB
     private CRMGGBean beanCRMGG;
+
+    @EJB
+    private SyncEFGPBean syncEFGPBean;
 
     @EJB
     private SyncGZBean syncGZBean;
@@ -42,6 +56,8 @@ public class CdrcusBean extends SuperEJBForERP<Cdrcus> {
     private SyncJNBean syncJNBean;
     @EJB
     private SyncNJBean syncNJBean;
+    @EJB
+    private SyncSHBBean syncSHBBean;
 
     @EJB
     private CdrivoBean cdrivoBean;
@@ -57,15 +73,17 @@ public class CdrcusBean extends SuperEJBForERP<Cdrcus> {
     private TranswahBean transwahBean;
 
     private Cdrcus cdrcus;
-    private final HashMap<SuperEJBForERP, List<?>> details = new HashMap<>();
+    private final HashMap<SuperEJBForERP, List<?>> detailAdded = new HashMap<>();
+    //private final HashMap<SuperEJBForERP, List<?>> detailEdited = new HashMap<>();
+    //private final HashMap<SuperEJBForERP, List<?>> detailDeleted = new HashMap<>();
 
-    private final List<Cdrivo> cdrivoList = new ArrayList<>();
-    private final List<Cdrscus> cdrscusList = new ArrayList<>();
-    private final List<Cdrcusman> cdrcusmanList = new ArrayList<>();
-    private final List<Transwah> transwahList = new ArrayList<>();
-    private final List<Invwh> invwhList = new ArrayList<>();
-    private final List<Invwhclk> invwhclkList = new ArrayList<>();
-    private final List<Miscode> miscodeList = new ArrayList<>();
+    private final List<Cdrivo> cdrivoAdded = new ArrayList<>();
+    private final List<Cdrscus> cdrscusAdded = new ArrayList<>();
+    private final List<Cdrcusman> cdrcusmanAdded = new ArrayList<>();
+    private final List<Transwah> transwahAdded = new ArrayList<>();
+    private final List<Invwh> invwhAdded = new ArrayList<>();
+    private final List<Invwhclk> invwhclkAdded = new ArrayList<>();
+    private final List<Miscode> miscodeAdded = new ArrayList<>();
 
     public CdrcusBean() {
         super(Cdrcus.class);
@@ -74,57 +92,88 @@ public class CdrcusBean extends SuperEJBForERP<Cdrcus> {
     @Override
     public Boolean initByOAPSN(String psn) {
 
-        String newcusno, facno;
-        facno = "C";//遇到Hanson\QTC等时需要变更
+        String facno, code, newcusno;
 
-        details.put(transwahBean, transwahList);
-        details.put(invwhclkBean, invwhclkList);
-        details.put(invwhBean, invwhList);
-        details.put(cdrcusmanBean, cdrcusmanList);
-        details.put(cdrscusBean, cdrscusList);
-        details.put(cdrivoBean, cdrivoList);
-        details.put(miscodeBean, miscodeList);
+        HKYX006 oa = beanHKYX006.findByPSN(psn);
+        if (oa == null) {
+            throw new NullPointerException();
+        }
 
-        //<---------------------------------
-        //获取OA资料转换成ERP对象        
-        //--------------------------------->
+        CRMGG crmgg = beanCRMGG.findById(oa.getGg001());
+        if (crmgg == null) {
+            throw new NullPointerException();
+        }
+
+        switch (oa.getFacno()) {
+            //SHB和分公司统一到SHB下
+            case "C":
+            case "G":
+            case "J":
+            case "N":
+                facno = "C";
+                code = "S";
+                break;
+            default:
+                facno = oa.getFacno();
+                code = facno;
+        }
+
+        detailAdded.put(transwahBean, transwahAdded);
+        detailAdded.put(invwhclkBean, invwhclkAdded);
+        detailAdded.put(invwhBean, invwhAdded);
+        detailAdded.put(cdrcusmanBean, cdrcusmanAdded);
+        detailAdded.put(cdrscusBean, cdrscusAdded);
+        detailAdded.put(cdrivoBean, cdrivoAdded);
+        detailAdded.put(miscodeBean, miscodeAdded);
+
         setCompany(facno);
-        //测试随机生成一个客户简称
-        Random r = new Random();
+
         cdrcus = new Cdrcus();
         cdrcus.setPrnyn('N');
-        cdrcus.setDecode('1');
-        cdrcus.setCusna("EFGP" + r.nextInt(1000));
-        cdrcus.setCusds("EFGP" + r.nextInt(1000) + "完整名称");
-        cdrcus.setCuskind("R");
-        cdrcus.setSacode("01");
-        cdrcus.setAreacode("HD");
-        cdrcus.setCuycode("ZJ");
-        cdrcus.setAddress1("XXXXXXXX");
+        cdrcus.setDecode(oa.getDecode().charAt(0));
+        cdrcus.setCusna(oa.getGg003());
+        cdrcus.setCusds(oa.getGg004());
+        cdrcus.setCusdse(oa.getGg105());
+        cdrcus.setCussta(oa.getCussta().charAt(0));
+        cdrcus.setDecode(oa.getDecode().charAt(0));
+        cdrcus.setCuskind(oa.getGg011());
+        cdrcus.setDmcode(oa.getDmcode().charAt(0));
+        if (oa.getGg036().length() <= 40) {
+            cdrcus.setAddress1(oa.getGg036());
+        } else if (oa.getGg036().length() > 40) {
+            cdrcus.setAddress1(oa.getGg036().substring(0, 40));
+            cdrcus.setAddress2(oa.getGg036().substring(40));
+        }
+        cdrcus.setUniform(oa.getGg030());
+        cdrcus.setBilnum(oa.getGg109());
+        cdrcus.setCoin(oa.getGg084());
+        cdrcus.setTax(oa.getGg098().charAt(0));
+        cdrcus.setSndcode(oa.getSndcode());
+        cdrcus.setPaycode(oa.getGg113().charAt(0));
+        cdrcus.setTermcode(oa.getGg112());
 
-        cdrcus.setUniform("310116" + r.nextInt(100000000));
-        cdrcus.setCoin("RMB");
-        cdrcus.setTax('4');
-        cdrcus.setBilnum("A");
-        cdrcus.setDmcode('1');
-        cdrcus.setPaycode('3');
-        cdrcus.setHandays1((short) 30);
-        cdrcus.setSndcode("001");
-        cdrcus.setTermcode("C&F");
+        cdrcus.setHandays1(oa.getHandays1().shortValue());
+        cdrcus.setSacode(oa.getGg009());
+        cdrcus.setAreacode(oa.getGg008());
+        cdrcus.setCuycode(oa.getGg010());
 
-        cdrcus.setBoss("李老板");
-        cdrcus.setContactman("李老板");
-        cdrcus.setTel1("57350280");
-        cdrcus.setFax("57352004");
-        cdrcus.setBegdate(BaseLib.getDate());
-        cdrcus.setCapamt(1000000l);
-
+        cdrcus.setBoss(oa.getGg018());
+        cdrcus.setContactman(oa.getContactman());
+        cdrcus.setTel1(oa.getGg024());
+        cdrcus.setFax(oa.getGg027());
+        cdrcus.setBegdate(oa.getGg017());
+        if (oa.getGg031() != null) {
+            cdrcus.setCapamt(oa.getGg031().longValue());
+        }
+        cdrcus.setCusbakna(oa.getCusbakna());
+        cdrcus.setCusacctno(oa.getCusacctno());
+        cdrcus.setSkfs(oa.getSkfs2());
         cdrcus.setIndate(BaseLib.getDate());
-        cdrcus.setUserno("C0160");
-        cdrcus.setShr("C0160");
+        cdrcus.setUserno(oa.getGg078());
+        cdrcus.setShr("mis");
         cdrcus.setShzt("Y");
 
-        newcusno = getFormId(cdrcus.getIndate(), "S" + cdrcus.getCuycode(), null, 5, "cdrcus", "cusno");
+        newcusno = getFormId(cdrcus.getIndate(), code + cdrcus.getCuycode(), null, 5, "cdrcus", "cusno");
         cdrcus.setCusno(newcusno);
 
         //生成发票客户资料
@@ -162,7 +211,7 @@ public class CdrcusBean extends SuperEJBForERP<Cdrcus> {
 
         //生成负责业务
         Cdrcusman m = new Cdrcusman(facno, newcusno);
-        m.setMan("mis");
+        m.setMan(oa.getSalesman());
         m.setLatdate(cdrcus.getIndate());
 
         //生成借客户仓
@@ -170,7 +219,11 @@ public class CdrcusBean extends SuperEJBForERP<Cdrcus> {
         w.setFacno(facno);
         w.setProno("1");
         w.setWareh("JC" + newcusno);
-        w.setWhdsc("借-" + cdrcus.getCusna());
+        if (cdrcus.getCusna().length() < 6) {
+            w.setWhdsc("借-" + cdrcus.getCusna());
+        } else {
+            w.setWhdsc("借-" + cdrcus.getCusna().substring(0, 5));
+        }
         w.setMrpco('N');
         w.setCostyn('Y');
         w.setWclerk(m.getMan());
@@ -194,92 +247,310 @@ public class CdrcusBean extends SuperEJBForERP<Cdrcus> {
         c.setMascreyn('Y');
         c.setCusds(cdrcus.getCusds());
 
-        cdrivoList.add(i);
-        cdrscusList.add(s);
-        cdrcusmanList.add(m);
-        invwhList.add(w);
-        invwhclkList.add(u);
-        transwahList.add(t);
-        miscodeList.add(c);
+        cdrivoAdded.add(i);
+        cdrscusAdded.add(s);
+        cdrcusmanAdded.add(m);
+        invwhAdded.add(w);
+        invwhclkAdded.add(u);
+        transwahAdded.add(t);
+        miscodeAdded.add(c);
 
-        CRMGG crmgg = beanCRMGG.findById("2010000001");
-        if (crmgg != null) {
-            crmgg.setGg008(cdrcus.getAreacode());
-            crmgg.setGg009(cdrcus.getSacode());
-            crmgg.setGg010(cdrcus.getCuycode());
-            crmgg.setGg011(cdrcus.getCuskind());
-            //回写更多内容
+        crmgg.setGg004(cdrcus.getCusds());
+        crmgg.setGg008(cdrcus.getAreacode());
+        crmgg.setGg009(cdrcus.getSacode());
+        crmgg.setGg010(cdrcus.getCuycode());
+        crmgg.setGg011(cdrcus.getCuskind());
+
+        crmgg.setGg017(BaseLib.formatDate("yyyy-MM-dd", cdrcus.getBegdate()));
+        crmgg.setGg018(cdrcus.getBoss());
+        crmgg.setGg024(cdrcus.getTel1());
+        crmgg.setGg027(cdrcus.getFax());
+        crmgg.setGg030(cdrcus.getUniform());
+        if (cdrcus.getCapamt() != null) {
+            crmgg.setGg031(BigDecimal.valueOf(cdrcus.getCapamt()));
         }
+        crmgg.setGg036(oa.getGg036());
+        crmgg.setGg043(newcusno);
+        crmgg.setGg084(cdrcus.getCoin());
+        //ERP与CRM定义不同
+        switch (cdrcus.getTax()) {
+            //外加税
+            //case '1':
+            //零税
+            case '2':
+                crmgg.setGg098('3');
+                crmgg.setGg109("S01");
+                break;
+            //免税
+            //case '3':
+            //内含
+            case '4':
+                crmgg.setGg098('1');
+                crmgg.setGg109("S02");
+            default:
+        }
+        crmgg.setGg105(cdrcus.getCusdse());
+        //交易类别字段形态不符
+        //ERP与CRM定义不同
+        switch (cdrcus.getPaycode()) {
+            case '1':
+                crmgg.setGg113('1');
+                break;
+            case '2':
+                crmgg.setGg113('3');
+                break;
+            case '3':
+                crmgg.setGg113('2');
+                break;
+            case '4':
+            case '5':
+                crmgg.setGg113('4');
+                break;
+            default:
+                crmgg.setGg113('1');
+        }
+        //回写更多内容
 
         try {
-            persist(cdrcus, details);
+            persist(cdrcus, detailAdded);
             getEntityManager().flush();
-            //同步广州ERP
-            resetFacno("G");
-            syncGZBean.syncPersist(cdrcus, details);
-            syncGZBean.getEntityManager().flush();
-            //同步济南ERP
-            resetFacno("J");
-            syncJNBean.syncPersist(cdrcus, details);
-            syncJNBean.getEntityManager().flush();
-            //同步南京ERP
-            resetFacno("N");
-            syncNJBean.syncPersist(cdrcus, details);
-            syncNJBean.getEntityManager().flush();
 
-            if (crmgg != null) {
-                beanCRMGG.syncUpdate(crmgg, null);
-                beanCRMGG.getEntityManager().flush();
+            beanCRMGG.update(crmgg);
+
+            beanHKYX006.getEntityManager().detach(oa);
+            oa.setPz(newcusno);
+            syncEFGPBean.syncUpdate(oa, null);
+            syncEFGPBean.getEntityManager().flush();
+            syncEFGPBean.getEntityManager().clear();
+
+            switch (facno) {
+                case "G":
+                    //同步广州ERP
+                    resetFacno("G");
+                    syncGZBean.persist(cdrcus, detailAdded);
+                    syncGZBean.getEntityManager().flush();
+                    break;
+                case "J":
+                    //同步济南ERP
+                    resetFacno("J");
+                    syncJNBean.persist(cdrcus, detailAdded);
+                    syncJNBean.getEntityManager().flush();
+                    break;
+                case "N":
+                    //同步南京ERP
+                    resetFacno("N");
+                    syncNJBean.persist(cdrcus, detailAdded);
+                    syncNJBean.getEntityManager().flush();
+                    break;
+                default:
             }
-
-            return doAfterPersist();
-
+            return true;
         } catch (Exception ex) {
             return false;
+        } finally {
+            resetObjects();
         }
     }
 
+    @Override
+    public Boolean updateByOAPSN(String psn) {
+        String facno;
+        String origman = "";
+        String newman = "";
+
+        //获取OA客户修改资料
+        HKYX007 oa = beanHKYX007.findByPSN(psn);
+        if (oa == null) {
+            throw new NullPointerException();
+        }
+
+        facno = oa.getFacno();
+
+        //获取ERP客户资料
+        this.setCompany(facno);
+        cdrcus = this.findById(oa.getCusno());
+        if (cdrcus == null) {
+            throw new NullPointerException();
+        }
+
+        //获取CRM客户资料
+        CRMGG crmgg = beanCRMGG.findByERPCusno(oa.getCusno());
+
+        detailAdded.clear();
+        detailAdded.put(cdrcusmanBean, cdrcusmanAdded);
+
+        if (Objects.equals(oa.getChkcusds(), "1") && (oa.getCusds() != null) && !"".equals(oa.getCusds())) {
+            cdrcus.setCusds(oa.getCusds());
+            if (crmgg != null) {
+                crmgg.setGg004(cdrcus.getCusds());
+            }
+        }
+        if (Objects.equals(oa.getChkskfs(), "1") && (oa.getQtskfs() != null) && !"".equals(oa.getQtskfs())) {
+            cdrcus.setSkfs(oa.getQtskfs());
+            if (crmgg != null) {
+
+            }
+        }
+        if (Objects.equals(oa.getChkaddress(), "1") && (oa.getAddress() != null) && !"".equals(oa.getAddress())) {
+            if (oa.getAddress().length() <= 40) {
+                cdrcus.setAddress1(oa.getAddress());
+            } else if (oa.getAddress().length() > 40) {
+                cdrcus.setAddress1(oa.getAddress().substring(0, 40));
+                cdrcus.setAddress2(oa.getAddress().substring(40));
+            }
+            if (crmgg != null) {
+                crmgg.setGg036(oa.getAddress());
+            }
+        }
+        if (Objects.equals(oa.getChkcusbakna(), "1") && (oa.getCusbakna() != null) && !"".equals(oa.getCusbakna())) {
+            cdrcus.setCusbakna(oa.getCusbakna());
+        }
+        if (Objects.equals(oa.getChkcusacctno(), "1") && (oa.getCusacctno() != null) && !"".equals(oa.getCusacctno())) {
+            cdrcus.setCusbakna(oa.getCusacctno());
+        }
+        if (Objects.equals(oa.getChkuniform(), "1") && (oa.getUniform() != null) && !"".equals(oa.getUniform())) {
+            cdrcus.setUniform(oa.getUniform());
+            if (crmgg != null) {
+                crmgg.setGg030(cdrcus.getUniform());
+            }
+        }
+        if (Objects.equals(oa.getChkcontactman(), "1") && (oa.getContactman() != null) && !"".equals(oa.getContactman())) {
+            cdrcus.setContactman(oa.getContactman());
+            if (crmgg != null) {
+                crmgg.setGg018(cdrcus.getContactman());
+            }
+        }
+        if (Objects.equals(oa.getChktel1(), "1") && (oa.getTel1() != null) && !"".equals(oa.getTel1())) {
+            cdrcus.setTel1(oa.getTel1());
+            if (crmgg != null) {
+                crmgg.setGg024(cdrcus.getTel1());
+            }
+        }
+        if (Objects.equals(oa.getChkfax(), "1") && (oa.getFax() != null) && !"".equals(oa.getFax())) {
+            cdrcus.setFax(oa.getFax());
+            if (crmgg != null) {
+                crmgg.setGg027(cdrcus.getFax());
+            }
+        }
+        if (Objects.equals(oa.getChkman(), "1") && (oa.getMan() != null) && !"".equals(oa.getMan())) {
+            cdrcusmanBean.setCompany(facno);
+            //删除原来负责业务
+            Cdrcusman m;
+            m = cdrcusmanBean.findByPK(facno, oa.getCusno());
+            if (m != null) {
+                origman = m.getMan();
+                cdrcusmanBean.delete(m);
+                cdrcusmanBean.getEntityManager().flush();
+                switch (facno) {
+                    case "G":
+                    case "J":
+                    case "N":
+                        //分公司发起,同步删除SHB_ERP中的负责业务信息
+                        cdrcusmanBean.setCompany("C");
+                        m = cdrcusmanBean.findByPK("C", oa.getCusno());
+                        if (m != null) {
+                            syncSHBBean.delete(m, null);
+                            syncSHBBean.getEntityManager().flush();
+                        }
+                        break;
+                    default:
+                }
+            }
+            cdrcusmanBean.setCompany(facno);
+            //创建新的负责业务
+            m = new Cdrcusman(facno, oa.getCusno());
+            m.setMan(oa.getMan());
+            m.setLatdate(BaseLib.getDate());
+            cdrcusmanAdded.add(m);
+
+            newman = m.getMan();
+
+            if (crmgg != null) {
+                crmgg.setGg078(oa.getMan());
+            }
+        }
+
+        try {
+            //更新ERP客户资料
+            update(cdrcus, detailAdded, null, null);
+            if (!"".equals(origman) && !"".equals(newman)) {
+                updateSalesManInArmhad(cdrcus.getCusno(), origman, newman);
+            }
+            getEntityManager().flush();
+            switch (facno) {
+                case "G":
+                case "J":
+                case "N":
+                    //分公司发起,同步SHB_ERP
+                    resetFacno("C");
+                    syncSHBBean.update(cdrcus, detailAdded, null, null);
+                    syncSHBBean.getEntityManager().flush();
+                    break;
+                default:
+            }
+            //更新CRM客户资料
+            if (crmgg != null) {
+                beanCRMGG.update(crmgg);
+            }
+
+            return true;
+        } catch (Exception ex) {
+            return false;
+        } finally {
+            resetObjects();
+        }
+
+    }
+
     protected void resetFacno(String facno) {
-        for (Cdrcusman m : cdrcusmanList) {
+        for (Cdrcusman m : cdrcusmanAdded) {
             m.getCdrcusmanPK().setFacno(facno);
         }
-        for (Invwh w : invwhList) {
+        for (Invwh w : invwhAdded) {
             w.setFacno(facno);
         }
-        for (Invwhclk u : invwhclkList) {
+        for (Invwhclk u : invwhclkAdded) {
             u.getInvwhclkPK().setFacno(facno);
         }
-        for (Transwah t : transwahList) {
+        for (Transwah t : transwahAdded) {
             t.getTranswahPK().setFacno(facno);
         }
     }
 
-    protected Boolean doAfterPersist() {
-        if (cdrivoList != null && !cdrivoList.isEmpty()) {
-            cdrivoList.clear();
+    protected void resetObjects() {
+        if (cdrivoAdded != null && !cdrivoAdded.isEmpty()) {
+            cdrivoAdded.clear();
         }
-        if (cdrscusList != null && !cdrscusList.isEmpty()) {
-            cdrscusList.clear();
+        if (cdrscusAdded != null && !cdrscusAdded.isEmpty()) {
+            cdrscusAdded.clear();
         }
-        if (cdrcusmanList != null && !cdrcusmanList.isEmpty()) {
-            cdrcusmanList.clear();
+        if (cdrcusmanAdded != null && !cdrcusmanAdded.isEmpty()) {
+            cdrcusmanAdded.clear();
         }
-        if (invwhList != null && !invwhList.isEmpty()) {
-            invwhList.clear();
+        if (invwhAdded != null && !invwhAdded.isEmpty()) {
+            invwhAdded.clear();
         }
-        if (invwhclkList != null && !invwhclkList.isEmpty()) {
-            invwhclkList.clear();
+        if (invwhclkAdded != null && !invwhclkAdded.isEmpty()) {
+            invwhclkAdded.clear();
         }
-        if (transwahList != null && !transwahList.isEmpty()) {
-            transwahList.clear();
+        if (transwahAdded != null && !transwahAdded.isEmpty()) {
+            transwahAdded.clear();
         }
-        if (miscodeList != null && !miscodeList.isEmpty()) {
-            miscodeList.clear();
+        if (miscodeAdded != null && !miscodeAdded.isEmpty()) {
+            miscodeAdded.clear();
         }
-        if (details != null) {
-            details.clear();
+        if (detailAdded != null) {
+            detailAdded.clear();
         }
-        return true;
+    }
+    
+    //更新应收账款立账表中的负责业务
+    public int updateSalesManInArmhad(String cusno, String origValue, String newValue) {
+        Query query = getEntityManager().createNativeQuery("update armhad set mancode = ?1 where mancode = ?2 and cusno = ?3 and (booamt - recamt > 0)");
+        query.setParameter(1, newValue);
+        query.setParameter(2, origValue);
+        query.setParameter(3, cusno);
+        return query.executeUpdate();
     }
 
 }

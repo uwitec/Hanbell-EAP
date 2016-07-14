@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "FunctionLevel.findAll", query = "SELECT f FROM FunctionLevel f"),
-    @NamedQuery(name = "FunctionLevel.findByOid", query = "SELECT f FROM FunctionLevel f WHERE f.oid = :oid"),
+    @NamedQuery(name = "FunctionLevel.findByOID", query = "SELECT f FROM FunctionLevel f WHERE f.oid = :oid"),
     @NamedQuery(name = "FunctionLevel.findByObjectVersion", query = "SELECT f FROM FunctionLevel f WHERE f.objectVersion = :objectVersion"),
     @NamedQuery(name = "FunctionLevel.findByLevelValue", query = "SELECT f FROM FunctionLevel f WHERE f.levelValue = :levelValue"),
     @NamedQuery(name = "FunctionLevel.findByFunctionLevelName", query = "SELECT f FROM FunctionLevel f WHERE f.functionLevelName = :functionLevelName"),

@@ -29,8 +29,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Cdrcusman.findAll", query = "SELECT c FROM Cdrcusman c"),
-    @NamedQuery(name = "Cdrcusman.findByFacno", query = "SELECT c FROM Cdrcusman c WHERE c.cdrcusmanPK.facno = :facno"),
-    @NamedQuery(name = "Cdrcusman.findByCusno", query = "SELECT c FROM Cdrcusman c WHERE c.cdrcusmanPK.cusno = :cusno"),
+    @NamedQuery(name = "Cdrcusman.findByPK", query = "SELECT c FROM Cdrcusman c WHERE c.cdrcusmanPK.facno = :facno AND  c.cdrcusmanPK.cusno = :cusno"),
     @NamedQuery(name = "Cdrcusman.findByMan", query = "SELECT c FROM Cdrcusman c WHERE c.man = :man"),
     @NamedQuery(name = "Cdrcusman.findByLatdate", query = "SELECT c FROM Cdrcusman c WHERE c.latdate = :latdate")})
 public class Cdrcusman implements Serializable {
