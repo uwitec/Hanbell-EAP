@@ -67,4 +67,34 @@ public class SHBERPWebService {
         }
     }
 
+  
+    @WebMethod(operationName = "createAPM525ByOAJZD")
+    public String createAPM525ByOAJZD(@WebParam(name = "psn") String psn) {
+        Boolean ret = false;
+        try {
+            ret = apmpayBean.initByOAJZD(psn);
+        } catch (Exception ex) {
+            Logger.getLogger(SHBERPWebService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (ret) {
+            return "200";
+        } else {
+            return "404";
+        }
+    }
+    
+    @WebMethod(operationName = "createAPM525ByOAJZGHD")
+    public String createAPM525ByOAJZGHD(@WebParam(name = "psn") String psn) {
+        Boolean ret = false;
+        try {
+            ret = apmpayBean.initByOAJZGHD(psn);
+        } catch (Exception ex) {
+            Logger.getLogger(SHBERPWebService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (ret) {
+            return "200";
+        } else {
+            return "404";
+        }
+    }
 }

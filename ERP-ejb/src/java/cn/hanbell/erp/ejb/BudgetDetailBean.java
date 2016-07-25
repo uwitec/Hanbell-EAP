@@ -48,9 +48,7 @@ public class BudgetDetailBean extends SuperEJBForERP<BudgetDetail> {
     public void add(BudgetDetail entity) throws RuntimeException {
         try {
             BudgetDetail e = findBudgetDetail(entity);
-            if (e == null) {
-                persist(e);
-            } else {
+            if (e != null) {
                 e.setAddamts(e.getAddamts().add(entity.getAddamts()));
                 e.setDecramts(e.getDecramts().add(entity.getDecramts()));
                 e.setPreamts(e.getPreamts().add(entity.getPreamts()));
