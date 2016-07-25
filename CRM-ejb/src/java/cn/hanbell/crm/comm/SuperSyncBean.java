@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cn.hanbell.erp.comm;
+package cn.hanbell.crm.comm;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -27,11 +27,11 @@ public abstract class SuperSyncBean implements Serializable {
 
     //新增资料,一个表头多个明细
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
-    public void persist(Object entity, HashMap<SuperEJBForERP, List<?>> detailAdded) {
+    public void persist(Object entity, HashMap<SuperEJBForCRM, List<?>> detailAdded) {
         try {
             getEntityManager().persist(entity);
             if (detailAdded != null && !detailAdded.isEmpty()) {
-                for (Entry<SuperEJBForERP, List<?>> entry : detailAdded.entrySet()) {
+                for (Entry<SuperEJBForCRM, List<?>> entry : detailAdded.entrySet()) {
                     for (Object o : entry.getValue()) {
                         getEntityManager().persist(o);
                     }
@@ -44,11 +44,11 @@ public abstract class SuperSyncBean implements Serializable {
 
     //更新资料,一个表头多个明细
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
-    public void update(Object entity, HashMap<SuperEJBForERP, List<?>> detailEdited) {
+    public void update(Object entity, HashMap<SuperEJBForCRM, List<?>> detailEdited) {
         try {
             getEntityManager().merge(entity);
             if (detailEdited != null && !detailEdited.isEmpty()) {
-                for (Entry<SuperEJBForERP, List<?>> entry : detailEdited.entrySet()) {
+                for (Entry<SuperEJBForCRM, List<?>> entry : detailEdited.entrySet()) {
                     for (Object o : entry.getValue()) {
                         getEntityManager().merge(o);
                     }
@@ -61,18 +61,18 @@ public abstract class SuperSyncBean implements Serializable {
 
     //更新资料,一个表头多个明细
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
-    public void update(Object entity, HashMap<SuperEJBForERP, List<?>> detailAdded, HashMap<SuperEJBForERP, List<?>> detailEdited, HashMap<SuperEJBForERP, List<?>> detailDeleted) {
+    public void update(Object entity, HashMap<SuperEJBForCRM, List<?>> detailAdded, HashMap<SuperEJBForCRM, List<?>> detailEdited, HashMap<SuperEJBForCRM, List<?>> detailDeleted) {
         try {
             getEntityManager().persist(entity);
             if (detailEdited != null && !detailEdited.isEmpty()) {
-                for (Entry<SuperEJBForERP, List<?>> entry : detailEdited.entrySet()) {
+                for (Entry<SuperEJBForCRM, List<?>> entry : detailEdited.entrySet()) {
                     for (Object o : entry.getValue()) {
                         getEntityManager().merge(o);
                     }
                 }
             }
             if (detailDeleted != null && !detailDeleted.isEmpty()) {
-                for (Entry<SuperEJBForERP, List<?>> entry : detailDeleted.entrySet()) {
+                for (Entry<SuperEJBForCRM, List<?>> entry : detailDeleted.entrySet()) {
                     for (Object o : entry.getValue()) {
                         if (getEntityManager().contains(o)) {
                             getEntityManager().remove(o);
@@ -83,7 +83,7 @@ public abstract class SuperSyncBean implements Serializable {
                 }
             }
             if (detailAdded != null && !detailAdded.isEmpty()) {
-                for (Entry<SuperEJBForERP, List<?>> entry : detailAdded.entrySet()) {
+                for (Entry<SuperEJBForCRM, List<?>> entry : detailAdded.entrySet()) {
                     for (Object o : entry.getValue()) {
                         getEntityManager().persist(o);
                     }
@@ -96,7 +96,7 @@ public abstract class SuperSyncBean implements Serializable {
 
     //删除资料,一个表头多个明细
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
-    public void delete(Object entity, HashMap<SuperEJBForERP, List<?>> detailDeleted) {
+    public void delete(Object entity, HashMap<SuperEJBForCRM, List<?>> detailDeleted) {
         try {
             if (getEntityManager().contains(entity)) {
                 getEntityManager().remove(entity);
@@ -104,7 +104,7 @@ public abstract class SuperSyncBean implements Serializable {
                 getEntityManager().remove(getEntityManager().merge(entity));
             }
             if (detailDeleted != null && !detailDeleted.isEmpty()) {
-                for (Entry<SuperEJBForERP, List<?>> entry : detailDeleted.entrySet()) {
+                for (Entry<SuperEJBForCRM, List<?>> entry : detailDeleted.entrySet()) {
                     for (Object o : entry.getValue()) {
                         if (getEntityManager().contains(o)) {
                             getEntityManager().remove(o);
@@ -121,11 +121,11 @@ public abstract class SuperSyncBean implements Serializable {
 
     //新事务新增资料,一个表头多个明细
     @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
-    public void syncPersist(Object entity, HashMap<SuperEJBForERP, List<?>> detailAdded) {
+    public void syncPersist(Object entity, HashMap<SuperEJBForCRM, List<?>> detailAdded) {
         try {
             getEntityManager().persist(entity);
             if (detailAdded != null && !detailAdded.isEmpty()) {
-                for (Entry<SuperEJBForERP, List<?>> entry : detailAdded.entrySet()) {
+                for (Entry<SuperEJBForCRM, List<?>> entry : detailAdded.entrySet()) {
                     for (Object o : entry.getValue()) {
                         getEntityManager().persist(o);
                     }
@@ -138,11 +138,11 @@ public abstract class SuperSyncBean implements Serializable {
 
     //新事务更新资料,一个表头多个明细
     @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
-    public void syncUpdate(Object entity, HashMap<SuperEJBForERP, List<?>> detailEdited) {
+    public void syncUpdate(Object entity, HashMap<SuperEJBForCRM, List<?>> detailEdited) {
         try {
             getEntityManager().merge(entity);
             if (detailEdited != null && !detailEdited.isEmpty()) {
-                for (Entry<SuperEJBForERP, List<?>> entry : detailEdited.entrySet()) {
+                for (Entry<SuperEJBForCRM, List<?>> entry : detailEdited.entrySet()) {
                     for (Object o : entry.getValue()) {
                         getEntityManager().merge(o);
                     }
@@ -155,25 +155,25 @@ public abstract class SuperSyncBean implements Serializable {
 
     //新事务更新资料,一个表头多个明细
     @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
-    public void syncUpdate(Object entity, HashMap<SuperEJBForERP, List<?>> detailAdded, HashMap<SuperEJBForERP, List<?>> detailEdited, HashMap<SuperEJBForERP, List<?>> detailDeleted) {
+    public void syncUpdate(Object entity, HashMap<SuperEJBForCRM, List<?>> detailAdded, HashMap<SuperEJBForCRM, List<?>> detailEdited, HashMap<SuperEJBForCRM, List<?>> detailDeleted) {
         try {
             getEntityManager().persist(entity);
             if (detailEdited != null && !detailEdited.isEmpty()) {
-                for (Entry<SuperEJBForERP, List<?>> entry : detailEdited.entrySet()) {
+                for (Entry<SuperEJBForCRM, List<?>> entry : detailEdited.entrySet()) {
                     for (Object o : entry.getValue()) {
                         getEntityManager().merge(o);
                     }
                 }
             }
             if (detailDeleted != null && !detailDeleted.isEmpty()) {
-                for (Entry<SuperEJBForERP, List<?>> entry : detailDeleted.entrySet()) {
+                for (Entry<SuperEJBForCRM, List<?>> entry : detailDeleted.entrySet()) {
                     for (Object o : entry.getValue()) {
                         getEntityManager().remove(o);
                     }
                 }
             }
             if (detailAdded != null && !detailAdded.isEmpty()) {
-                for (Entry<SuperEJBForERP, List<?>> entry : detailAdded.entrySet()) {
+                for (Entry<SuperEJBForCRM, List<?>> entry : detailAdded.entrySet()) {
                     for (Object o : entry.getValue()) {
                         getEntityManager().persist(o);
                     }
@@ -186,7 +186,7 @@ public abstract class SuperSyncBean implements Serializable {
 
     //新事务删除资料,一个表头多个明细
     @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
-    public void syncDelete(Object entity, HashMap<SuperEJBForERP, List<?>> detailDeleted) {
+    public void syncDelete(Object entity, HashMap<SuperEJBForCRM, List<?>> detailDeleted) {
         try {
             if (getEntityManager().contains(entity)) {
                 getEntityManager().remove(entity);
@@ -194,7 +194,7 @@ public abstract class SuperSyncBean implements Serializable {
                 getEntityManager().remove(getEntityManager().merge(entity));
             }
             if (detailDeleted != null && !detailDeleted.isEmpty()) {
-                for (Entry<SuperEJBForERP, List<?>> entry : detailDeleted.entrySet()) {
+                for (Entry<SuperEJBForCRM, List<?>> entry : detailDeleted.entrySet()) {
                     for (Object o : entry.getValue()) {
                         if (getEntityManager().contains(o)) {
                             getEntityManager().remove(o);

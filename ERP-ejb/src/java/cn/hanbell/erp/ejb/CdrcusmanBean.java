@@ -9,6 +9,7 @@ import cn.hanbell.erp.comm.SuperEJBForERP;
 import cn.hanbell.erp.entity.Cdrcusman;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
+import javax.persistence.Query;
 
 /**
  *
@@ -20,6 +21,22 @@ public class CdrcusmanBean extends SuperEJBForERP<Cdrcusman> {
 
     public CdrcusmanBean() {
         super(Cdrcusman.class);
+    }
+
+    public Cdrcusman findByPK(String facno, String cusno) {
+        Query query = getEntityManager().createNamedQuery("Cdrcusman.findByPK");
+        query.setParameter("facno", facno);
+        query.setParameter("cusno", cusno);
+        try {
+            Object o = query.getSingleResult();
+            if (o != null) {
+                return (Cdrcusman) o;
+            } else {
+                return null;
+            }
+        } catch (Exception ex) {
+            return null;
+        }
     }
 
 }
