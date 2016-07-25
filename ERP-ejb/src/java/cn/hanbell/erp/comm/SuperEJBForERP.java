@@ -26,7 +26,7 @@ public abstract class SuperEJBForERP<T> extends SuperEJB<T> {
     @EJB
     public MiscodeBean miscodeBean;
 
-    protected String company;
+    protected String company = "C";
 
     @PersistenceContext(unitName = "ERP-ejbPU")
     private EntityManager em_default;
