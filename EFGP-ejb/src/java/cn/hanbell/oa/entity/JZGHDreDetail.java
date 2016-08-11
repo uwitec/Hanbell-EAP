@@ -22,7 +22,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Administrator
  */
 @Entity
-@Table(name = "JZGHD_reDetail")
+@Table(name = "HZ_CW033_reDetail")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "JZGHDreDetail.findAll", query = "SELECT j FROM JZGHDreDetail j"),
@@ -132,7 +132,7 @@ public class JZGHDreDetail implements Serializable {
     private String budgetAccname;
     @Size(max = 255)
     @Column(name = "applyAmount")
-    private String applyAmount;
+    private Float applyAmount;
     @Size(max = 255)
     @Column(name = "taxes")
     private String taxes;
@@ -341,11 +341,11 @@ public class JZGHDreDetail implements Serializable {
         this.budgetAccname = budgetAccname;
     }
 
-    public String getApplyAmount() {
+    public Float getApplyAmount() {
         return applyAmount;
     }
 
-    public void setApplyAmount(String applyAmount) {
+    public void setApplyAmount(Float applyAmount) {
         this.applyAmount = applyAmount;
     }
 

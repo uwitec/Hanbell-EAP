@@ -52,11 +52,11 @@ public class SHBERPWebService {
         }
     }
 
-    @WebMethod(operationName = "createAPM525ByOAPSN")
-    public String createAPM525ByOAPSN(@WebParam(name = "psn") String psn) {
+    @WebMethod(operationName = "createAPM525ByOABXD")
+    public String createAPM525ByOABXD(@WebParam(name = "psn") String psn) {
         Boolean ret = false;
         try {
-            ret = apmpayBean.initByOAPSN(psn);
+            ret = apmpayBean.initByOABXD(psn);
         } catch (Exception ex) {
             Logger.getLogger(SHBERPWebService.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Administrator
  */
 @Entity
-@Table(name = "JZD")
+@Table(name = "HZ_CW017")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "JZD.findAll", query = "SELECT j FROM JZD j"),
@@ -61,7 +61,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "JZD.findByRatio", query = "SELECT j FROM JZD j WHERE j.ratio = :ratio"),
     @NamedQuery(name = "JZD.findByAccommodation", query = "SELECT j FROM JZD j WHERE j.accommodation = :accommodation"),
     @NamedQuery(name = "JZD.findByLoanDate", query = "SELECT j FROM JZD j WHERE j.loanDate = :loanDate"),
-    @NamedQuery(name = "JZD.findByFormSerialNumber", query = "SELECT j FROM JZD j WHERE j.formSerialNumber = :formSerialNumber"),
+    @NamedQuery(name = "JZD.findByFSN", query = "SELECT j FROM JZD j WHERE j.formSerialNumber = :fsn"),
 })
 public class JZD implements Serializable {
 

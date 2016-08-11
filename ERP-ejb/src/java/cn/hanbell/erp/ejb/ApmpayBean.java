@@ -12,13 +12,14 @@ import cn.hanbell.erp.entity.ApmpadPK;
 import cn.hanbell.erp.entity.Apmpay;
 import cn.hanbell.erp.entity.ApmpayPK;
 import cn.hanbell.erp.entity.BudgetDetail;
-import cn.hanbell.oa.ejb.BXD_Detail01Bean;
-import cn.hanbell.oa.ejb.BXDBean;
+import cn.hanbell.oa.ejb.HZCW028reDetailBean;
+import cn.hanbell.oa.ejb.HZCW028Bean;
 import cn.hanbell.oa.ejb.JZDBean;
 import cn.hanbell.oa.ejb.JZGHDreDetailBean;
 import cn.hanbell.oa.ejb.JzghdBean;
-import cn.hanbell.oa.entity.BXD_Detail01;
-import cn.hanbell.oa.entity.BXD;
+import cn.hanbell.oa.ejb.SyncEFGPBean;
+import cn.hanbell.oa.entity.HZCW028reDetail;
+import cn.hanbell.oa.entity.HZCW028;
 import cn.hanbell.oa.entity.JZD;
 import cn.hanbell.oa.entity.JZGHDreDetail;
 import cn.hanbell.oa.entity.Jzghd;
@@ -59,9 +60,9 @@ public class ApmpayBean extends SuperEJBForERP<Apmpay> {
     private ApmsysBean apmsysBean;
 
     @EJB
-    private BXDBean BXDBean;
+    private HZCW028Bean hzcw028Bean;
     @EJB
-    private BXD_Detail01Bean bxdDetail01Bean;
+    private HZCW028reDetailBean hzcw028reDetailBean ;
 
     @EJB
     private JZDBean jzdBean;
@@ -69,24 +70,20 @@ public class ApmpayBean extends SuperEJBForERP<Apmpay> {
     private JzghdBean jzghdBean;
     @EJB
     private JZGHDreDetailBean jzghdreDetailBean;
-
+    
+    @EJB
+    private SyncEFGPBean syncEFGPBean ;
+    
     public ApmpayBean() {
         super(Apmpay.class);
     }
 
-    @Override
-    public Boolean initByOAPSN(String psn) {
-        String facno, period;
+    public Boolean initByOABXD(String psn) {
+        String period;
         Date date;
-        BXD b = BXDBean.findByPSN(psn);
-
+        HZCW028 b = hzcw028Bean.findByPSN(psn);
+        String facno = b.getFacno();
         List<BudgetDetail> budgetDetails = new ArrayList<>();
-
-        if (b.getBmpa02c().equals("0")) {
-            facno = "C";
-        } else {
-            facno = "G";
-        }
 
         try {
 
@@ -108,20 +105,20 @@ public class ApmpayBean extends SuperEJBForERP<Apmpay> {
 
             h.setDepno(b.getBudgetDept());   //取得OA预算部门
             h.setRkd("MR01");
-            h.setSumry(b.getBmpb01c());   //取得OA报销摘要
-            h.setUsrno(b.getBmpa14c());            //OA表单输入人员
-            h.setAppuserno(b.getBmpa04c());         //OA请款人
-            h.setTaxym(BaseLib.formatDate("yyyyMM", b.getBmpa03c()));   //设置申报年月 （取得OA请款日期）
-            h.setBilltype("BXD");           //取得OA表单名称
+            h.setSumry(b.getSummary());   //取得OA报销摘要
+            h.setUsrno(b.getCreator());            //OA表单输入人员
+            h.setAppuserno(b.getAppUser());         //OA请款人
+            h.setTaxym(BaseLib.formatDate("yyyyMM", b.getAppDate()));   //设置申报年月 （取得OA请款日期）
+            h.setBilltype("HZ_CW028");           //取得OA表单名称
             h.setSrcno(b.getProcessSerialNumber());     //取得OA表单序列号
             h.setPaystat('0');              //设置付款状态
             h.setSrckind("3");          //设置来源区分码         
-
-            List<BXD_Detail01> details01 = bxdDetail01Bean.findByFSN(b.getFormSerialNumber());
+            
+            List<HZCW028reDetail> details01 = hzcw028reDetailBean.findByFSN(b.getFormSerialNumber());
             List<Apmpad> apmpads = new ArrayList<>();
 
             accacrBean.setCompany(facno);
-//            for (BXD_Detail01 detail01 : details01) {
+//            for (HZCW028reDetail detail01 : details01) {
 //              
 //            }
 //  表身贷方循环
@@ -134,7 +131,7 @@ public class ApmpayBean extends SuperEJBForERP<Apmpay> {
                 apmpadPK.setTrse((short) (i + 1));
                 apmpad.setApmpadPK(apmpadPK);
 
-                BXD_Detail01 detail0l = details01.get(i);
+                HZCW028reDetail detail0l = details01.get(i);
 
                 apmpad.setAccno(detail0l.getAccno());  //设置会计科目
                 apmpad.setCoin(b.getCoin());  //设置币别
@@ -142,7 +139,7 @@ public class ApmpayBean extends SuperEJBForERP<Apmpay> {
 
                 if ("53".equals(apmpad.getAccno().substring(0, 2))) {
                     apmpad.setCuskind("9J");
-                    apmpad.setVdrna(detail0l.getBmpb07c());
+                    apmpad.setVdrna(detail0l.getResearch());
                 } else {
                     apmpad.setCuskind("GE");   //设置对象代号类别（cuskind）
                     apmpad.setVdrno(detail0l.getBudgetDepttxt());  //设置费用部门（预算部门）
@@ -154,14 +151,14 @@ public class ApmpayBean extends SuperEJBForERP<Apmpay> {
                 apmpad.setRefamtfs(BigDecimal.ZERO);  //对应相关金额（原币）
                 apmpad.setRefamt(BigDecimal.ZERO);    //对应相关金额（人民币/本币）
 
-                if (b.getBmpa08f() > 0) {
-                    double d1 = Double.parseDouble(detail0l.getBmpb02f());
+                if (b.getTotaltaxesRMB() > 0) {
+                    double d1 = Double.parseDouble(detail0l.getNotaxes());
                     apmpad.setDramtfs(BigDecimal.valueOf(d1));
                     //设置dramtfs（借方）原币
                     double d2 = (d1 * (b.getRatio()));
                     apmpad.setDramt(BigDecimal.valueOf(d2));       //设置dramt（借方）人民币
                 } else {
-                    double d1 = detail0l.getBmpb08f();
+                    double d1 = detail0l.getTaxInclusive();
                     apmpad.setDramtfs(BigDecimal.valueOf(d1));
                     //设置dramtfs（借方）原币
                     double d2 = (d1 * (b.getRatio()));
@@ -178,12 +175,12 @@ public class ApmpayBean extends SuperEJBForERP<Apmpay> {
 
                 //预算金额更新逻辑
                 BudgetDetail u;
-                u = new BudgetDetail(facno, "", period, detail0l.getCenterid(), detail0l.getAccno(), "R", apmpadPK.getTrse(), BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.valueOf(detail0l.getBmpb08f()), BigDecimal.ZERO);
+                u = new BudgetDetail(facno, "", period, detail0l.getCenterid(), detail0l.getAccno(), "R", apmpadPK.getTrse(), BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.valueOf(detail0l.getTaxInclusive()), BigDecimal.ZERO);
                 budgetDetails.add(u);
 
             }
 
-            if (b.getBmpa08f() > 0) {
+            if (b.getTotaltaxesRMB() > 0) {
                 Apmpad apmpad3 = new Apmpad();
                 ApmpadPK apmpadPK3 = new ApmpadPK();
                 apmpadPK3.setFacno(facno);
@@ -196,8 +193,8 @@ public class ApmpayBean extends SuperEJBForERP<Apmpay> {
                 apmpad3.setDramtfs(BigDecimal.ZERO);
                 apmpad3.setCoin(b.getCoin());   //设置币别
                 apmpad3.setRatio(BigDecimal.valueOf(b.getRatio()));    //设置汇率
-                apmpad3.setDramtfs(BigDecimal.valueOf(b.getBmpa08f()));                    //设置dramtfs（借方）原币税金
-                Double sjdramt = b.getBmpa08f() * (b.getRatio());
+                apmpad3.setDramtfs(BigDecimal.valueOf(b.getTotaltaxesRMB()));                    //设置dramtfs（借方）原币税金
+                Double sjdramt = b.getTotaltaxesRMB() * (b.getRatio());
                 apmpad3.setDramt(BigDecimal.valueOf(sjdramt));       //设置dramt（借方）人民币
 
                 apmpad3.setCramtfs(BigDecimal.ZERO);     //设置 cramtfs(0)
@@ -219,7 +216,7 @@ public class ApmpayBean extends SuperEJBForERP<Apmpay> {
             apmpadPK2.setFacno(facno);
             apmpadPK2.setPaycode('2');
             apmpadPK2.setPayno(pk.getPayno());
-            if (b.getBmpa08f() > 0) {
+            if (b.getTotaltaxesRMB() > 0) {
                 apmpadPK2.setTrse((short) (details01.size() + 2));
             } else {
                 apmpadPK2.setTrse((short) (details01.size() + 1));
@@ -230,9 +227,9 @@ public class ApmpayBean extends SuperEJBForERP<Apmpay> {
             apmpad2.setDramtfs(BigDecimal.ZERO);
             apmpad2.setCoin(b.getCoin());   //设置币别
             apmpad2.setRatio(BigDecimal.valueOf(b.getRatio()));    //设置汇率
-            double c1 = b.getBmpa09f();
+            double c1 = b.getTotaltaxInclusiveRMB();
             apmpad2.setCramt(BigDecimal.valueOf(c1));    //设置 cramt(人民币报销 总额)
-            double c2 = b.getBmpa06f();
+            double c2 = b.getTotaltaxInclusive();
             apmpad2.setCramtfs(BigDecimal.valueOf(c2));     //设置 cramtfs(报销总额原币)
             apmpad2.setTnfamt(BigDecimal.ZERO);  //本次冲账金额（人民币/本币）
             apmpad2.setTnfamtfs(BigDecimal.ZERO);    //本次冲账金额（原币）
@@ -242,7 +239,7 @@ public class ApmpayBean extends SuperEJBForERP<Apmpay> {
             apmpad2.setConfig(accacrBean.getConfig(facno, "APM", "3", h.getRkd(), apmpad2.getAccno(), 'C'));  //设置config参数
             //          apmpad2.setConfig(accacrBean.getConfig(facno, "APM","3" , h.getRkd(), apmpad2.getAccno(), 'D'));  //设置config参数
             apmpad2.setCuskind("9E");
-            apmpad2.setVdrno(b.getBmpa04c());
+            apmpad2.setVdrno(b.getAppUser());
 
             apmpads.add(apmpad2);
 
@@ -293,7 +290,7 @@ public class ApmpayBean extends SuperEJBForERP<Apmpay> {
             h.setUsrno(j.getCreator());            //OA表单输入人员
             h.setAppuserno(j.getLoanUser());         //OA请款人
             h.setTaxym(BaseLib.formatDate("yyyyMM", j.getLoanDate()));   //设置申报年月 （取得OA请款日期）
-            h.setBilltype("JZD");           //取得OA表单名称
+            h.setBilltype("HZ_CW017");           //取得OA表单名称
             h.setSrcno(j.getProcessSerialNumber());     //取得OA表单序列号
             h.setPaystat('0');              //设置付款状态
             h.setSrckind("3");          //设置来源区分码 
@@ -384,10 +381,14 @@ public class ApmpayBean extends SuperEJBForERP<Apmpay> {
     public Boolean initByOAJZGHD(String psn) {
         List<BudgetDetail> budgetDetails = new ArrayList<>();
         Jzghd g = jzghdBean.findByPSN(psn);
+        
         String facno = g.getFacno();
-        Date date = BaseLib.getDate();
-        String period = BaseLib.formatDate("yyyyMM", date);
+        Date date;
+        String period ;
         try {
+            
+            date = BaseLib.getDate("yyyy/MM/dd", BaseLib.formatDate("yyyy/MM/dd", BaseLib.getDate())); //付款日期
+            period = BaseLib.formatDate("yyyyMM", date);
             Apmpay h = new Apmpay();
             apmsysBean.setCompany(facno);
             ApmpayPK pk = new ApmpayPK();
@@ -407,20 +408,21 @@ public class ApmpayBean extends SuperEJBForERP<Apmpay> {
             h.setUsrno(g.getCreator());            //OA表单输入人员
             h.setAppuserno(g.getAppUser());         //OA请款人
             h.setTaxym(BaseLib.formatDate("yyyyMM", g.getAppDate()));   //设置申报年月 （取得OA请款日期）
-            h.setBilltype("JZGHD");           //取得OA表单名称
+            h.setBilltype("HZ_CW033");           //取得OA表单名称
             h.setSrcno(g.getProcessSerialNumber());     //取得OA表单序列号
-            h.setPaystat('1');              //设置付款状态
+            h.setPaystat('0');              //设置付款状态
             h.setSrckind("3");          //设置来源区分码 
 
             List<JZGHDreDetail> reDetail = jzghdreDetailBean.findByFSN(g.getFormSerialNumber());
             List<Apmpad> apmpads = new ArrayList<>();
-
+             JZD j = jzdBean.findByPSN(reDetail.get(0).getLoanNo());
             accacrBean.setCompany(facno);
-//            for (BXD_Detail01 detail01 : details01) {
+//            for (HZCW028reDetail detail01 : details01) {
 //              
 //            }
 //  表身贷方循环
             for (int i = 0; i < reDetail.size(); i++) {
+                
                 Apmpad apmpad = new Apmpad();
                 ApmpadPK apmpadPK = new ApmpadPK();
                 apmpadPK.setFacno(facno);
@@ -437,11 +439,11 @@ public class ApmpayBean extends SuperEJBForERP<Apmpay> {
 
                 if ("53".equals(apmpad.getAccno().substring(0, 2))) {
                     apmpad.setCuskind("9J");
-                    apmpad.setVdrna(detail0l.getResearch());
+                    apmpad.setVdrno(detail0l.getResearch());
                 } else {
                     apmpad.setCuskind("GE");   //设置对象代号类别（cuskind）
-                    apmpad.setVdrno(detail0l.getBudgetDeptlbl());  //设置费用部门（预算部门）
-                    apmpad.setVdrna(detail0l.getBudgetDepttxt());
+                    apmpad.setVdrno(detail0l.getBudgetDepttxt());  //设置费用部门（预算部门）
+                    apmpad.setVdrna(detail0l.getBudgetDeptlbl());
                 }
                 apmpad.setTnfamt(BigDecimal.ZERO);  //本次冲账金额（人民币/本币）
                 apmpad.setTnfamtfs(BigDecimal.ZERO);    //本次冲账金额（原币）
@@ -475,12 +477,6 @@ public class ApmpayBean extends SuperEJBForERP<Apmpay> {
                 BudgetDetail u;
                 u = new BudgetDetail(facno, "", period, detail0l.getCenterid(), detail0l.getAccno(), "R", apmpadPK.getTrse(), BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.valueOf(detail0l.getTaxInclusive()), BigDecimal.ZERO);
                 budgetDetails.add(u);
-
-                if (detail0l.getRefund() > 0) {
-                    double sum = 0;
-                    sum += detail0l.getRefund();
-                    g.setTotalRefund(sum);
-                }
             }
 
             if (g.getTotaltaxesRMB() > 0) {
@@ -496,8 +492,8 @@ public class ApmpayBean extends SuperEJBForERP<Apmpay> {
                 apmpad2.setDramtfs(BigDecimal.ZERO);
                 apmpad2.setCoin(g.getCoin());   //设置币别
                 apmpad2.setRatio(BigDecimal.valueOf(g.getRatio()));    //设置汇率
-                apmpad2.setDramtfs(BigDecimal.valueOf(g.getTotaltaxesRMB()));                    //设置dramtfs（借方）原币税金
-                Double sjdramt = g.getTotaltaxesRMB() * (g.getRatio());
+                apmpad2.setDramtfs(BigDecimal.valueOf(g.getTotaltaxesRMB()/g.getRatio()));                    //设置dramtfs（借方）原币税金
+                Double sjdramt = g.getTotaltaxesRMB();
                 apmpad2.setDramt(BigDecimal.valueOf(sjdramt));       //设置dramt（借方）人民币
 
                 apmpad2.setCramtfs(BigDecimal.ZERO);     //设置 cramtfs(0)
@@ -553,8 +549,8 @@ public class ApmpayBean extends SuperEJBForERP<Apmpay> {
                 apmpads.add(apmpad3);
             }
 
-            //贷方 
-            if (g.getTotalRefund() + g.getTotaltaxInclusive() <= g.getApplyAmount()) {
+            //贷方 g.getApplyAmount()
+            if (g.getTotalRefund() + g.getTotaltaxInclusive() <= reDetail.get(0).getApplyAmount()) {
 
                 Apmpad apmpad4 = new Apmpad();
                 ApmpadPK apmpadPK4 = new ApmpadPK();
@@ -590,12 +586,11 @@ public class ApmpayBean extends SuperEJBForERP<Apmpay> {
                 apmpad4.setVdrno(g.getAppUser());
                 apmpads.add(apmpad4);
 
-                g.setApplyAmount(g.getApplyAmount() - g.getTotalRefund() - g.getTotaltaxInclusive());
-                JZD j = jzdBean.findByPSN(g.getLoanNo());
+                g.setApplyAmount(reDetail.get(0).getApplyAmount() - g.getTotalRefund() - g.getTotaltaxInclusive());
                 j.setArrears(g.getApplyAmount());
 
             }
-            if (g.getTotaltaxInclusive() > g.getApplyAmount()) {
+            if (g.getTotaltaxInclusive() > reDetail.get(0).getApplyAmount()) {
 
                 Apmpad apmpad5 = new Apmpad();
                 ApmpadPK apmpadPK5 = new ApmpadPK();
@@ -622,7 +617,7 @@ public class ApmpayBean extends SuperEJBForERP<Apmpay> {
                 apmpad5.setDramtfs(BigDecimal.ZERO);
                 apmpad5.setCoin(g.getCoin());   //设置币别
                 apmpad5.setRatio(BigDecimal.valueOf(g.getRatio()));    //设置汇率
-                double c2 = g.getApplyAmount();
+                double c2 = reDetail.get(0).getApplyAmount();
                 apmpad5.setCramtfs(BigDecimal.valueOf(c2));     //设置 cramtfs(报销总额原币)
                 double c1 = g.getRatio() * c2;
                 apmpad5.setCramt(BigDecimal.valueOf(c1));    //设置 cramt(人民币报销 总额)
@@ -643,7 +638,7 @@ public class ApmpayBean extends SuperEJBForERP<Apmpay> {
                 apmpad6.setDramtfs(BigDecimal.ZERO);
                 apmpad6.setCoin(g.getCoin());   //设置币别
                 apmpad6.setRatio(BigDecimal.valueOf(g.getRatio()));    //设置汇率
-                double c3 = g.getTotaltaxInclusive() - g.getApplyAmount();
+                double c3 = g.getTotaltaxInclusive() - reDetail.get(0).getApplyAmount();
                 apmpad6.setCramtfs(BigDecimal.valueOf(c3));     //设置 cramtfs(报销总额原币)
                 double c4 = g.getRatio() * c3;
                 apmpad6.setCramt(BigDecimal.valueOf(c4));    //设置 cramt(人民币报销 总额)
@@ -660,10 +655,8 @@ public class ApmpayBean extends SuperEJBForERP<Apmpay> {
                 apmpads.add(apmpad6);
 
                 g.setApplyAmount(0.00);
-                JZD j = jzdBean.findByPSN(g.getLoanNo());
                 j.setArrears(0.00);
-                
-                 jzdBean.update(j);
+              
 
             }
 
@@ -678,6 +671,10 @@ public class ApmpayBean extends SuperEJBForERP<Apmpay> {
                 apmpadBean.persist(apmpad);
             }
 
+              jzdBean.getEntityManager().detach(j);
+                jzdBean.getEntityManager().clear();
+                 syncEFGPBean.update(j,null);
+            
             budgetDetailBean.setCompany(facno);
             budgetDetailBean.add(budgetDetails);
             budgetDetailBean.getEntityManager().flush();
