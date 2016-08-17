@@ -30,17 +30,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Cdrcus.findAll", query = "SELECT c FROM Cdrcus c"),
+    @NamedQuery(name = "Cdrcus.findById", query = "SELECT c FROM Cdrcus c WHERE c.cusno = :id"),
     @NamedQuery(name = "Cdrcus.findByCusno", query = "SELECT c FROM Cdrcus c WHERE c.cusno = :cusno"),
     @NamedQuery(name = "Cdrcus.findByCusna", query = "SELECT c FROM Cdrcus c WHERE c.cusna = :cusna"),
     @NamedQuery(name = "Cdrcus.findByCusds", query = "SELECT c FROM Cdrcus c WHERE c.cusds = :cusds"),
     @NamedQuery(name = "Cdrcus.findByCussta", query = "SELECT c FROM Cdrcus c WHERE c.cussta = :cussta"),
     @NamedQuery(name = "Cdrcus.findByDecode", query = "SELECT c FROM Cdrcus c WHERE c.decode = :decode"),
-    @NamedQuery(name = "Cdrcus.findByCuskind", query = "SELECT c FROM Cdrcus c WHERE c.cuskind = :cuskind"),
-    @NamedQuery(name = "Cdrcus.findByDmcode", query = "SELECT c FROM Cdrcus c WHERE c.dmcode = :dmcode"),
-    @NamedQuery(name = "Cdrcus.findByUniform", query = "SELECT c FROM Cdrcus c WHERE c.uniform = :uniform"),
-    @NamedQuery(name = "Cdrcus.findByBilnum", query = "SELECT c FROM Cdrcus c WHERE c.bilnum = :bilnum"),
-    @NamedQuery(name = "Cdrcus.findByCoin", query = "SELECT c FROM Cdrcus c WHERE c.coin = :coin"),
-    @NamedQuery(name = "Cdrcus.findByTax", query = "SELECT c FROM Cdrcus c WHERE c.tax = :tax")})
+    @NamedQuery(name = "Cdrcus.findByCuskind", query = "SELECT c FROM Cdrcus c WHERE c.cuskind = :cuskind")})
 public class Cdrcus implements Serializable {
 
     private static final long serialVersionUID = 1L;

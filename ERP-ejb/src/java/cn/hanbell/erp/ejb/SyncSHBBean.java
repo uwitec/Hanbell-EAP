@@ -3,29 +3,27 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cn.hanbell.crm.comm;
+package cn.hanbell.erp.ejb;
 
-import cn.hanbell.util.SuperEJB;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import javax.ejb.TransactionAttribute;
-import javax.ejb.TransactionAttributeType;
+import cn.hanbell.erp.comm.SuperSyncBean;
+import javax.ejb.Stateless;
+import javax.ejb.LocalBean;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 /**
  *
  * @author C0160
- * @param <T>
  */
-public abstract class SuperEJBForCRM<T> extends SuperEJB<T> {
+@Stateless
+@LocalBean
+public class SyncSHBBean extends SuperSyncBean {
 
-    @PersistenceContext(unitName = "CRM-ejbPU")
+    @PersistenceContext(unitName = "PU_shberp")
     private EntityManager em;
 
-    public SuperEJBForCRM(Class<T> entityClass) {
-        super(entityClass);
+    public SyncSHBBean() {
+
     }
 
     @Override

@@ -26,7 +26,7 @@ public abstract class SuperEJBForERP<T> extends SuperEJB<T> {
     @EJB
     public MiscodeBean miscodeBean;
 
-    protected String company;
+    protected String company = "C";
 
     @PersistenceContext(unitName = "ERP-ejbPU")
     private EntityManager em_default;
@@ -43,6 +43,15 @@ public abstract class SuperEJBForERP<T> extends SuperEJB<T> {
     @PersistenceContext(unitName = "PU_njerp")
     private EntityManager em_njerp;
 
+    @PersistenceContext(unitName = "PU_hansonerp")
+    private EntityManager em_hansonerp;
+
+    @PersistenceContext(unitName = "PU_comererp")
+    private EntityManager em_comererp;
+
+    @PersistenceContext(unitName = "PU_qtcerp")
+    private EntityManager em_qtcerp;
+
     public SuperEJBForERP(Class<T> entityClass) {
         super(entityClass);
     }
@@ -56,11 +65,53 @@ public abstract class SuperEJBForERP<T> extends SuperEJB<T> {
         return true;
     }
 
+    public Boolean updateByOAPSN(String psn) {
+        return true;
+    }
+
+    public Boolean deleteByOAPSN(String psn) {
+        return true;
+    }
+
     //新增一笔资料,一个表头多个明细
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void persist(T entity, HashMap<SuperEJBForERP, List<?>> detailAdded) {
         try {
             getEntityManager().persist(entity);
+            if (detailAdded != null && !detailAdded.isEmpty()) {
+                for (Entry<SuperEJBForERP, List<?>> entry : detailAdded.entrySet()) {
+                    entry.getKey().setCompany(company);
+                    for (Object o : entry.getValue()) {
+                        entry.getKey().persist(o);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    //更新一笔资料,一个表头多个明细
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public void update(T entity, HashMap<SuperEJBForERP, List<?>> detailAdded, HashMap<SuperEJBForERP, List<?>> detailEdited, HashMap<SuperEJBForERP, List<?>> detailDeleted) {
+        try {
+            getEntityManager().persist(entity);
+            if (detailEdited != null && !detailEdited.isEmpty()) {
+                for (Entry<SuperEJBForERP, List<?>> entry : detailEdited.entrySet()) {
+                    entry.getKey().setCompany(company);
+                    for (Object o : entry.getValue()) {
+                        entry.getKey().update(o);
+                    }
+                }
+            }
+            if (detailDeleted != null && !detailDeleted.isEmpty()) {
+                for (Entry<SuperEJBForERP, List<?>> entry : detailDeleted.entrySet()) {
+                    entry.getKey().setCompany(company);
+                    for (Object o : entry.getValue()) {
+                        entry.getKey().delete(o);
+                    }
+                }
+            }
             if (detailAdded != null && !detailAdded.isEmpty()) {
                 for (Entry<SuperEJBForERP, List<?>> entry : detailAdded.entrySet()) {
                     entry.getKey().setCompany(company);
@@ -84,8 +135,14 @@ public abstract class SuperEJBForERP<T> extends SuperEJB<T> {
                 return em_jnerp;
             case "N":
                 return em_njerp;
+            case "H":
+                return em_hansonerp;
+            case "K":
+                return em_comererp;
+            case "Q":
+                return em_qtcerp;
             default:
-                return em_default;
+                return em_shberp;
         }
     }
 
