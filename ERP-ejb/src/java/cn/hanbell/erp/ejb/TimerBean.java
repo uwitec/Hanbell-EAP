@@ -89,20 +89,20 @@ public class TimerBean {
         budgetDetail.add(new BudgetDetail("3", "summary", "6717", "差旅费", "3000", "3000"));
 
         details.put("budgetDetail", budgetDetail);
-        formXml = BaseLib.buildXmlForEFGP("HelloNaNa", master, details);
+        //formXml = BaseLib.buildXmlForEFGP("HelloNaNa", master, details);
 
         //System.out.println("formXml:" + formXml);
         workFlowBean.initUserInfo("C0160");
-        formInstance = workFlowBean.replaceVariables(formXml);
+       // formInstance = workFlowBean.replaceVariables(formXml);
         //formInstance =  formInstance.replace("</HelloNaNa>","<trafficDetail id=\"trafficDetail\"><records><record id=\"trafficDetail_0\"><item id=\"seq\" dataType=\"java.lang.String\" perDataProId=\"\">1</item>             <item id=\"content\" dataType=\"java.lang.String\" perDataProId=\"\">出差市区</item>             <item id=\"trafficamts\" dataType=\"java.lang.String\" perDataProId=\"\">12</item>             <item id=\"chargeamts\" dataType=\"java.lang.String\" perDataProId=\"\">25</item>             <item id=\"otheramts\" dataType=\"java.lang.String\" perDataProId=\"\">12</item>          </record>        </records>      </trafficDetail>    </HelloNaNa> ");
         try {
-            status = workFlowBean.invokeProcess("http://192.168.1.73", "8086", "PKG14600928645341", formInstance, "Invoke Process FROM ERP");
-            System.out.println("processResult:" + status);
+          //  status = workFlowBean.invokeProcess("http://192.168.1.73", "8086", "PKG14600928645341", formInstance, "Invoke Process FROM ERP");
+         //   System.out.println("processResult:" + status);
         } catch (Exception ex) {
             Logger.getLogger(TimerBean.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        System.out.println("XML:" + formInstance);
+       // System.out.println("XML:" + formInstance);
 
     }
 
