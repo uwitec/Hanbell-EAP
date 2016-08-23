@@ -7,6 +7,9 @@ package cn.hanbell.jws;
 
 import cn.hanbell.erp.ejb.ApmpayBean;
 import cn.hanbell.erp.ejb.CdrcusBean;
+import cn.hanbell.erp.entity.Invwh;
+import java.io.ByteArrayOutputStream;
+import java.io.OutputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -15,6 +18,9 @@ import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.ejb.Stateless;
 import javax.jws.soap.SOAPBinding;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
 
 /**
  *
@@ -38,10 +44,26 @@ public class SHBERPWebService {
 
     @WebMethod(operationName = "createCustomerByOAPSN")
     public String createCustomerByOAPSN(@WebParam(name = "psn") String psn) {
-        
+
         Boolean ret = false;
         try {
             ret = cdrcusBean.initByOAPSN(psn);
+        } catch (Exception ex) {
+            Logger.getLogger(SHBERPWebService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (ret) {
+            return "200";
+        } else {
+            return "404";
+        }
+    }
+
+    @WebMethod(operationName = "updateCustomerByOAPSN")
+    public String updateCustomerByOAPSN(@WebParam(name = "psn") String psn) {
+
+        Boolean ret = false;
+        try {
+            ret = cdrcusBean.updateByOAPSN(psn);
         } catch (Exception ex) {
             Logger.getLogger(SHBERPWebService.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -66,5 +88,6 @@ public class SHBERPWebService {
             return "404";
         }
     }
+
 
 }
