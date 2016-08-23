@@ -7,6 +7,7 @@ package cn.hanbell.jws;
 
 import cn.hanbell.erp.ejb.ApmpayBean;
 import cn.hanbell.erp.ejb.CdrcusBean;
+import cn.hanbell.erp.ejb.PurvdrBean;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -30,6 +31,9 @@ public class SHBERPWebService {
 
     @EJB
     private CdrcusBean cdrcusBean;
+    
+    @EJB
+    private PurvdrBean purvdrBean;
 
     @WebMethod(operationName = "hello")
     public String hello(@WebParam(name = "name") String txt) {
@@ -57,6 +61,38 @@ public class SHBERPWebService {
         Boolean ret = false;
         try {
             ret = apmpayBean.initByOAPSN(psn);
+        } catch (Exception ex) {
+            Logger.getLogger(SHBERPWebService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (ret) {
+            return "200";
+        } else {
+            return "404";
+        }
+    }
+    
+    
+     @WebMethod(operationName = "createPUR120ByOAPSN")
+    public String createPUR120ByOAPSN(@WebParam(name = "psn") String psn) {
+        Boolean ret = false;
+        try {
+            ret = purvdrBean.initByOAPSN(psn);
+        } catch (Exception ex) {
+            Logger.getLogger(SHBERPWebService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (ret) {
+            return "200";
+        } else {
+            return "404";
+        }
+    }
+    
+    
+     @WebMethod(operationName = "updatePUR120ByOAPSN")
+    public String updatePUR120ByOAPSN(@WebParam(name = "psn") String psn) {
+        Boolean ret = false;
+        try {
+            ret = purvdrBean.updateByOAPSN(psn);
         } catch (Exception ex) {
             Logger.getLogger(SHBERPWebService.class.getName()).log(Level.SEVERE, null, ex);
         }
