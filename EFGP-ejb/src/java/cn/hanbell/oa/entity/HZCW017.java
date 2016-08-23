@@ -28,42 +28,42 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "HZ_CW017")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "JZD.findAll", query = "SELECT j FROM JZD j"),
-    @NamedQuery(name = "JZD.findByOid", query = "SELECT j FROM JZD j WHERE j.oid = :oid"),
-    @NamedQuery(name = "JZD.findByCenterid", query = "SELECT j FROM JZD j WHERE j.centerid = :centerid"),
-    @NamedQuery(name = "JZD.findByOther", query = "SELECT j FROM JZD j WHERE j.other = :other"),
-    @NamedQuery(name = "JZD.findByAllowance", query = "SELECT j FROM JZD j WHERE j.allowance = :allowance"),
-    @NamedQuery(name = "JZD.findByReason", query = "SELECT j FROM JZD j WHERE j.reason = :reason"),
-    @NamedQuery(name = "JZD.findByPrePayDate", query = "SELECT j FROM JZD j WHERE j.prePayDate = :prePayDate"),
-    @NamedQuery(name = "JZD.findByEntertain", query = "SELECT j FROM JZD j WHERE j.entertain = :entertain"),
-    @NamedQuery(name = "JZD.findByPreCustomer", query = "SELECT j FROM JZD j WHERE j.preCustomer = :preCustomer"),
-    @NamedQuery(name = "JZD.findByPreLocation", query = "SELECT j FROM JZD j WHERE j.preLocation = :preLocation"),
-    @NamedQuery(name = "JZD.findByPeople", query = "SELECT j FROM JZD j WHERE j.people = :people"),
-    @NamedQuery(name = "JZD.findByFacno", query = "SELECT j FROM JZD j WHERE j.facno = :facno"),
-    @NamedQuery(name = "JZD.findByTrafficfee", query = "SELECT j FROM JZD j WHERE j.trafficfee = :trafficfee"),
-    @NamedQuery(name = "JZD.findByPreAccno", query = "SELECT j FROM JZD j WHERE j.preAccno = :preAccno"),
-    @NamedQuery(name = "JZD.findByCreator", query = "SELECT j FROM JZD j WHERE j.creator = :creator"),
-    @NamedQuery(name = "JZD.findByAmount", query = "SELECT j FROM JZD j WHERE j.amount = :amount"),
-    @NamedQuery(name = "JZD.findByPSN", query = "SELECT j FROM JZD j WHERE j.processSerialNumber = :psn"),
-    @NamedQuery(name = "JZD.findByPreAccname", query = "SELECT j FROM JZD j WHERE j.preAccname = :preAccname"),
-    @NamedQuery(name = "JZD.findByDeptPeriod", query = "SELECT j FROM JZD j WHERE j.deptPeriod = :deptPeriod"),
-    @NamedQuery(name = "JZD.findByDeptYear", query = "SELECT j FROM JZD j WHERE j.deptYear = :deptYear"),
-    @NamedQuery(name = "JZD.findByLoanTotal", query = "SELECT j FROM JZD j WHERE j.loanTotal = :loanTotal"),
-    @NamedQuery(name = "JZD.findByCoin", query = "SELECT j FROM JZD j WHERE j.coin = :coin"),
-    @NamedQuery(name = "JZD.findByLoanUser", query = "SELECT j FROM JZD j WHERE j.loanUser = :loanUser"),
-    @NamedQuery(name = "JZD.findByLoanProperty", query = "SELECT j FROM JZD j WHERE j.loanProperty = :loanProperty"),
-    @NamedQuery(name = "JZD.findByProduct", query = "SELECT j FROM JZD j WHERE j.product = :product"),
-    @NamedQuery(name = "JZD.findByLoanDept", query = "SELECT j FROM JZD j WHERE j.loanDept = :loanDept"),
-    @NamedQuery(name = "JZD.findByArrears", query = "SELECT j FROM JZD j WHERE j.arrears = :arrears"),
-    @NamedQuery(name = "JZD.findByTraffic", query = "SELECT j FROM JZD j WHERE j.traffic = :traffic"),
-    @NamedQuery(name = "JZD.findByTotalRMB", query = "SELECT j FROM JZD j WHERE j.totalRMB = :totalRMB"),
-    @NamedQuery(name = "JZD.findByDays", query = "SELECT j FROM JZD j WHERE j.days = :days"),
-    @NamedQuery(name = "JZD.findByRatio", query = "SELECT j FROM JZD j WHERE j.ratio = :ratio"),
-    @NamedQuery(name = "JZD.findByAccommodation", query = "SELECT j FROM JZD j WHERE j.accommodation = :accommodation"),
-    @NamedQuery(name = "JZD.findByLoanDate", query = "SELECT j FROM JZD j WHERE j.loanDate = :loanDate"),
-    @NamedQuery(name = "JZD.findByFSN", query = "SELECT j FROM JZD j WHERE j.formSerialNumber = :fsn"),
+    @NamedQuery(name = "HZCW017.findAll", query = "SELECT j FROM HZCW017 j"),
+    @NamedQuery(name = "HZCW017.findByOid", query = "SELECT j FROM HZCW017 j WHERE j.oid = :oid"),
+    @NamedQuery(name = "HZCW017.findByCenterid", query = "SELECT j FROM HZCW017 j WHERE j.centerid = :centerid"),
+    @NamedQuery(name = "HZCW017.findByOther", query = "SELECT j FROM HZCW017 j WHERE j.other = :other"),
+    @NamedQuery(name = "HZCW017.findByAllowance", query = "SELECT j FROM HZCW017 j WHERE j.allowance = :allowance"),
+    @NamedQuery(name = "HZCW017.findByReason", query = "SELECT j FROM HZCW017 j WHERE j.reason = :reason"),
+    @NamedQuery(name = "HZCW017.findByPrePayDate", query = "SELECT j FROM HZCW017 j WHERE j.prePayDate = :prePayDate"),
+    @NamedQuery(name = "HZCW017.findByEntertain", query = "SELECT j FROM HZCW017 j WHERE j.entertain = :entertain"),
+    @NamedQuery(name = "HZCW017.findByPreCustomer", query = "SELECT j FROM HZCW017 j WHERE j.preCustomer = :preCustomer"),
+    @NamedQuery(name = "HZCW017.findByPreLocation", query = "SELECT j FROM HZCW017 j WHERE j.preLocation = :preLocation"),
+    @NamedQuery(name = "HZCW017.findByPeople", query = "SELECT j FROM HZCW017 j WHERE j.people = :people"),
+    @NamedQuery(name = "HZCW017.findByFacno", query = "SELECT j FROM HZCW017 j WHERE j.facno = :facno"),
+    @NamedQuery(name = "HZCW017.findByTrafficfee", query = "SELECT j FROM HZCW017 j WHERE j.trafficfee = :trafficfee"),
+    @NamedQuery(name = "HZCW017.findByPreAccno", query = "SELECT j FROM HZCW017 j WHERE j.preAccno = :preAccno"),
+    @NamedQuery(name = "HZCW017.findByCreator", query = "SELECT j FROM HZCW017 j WHERE j.creator = :creator"),
+    @NamedQuery(name = "HZCW017.findByAmount", query = "SELECT j FROM HZCW017 j WHERE j.amount = :amount"),
+    @NamedQuery(name = "HZCW017.findByPSN", query = "SELECT j FROM HZCW017 j WHERE j.processSerialNumber = :psn"),
+    @NamedQuery(name = "HZCW017.findByPreAccname", query = "SELECT j FROM HZCW017 j WHERE j.preAccname = :preAccname"),
+    @NamedQuery(name = "HZCW017.findByDeptPeriod", query = "SELECT j FROM HZCW017 j WHERE j.deptPeriod = :deptPeriod"),
+    @NamedQuery(name = "HZCW017.findByDeptYear", query = "SELECT j FROM HZCW017 j WHERE j.deptYear = :deptYear"),
+    @NamedQuery(name = "HZCW017.findByLoanTotal", query = "SELECT j FROM HZCW017 j WHERE j.loanTotal = :loanTotal"),
+    @NamedQuery(name = "HZCW017.findByCoin", query = "SELECT j FROM HZCW017 j WHERE j.coin = :coin"),
+    @NamedQuery(name = "HZCW017.findByLoanUser", query = "SELECT j FROM HZCW017 j WHERE j.loanUser = :loanUser"),
+    @NamedQuery(name = "HZCW017.findByLoanProperty", query = "SELECT j FROM HZCW017 j WHERE j.loanProperty = :loanProperty"),
+    @NamedQuery(name = "HZCW017.findByProduct", query = "SELECT j FROM HZCW017 j WHERE j.product = :product"),
+    @NamedQuery(name = "HZCW017.findByLoanDept", query = "SELECT j FROM HZCW017 j WHERE j.loanDept = :loanDept"),
+    @NamedQuery(name = "HZCW017.findByArrears", query = "SELECT j FROM HZCW017 j WHERE j.arrears = :arrears"),
+    @NamedQuery(name = "HZCW017.findByTraffic", query = "SELECT j FROM HZCW017 j WHERE j.traffic = :traffic"),
+    @NamedQuery(name = "HZCW017.findByTotalRMB", query = "SELECT j FROM HZCW017 j WHERE j.totalRMB = :totalRMB"),
+    @NamedQuery(name = "HZCW017.findByDays", query = "SELECT j FROM HZCW017 j WHERE j.days = :days"),
+    @NamedQuery(name = "HZCW017.findByRatio", query = "SELECT j FROM HZCW017 j WHERE j.ratio = :ratio"),
+    @NamedQuery(name = "HZCW017.findByAccommodation", query = "SELECT j FROM HZCW017 j WHERE j.accommodation = :accommodation"),
+    @NamedQuery(name = "HZCW017.findByLoanDate", query = "SELECT j FROM HZCW017 j WHERE j.loanDate = :loanDate"),
+    @NamedQuery(name = "HZCW017.findByFSN", query = "SELECT j FROM HZCW017 j WHERE j.formSerialNumber = :fsn"),
 })
-public class JZD implements Serializable {
+public class HZCW017 implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -157,10 +157,10 @@ public class JZD implements Serializable {
     @Column(name = "formSerialNumber")
     private String formSerialNumber;
 
-    public JZD() {
+    public HZCW017() {
     }
 
-    public JZD(String oid) {
+    public HZCW017(String oid) {
         this.oid = oid;
     }
 
@@ -439,10 +439,10 @@ public class JZD implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof JZD)) {
+        if (!(object instanceof HZCW017)) {
             return false;
         }
-        JZD other = (JZD) object;
+        HZCW017 other = (HZCW017) object;
         if ((this.oid == null && other.oid != null) || (this.oid != null && !this.oid.equals(other.oid))) {
             return false;
         }
@@ -451,7 +451,7 @@ public class JZD implements Serializable {
 
     @Override
     public String toString() {
-        return "cn.hanbell.oa.entity.JZD[ oid=" + oid + " ]";
+        return "cn.hanbell.oa.entity.HZCW017[ oid=" + oid + " ]";
     }
     
 }

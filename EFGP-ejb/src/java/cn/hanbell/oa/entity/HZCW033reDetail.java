@@ -25,34 +25,34 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "HZ_CW033_reDetail")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "JZGHDreDetail.findAll", query = "SELECT j FROM JZGHDreDetail j"),
-    @NamedQuery(name = "JZGHDreDetail.findBySummary", query = "SELECT j FROM JZGHDreDetail j WHERE j.summary = :summary"),
-    @NamedQuery(name = "JZGHDreDetail.findByOid", query = "SELECT j FROM JZGHDreDetail j WHERE j.oid = :oid"),
-    @NamedQuery(name = "JZGHDreDetail.findByLoanAmount", query = "SELECT j FROM JZGHDreDetail j WHERE j.loanAmount = :loanAmount"),
-    @NamedQuery(name = "JZGHDreDetail.findByNotaxes", query = "SELECT j FROM JZGHDreDetail j WHERE j.notaxes = :notaxes"),
-    @NamedQuery(name = "JZGHDreDetail.findByRemark", query = "SELECT j FROM JZGHDreDetail j WHERE j.remark = :remark"),
-    @NamedQuery(name = "JZGHDreDetail.findByNo", query = "SELECT j FROM JZGHDreDetail j WHERE j.no = :no"),
-    @NamedQuery(name = "JZGHDreDetail.findByTaxInclusive", query = "SELECT j FROM JZGHDreDetail j WHERE j.taxInclusive = :taxInclusive"),
-    @NamedQuery(name = "JZGHDreDetail.findByAccno", query = "SELECT j FROM JZGHDreDetail j WHERE j.accno = :accno"),
-    @NamedQuery(name = "JZGHDreDetail.findByEntertainReason", query = "SELECT j FROM JZGHDreDetail j WHERE j.entertainReason = :entertainReason"),
-    @NamedQuery(name = "JZGHDreDetail.findByLoanNo", query = "SELECT j FROM JZGHDreDetail j WHERE j.loanNo = :loanNo"),
-    @NamedQuery(name = "JZGHDreDetail.findByAccPeriod", query = "SELECT j FROM JZGHDreDetail j WHERE j.accPeriod = :accPeriod"),
-    @NamedQuery(name = "JZGHDreDetail.findByAccYear", query = "SELECT j FROM JZGHDreDetail j WHERE j.accYear = :accYear"),
-    @NamedQuery(name = "JZGHDreDetail.findByRefund", query = "SELECT j FROM JZGHDreDetail j WHERE j.refund = :refund"),
-    @NamedQuery(name = "JZGHDreDetail.findByEntertainDate", query = "SELECT j FROM JZGHDreDetail j WHERE j.entertainDate = :entertainDate"),
-    @NamedQuery(name = "JZGHDreDetail.findByLoanProp", query = "SELECT j FROM JZGHDreDetail j WHERE j.loanProp = :loanProp"),
-    @NamedQuery(name = "JZGHDreDetail.findByBudgetDepttxt", query = "SELECT j FROM JZGHDreDetail j WHERE j.budgetDepttxt = :budgetDepttxt"),
-    @NamedQuery(name = "JZGHDreDetail.findByBudgetAcc", query = "SELECT j FROM JZGHDreDetail j WHERE j.budgetAcc = :budgetAcc"),
-    @NamedQuery(name = "JZGHDreDetail.findByResearch", query = "SELECT j FROM JZGHDreDetail j WHERE j.research = :research"),
-    @NamedQuery(name = "JZGHDreDetail.findByEntertainPeople", query = "SELECT j FROM JZGHDreDetail j WHERE j.entertainPeople = :entertainPeople"),
-    @NamedQuery(name = "JZGHDreDetail.findByProduct", query = "SELECT j FROM JZGHDreDetail j WHERE j.product = :product"),
-    @NamedQuery(name = "JZGHDreDetail.findByEntertainObj", query = "SELECT j FROM JZGHDreDetail j WHERE j.entertainObj = :entertainObj"),
-    @NamedQuery(name = "JZGHDreDetail.findByAccName", query = "SELECT j FROM JZGHDreDetail j WHERE j.accName = :accName"),
-    @NamedQuery(name = "JZGHDreDetail.findByBudgetAccname", query = "SELECT j FROM JZGHDreDetail j WHERE j.budgetAccname = :budgetAccname"),
-    @NamedQuery(name = "JZGHDreDetail.findByApplyAmount", query = "SELECT j FROM JZGHDreDetail j WHERE j.applyAmount = :applyAmount"),
-    @NamedQuery(name = "JZGHDreDetail.findByTaxes", query = "SELECT j FROM JZGHDreDetail j WHERE j.taxes = :taxes"),
-    @NamedQuery(name = "JZGHDreDetail.findByFSN", query = "SELECT j FROM JZGHDreDetail j WHERE j.formSerialNumber = :fsn")})
-public class JZGHDreDetail implements Serializable {
+    @NamedQuery(name = "HZCW033reDetail.findAll", query = "SELECT j FROM HZCW033reDetail j"),
+    @NamedQuery(name = "HZCW033reDetail.findBySummary", query = "SELECT j FROM HZCW033reDetail j WHERE j.summary = :summary"),
+    @NamedQuery(name = "HZCW033reDetail.findByOid", query = "SELECT j FROM HZCW033reDetail j WHERE j.oid = :oid"),
+    @NamedQuery(name = "HZCW033reDetail.findByLoanAmount", query = "SELECT j FROM HZCW033reDetail j WHERE j.loanAmount = :loanAmount"),
+    @NamedQuery(name = "HZCW033reDetail.findByNotaxes", query = "SELECT j FROM HZCW033reDetail j WHERE j.notaxes = :notaxes"),
+    @NamedQuery(name = "HZCW033reDetail.findByRemark", query = "SELECT j FROM HZCW033reDetail j WHERE j.remark = :remark"),
+    @NamedQuery(name = "HZCW033reDetail.findByNo", query = "SELECT j FROM HZCW033reDetail j WHERE j.no = :no"),
+    @NamedQuery(name = "HZCW033reDetail.findByTaxInclusive", query = "SELECT j FROM HZCW033reDetail j WHERE j.taxInclusive = :taxInclusive"),
+    @NamedQuery(name = "HZCW033reDetail.findByAccno", query = "SELECT j FROM HZCW033reDetail j WHERE j.accno = :accno"),
+    @NamedQuery(name = "HZCW033reDetail.findByEntertainReason", query = "SELECT j FROM HZCW033reDetail j WHERE j.entertainReason = :entertainReason"),
+    @NamedQuery(name = "HZCW033reDetail.findByLoanNo", query = "SELECT j FROM HZCW033reDetail j WHERE j.loanNo = :loanNo"),
+    @NamedQuery(name = "HZCW033reDetail.findByAccPeriod", query = "SELECT j FROM HZCW033reDetail j WHERE j.accPeriod = :accPeriod"),
+    @NamedQuery(name = "HZCW033reDetail.findByAccYear", query = "SELECT j FROM HZCW033reDetail j WHERE j.accYear = :accYear"),
+    @NamedQuery(name = "HZCW033reDetail.findByRefund", query = "SELECT j FROM HZCW033reDetail j WHERE j.refund = :refund"),
+    @NamedQuery(name = "HZCW033reDetail.findByEntertainDate", query = "SELECT j FROM HZCW033reDetail j WHERE j.entertainDate = :entertainDate"),
+    @NamedQuery(name = "HZCW033reDetail.findByLoanProp", query = "SELECT j FROM HZCW033reDetail j WHERE j.loanProp = :loanProp"),
+    @NamedQuery(name = "HZCW033reDetail.findByBudgetDepttxt", query = "SELECT j FROM HZCW033reDetail j WHERE j.budgetDepttxt = :budgetDepttxt"),
+    @NamedQuery(name = "HZCW033reDetail.findByBudgetAcc", query = "SELECT j FROM HZCW033reDetail j WHERE j.budgetAcc = :budgetAcc"),
+    @NamedQuery(name = "HZCW033reDetail.findByResearch", query = "SELECT j FROM HZCW033reDetail j WHERE j.research = :research"),
+    @NamedQuery(name = "HZCW033reDetail.findByEntertainPeople", query = "SELECT j FROM HZCW033reDetail j WHERE j.entertainPeople = :entertainPeople"),
+    @NamedQuery(name = "HZCW033reDetail.findByProduct", query = "SELECT j FROM HZCW033reDetail j WHERE j.product = :product"),
+    @NamedQuery(name = "HZCW033reDetail.findByEntertainObj", query = "SELECT j FROM HZCW033reDetail j WHERE j.entertainObj = :entertainObj"),
+    @NamedQuery(name = "HZCW033reDetail.findByAccName", query = "SELECT j FROM HZCW033reDetail j WHERE j.accName = :accName"),
+    @NamedQuery(name = "HZCW033reDetail.findByBudgetAccname", query = "SELECT j FROM HZCW033reDetail j WHERE j.budgetAccname = :budgetAccname"),
+    @NamedQuery(name = "HZCW033reDetail.findByApplyAmount", query = "SELECT j FROM HZCW033reDetail j WHERE j.applyAmount = :applyAmount"),
+    @NamedQuery(name = "HZCW033reDetail.findByTaxes", query = "SELECT j FROM HZCW033reDetail j WHERE j.taxes = :taxes"),
+    @NamedQuery(name = "HZCW033reDetail.findByFSN", query = "SELECT j FROM HZCW033reDetail j WHERE j.formSerialNumber = :fsn")})
+public class HZCW033reDetail implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Size(max = 255)
@@ -143,10 +143,10 @@ public class JZGHDreDetail implements Serializable {
     @Column(name = "formSerialNumber")
     private String formSerialNumber;
 
-    public JZGHDreDetail() {
+    public HZCW033reDetail() {
     }
 
-    public JZGHDreDetail(String oid) {
+    public HZCW033reDetail(String oid) {
         this.oid = oid;
     }
 
@@ -383,10 +383,10 @@ public class JZGHDreDetail implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof JZGHDreDetail)) {
+        if (!(object instanceof HZCW033reDetail)) {
             return false;
         }
-        JZGHDreDetail other = (JZGHDreDetail) object;
+        HZCW033reDetail other = (HZCW033reDetail) object;
         if ((this.oid == null && other.oid != null) || (this.oid != null && !this.oid.equals(other.oid))) {
             return false;
         }
@@ -395,7 +395,7 @@ public class JZGHDreDetail implements Serializable {
 
     @Override
     public String toString() {
-        return "cn.hanbell.oa.entity.JZGHDreDetail[ oid=" + oid + " ]";
+        return "cn.hanbell.oa.entity.HZCW033reDetail[ oid=" + oid + " ]";
     }
 
   

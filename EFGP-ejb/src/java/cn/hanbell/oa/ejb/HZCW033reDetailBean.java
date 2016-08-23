@@ -6,7 +6,7 @@
 package cn.hanbell.oa.ejb;
 
 import cn.hanbell.oa.comm.SuperEJBForEFGP;
-import cn.hanbell.oa.entity.JZD;
+import cn.hanbell.oa.entity.HZCW033reDetail;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 
@@ -16,10 +16,10 @@ import javax.ejb.LocalBean;
  */
 @Stateless
 @LocalBean
-public class JZDBean extends SuperEJBForEFGP<JZD>{
+public class HZCW033reDetailBean extends SuperEJBForEFGP<HZCW033reDetail> {
 
-    public JZDBean(){
-        super(JZD.class);
+    public HZCW033reDetailBean() {
+        super(HZCW033reDetail.class);
     }
     
 }

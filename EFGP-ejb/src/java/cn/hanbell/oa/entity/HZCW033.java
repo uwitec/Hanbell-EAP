@@ -28,78 +28,78 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "HZ_CW033")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Jzghd.findAll", query = "SELECT j FROM Jzghd j"),
-    @NamedQuery(name = "Jzghd.findBySummary", query = "SELECT j FROM Jzghd j WHERE j.summary = :summary"),
-    @NamedQuery(name = "Jzghd.findByAppDept", query = "SELECT j FROM Jzghd j WHERE j.appDept = :appDept"),
-    @NamedQuery(name = "Jzghd.findByCenterid", query = "SELECT j FROM Jzghd j WHERE j.centerid = :centerid"),
-    @NamedQuery(name = "Jzghd.findByAllowance", query = "SELECT j FROM Jzghd j WHERE j.allowance = :allowance"),
-    @NamedQuery(name = "Jzghd.findByRemark", query = "SELECT j FROM Jzghd j WHERE j.remark = :remark"),
-    @NamedQuery(name = "Jzghd.findByTrafficSummary", query = "SELECT j FROM Jzghd j WHERE j.trafficSummary = :trafficSummary"),
-    @NamedQuery(name = "Jzghd.findByBh3", query = "SELECT j FROM Jzghd j WHERE j.bh3 = :bh3"),
-    @NamedQuery(name = "Jzghd.findByBh2", query = "SELECT j FROM Jzghd j WHERE j.bh2 = :bh2"),
-    @NamedQuery(name = "Jzghd.findByReceipt", query = "SELECT j FROM Jzghd j WHERE j.receipt = :receipt"),
-    @NamedQuery(name = "Jzghd.findByLoanNo", query = "SELECT j FROM Jzghd j WHERE j.loanNo = :loanNo"),
-    @NamedQuery(name = "Jzghd.findByCarUse", query = "SELECT j FROM Jzghd j WHERE j.carUse = :carUse"),
-    @NamedQuery(name = "Jzghd.findByStartMileage", query = "SELECT j FROM Jzghd j WHERE j.startMileage = :startMileage"),
-    @NamedQuery(name = "Jzghd.findByBh1", query = "SELECT j FROM Jzghd j WHERE j.bh1 = :bh1"),
-    @NamedQuery(name = "Jzghd.findByAmount", query = "SELECT j FROM Jzghd j WHERE j.amount = :amount"),
-    @NamedQuery(name = "Jzghd.findByTravelReport", query = "SELECT j FROM Jzghd j WHERE j.travelReport = :travelReport"),
-    @NamedQuery(name = "Jzghd.findByJc2", query = "SELECT j FROM Jzghd j WHERE j.jc2 = :jc2"),
-    @NamedQuery(name = "Jzghd.findByJc1", query = "SELECT j FROM Jzghd j WHERE j.jc1 = :jc1"),
-    @NamedQuery(name = "Jzghd.findByJc3", query = "SELECT j FROM Jzghd j WHERE j.jc3 = :jc3"),
-    @NamedQuery(name = "Jzghd.findByTotalMileage", query = "SELECT j FROM Jzghd j WHERE j.totalMileage = :totalMileage"),
-    @NamedQuery(name = "Jzghd.findByDeptYear", query = "SELECT j FROM Jzghd j WHERE j.deptYear = :deptYear"),
-    @NamedQuery(name = "Jzghd.findBySubtotal", query = "SELECT j FROM Jzghd j WHERE j.subtotal = :subtotal"),
-    @NamedQuery(name = "Jzghd.findByCost", query = "SELECT j FROM Jzghd j WHERE j.cost = :cost"),
-    @NamedQuery(name = "Jzghd.findByEntertainObj", query = "SELECT j FROM Jzghd j WHERE j.entertainObj = :entertainObj"),
-    @NamedQuery(name = "Jzghd.findByRatio", query = "SELECT j FROM Jzghd j WHERE j.ratio = :ratio"),
-    @NamedQuery(name = "Jzghd.findByAccName", query = "SELECT j FROM Jzghd j WHERE j.accName = :accName"),
-    @NamedQuery(name = "Jzghd.findByApplyAmount", query = "SELECT j FROM Jzghd j WHERE j.applyAmount = :applyAmount"),
-    @NamedQuery(name = "Jzghd.findByOid", query = "SELECT j FROM Jzghd j WHERE j.oid = :oid"),
-    @NamedQuery(name = "Jzghd.findByEndMileage", query = "SELECT j FROM Jzghd j WHERE j.endMileage = :endMileage"),
-    @NamedQuery(name = "Jzghd.findByTaxi", query = "SELECT j FROM Jzghd j WHERE j.taxi = :taxi"),
-    @NamedQuery(name = "Jzghd.findByLoanAmount", query = "SELECT j FROM Jzghd j WHERE j.loanAmount = :loanAmount"),
-    @NamedQuery(name = "Jzghd.findByNotaxes", query = "SELECT j FROM Jzghd j WHERE j.notaxes = :notaxes"),
-    @NamedQuery(name = "Jzghd.findByTotaltaxInclusiveRMB", query = "SELECT j FROM Jzghd j WHERE j.totaltaxInclusiveRMB = :totaltaxInclusiveRMB"),
-    @NamedQuery(name = "Jzghd.findByTaxInclusive", query = "SELECT j FROM Jzghd j WHERE j.taxInclusive = :taxInclusive"),
-    @NamedQuery(name = "Jzghd.findByAccno", query = "SELECT j FROM Jzghd j WHERE j.accno = :accno"),
-    @NamedQuery(name = "Jzghd.findByEntertainReason", query = "SELECT j FROM Jzghd j WHERE j.entertainReason = :entertainReason"),
-    @NamedQuery(name = "Jzghd.findByTotaltaxesRMB", query = "SELECT j FROM Jzghd j WHERE j.totaltaxesRMB = :totaltaxesRMB"),
-    @NamedQuery(name = "Jzghd.findByFacno", query = "SELECT j FROM Jzghd j WHERE j.facno = :facno"),
-    @NamedQuery(name = "Jzghd.findByTrafficfee", query = "SELECT j FROM Jzghd j WHERE j.trafficfee = :trafficfee"),
-    @NamedQuery(name = "Jzghd.findByCreator", query = "SELECT j FROM Jzghd j WHERE j.creator = :creator"),
-    @NamedQuery(name = "Jzghd.findByAccPeriod", query = "SELECT j FROM Jzghd j WHERE j.accPeriod = :accPeriod"),
-    @NamedQuery(name = "Jzghd.findByCrmno", query = "SELECT j FROM Jzghd j WHERE j.crmno = :crmno"),
-    @NamedQuery(name = "Jzghd.findByAccYear", query = "SELECT j FROM Jzghd j WHERE j.accYear = :accYear"),
-    @NamedQuery(name = "Jzghd.findByRefund", query = "SELECT j FROM Jzghd j WHERE j.refund = :refund"),
-    @NamedQuery(name = "Jzghd.findByCustomerSno", query = "SELECT j FROM Jzghd j WHERE j.customerSno = :customerSno"),
-    @NamedQuery(name = "Jzghd.findByEntertainDate", query = "SELECT j FROM Jzghd j WHERE j.entertainDate = :entertainDate"),
-    @NamedQuery(name = "Jzghd.findByTotaltaxInclusive", query = "SELECT j FROM Jzghd j WHERE j.totaltaxInclusive = :totaltaxInclusive"),
-    @NamedQuery(name = "Jzghd.findByPSN", query = "SELECT j FROM Jzghd j WHERE j.processSerialNumber = :psn"),
-    @NamedQuery(name = "Jzghd.findByTrafficPlace", query = "SELECT j FROM Jzghd j WHERE j.trafficPlace = :trafficPlace"),
-    @NamedQuery(name = "Jzghd.findByAppDate", query = "SELECT j FROM Jzghd j WHERE j.appDate = :appDate"),
-    @NamedQuery(name = "Jzghd.findByDeptPeriod", query = "SELECT j FROM Jzghd j WHERE j.deptPeriod = :deptPeriod"),
-    @NamedQuery(name = "Jzghd.findByTrafficDate", query = "SELECT j FROM Jzghd j WHERE j.trafficDate = :trafficDate"),
-    @NamedQuery(name = "Jzghd.findByLoanProp", query = "SELECT j FROM Jzghd j WHERE j.loanProp = :loanProp"),
-    @NamedQuery(name = "Jzghd.findByBudgetDept", query = "SELECT j FROM Jzghd j WHERE j.budgetDept = :budgetDept"),
-    @NamedQuery(name = "Jzghd.findByCoin", query = "SELECT j FROM Jzghd j WHERE j.coin = :coin"),
-    @NamedQuery(name = "Jzghd.findByTotalnotaxesRMB", query = "SELECT j FROM Jzghd j WHERE j.totalnotaxesRMB = :totalnotaxesRMB"),
-    @NamedQuery(name = "Jzghd.findByReimbursement", query = "SELECT j FROM Jzghd j WHERE j.reimbursement = :reimbursement"),
-    @NamedQuery(name = "Jzghd.findByBudgetAcc", query = "SELECT j FROM Jzghd j WHERE j.budgetAcc = :budgetAcc"),
-    @NamedQuery(name = "Jzghd.findByResearch", query = "SELECT j FROM Jzghd j WHERE j.research = :research"),
-    @NamedQuery(name = "Jzghd.findByEntertainPeople", query = "SELECT j FROM Jzghd j WHERE j.entertainPeople = :entertainPeople"),
-    @NamedQuery(name = "Jzghd.findBySort3", query = "SELECT j FROM Jzghd j WHERE j.sort3 = :sort3"),
-    @NamedQuery(name = "Jzghd.findByProduct", query = "SELECT j FROM Jzghd j WHERE j.product = :product"),
-    @NamedQuery(name = "Jzghd.findBySort2", query = "SELECT j FROM Jzghd j WHERE j.sort2 = :sort2"),
-    @NamedQuery(name = "Jzghd.findByServiceno", query = "SELECT j FROM Jzghd j WHERE j.serviceno = :serviceno"),
-    @NamedQuery(name = "Jzghd.findByAppUser", query = "SELECT j FROM Jzghd j WHERE j.appUser = :appUser"),
-    @NamedQuery(name = "Jzghd.findByDays", query = "SELECT j FROM Jzghd j WHERE j.days = :days"),
-    @NamedQuery(name = "Jzghd.findByAccommodation", query = "SELECT j FROM Jzghd j WHERE j.accommodation = :accommodation"),
-    @NamedQuery(name = "Jzghd.findBySort1", query = "SELECT j FROM Jzghd j WHERE j.sort1 = :sort1"),
-    @NamedQuery(name = "Jzghd.findByBudgetAccname", query = "SELECT j FROM Jzghd j WHERE j.budgetAccname = :budgetAccname"),
-    @NamedQuery(name = "Jzghd.findByTaxes", query = "SELECT j FROM Jzghd j WHERE j.taxes = :taxes"),
-    @NamedQuery(name = "Jzghd.findByFormSerialNumber", query = "SELECT j FROM Jzghd j WHERE j.formSerialNumber = :formSerialNumber")})
-public class Jzghd implements Serializable {
+    @NamedQuery(name = "HZCW033.findAll", query = "SELECT j FROM HZCW033 j"),
+    @NamedQuery(name = "HZCW033.findBySummary", query = "SELECT j FROM HZCW033 j WHERE j.summary = :summary"),
+    @NamedQuery(name = "HZCW033.findByAppDept", query = "SELECT j FROM HZCW033 j WHERE j.appDept = :appDept"),
+    @NamedQuery(name = "HZCW033.findByCenterid", query = "SELECT j FROM HZCW033 j WHERE j.centerid = :centerid"),
+    @NamedQuery(name = "HZCW033.findByAllowance", query = "SELECT j FROM HZCW033 j WHERE j.allowance = :allowance"),
+    @NamedQuery(name = "HZCW033.findByRemark", query = "SELECT j FROM HZCW033 j WHERE j.remark = :remark"),
+    @NamedQuery(name = "HZCW033.findByTrafficSummary", query = "SELECT j FROM HZCW033 j WHERE j.trafficSummary = :trafficSummary"),
+    @NamedQuery(name = "HZCW033.findByBh3", query = "SELECT j FROM HZCW033 j WHERE j.bh3 = :bh3"),
+    @NamedQuery(name = "HZCW033.findByBh2", query = "SELECT j FROM HZCW033 j WHERE j.bh2 = :bh2"),
+    @NamedQuery(name = "HZCW033.findByReceipt", query = "SELECT j FROM HZCW033 j WHERE j.receipt = :receipt"),
+    @NamedQuery(name = "HZCW033.findByLoanNo", query = "SELECT j FROM HZCW033 j WHERE j.loanNo = :loanNo"),
+    @NamedQuery(name = "HZCW033.findByCarUse", query = "SELECT j FROM HZCW033 j WHERE j.carUse = :carUse"),
+    @NamedQuery(name = "HZCW033.findByStartMileage", query = "SELECT j FROM HZCW033 j WHERE j.startMileage = :startMileage"),
+    @NamedQuery(name = "HZCW033.findByBh1", query = "SELECT j FROM HZCW033 j WHERE j.bh1 = :bh1"),
+    @NamedQuery(name = "HZCW033.findByAmount", query = "SELECT j FROM HZCW033 j WHERE j.amount = :amount"),
+    @NamedQuery(name = "HZCW033.findByTravelReport", query = "SELECT j FROM HZCW033 j WHERE j.travelReport = :travelReport"),
+    @NamedQuery(name = "HZCW033.findByJc2", query = "SELECT j FROM HZCW033 j WHERE j.jc2 = :jc2"),
+    @NamedQuery(name = "HZCW033.findByJc1", query = "SELECT j FROM HZCW033 j WHERE j.jc1 = :jc1"),
+    @NamedQuery(name = "HZCW033.findByJc3", query = "SELECT j FROM HZCW033 j WHERE j.jc3 = :jc3"),
+    @NamedQuery(name = "HZCW033.findByTotalMileage", query = "SELECT j FROM HZCW033 j WHERE j.totalMileage = :totalMileage"),
+    @NamedQuery(name = "HZCW033.findByDeptYear", query = "SELECT j FROM HZCW033 j WHERE j.deptYear = :deptYear"),
+    @NamedQuery(name = "HZCW033.findBySubtotal", query = "SELECT j FROM HZCW033 j WHERE j.subtotal = :subtotal"),
+    @NamedQuery(name = "HZCW033.findByCost", query = "SELECT j FROM HZCW033 j WHERE j.cost = :cost"),
+    @NamedQuery(name = "HZCW033.findByEntertainObj", query = "SELECT j FROM HZCW033 j WHERE j.entertainObj = :entertainObj"),
+    @NamedQuery(name = "HZCW033.findByRatio", query = "SELECT j FROM HZCW033 j WHERE j.ratio = :ratio"),
+    @NamedQuery(name = "HZCW033.findByAccName", query = "SELECT j FROM HZCW033 j WHERE j.accName = :accName"),
+    @NamedQuery(name = "HZCW033.findByApplyAmount", query = "SELECT j FROM HZCW033 j WHERE j.applyAmount = :applyAmount"),
+    @NamedQuery(name = "HZCW033.findByOid", query = "SELECT j FROM HZCW033 j WHERE j.oid = :oid"),
+    @NamedQuery(name = "HZCW033.findByEndMileage", query = "SELECT j FROM HZCW033 j WHERE j.endMileage = :endMileage"),
+    @NamedQuery(name = "HZCW033.findByTaxi", query = "SELECT j FROM HZCW033 j WHERE j.taxi = :taxi"),
+    @NamedQuery(name = "HZCW033.findByLoanAmount", query = "SELECT j FROM HZCW033 j WHERE j.loanAmount = :loanAmount"),
+    @NamedQuery(name = "HZCW033.findByNotaxes", query = "SELECT j FROM HZCW033 j WHERE j.notaxes = :notaxes"),
+    @NamedQuery(name = "HZCW033.findByTotaltaxInclusiveRMB", query = "SELECT j FROM HZCW033 j WHERE j.totaltaxInclusiveRMB = :totaltaxInclusiveRMB"),
+    @NamedQuery(name = "HZCW033.findByTaxInclusive", query = "SELECT j FROM HZCW033 j WHERE j.taxInclusive = :taxInclusive"),
+    @NamedQuery(name = "HZCW033.findByAccno", query = "SELECT j FROM HZCW033 j WHERE j.accno = :accno"),
+    @NamedQuery(name = "HZCW033.findByEntertainReason", query = "SELECT j FROM HZCW033 j WHERE j.entertainReason = :entertainReason"),
+    @NamedQuery(name = "HZCW033.findByTotaltaxesRMB", query = "SELECT j FROM HZCW033 j WHERE j.totaltaxesRMB = :totaltaxesRMB"),
+    @NamedQuery(name = "HZCW033.findByFacno", query = "SELECT j FROM HZCW033 j WHERE j.facno = :facno"),
+    @NamedQuery(name = "HZCW033.findByTrafficfee", query = "SELECT j FROM HZCW033 j WHERE j.trafficfee = :trafficfee"),
+    @NamedQuery(name = "HZCW033.findByCreator", query = "SELECT j FROM HZCW033 j WHERE j.creator = :creator"),
+    @NamedQuery(name = "HZCW033.findByAccPeriod", query = "SELECT j FROM HZCW033 j WHERE j.accPeriod = :accPeriod"),
+    @NamedQuery(name = "HZCW033.findByCrmno", query = "SELECT j FROM HZCW033 j WHERE j.crmno = :crmno"),
+    @NamedQuery(name = "HZCW033.findByAccYear", query = "SELECT j FROM HZCW033 j WHERE j.accYear = :accYear"),
+    @NamedQuery(name = "HZCW033.findByRefund", query = "SELECT j FROM HZCW033 j WHERE j.refund = :refund"),
+    @NamedQuery(name = "HZCW033.findByCustomerSno", query = "SELECT j FROM HZCW033 j WHERE j.customerSno = :customerSno"),
+    @NamedQuery(name = "HZCW033.findByEntertainDate", query = "SELECT j FROM HZCW033 j WHERE j.entertainDate = :entertainDate"),
+    @NamedQuery(name = "HZCW033.findByTotaltaxInclusive", query = "SELECT j FROM HZCW033 j WHERE j.totaltaxInclusive = :totaltaxInclusive"),
+    @NamedQuery(name = "HZCW033.findByPSN", query = "SELECT j FROM HZCW033 j WHERE j.processSerialNumber = :psn"),
+    @NamedQuery(name = "HZCW033.findByTrafficPlace", query = "SELECT j FROM HZCW033 j WHERE j.trafficPlace = :trafficPlace"),
+    @NamedQuery(name = "HZCW033.findByAppDate", query = "SELECT j FROM HZCW033 j WHERE j.appDate = :appDate"),
+    @NamedQuery(name = "HZCW033.findByDeptPeriod", query = "SELECT j FROM HZCW033 j WHERE j.deptPeriod = :deptPeriod"),
+    @NamedQuery(name = "HZCW033.findByTrafficDate", query = "SELECT j FROM HZCW033 j WHERE j.trafficDate = :trafficDate"),
+    @NamedQuery(name = "HZCW033.findByLoanProp", query = "SELECT j FROM HZCW033 j WHERE j.loanProp = :loanProp"),
+    @NamedQuery(name = "HZCW033.findByBudgetDept", query = "SELECT j FROM HZCW033 j WHERE j.budgetDept = :budgetDept"),
+    @NamedQuery(name = "HZCW033.findByCoin", query = "SELECT j FROM HZCW033 j WHERE j.coin = :coin"),
+    @NamedQuery(name = "HZCW033.findByTotalnotaxesRMB", query = "SELECT j FROM HZCW033 j WHERE j.totalnotaxesRMB = :totalnotaxesRMB"),
+    @NamedQuery(name = "HZCW033.findByReimbursement", query = "SELECT j FROM HZCW033 j WHERE j.reimbursement = :reimbursement"),
+    @NamedQuery(name = "HZCW033.findByBudgetAcc", query = "SELECT j FROM HZCW033 j WHERE j.budgetAcc = :budgetAcc"),
+    @NamedQuery(name = "HZCW033.findByResearch", query = "SELECT j FROM HZCW033 j WHERE j.research = :research"),
+    @NamedQuery(name = "HZCW033.findByEntertainPeople", query = "SELECT j FROM HZCW033 j WHERE j.entertainPeople = :entertainPeople"),
+    @NamedQuery(name = "HZCW033.findBySort3", query = "SELECT j FROM HZCW033 j WHERE j.sort3 = :sort3"),
+    @NamedQuery(name = "HZCW033.findByProduct", query = "SELECT j FROM HZCW033 j WHERE j.product = :product"),
+    @NamedQuery(name = "HZCW033.findBySort2", query = "SELECT j FROM HZCW033 j WHERE j.sort2 = :sort2"),
+    @NamedQuery(name = "HZCW033.findByServiceno", query = "SELECT j FROM HZCW033 j WHERE j.serviceno = :serviceno"),
+    @NamedQuery(name = "HZCW033.findByAppUser", query = "SELECT j FROM HZCW033 j WHERE j.appUser = :appUser"),
+    @NamedQuery(name = "HZCW033.findByDays", query = "SELECT j FROM HZCW033 j WHERE j.days = :days"),
+    @NamedQuery(name = "HZCW033.findByAccommodation", query = "SELECT j FROM HZCW033 j WHERE j.accommodation = :accommodation"),
+    @NamedQuery(name = "HZCW033.findBySort1", query = "SELECT j FROM HZCW033 j WHERE j.sort1 = :sort1"),
+    @NamedQuery(name = "HZCW033.findByBudgetAccname", query = "SELECT j FROM HZCW033 j WHERE j.budgetAccname = :budgetAccname"),
+    @NamedQuery(name = "HZCW033.findByTaxes", query = "SELECT j FROM HZCW033 j WHERE j.taxes = :taxes"),
+    @NamedQuery(name = "HZCW033.findByFormSerialNumber", query = "SELECT j FROM HZCW033 j WHERE j.formSerialNumber = :formSerialNumber")})
+public class HZCW033 implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Size(max = 255)
@@ -295,10 +295,10 @@ public class Jzghd implements Serializable {
     @Column(name = "formSerialNumber")
     private String formSerialNumber;
 
-    public Jzghd() {
+    public HZCW033() {
     }
 
-    public Jzghd(String oid) {
+    public HZCW033(String oid) {
         this.oid = oid;
     }
 
@@ -881,10 +881,10 @@ public class Jzghd implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Jzghd)) {
+        if (!(object instanceof HZCW033)) {
             return false;
         }
-        Jzghd other = (Jzghd) object;
+        HZCW033 other = (HZCW033) object;
         if ((this.oid == null && other.oid != null) || (this.oid != null && !this.oid.equals(other.oid))) {
             return false;
         }
@@ -893,7 +893,7 @@ public class Jzghd implements Serializable {
 
     @Override
     public String toString() {
-        return "cn.hanbell.oa.entity.Jzghd[ oid=" + oid + " ]";
+        return "cn.hanbell.oa.entity.HZCW033[ oid=" + oid + " ]";
     }
 
     public Object setApplyAmount() {

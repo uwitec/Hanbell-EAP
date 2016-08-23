@@ -6,7 +6,7 @@
 package cn.hanbell.oa.ejb;
 
 import cn.hanbell.oa.comm.SuperEJBForEFGP;
-import cn.hanbell.oa.entity.Jzghd;
+import cn.hanbell.oa.entity.HZCW017;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 
@@ -16,10 +16,10 @@ import javax.ejb.LocalBean;
  */
 @Stateless
 @LocalBean
-public class JzghdBean extends SuperEJBForEFGP<Jzghd>{
+public class HZCW017Bean extends SuperEJBForEFGP<HZCW017>{
 
-    public JzghdBean(){
-        super(Jzghd.class);
+    public HZCW017Bean(){
+        super(HZCW017.class);
     }
     
 }
