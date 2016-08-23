@@ -18,7 +18,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.annotation.Resource;
 import javax.ejb.DependsOn;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
@@ -34,10 +33,6 @@ import org.apache.axis.client.Call;
 @LocalBean
 @DependsOn({"UsersBean", "FunctionsBean"})
 public class WorkFlowBean extends SuperEJBForEFGP<FormInstance> implements Serializable {
-    
-    @Resource(name="java:comp/EFGP_WebService")
-    private String EFGP;
-    
 
     public WorkFlowBean() {
         super(FormInstance.class);
@@ -177,13 +172,6 @@ public class WorkFlowBean extends SuperEJBForEFGP<FormInstance> implements Seria
             userFunction = null;
         }
 
-    }
-
-    /**
-     * @return the EFGP
-     */
-    public String getEFGP() {
-        return EFGP;
     }
 
 }

@@ -46,19 +46,19 @@
     </properties>
   </persistence-unit>
   <persistence-unit name="PU_hansonerp" transaction-type="JTA">
-    <jta-data-source>jdbc/shberp</jta-data-source>
+    <jta-data-source>jdbc/hansonerp</jta-data-source>
     <properties>
       <property name="eclipselink.canonicalmodel.subpackage" value="hanson"/>
     </properties>
   </persistence-unit>
   <persistence-unit name="PU_comererp" transaction-type="JTA">
-    <jta-data-source>jdbc/shberp</jta-data-source>
+    <jta-data-source>jdbc/comererp</jta-data-source>
     <properties>
       <property name="eclipselink.canonicalmodel.subpackage" value="comer"/>
     </properties>
   </persistence-unit>
   <persistence-unit name="PU_qtcerp" transaction-type="JTA">
-    <jta-data-source>jdbc/shberp</jta-data-source>
+    <jta-data-source>jdbc/qtcerp</jta-data-source>
     <properties>
       <property name="eclipselink.canonicalmodel.subpackage" value="qtc"/>
     </properties>

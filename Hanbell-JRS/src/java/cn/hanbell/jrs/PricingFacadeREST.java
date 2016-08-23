@@ -16,6 +16,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.ws.rs.Consumes;
@@ -35,15 +36,15 @@ import javax.ws.rs.core.Response;
  *
  * @author C0160
  */
-@Stateless
 @Path("shberp.pricing")
+@javax.enterprise.context.RequestScoped
 public class PricingFacadeREST extends AbstractFacade<Pricing> {
-
-    @EJB
-    private PricingBean pricingBean;
 
     @PersistenceContext(unitName = "RESTPU_shberp")
     private EntityManager em;
+
+    @Inject
+    private PricingBean pricingBean;
 
     private PricingPK getPrimaryKey(PathSegment pathSegment) {
         /*

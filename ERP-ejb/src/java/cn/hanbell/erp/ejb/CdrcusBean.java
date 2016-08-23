@@ -30,6 +30,7 @@ import java.util.Objects;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
+import javax.inject.Named;
 import javax.persistence.Query;
 
 /**
@@ -38,6 +39,7 @@ import javax.persistence.Query;
  */
 @Stateless
 @LocalBean
+@Named
 public class CdrcusBean extends SuperEJBForERP<Cdrcus> {
 
     @EJB
@@ -261,7 +263,7 @@ public class CdrcusBean extends SuperEJBForERP<Cdrcus> {
         crmgg.setGg010(cdrcus.getCuycode());
         crmgg.setGg011(cdrcus.getCuskind());
 
-        crmgg.setGg017(BaseLib.formatDate("yyyy-MM-dd", cdrcus.getBegdate()));
+        crmgg.setGg017(BaseLib.formatDate("yyyyMMdd", cdrcus.getBegdate()));
         crmgg.setGg018(cdrcus.getBoss());
         crmgg.setGg024(cdrcus.getTel1());
         crmgg.setGg027(cdrcus.getFax());
@@ -275,7 +277,9 @@ public class CdrcusBean extends SuperEJBForERP<Cdrcus> {
         //ERP与CRM定义不同
         switch (cdrcus.getTax()) {
             //外加税
-            //case '1':
+            case '1':
+                crmgg.setGg098('2');
+                crmgg.setGg109("S01");
             //零税
             case '2':
                 crmgg.setGg098('3');
@@ -316,6 +320,7 @@ public class CdrcusBean extends SuperEJBForERP<Cdrcus> {
             getEntityManager().flush();
 
             beanCRMGG.update(crmgg);
+            beanCRMGG.getEntityManager().flush();
 
             beanHKYX006.getEntityManager().detach(oa);
             oa.setPz(newcusno);
@@ -543,7 +548,7 @@ public class CdrcusBean extends SuperEJBForERP<Cdrcus> {
             detailAdded.clear();
         }
     }
-    
+
     //更新应收账款立账表中的负责业务
     public int updateSalesManInArmhad(String cusno, String origValue, String newValue) {
         Query query = getEntityManager().createNativeQuery("update armhad set mancode = ?1 where mancode = ?2 and cusno = ?3 and (booamt - recamt > 0)");

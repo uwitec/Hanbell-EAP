@@ -9,6 +9,7 @@ import cn.hanbell.erp.comm.SuperEJBForERP;
 import cn.hanbell.erp.entity.Cdrscus;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
+import javax.inject.Named;
 
 /**
  *

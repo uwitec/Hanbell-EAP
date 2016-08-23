@@ -10,6 +10,9 @@ import cn.hanbell.erp.entity.Invbal;
 
 import java.util.List;
 import java.util.Map;
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
+import javax.inject.Named;
 
 import javax.persistence.Query;
 
@@ -17,7 +20,10 @@ import javax.persistence.Query;
  *
  * @author C0160
  */
-public abstract class InvbalBean extends SuperEJBForERP<Invbal> {
+@Stateless
+@LocalBean
+@Named
+public class InvbalBean extends SuperEJBForERP<Invbal> {
 
     public InvbalBean() {
         super(Invbal.class);
