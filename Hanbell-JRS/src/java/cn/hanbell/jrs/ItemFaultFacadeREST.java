@@ -5,10 +5,12 @@
  */
 package cn.hanbell.jrs;
 
+import cn.hanbell.erp.ejb.ItemFaultBean;
 import cn.hanbell.erp.entity.ItemFault;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -27,11 +29,15 @@ import javax.ws.rs.core.Response;
  *
  * @author C0160
  */
-@Stateless
 @Path("shberp.itemfault")
+@javax.enterprise.context.RequestScoped
 public class ItemFaultFacadeREST extends AbstractFacade<ItemFault> {
+
     @PersistenceContext(unitName = "RESTPU_shberp")
     private EntityManager em;
+
+    @Inject
+    private ItemFaultBean itemFaultBean;
 
     public ItemFaultFacadeREST() {
         super(ItemFault.class);
@@ -68,18 +74,7 @@ public class ItemFaultFacadeREST extends AbstractFacade<ItemFault> {
     @Override
     @Produces({"application/json"})
     public List<ItemFault> findAll() {
-        Query query = em.createNativeQuery("SELECT distinct mc_bigtype_itnbr,mc_bigtype_name FROM fw_mc_bigtype WHERE offer_code='RCSWX' ");
-        List result = query.getResultList();
-        List<ItemFault> dataList = new ArrayList<>();
-        if (result != null && !result.isEmpty()) {
-            ItemFault newEntity;
-            for (int i = 0; i < result.size(); i++) {
-                Object[] row = (Object[]) result.get(i);
-                newEntity = new ItemFault(row[0].toString(), row[1].toString());
-                dataList.add(newEntity);
-            }
-        }
-        return dataList;
+        return itemFaultBean.findAll();
     }
 
     @GET
@@ -93,5 +88,5 @@ public class ItemFaultFacadeREST extends AbstractFacade<ItemFault> {
     protected EntityManager getEntityManager() {
         return em;
     }
-    
+
 }

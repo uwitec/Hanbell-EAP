@@ -5,12 +5,11 @@
  */
 package cn.hanbell.jrs;
 
+import cn.hanbell.erp.ejb.PricingPolicyBean;
 import cn.hanbell.erp.entity.PricingPolicy;
-import java.util.List;
-import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -26,11 +25,15 @@ import javax.ws.rs.core.Response;
  *
  * @author C0160
  */
-@Stateless
 @Path("shberp.pricingpolicy")
+@javax.enterprise.context.RequestScoped
 public class PricingPolicyFacadeREST extends AbstractFacade<PricingPolicy> {
+
     @PersistenceContext(unitName = "RESTPU_shberp")
     private EntityManager em;
+
+    @Inject
+    private PricingPolicyBean pricingPolicyBean;
 
     public PricingPolicyFacadeREST() {
         super(PricingPolicy.class);
@@ -60,9 +63,7 @@ public class PricingPolicyFacadeREST extends AbstractFacade<PricingPolicy> {
     @Path("{id}")
     @Produces({"application/xml", "application/json"})
     public PricingPolicy find(@PathParam("id") String id) {
-        Query query = em.createNamedQuery("PricingPolicy.findByPricingId");
-        query.setParameter("pricingid", id);
-        return (PricingPolicy)query.getSingleResult();
+        return pricingPolicyBean.findById(id);
     }
 
     @GET
@@ -76,5 +77,5 @@ public class PricingPolicyFacadeREST extends AbstractFacade<PricingPolicy> {
     protected EntityManager getEntityManager() {
         return em;
     }
-    
+
 }

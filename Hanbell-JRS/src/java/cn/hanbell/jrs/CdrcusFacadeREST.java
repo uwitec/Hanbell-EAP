@@ -6,9 +6,12 @@
 package cn.hanbell.jrs;
 
 
+import cn.hanbell.erp.ejb.CdrcusBean;
 import cn.hanbell.erp.entity.Cdrcus;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -27,9 +30,12 @@ import javax.ws.rs.core.Response;
  *
  * @author C0160
  */
-@Stateless
 @Path("shberp.cdrcus")
+@javax.enterprise.context.RequestScoped
 public class CdrcusFacadeREST extends AbstractFacade<Cdrcus> {
+
+    @Inject
+    private CdrcusBean cdrcusBean;
 
     @PersistenceContext(unitName = "RESTPU_shberp")
     private EntityManager em;
@@ -100,6 +106,10 @@ public class CdrcusFacadeREST extends AbstractFacade<Cdrcus> {
     @Override
     protected EntityManager getEntityManager() {
         return em;
+    }
+
+    public void persist(Object object) {
+        em.persist(object);
     }
 
 }

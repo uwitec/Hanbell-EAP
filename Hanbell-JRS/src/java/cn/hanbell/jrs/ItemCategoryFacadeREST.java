@@ -5,10 +5,12 @@
  */
 package cn.hanbell.jrs;
 
+import cn.hanbell.erp.ejb.ItemCategoryBean;
 import cn.hanbell.erp.entity.ItemCategory;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -27,12 +29,15 @@ import javax.ws.rs.core.Response;
  *
  * @author C0160
  */
-@Stateless
 @Path("shberp.itemcategory")
+@javax.enterprise.context.RequestScoped
 public class ItemCategoryFacadeREST extends AbstractFacade<ItemCategory> {
 
     @PersistenceContext(unitName = "RESTPU_shberp")
     private EntityManager em;
+
+    @Inject
+    private ItemCategoryBean itemCategoryBean;
 
     public ItemCategoryFacadeREST() {
         super(ItemCategory.class);
@@ -69,21 +74,7 @@ public class ItemCategoryFacadeREST extends AbstractFacade<ItemCategory> {
     @Override
     @Produces({"application/json"})
     public List<ItemCategory> findAll() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("SELECT distinct mc_bigtype_itnbr,mc_bigtype_name FROM fw_mc_bigtype WHERE offer_code='RCSLJ' ");
-        sb.append(" ORDER BY  mc_bigtype_itnbr ");
-        Query query = em.createNativeQuery(sb.toString());
-        List result = query.getResultList();
-        List<ItemCategory> dataList = new ArrayList<>();
-        if (result != null && !result.isEmpty()) {
-            ItemCategory newEntity;
-            for (int i = 0; i < result.size(); i++) {
-                Object[] row = (Object[]) result.get(i);
-                newEntity = new ItemCategory(row[0].toString(), row[1].toString());
-                dataList.add(newEntity);
-            }
-        }
-        return dataList;
+        return itemCategoryBean.findAll();
     }
 
     @GET

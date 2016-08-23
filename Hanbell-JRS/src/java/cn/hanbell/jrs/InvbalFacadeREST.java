@@ -5,17 +5,14 @@
  */
 package cn.hanbell.jrs;
 
-import cn.hanbell.erp.ejb.InvbalBean_GZ;
-import cn.hanbell.erp.ejb.InvbalBean_JN;
-import cn.hanbell.erp.ejb.InvbalBean_NJ;
-import cn.hanbell.erp.ejb.InvbalBean_SHB;
+import cn.hanbell.erp.ejb.InvbalBean;
 import cn.hanbell.erp.entity.Invbal;
 import cn.hanbell.erp.entity.InvbalPK;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.ws.rs.Consumes;
@@ -35,21 +32,15 @@ import javax.ws.rs.core.Response;
  *
  * @author C0160
  */
-@Stateless
 @Path("shberp.invbal")
+@javax.enterprise.context.RequestScoped
 public class InvbalFacadeREST extends AbstractFacade<Invbal> {
 
     @PersistenceContext(unitName = "RESTPU_shberp")
     private EntityManager em;
 
-    @EJB
-    private InvbalBean_SHB invbalBean_SHB;
-    @EJB
-    private InvbalBean_GZ invbalBean_GZ;
-    @EJB
-    private InvbalBean_JN invbalBean_JN;
-    @EJB
-    private InvbalBean_NJ invbalBean_NJ;
+    @Inject
+    private InvbalBean invbalBean;
 
     private InvbalPK getPrimaryKey(PathSegment pathSegment) {
         /*
@@ -108,7 +99,7 @@ public class InvbalFacadeREST extends AbstractFacade<Invbal> {
     @Path("{itnbr}")
     @Produces({"application/json"})
     public List<Invbal> findByItnbrAndFilter(@PathParam("itnbr") PathSegment query) {
-        String key,value;
+        String key, value;
         List<Invbal> entityList;
         String facno = "";
         MultivaluedMap<String, String> mv = query.getMatrixParameters();
@@ -121,77 +112,32 @@ public class InvbalFacadeREST extends AbstractFacade<Invbal> {
                 facno = value;
             }
         }
-        switch (facno) {
-            case "C":
-                entityList = invbalBean_SHB.findByItnbrAndFilters(query.getPath() + "%", filters, true);
-                break;
-            case "G":
-                entityList = invbalBean_GZ.findByItnbrAndFilters(query.getPath() + "%", filters, true);
-                break;
-            case "J":
-                entityList = invbalBean_JN.findByItnbrAndFilters(query.getPath() + "%", filters, true);
-                break;
-            case "N":
-                entityList = invbalBean_NJ.findByItnbrAndFilters(query.getPath() + "%", filters, true);
-                break;
-            default:
-                entityList = invbalBean_SHB.findByItnbrAndFilters(query.getPath() + "%", filters, true);
-        }
-        return entityList;
-
+        invbalBean.setCompany(facno);
+        return invbalBean.findByItnbrAndFilters(query.getPath() + "%", filters, true);
     }
 
     @GET
     @Path("{itnbr}/{fuzzy}")
     @Produces({"application/json"})
     public List<Invbal> findByItnbrAndFilterFuzzy(@PathParam("itnbr") PathSegment query, @PathParam("fuzzy") Boolean fuzzy) {
-
+        String key, value;
         List<Invbal> entityList;
         String facno = "";
         MultivaluedMap<String, String> mv = query.getMatrixParameters();
         Map<String, Object> filters = new HashMap<>();
         for (Map.Entry<String, List<String>> entrySet : mv.entrySet()) {
-            String key = entrySet.getKey();
-            String value = entrySet.getValue().get(0);
+            key = entrySet.getKey();
+            value = entrySet.getValue().get(0);
             filters.put(key, value);
             if (key.equals("facno")) {
                 facno = value;
             }
         }
+        invbalBean.setCompany(facno);
         if (fuzzy) {
-            switch (facno) {
-                case "C":
-                    entityList = invbalBean_SHB.findByItnbrAndFilters(query.getPath() + "%", filters, true);
-                    break;
-                case "G":
-                    entityList = invbalBean_GZ.findByItnbrAndFilters(query.getPath() + "%", filters, true);
-                    break;
-                case "J":
-                    entityList = invbalBean_JN.findByItnbrAndFilters(query.getPath() + "%", filters, true);
-                    break;
-                case "N":
-                    entityList = invbalBean_NJ.findByItnbrAndFilters(query.getPath() + "%", filters, true);
-                    break;
-                default:
-                    entityList = invbalBean_SHB.findByItnbrAndFilters(query.getPath() + "%", filters, true);
-            }
+            entityList = invbalBean.findByItnbrAndFilters(query.getPath() + "%", filters, true);
         } else {
-            switch (facno) {
-                case "C":
-                    entityList = invbalBean_SHB.findByItnbrAndFilters(query.getPath(), filters, false);
-                    break;
-                case "G":
-                    entityList = invbalBean_GZ.findByItnbrAndFilters(query.getPath(), filters, false);
-                    break;
-                case "J":
-                    entityList = invbalBean_JN.findByItnbrAndFilters(query.getPath(), filters, false);
-                    break;
-                case "N":
-                    entityList = invbalBean_NJ.findByItnbrAndFilters(query.getPath(), filters, false);
-                    break;
-                default:
-                    entityList = invbalBean_SHB.findByItnbrAndFilters(query.getPath(), filters, false);
-            }
+            entityList = invbalBean.findByItnbrAndFilters(query.getPath(), filters, false);
         }
         return entityList;
 
