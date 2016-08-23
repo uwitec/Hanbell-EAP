@@ -81,8 +81,6 @@ public class TimerBean {
         String formInstance, formXml, status;
         LinkedHashMap<String, List<?>> details = new LinkedHashMap<>();
 
-        String p = workFlowBean.getEFGP();
-        System.out.println(p);
         HelloNaNa master = new HelloNaNa("C0160", "C0583", "13120", "这是一个对象转换测试", "13000");
         List<BudgetDetail> budgetDetail = new ArrayList<>();
         budgetDetail.add(new BudgetDetail("1", "summary", "1601", "固定资产", "1000", "100"));
