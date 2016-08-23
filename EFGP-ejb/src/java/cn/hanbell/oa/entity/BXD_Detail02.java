@@ -25,34 +25,38 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "BXD_Detail02")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "BXDDetail02.findAll", query = "SELECT b FROM BXDDetail02 b"),
-    @NamedQuery(name = "BXDDetail02.findByOid", query = "SELECT b FROM BXDDetail02 b WHERE b.oid = :oid"),
-    @NamedQuery(name = "BXDDetail02.findByBmpc02c", query = "SELECT b FROM BXDDetail02 b WHERE b.bmpc02c = :bmpc02c"),
-    @NamedQuery(name = "BXDDetail02.findByNo", query = "SELECT b FROM BXDDetail02 b WHERE b.no = :no"),
-    @NamedQuery(name = "BXDDetail02.findByBmpc10c", query = "SELECT b FROM BXDDetail02 b WHERE b.bmpc10c = :bmpc10c"),
-    @NamedQuery(name = "BXDDetail02.findByBmpc00c", query = "SELECT b FROM BXDDetail02 b WHERE b.bmpc00c = :bmpc00c"),
-    @NamedQuery(name = "BXDDetail02.findByBmpc04c", query = "SELECT b FROM BXDDetail02 b WHERE b.bmpc04c = :bmpc04c"),
-    @NamedQuery(name = "BXDDetail02.findByBmpc20c", query = "SELECT b FROM BXDDetail02 b WHERE b.bmpc20c = :bmpc20c"),
-    @NamedQuery(name = "BXDDetail02.findByBmpc18c", query = "SELECT b FROM BXDDetail02 b WHERE b.bmpc18c = :bmpc18c"),
-    @NamedQuery(name = "BXDDetail02.findByBmpc22c", query = "SELECT b FROM BXDDetail02 b WHERE b.bmpc22c = :bmpc22c"),
-    @NamedQuery(name = "BXDDetail02.findByBmpc06f", query = "SELECT b FROM BXDDetail02 b WHERE b.bmpc06f = :bmpc06f"),
-    @NamedQuery(name = "BXDDetail02.findByBmpc09f", query = "SELECT b FROM BXDDetail02 b WHERE b.bmpc09f = :bmpc09f"),
-    @NamedQuery(name = "BXDDetail02.findByBmpc08f", query = "SELECT b FROM BXDDetail02 b WHERE b.bmpc08f = :bmpc08f"),
-    @NamedQuery(name = "BXDDetail02.findByBmpc15c", query = "SELECT b FROM BXDDetail02 b WHERE b.bmpc15c = :bmpc15c"),
-    @NamedQuery(name = "BXDDetail02.findByBmpc11c", query = "SELECT b FROM BXDDetail02 b WHERE b.bmpc11c = :bmpc11c"),
-    @NamedQuery(name = "BXDDetail02.findByBmpc13c", query = "SELECT b FROM BXDDetail02 b WHERE b.bmpc13c = :bmpc13c"),
-    @NamedQuery(name = "BXDDetail02.findByBmpc01c", query = "SELECT b FROM BXDDetail02 b WHERE b.bmpc01c = :bmpc01c"),
-    @NamedQuery(name = "BXDDetail02.findByBmpc19c", query = "SELECT b FROM BXDDetail02 b WHERE b.bmpc19c = :bmpc19c"),
-    @NamedQuery(name = "BXDDetail02.findByBmpc03c", query = "SELECT b FROM BXDDetail02 b WHERE b.bmpc03c = :bmpc03c"),
-    @NamedQuery(name = "BXDDetail02.findByBmpc21c", query = "SELECT b FROM BXDDetail02 b WHERE b.bmpc21c = :bmpc21c"),
-    @NamedQuery(name = "BXDDetail02.findByBmpc17c", query = "SELECT b FROM BXDDetail02 b WHERE b.bmpc17c = :bmpc17c"),
-    @NamedQuery(name = "BXDDetail02.findByBmpc05f", query = "SELECT b FROM BXDDetail02 b WHERE b.bmpc05f = :bmpc05f"),
-    @NamedQuery(name = "BXDDetail02.findByBmpc16c", query = "SELECT b FROM BXDDetail02 b WHERE b.bmpc16c = :bmpc16c"),
-    @NamedQuery(name = "BXDDetail02.findByBmpc07f", query = "SELECT b FROM BXDDetail02 b WHERE b.bmpc07f = :bmpc07f"),
-    @NamedQuery(name = "BXDDetail02.findByBmpc14c", query = "SELECT b FROM BXDDetail02 b WHERE b.bmpc14c = :bmpc14c"),
-    @NamedQuery(name = "BXDDetail02.findByFormSerialNumber", query = "SELECT b FROM BXDDetail02 b WHERE b.formSerialNumber = :formSerialNumber"),
-    @NamedQuery(name = "BXDDetail02.findByBmpc12c", query = "SELECT b FROM BXDDetail02 b WHERE b.bmpc12c = :bmpc12c")})
-public class BXDDetail02 implements Serializable {
+    @NamedQuery(name = "BXD_Detail02.findAll", query = "SELECT b FROM BXD_Detail02 b"),
+    @NamedQuery(name = "BXD_Detail02.findByOid", query = "SELECT b FROM BXD_Detail02 b WHERE b.oid = :oid"),
+    @NamedQuery(name = "BXD_Detail02.findByBmpc02c", query = "SELECT b FROM BXD_Detail02 b WHERE b.bmpc02c = :bmpc02c"),
+    @NamedQuery(name = "BXD_Detail02.findByNo", query = "SELECT b FROM BXD_Detail02 b WHERE b.no = :no"),
+    @NamedQuery(name = "BXD_Detail02.findByBmpc10c", query = "SELECT b FROM BXD_Detail02 b WHERE b.bmpc10c = :bmpc10c"),
+    @NamedQuery(name = "BXD_Detail02.findByBmpc00c", query = "SELECT b FROM BXD_Detail02 b WHERE b.bmpc00c = :bmpc00c"),
+    @NamedQuery(name = "BXD_Detail02.findByBmpc04c", query = "SELECT b FROM BXD_Detail02 b WHERE b.bmpc04c = :bmpc04c"),
+    @NamedQuery(name = "BXD_Detail02.findByBmpc20c", query = "SELECT b FROM BXD_Detail02 b WHERE b.bmpc20c = :bmpc20c"),
+    @NamedQuery(name = "BXD_Detail02.findByBmpc18c", query = "SELECT b FROM BXD_Detail02 b WHERE b.bmpc18c = :bmpc18c"),
+    @NamedQuery(name = "BXD_Detail02.findByBmpc22c", query = "SELECT b FROM BXD_Detail02 b WHERE b.bmpc22c = :bmpc22c"),
+    @NamedQuery(name = "BXD_Detail02.findByBmpc06f", query = "SELECT b FROM BXD_Detail02 b WHERE b.bmpc06f = :bmpc06f"),
+    @NamedQuery(name = "BXD_Detail02.findByBmpc09f", query = "SELECT b FROM BXD_Detail02 b WHERE b.bmpc09f = :bmpc09f"),
+    @NamedQuery(name = "BXD_Detail02.findByBmpc08f", query = "SELECT b FROM BXD_Detail02 b WHERE b.bmpc08f = :bmpc08f"),
+    @NamedQuery(name = "BXD_Detail02.findByBmpc15c", query = "SELECT b FROM BXD_Detail02 b WHERE b.bmpc15c = :bmpc15c"),
+    @NamedQuery(name = "BXD_Detail02.findByBmpc11c", query = "SELECT b FROM BXD_Detail02 b WHERE b.bmpc11c = :bmpc11c"),
+    @NamedQuery(name = "BXD_Detail02.findByBmpc13c", query = "SELECT b FROM BXD_Detail02 b WHERE b.bmpc13c = :bmpc13c"),
+    @NamedQuery(name = "BXD_Detail02.findByBmpc01c", query = "SELECT b FROM BXD_Detail02 b WHERE b.bmpc01c = :bmpc01c"),
+    @NamedQuery(name = "BXD_Detail02.findByBmpc19c", query = "SELECT b FROM BXD_Detail02 b WHERE b.bmpc19c = :bmpc19c"),
+    @NamedQuery(name = "BXD_Detail02.findByBmpc03c", query = "SELECT b FROM BXD_Detail02 b WHERE b.bmpc03c = :bmpc03c"),
+    @NamedQuery(name = "BXD_Detail02.findByBmpc21c", query = "SELECT b FROM BXD_Detail02 b WHERE b.bmpc21c = :bmpc21c"),
+    @NamedQuery(name = "BXD_Detail02.findByBmpc17c", query = "SELECT b FROM BXD_Detail02 b WHERE b.bmpc17c = :bmpc17c"),
+    @NamedQuery(name = "BXD_Detail02.findByBmpc05f", query = "SELECT b FROM BXD_Detail02 b WHERE b.bmpc05f = :bmpc05f"),
+    @NamedQuery(name = "BXD_Detail02.findByBmpc16c", query = "SELECT b FROM BXD_Detail02 b WHERE b.bmpc16c = :bmpc16c"),
+    @NamedQuery(name = "BXD_Detail02.findByBmpc07f", query = "SELECT b FROM BXD_Detail02 b WHERE b.bmpc07f = :bmpc07f"),
+    @NamedQuery(name = "BXD_Detail02.findByBmpc14c", query = "SELECT b FROM BXD_Detail02 b WHERE b.bmpc14c = :bmpc14c"),
+    @NamedQuery(name = "BXD_Detail02.findByFormSerialNumber", query = "SELECT b FROM BXD_Detail02 b WHERE b.formSerialNumber = :formSerialNumber"),
+    @NamedQuery(name = "BXD_Detail02.findByBmpc12c", query = "SELECT b FROM BXD_Detail02 b WHERE b.bmpc12c = :bmpc12c")})
+public class BXD_Detail02 implements Serializable {
+
+    @Size(max = 255)
+    @Column(name = "bmpc00c_txt")
+    private String bmpc00cTxt;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -137,10 +141,10 @@ public class BXDDetail02 implements Serializable {
     @Column(name = "bmpc12c")
     private String bmpc12c;
 
-    public BXDDetail02() {
+    public BXD_Detail02() {
     }
 
-    public BXDDetail02(String oid) {
+    public BXD_Detail02(String oid) {
         this.oid = oid;
     }
 
@@ -362,10 +366,10 @@ public class BXDDetail02 implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof BXDDetail02)) {
+        if (!(object instanceof BXD_Detail02)) {
             return false;
         }
-        BXDDetail02 other = (BXDDetail02) object;
+        BXD_Detail02 other = (BXD_Detail02) object;
         if ((this.oid == null && other.oid != null) || (this.oid != null && !this.oid.equals(other.oid))) {
             return false;
         }
@@ -374,7 +378,15 @@ public class BXDDetail02 implements Serializable {
 
     @Override
     public String toString() {
-        return "cn.hanbell.oa.entity.BXDDetail02[ oid=" + oid + " ]";
+        return "cn.hanbell.oa.entity.BXD_Detail02[ oid=" + oid + " ]";
+    }
+
+    public String getBmpc00cTxt() {
+        return bmpc00cTxt;
+    }
+
+    public void setBmpc00cTxt(String bmpc00cTxt) {
+        this.bmpc00cTxt = bmpc00cTxt;
     }
     
 }

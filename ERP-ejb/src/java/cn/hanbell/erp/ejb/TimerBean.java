@@ -93,11 +93,20 @@ public class TimerBean {
         formXml = workFlowBean.buildXmlForEFGP("HelloNaNa", master, details);
 
         //System.out.println("formXml:" + formXml);
+<<<<<<< HEAD
+        workFlowBean.initUserInfo("C0160");
+        //formInstance = workFlowBean.replaceVariables(formXml);
+        //formInstance =  formInstance.replace("</HelloNaNa>","<trafficDetail id=\"trafficDetail\"><records><record id=\"trafficDetail_0\"><item id=\"seq\" dataType=\"java.lang.String\" perDataProId=\"\">1</item>             <item id=\"content\" dataType=\"java.lang.String\" perDataProId=\"\">出差市区</item>             <item id=\"trafficamts\" dataType=\"java.lang.String\" perDataProId=\"\">12</item>             <item id=\"chargeamts\" dataType=\"java.lang.String\" perDataProId=\"\">25</item>             <item id=\"otheramts\" dataType=\"java.lang.String\" perDataProId=\"\">12</item>          </record>        </records>      </trafficDetail>    </HelloNaNa> ");
+        try {
+            status = workFlowBean.invokeProcess("http://192.168.1.73", "8086", "PKG14600928645341", formXml, "Invoke Process FROM ERP");
+            System.out.println("processResult:" + status);
+=======
         //formInstance = formXml.replace("</HelloNaNa>", "<trafficDetail id=\"trafficDetail\"><records><record id=\"trafficDetail_0\"><item id=\"seq\" dataType=\"java.lang.String\" perDataProId=\"\">1</item>             <item id=\"content\" dataType=\"java.lang.String\" perDataProId=\"\">出差市区</item>             <item id=\"trafficamts\" dataType=\"java.lang.String\" perDataProId=\"\">12</item>             <item id=\"chargeamts\" dataType=\"java.lang.String\" perDataProId=\"\">25</item>             <item id=\"otheramts\" dataType=\"java.lang.String\" perDataProId=\"\">12</item>          </record>        </records>      </trafficDetail>    </HelloNaNa> ");
         try {
             workFlowBean.initUserInfo("C0160");
             //status = workFlowBean.invokeProcess("http://192.168.1.73", "8086", "PKG14600928645341", formInstance, "Invoke Process From ERP");
             //System.out.println("processResult:" + status);
+>>>>>>> refs/remotes/origin/master
         } catch (Exception ex) {
             Logger.getLogger(TimerBean.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -6,7 +6,9 @@
 package cn.hanbell.jws;
 
 import cn.hanbell.erp.ejb.ApmpayBean;
+import cn.hanbell.erp.ejb.BudgetDetailBean;
 import cn.hanbell.erp.ejb.CdrcusBean;
+import cn.hanbell.erp.ejb.InvmasBean;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -30,6 +32,10 @@ public class SHBERPWebService {
 
     @EJB
     private CdrcusBean cdrcusBean;
+    @EJB
+    private InvmasBean invmasBean;
+    @EJB
+    private BudgetDetailBean budgetDetailBean;
 
     @WebMethod(operationName = "hello")
     public String hello(@WebParam(name = "name") String txt) {
@@ -38,7 +44,7 @@ public class SHBERPWebService {
 
     @WebMethod(operationName = "createCustomerByOAPSN")
     public String createCustomerByOAPSN(@WebParam(name = "psn") String psn) {
-        
+
         Boolean ret = false;
         try {
             ret = cdrcusBean.initByOAPSN(psn);
@@ -52,11 +58,11 @@ public class SHBERPWebService {
         }
     }
 
-    @WebMethod(operationName = "createAPM525ByOAPSN")
-    public String createAPM525ByOAPSN(@WebParam(name = "psn") String psn) {
+    @WebMethod(operationName = "createAPM525ByOABXD")
+    public String createAPM525ByOABXD(@WebParam(name = "psn") String psn) {
         Boolean ret = false;
         try {
-            ret = apmpayBean.initByOAPSN(psn);
+            ret = apmpayBean.initByOABXD(psn);
         } catch (Exception ex) {
             Logger.getLogger(SHBERPWebService.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -67,4 +73,96 @@ public class SHBERPWebService {
         }
     }
 
-}
+    @WebMethod(operationName = "createAPM525ByOAJZD")
+    public String createAPM525ByOAJZD(@WebParam(name = "psn") String psn) {
+        Boolean ret = false;
+        try {
+            ret = apmpayBean.initByOAJZD(psn);
+        } catch (Exception ex) {
+            Logger.getLogger(SHBERPWebService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (ret) {
+            return "200";
+        } else {
+            return "404";
+        }
+    }
+
+    @WebMethod(operationName = "createAPM525ByOAJZGHD")
+    public String createAPM525ByOAJZGHD(@WebParam(name = "psn") String psn) {
+        Boolean ret = false;
+        try {
+            ret = apmpayBean.initByOAJZGHD(psn);
+        } catch (Exception ex) {
+            Logger.getLogger(SHBERPWebService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (ret) {
+            return "200";
+        } else {
+            return "404";
+        }
+    }
+
+    @WebMethod(operationName = "createINV140ByOAJHSQD")
+    public String createINV140ByOAJHSQD(@WebParam(name = "psn") String psn) {
+        Boolean ret = false;
+        try {
+            ret = invmasBean.initByOAJHSQD(psn);
+        } catch (Exception ex) {
+            Logger.getLogger(SHBERPWebService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (ret) {
+            return "200";
+        } else {
+            return "404";
+        }
+
+    }
+    
+        @WebMethod(operationName = "AddBudgetPlanByOABXD")
+        public String AddBudgetPlanByOABXD(@WebParam(name = "psn") String psn){
+        Boolean ret = false;
+            try {
+                ret = budgetDetailBean.AddByOABXD(psn);
+            } catch (Exception ex) {
+                Logger.getLogger(SHBERPWebService.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            if (ret) {
+                return "200";
+            } else {
+                return "404";
+            }
+        }
+        
+        
+        @WebMethod(operationName = "AddBudgetPlanByOAJZD")
+        public String AddBudgetPlanByOAJZD(@WebParam(name = "psn") String psn){
+        Boolean ret = false;
+            try {
+                ret = budgetDetailBean.AddByOAJZD(psn);
+            } catch (Exception ex) {
+                Logger.getLogger(SHBERPWebService.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            if (ret) {
+                return "200";
+            } else {
+                return "404";
+            }
+        }
+
+        @WebMethod(operationName = "AddBudgetPlanByOAJZGHD")
+        public String AddBudgetPlanByOAJZGHD(@WebParam(name = "psn") String psn){
+        Boolean ret = false;
+            try {
+                ret = budgetDetailBean.AddByOAJZGHD(psn);
+            } catch (Exception ex) {
+                Logger.getLogger(SHBERPWebService.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            if (ret) {
+                return "200";
+            } else {
+                return "404";
+            }
+        }
+        
+    }
