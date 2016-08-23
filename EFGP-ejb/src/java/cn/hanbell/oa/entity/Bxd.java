@@ -28,10 +28,45 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "BXD")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Bxd.findAll", query = "SELECT b FROM Bxd b"),
-    @NamedQuery(name = "Bxd.findByPSN", query = "SELECT b FROM Bxd b WHERE b.processSerialNumber = :psn"),
-    @NamedQuery(name = "Bxd.findByFSN", query = "SELECT b FROM Bxd b WHERE b.formSerialNumber = :fsn")})
-public class Bxd implements Serializable {
+    @NamedQuery(name = "BXD.findAll", query = "SELECT b FROM BXD b"),
+    @NamedQuery(name = "BXD.findByPSN", query = "SELECT b FROM BXD b WHERE b.processSerialNumber = :psn"),
+    @NamedQuery(name = "BXD.findByFSN", query = "SELECT b FROM BXD b WHERE b.formSerialNumber = :fsn")})
+public class BXD implements Serializable {
+
+    @Size(max = 255)
+    @Column(name = "bmpa11c")
+    private String bmpa11c;
+    @Size(max = 255)
+    @Column(name = "bmpa12f")
+    private String bmpa12f;
+    
+    @Column(name = "ratio")
+    private Double ratio;
+
+    @Size(max = 255)
+    @Column(name = "centerid")
+    private String centerid;
+    @Size(max = 255)
+    @Column(name = "kfdh")
+    private String kfdh;
+    @Size(max = 255)
+    @Column(name = "accName")
+    private String accName;
+    @Size(max = 255)
+    @Column(name = "accno")
+    private String accno;
+    @Size(max = 255)
+    @Column(name = "CRMNO")
+    private String crmno;
+    @Size(max = 255)
+    @Column(name = "fwdh")
+    private String fwdh;
+    @Size(max = 255)
+    @Column(name = "budgetDept")
+    private String budgetDept;
+    @Size(max = 255)
+    @Column(name = "budgetAcc")
+    private String budgetAcc;
 
     private static final long serialVersionUID = 1L;
     @Size(max = 255)
@@ -53,15 +88,10 @@ public class Bxd implements Serializable {
     private String bmpc22c;
     @Column(name = "bmpc06f")
     private Double bmpc06f;
-    @Size(max = 255)
-    @Column(name = "budgetacc")
-    private String budgetacc;
+
     @Size(max = 255)
     @Column(name = "bmpc15c")
     private String bmpc15c;
-    @Size(max = 255)
-    @Column(name = "bmpa11c")
-    private String bmpa11c;
     @Size(max = 255)
     @Column(name = "bmpb13c")
     private String bmpb13c;
@@ -109,8 +139,8 @@ public class Bxd implements Serializable {
     @Column(name = "bmpc12c")
     private Double bmpc12c;
     @Size(max = 255)
-    @Column(name = "bmpa12f")
-    private String bmpa12f;
+    @Column(name = "coin")
+    private String coin;
     @Id
     @Basic(optional = false)
     @NotNull
@@ -122,9 +152,7 @@ public class Bxd implements Serializable {
     private Date bmpa03c;
     @Column(name = "bmpc10c")
     private Double bmpc10c;
-    @Size(max = 255)
-    @Column(name = "accname")
-    private String accname;
+
     @Column(name = "bmpc00c")
     @Temporal(TemporalType.TIMESTAMP)
     private Date bmpc00c;
@@ -206,10 +234,10 @@ public class Bxd implements Serializable {
     @Column(name = "bmpa14c")
     private String bmpa14c;
 
-    public Bxd() {
+    public BXD() {
     }
 
-    public Bxd(String oid) {
+    public BXD(String oid) {
         this.oid = oid;
     }
 
@@ -269,13 +297,6 @@ public class Bxd implements Serializable {
         this.bmpc06f = bmpc06f;
     }
 
-    public String getBudgetacc() {
-        return budgetacc;
-    }
-
-    public void setBudgetacc(String budgetacc) {
-        this.budgetacc = budgetacc;
-    }
 
     public String getBmpc15c() {
         return bmpc15c;
@@ -285,13 +306,6 @@ public class Bxd implements Serializable {
         this.bmpc15c = bmpc15c;
     }
 
-    public String getBmpa11c() {
-        return bmpa11c;
-    }
-
-    public void setBmpa11c(String bmpa11c) {
-        this.bmpa11c = bmpa11c;
-    }
 
     public String getBmpb13c() {
         return bmpb13c;
@@ -437,12 +451,12 @@ public class Bxd implements Serializable {
         this.bmpc12c = bmpc12c;
     }
 
-    public String getBmpa12f() {
-        return bmpa12f;
+    public String getCoin() {
+        return coin;
     }
 
-    public void setBmpa12f(String bmpa12f) {
-        this.bmpa12f = bmpa12f;
+    public void setCoin(String coin) {
+        this.coin = coin;
     }
 
     public String getOid() {
@@ -469,13 +483,7 @@ public class Bxd implements Serializable {
         this.bmpc10c = bmpc10c;
     }
 
-    public String getAccname() {
-        return accname;
-    }
 
-    public void setAccname(String accname) {
-        this.accname = accname;
-    }
 
     public Date getBmpc00c() {
         return bmpc00c;
@@ -719,10 +727,10 @@ public class Bxd implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Bxd)) {
+        if (!(object instanceof BXD)) {
             return false;
         }
-        Bxd other = (Bxd) object;
+        BXD other = (BXD) object;
         if ((this.oid == null && other.oid != null) || (this.oid != null && !this.oid.equals(other.oid))) {
             return false;
         }
@@ -732,6 +740,94 @@ public class Bxd implements Serializable {
     @Override
     public String toString() {
         return "cn.hanbell.oa.entity.Bxd[ oid=" + oid + " ]";
+    }
+
+    public String getCenterid() {
+        return centerid;
+    }
+
+    public void setCenterid(String centerid) {
+        this.centerid = centerid;
+    }
+
+    public String getKfdh() {
+        return kfdh;
+    }
+
+    public void setKfdh(String kfdh) {
+        this.kfdh = kfdh;
+    }
+
+    public String getAccName() {
+        return accName;
+    }
+
+    public void setAccName(String accName) {
+        this.accName = accName;
+    }
+
+    public String getAccno() {
+        return accno;
+    }
+
+    public void setAccno(String accno) {
+        this.accno = accno;
+    }
+
+    public String getCrmno() {
+        return crmno;
+    }
+
+    public void setCrmno(String crmno) {
+        this.crmno = crmno;
+    }
+
+    public String getFwdh() {
+        return fwdh;
+    }
+
+    public void setFwdh(String fwdh) {
+        this.fwdh = fwdh;
+    }
+
+    public String getBudgetDept() {
+        return budgetDept;
+    }
+
+    public void setBudgetDept(String budgetDept) {
+        this.budgetDept = budgetDept;
+    }
+
+    public String getBudgetAcc() {
+        return budgetAcc;
+    }
+
+    public void setBudgetAcc(String budgetAcc) {
+        this.budgetAcc = budgetAcc;
+    }
+
+    public String getBmpa11c() {
+        return bmpa11c;
+    }
+
+    public void setBmpa11c(String bmpa11c) {
+        this.bmpa11c = bmpa11c;
+    }
+
+    public String getBmpa12f() {
+        return bmpa12f;
+    }
+
+    public void setBmpa12f(String bmpa12f) {
+        this.bmpa12f = bmpa12f;
+    }
+
+    public Double getRatio() {
+        return ratio;
+    }
+
+    public void setRatio(Double ratio) {
+        this.ratio = ratio;
     }
     
 }

@@ -7,22 +7,18 @@ package cn.hanbell.erp.entity;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -44,8 +40,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Apmpay.findByTaxym", query = "SELECT a FROM Apmpay a WHERE a.taxym = :taxym"),
     @NamedQuery(name = "Apmpay.findBySrckind", query = "SELECT a FROM Apmpay a WHERE a.srckind = :srckind"),
     @NamedQuery(name = "Apmpay.findByBilltype", query = "SELECT a FROM Apmpay a WHERE a.billtype = :billtype"),
-    @NamedQuery(name = "Apmpay.findBySrcno", query = "SELECT a FROM Apmpay a WHERE a.srcno = :srcno"),
-    @NamedQuery(name = "Apmpay.findByAppuserno", query = "SELECT a FROM Apmpay a WHERE a.appuserno = :appuserno")})
+    @NamedQuery(name = "Apmpay.findBySrcno", query = "SELECT a FROM Apmpay a WHERE a.srcno = :srcno")})
 public class Apmpay implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -115,10 +110,7 @@ public class Apmpay implements Serializable {
     @Size(max = 18)
     @Column(name = "srcno")
     private String srcno;
-    @Size(max = 8)
-    @Column(name = "appuserno")
-    private String appuserno;
-
+    
     public Apmpay() {
     }
 
@@ -292,14 +284,6 @@ public class Apmpay implements Serializable {
 
     public void setSrcno(String srcno) {
         this.srcno = srcno;
-    }
-
-    public String getAppuserno() {
-        return appuserno;
-    }
-
-    public void setAppuserno(String appuserno) {
-        this.appuserno = appuserno;
     }
 
 
