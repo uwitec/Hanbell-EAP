@@ -13,9 +13,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
+import javax.inject.Named;
 import javax.persistence.Query;
 
 /**
@@ -23,6 +23,8 @@ import javax.persistence.Query;
  * @author C0160
  */
 @Stateless
+@LocalBean
+@Named
 public class PricingBean extends SuperEJBForERP<Pricing> {
 
     public PricingBean() {

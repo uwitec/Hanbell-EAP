@@ -5,10 +5,10 @@
  */
 package cn.hanbell.jrs;
 
+import cn.hanbell.erp.ejb.ItemModelBean;
 import cn.hanbell.erp.entity.ItemModel;
-import java.util.ArrayList;
 import java.util.List;
-import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -27,9 +27,12 @@ import javax.ws.rs.core.Response;
  *
  * @author C0160
  */
-@Stateless
 @Path("shberp.itemmodel")
+@javax.enterprise.context.RequestScoped
 public class ItemModelFacadeREST extends AbstractFacade<ItemModel> {
+
+    @Inject
+    private ItemModelBean itemModelBean;
 
     @PersistenceContext(unitName = "RESTPU_shberp")
     private EntityManager em;
@@ -72,18 +75,7 @@ public class ItemModelFacadeREST extends AbstractFacade<ItemModel> {
     @Path("kind/{kind}")
     @Produces({"application/json"})
     public List<ItemModel> findByKind(@PathParam("kind") String kind) {
-        Query query = em.createNativeQuery("SELECT cmcmodel,itnbr FROM cdrdmmodel WHERE kind = '" + kind + "' ORDER BY cmcmodel ");
-        List result = query.getResultList();
-        List<ItemModel> dataList = new ArrayList<>();
-        if (result != null && !result.isEmpty()) {
-            ItemModel newEntity;
-            for (int i = 0; i < result.size(); i++) {
-                Object[] row = (Object[]) result.get(i);
-                newEntity = new ItemModel(row[0].toString(), row[1].toString());
-                dataList.add(newEntity);
-            }
-        }
-        return dataList;
+        return itemModelBean.findByKind(kind);
     }
 
     @GET

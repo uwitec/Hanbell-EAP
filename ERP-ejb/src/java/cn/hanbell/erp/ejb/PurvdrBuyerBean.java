@@ -6,21 +6,22 @@
 package cn.hanbell.erp.ejb;
 
 import cn.hanbell.erp.comm.SuperEJBForERP;
-import cn.hanbell.erp.entity.Cdrscus;
+import cn.hanbell.erp.entity.PurvdrBuyer;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
-import javax.inject.Named;
 
 /**
  *
- * @author C0160
+ * @author C1368
  */
 @Stateless
 @LocalBean
-public class CdrscusBean extends SuperEJBForERP<Cdrscus>{
+public class PurvdrBuyerBean extends SuperEJBForERP<PurvdrBuyer> {
 
-    public CdrscusBean(){
-        super(Cdrscus.class);
+  
+
+    public PurvdrBuyerBean() {
+        super(PurvdrBuyer.class);
     }
-    
+
 }

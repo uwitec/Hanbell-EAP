@@ -5,8 +5,11 @@
  */
 package cn.hanbell.jrs;
 
+import cn.hanbell.erp.ejb.SecuserBean;
 import cn.hanbell.erp.entity.Secuser;
+import javax.ejb.DependsOn;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -18,18 +21,26 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
 
 /**
  *
  * @author C0160
  */
-@Stateless
 @Path("shberp.secuser")
+@javax.enterprise.context.RequestScoped
 public class SecuserFacadeREST extends AbstractFacade<Secuser> {
 
     @PersistenceContext(unitName = "RESTPU_shberp")
     EntityManager em;
+
+    @Context
+    private UriInfo context;
+
+    @Inject
+    private SecuserBean secuserBean;
 
     public SecuserFacadeREST() {
         super(Secuser.class);
@@ -60,7 +71,7 @@ public class SecuserFacadeREST extends AbstractFacade<Secuser> {
             Secuser u = (Secuser) query.getSingleResult();
             u.setSigntext(npwd);
             getEntityManager().merge(u);
-        } catch (Exception  e) {
+        } catch (Exception e) {
             throw new WebApplicationException(Response.Status.NOT_FOUND);
         }
     }
@@ -76,17 +87,12 @@ public class SecuserFacadeREST extends AbstractFacade<Secuser> {
     @Path("{id}/{pwd}")
     @Produces({"application/json"})
     public Secuser findByUsernoAndPwd(@PathParam("id") String id, @PathParam("pwd") String pwd) {
-        Query query = getEntityManager().createNamedQuery("Secuser.findByUsernoAndPwd");
-        query.setParameter("userno", id);
-        query.setParameter("pwd", pwd);
-        return (Secuser) query.getSingleResult();
-    }
-
-    @GET
-    @Path("count")
-    @Produces("text/plain")
-    public String countREST() {
-        return String.valueOf(super.count());
+        Secuser u = secuserBean.findByUsernoAndPwd(id, pwd);
+        if (u != null) {
+            return u;
+        } else {
+            throw new WebApplicationException(Response.Status.NOT_FOUND);
+        }
     }
 
     @Override

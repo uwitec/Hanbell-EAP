@@ -3,24 +3,21 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cn.hanbell.erp.ejb;
+package cn.hanbell.oa.ejb;
 
-import cn.hanbell.erp.comm.SuperEJBForERP;
-import cn.hanbell.erp.entity.Cdrscus;
+import cn.hanbell.oa.comm.SuperEJBForEFGP;
+import cn.hanbell.oa.entity.HKCG016;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
-import javax.inject.Named;
 
 /**
  *
- * @author C0160
+ * @author C1368
  */
 @Stateless
 @LocalBean
-public class CdrscusBean extends SuperEJBForERP<Cdrscus>{
-
-    public CdrscusBean(){
-        super(Cdrscus.class);
+public class HKCG016Bean extends SuperEJBForEFGP<HKCG016> {
+    public HKCG016Bean(){
+        super(HKCG016.class);
     }
-    
 }

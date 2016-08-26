@@ -5,10 +5,12 @@
  */
 package cn.hanbell.jrs;
 
+import cn.hanbell.erp.ejb.ItemMasterBean;
 import cn.hanbell.erp.entity.ItemMaster;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -27,11 +29,15 @@ import javax.ws.rs.core.Response;
  *
  * @author C0160
  */
-@Stateless
 @Path("shberp.servitemmaster")
+@javax.enterprise.context.RequestScoped
 public class ItemMasterFacadeREST extends AbstractFacade<ItemMaster> {
+
     @PersistenceContext(unitName = "RESTPU_shberp")
     private EntityManager em;
+
+    @Inject
+    private ItemMasterBean itemMasterBean;
 
     public ItemMasterFacadeREST() {
         super(ItemMaster.class);
@@ -41,56 +47,34 @@ public class ItemMasterFacadeREST extends AbstractFacade<ItemMaster> {
     @Override
     @Consumes({"application/xml", "application/json"})
     public void create(ItemMaster entity) {
-         throw new WebApplicationException(Response.Status.NOT_ACCEPTABLE);
+        throw new WebApplicationException(Response.Status.NOT_ACCEPTABLE);
     }
 
     @PUT
     @Path("{id}")
     @Consumes({"application/xml", "application/json"})
     public void edit(@PathParam("id") String id, ItemMaster entity) {
-         throw new WebApplicationException(Response.Status.NOT_ACCEPTABLE);
+        throw new WebApplicationException(Response.Status.NOT_ACCEPTABLE);
     }
 
     @DELETE
     @Path("{id}")
     public void remove(@PathParam("id") String id) {
-         throw new WebApplicationException(Response.Status.NOT_ACCEPTABLE);
+        throw new WebApplicationException(Response.Status.NOT_ACCEPTABLE);
     }
 
     @GET
     @Path("{category}")
     @Produces({"application/json"})
     public List<ItemMaster> findByCategory(@PathParam("category") String category) {
-        Query query = em.createNativeQuery("SELECT mc_smalltype_itnbr,itdsc FROM fw_mc_smalltype,invmas WHERE mc_smalltype_itnbr=itnbr AND mc_bigtype_itnbr = '" + category + "'");
-        List result = query.getResultList();
-        List<ItemMaster> dataList = new ArrayList<>();
-        if (result != null && !result.isEmpty()) {
-            ItemMaster newEntity;
-         for (int i = 0; i < result.size(); i++) {
-                Object[] row = (Object[]) result.get(i);
-                newEntity = new ItemMaster(row[0].toString(), row[1].toString());
-                dataList.add(newEntity);
-            }
-        }
-        return dataList;
+        return itemMasterBean.findByCategory(category);
     }
 
     @GET
     @Path("{model}/{category}")
     @Produces({"application/json"})
-    public List<ItemMaster> findByModelAndCategory(@PathParam("model") String model,@PathParam("category") String category) {
-        Query query = em.createNativeQuery("SELECT mc_smalltype_itnbr,itdsc FROM fw_mc_smalltype,invmas WHERE mc_smalltype_itnbr=itnbr AND mc_type_code = '" + model + "' AND mc_bigtype_itnbr = '" + category + "'");
-        List result = query.getResultList();
-        List<ItemMaster> dataList = new ArrayList<>();
-        if (result != null && !result.isEmpty()) {
-            ItemMaster newEntity;
-         for (int i = 0; i < result.size(); i++) {
-                Object[] row = (Object[]) result.get(i);
-                newEntity = new ItemMaster(row[0].toString(), row[1].toString());
-                dataList.add(newEntity);
-            }
-        }
-        return dataList;
+    public List<ItemMaster> findByModelAndCategory(@PathParam("model") String model, @PathParam("category") String category) {
+        return itemMasterBean.findByModelAndCategory(model, category);
     }
 
     @GET
@@ -104,5 +88,5 @@ public class ItemMasterFacadeREST extends AbstractFacade<ItemMaster> {
     protected EntityManager getEntityManager() {
         return em;
     }
-    
+
 }

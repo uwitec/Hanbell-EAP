@@ -5,10 +5,13 @@
  */
 package cn.hanbell.jrs;
 
+import cn.hanbell.erp.ejb.ItemKindBean;
 import cn.hanbell.erp.entity.ItemKind;
 import java.util.ArrayList;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -27,9 +30,12 @@ import javax.ws.rs.core.Response;
  *
  * @author C0160
  */
-@Stateless
 @Path("shberp.itemkind")
+@javax.enterprise.context.RequestScoped
 public class ItemKindFacadeREST extends AbstractFacade<ItemKind> {
+
+    @Inject
+    private ItemKindBean itemKindBean;
 
     @PersistenceContext(unitName = "RESTPU_shberp")
     private EntityManager em;
@@ -69,24 +75,8 @@ public class ItemKindFacadeREST extends AbstractFacade<ItemKind> {
     @Override
     @Produces({"application/json"})
     public List<ItemKind> findAll() {
-        Query query = em.createNativeQuery("SELECT distinct kind FROM cdrdmmodel ORDER BY kind ");
-        List result = query.getResultList();
-        List<ItemKind> dataList = new ArrayList<>();
-        if (result != null && !result.isEmpty()) {
-            ItemKind kind;
-            for (Object o : result) {
-                kind = new ItemKind(o.toString());
-                dataList.add(kind);
-            }
-        }
-        return dataList;
-    }
-
-    @GET
-    @Path("count")
-    @Produces("text/plain")
-    public String countREST() {
-        return String.valueOf(super.count());
+        itemKindBean.setCompany("C");
+        return itemKindBean.findAll();
     }
 
     @Override
