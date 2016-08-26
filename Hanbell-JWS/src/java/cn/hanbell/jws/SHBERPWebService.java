@@ -46,7 +46,6 @@ public class SHBERPWebService {
 
     @WebMethod(operationName = "createCustomerByOAPSN")
     public String createCustomerByOAPSN(@WebParam(name = "psn") String psn) {
-
         Boolean ret = false;
         try {
             ret = cdrcusBean.initByOAPSN(psn);
@@ -151,8 +150,8 @@ public class SHBERPWebService {
         }
     }
 
-    @WebMethod(operationName = "AddBudgetPlanByOABXD")
-    public String AddBudgetPlanByOABXD(@WebParam(name = "psn") String psn) {
+    @WebMethod(operationName = "addBudgetPlanByOABXD")
+    public String addBudgetPlanByOABXD(@WebParam(name = "psn") String psn) {
         Boolean ret = false;
         try {
             ret = budgetDetailBean.addByOABXD(psn);
@@ -166,8 +165,27 @@ public class SHBERPWebService {
         }
     }
 
-    @WebMethod(operationName = "AddBudgetPlanByOAJZD")
-    public String AddBudgetPlanByOAJZD(@WebParam(name = "psn") String psn) {
+    @WebMethod(operationName = "subtractBudgetPlanByOABXD")
+    public String subtractBudgetPlanByOABXD(@WebParam(name = "psn") String psn, @WebParam(name = "isReject") String isReject) {
+        Boolean ret = false;
+        try {
+            if ("1".equals(isReject)) {
+                ret = budgetDetailBean.subtractByOABXD(psn);
+            } else {
+                return "200";
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(SHBERPWebService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (ret) {
+            return "200";
+        } else {
+            return "404";
+        }
+    }
+
+    @WebMethod(operationName = "addBudgetPlanByOAJZD")
+    public String addBudgetPlanByOAJZD(@WebParam(name = "psn") String psn) {
         Boolean ret = false;
         try {
             ret = budgetDetailBean.addByOAJZD(psn);
@@ -181,8 +199,27 @@ public class SHBERPWebService {
         }
     }
 
-    @WebMethod(operationName = "AddBudgetPlanByOAJZGHD")
-    public String AddBudgetPlanByOAJZGHD(@WebParam(name = "psn") String psn) {
+    @WebMethod(operationName = "subtractBudgetPlanByOAJZD")
+    public String subtractBudgetPlanByOAJZD(@WebParam(name = "psn") String psn, @WebParam(name = "isReject") String isReject) {
+        Boolean ret = false;
+        try {
+            if ("1".equals(isReject)) {
+                ret = budgetDetailBean.subtractByOAJZD(psn);
+            } else {
+                return "200";
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(SHBERPWebService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (ret) {
+            return "200";
+        } else {
+            return "404";
+        }
+    }
+
+    @WebMethod(operationName = "addBudgetPlanByOAJZGHD")
+    public String addBudgetPlanByOAJZGHD(@WebParam(name = "psn") String psn) {
         Boolean ret = false;
         try {
             ret = budgetDetailBean.addByOAJZGHD(psn);
@@ -196,11 +233,15 @@ public class SHBERPWebService {
         }
     }
 
-    @WebMethod(operationName = "createAPM525ByOAPSN")
-    public String createAPM525ByOAPSN(@WebParam(name = "psn") String psn) {
+    @WebMethod(operationName = "subtractBudgetPlanByOAJZGHD")
+    public String subtractBudgetPlanByOAJZGHD(@WebParam(name = "psn") String psn, @WebParam(name = "isReject") String isReject) {
         Boolean ret = false;
         try {
-            ret = apmpayBean.initByOAPSN(psn);
+            if ("1".equals(isReject)) {
+                ret = budgetDetailBean.subtractByOAJZGHD(psn);
+            } else {
+                return "200";
+            }
         } catch (Exception ex) {
             Logger.getLogger(SHBERPWebService.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -138,7 +138,7 @@ public class BudgetDetailBean extends SuperEJBForERP<BudgetDetail> {
                 HZCW028reDetail detail = details.get(i);
                 //预算金额更新逻辑
                 BudgetDetail u;
-                u = new BudgetDetail(facno, "", period, detail.getCenterid(), detail.getAccno(), "R", i + 1, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.valueOf(detail.getTaxInclusive() * (b.getRatio())));
+                u = new BudgetDetail(facno, "", period, detail.getCenterid(), detail.getBudgetAcc(), "R", i + 1, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.valueOf(detail.getTaxInclusive() * (b.getRatio())));
                 budgetDetails.add(u);
 
             }
@@ -157,9 +157,6 @@ public class BudgetDetailBean extends SuperEJBForERP<BudgetDetail> {
             if (budgetDetails != null && !budgetDetails.isEmpty()) {
                 budgetDetails.clear();
             }
-            hzcw028reDetailBean.getEntityManager().flush();
-            hzcw028reDetailBean.getEntityManager().clear();
-            hzcw028reDetailBean.getEntityManager().close();
         }
     }
 
@@ -171,7 +168,6 @@ public class BudgetDetailBean extends SuperEJBForERP<BudgetDetail> {
         List<BudgetDetail> budgetDetails = new ArrayList<>();
         List<HZCW028reDetail> details = null;
         try {
-
             date = BaseLib.getDate("yyyy/MM/dd", BaseLib.formatDate("yyyy/MM/dd", b.getAppDate())); //付款日期
             period = BaseLib.formatDate("yyyyMM", date);
             System.out.println(period);
@@ -183,10 +179,10 @@ public class BudgetDetailBean extends SuperEJBForERP<BudgetDetail> {
             for (int i = 0; i < details.size(); i++) {
 
                 HZCW028reDetail detail = details.get(i);
-
+                
                 //预算金额更新逻辑
                 BudgetDetail u;
-                u = new BudgetDetail(facno, "", period, detail.getCenterid(), detail.getAccno(), "R", i + 1, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.valueOf(detail.getTaxInclusive() * (b.getRatio())));
+                u = new BudgetDetail(facno, "", period, detail.getCenterid(), detail.getBudgetAcc(), "R", i + 1, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.valueOf(detail.getTaxInclusive() * (b.getRatio())));
                 budgetDetails.add(u);
 
             }
@@ -205,10 +201,6 @@ public class BudgetDetailBean extends SuperEJBForERP<BudgetDetail> {
             if (budgetDetails != null && !budgetDetails.isEmpty()) {
                 budgetDetails.clear();
             }
-            hzcw028reDetailBean.getEntityManager().flush();
-            hzcw028reDetailBean.getEntityManager().clear();
-            hzcw028reDetailBean.getEntityManager().close();
-            
         }
     }
 
@@ -295,7 +287,7 @@ public class BudgetDetailBean extends SuperEJBForERP<BudgetDetail> {
 
                 //预算金额更新逻辑
                 BudgetDetail u;
-                u = new BudgetDetail(facno, "", period, detail.getCenterid(), detail.getAccno(), "R", i + 1, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.valueOf(detail.getTaxInclusive() * (j.getRatio())));
+                u = new BudgetDetail(facno, "", period, detail.getCenterid(), detail.getBudgetAcc(), "R", i + 1, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.valueOf(detail.getTaxInclusive() * (j.getRatio())));
                 budgetDetails.add(u);
 
             }
@@ -340,7 +332,7 @@ public class BudgetDetailBean extends SuperEJBForERP<BudgetDetail> {
 
                 //预算金额更新逻辑
                 BudgetDetail u;
-                u = new BudgetDetail(facno, "", period, detail.getCenterid(), detail.getAccno(), "R", i + 1, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.valueOf(detail.getTaxInclusive() * (j.getRatio())));
+                u = new BudgetDetail(facno, "", period, detail.getCenterid(), detail.getBudgetAcc(), "R", i + 1, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.valueOf(detail.getTaxInclusive() * (j.getRatio())));
                 budgetDetails.add(u);
 
             }
