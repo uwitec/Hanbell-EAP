@@ -172,7 +172,7 @@ public class ApmpayBean extends SuperEJBForERP<Apmpay> {
 
                 //预算金额更新逻辑
                 BudgetDetail u;
-                u = new BudgetDetail(facno, "", period, detail0l.getCenterid(), detail0l.getAccno(), "R", apmpadPK.getTrse(), BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.valueOf(detail0l.getTaxInclusive()), BigDecimal.ZERO);               
+                u = new BudgetDetail(facno, "", period, detail0l.getCenterid(), detail0l.getAccno(), "R", apmpadPK.getTrse(), BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.valueOf(detail0l.getTaxInclusive()*(b.getRatio())), BigDecimal.ZERO);               
                 u.setPreamts(u.getPreamts().subtract(u.getDecramts()));
                 System.out.println(u.getPreamts()+"-----------------------------");
                 budgetDetails.add(u);
@@ -471,7 +471,7 @@ public class ApmpayBean extends SuperEJBForERP<Apmpay> {
 
                 //预算金额更新逻辑
                 BudgetDetail u;
-                u = new BudgetDetail(facno, "", period, detail0l.getCenterid(), detail0l.getAccno(), "R", apmpadPK.getTrse(), BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.valueOf(detail0l.getTaxInclusive()), BigDecimal.ZERO);
+                u = new BudgetDetail(facno, "", period, detail0l.getCenterid(), detail0l.getAccno(), "R", apmpadPK.getTrse(), BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.valueOf(detail0l.getTaxInclusive()*(j.getRatio())), BigDecimal.ZERO);
                 u.setPreamts(u.getPreamts().subtract(u.getDecramts()));
                 budgetDetails.add(u);
             }
