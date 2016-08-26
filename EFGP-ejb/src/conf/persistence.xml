@@ -3,12 +3,15 @@
   <persistence-unit name="EFGP-ejbPU" transaction-type="JTA">
     <jta-data-source>jdbc/efgp</jta-data-source>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
+    <shared-cache-mode>NONE</shared-cache-mode>
     <validation-mode>NONE</validation-mode>
     <properties>
     </properties>
   </persistence-unit>
   <persistence-unit name="EFGP-syncPU" transaction-type="JTA">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <jta-data-source>jdbc/syncEFGP</jta-data-source>
+    <shared-cache-mode>NONE</shared-cache-mode>
     <validation-mode>NONE</validation-mode>
     <properties>
       <property name="eclipselink.canonicalmodel.subpackage" value="sync"/>

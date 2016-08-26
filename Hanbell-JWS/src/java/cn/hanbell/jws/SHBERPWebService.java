@@ -155,7 +155,7 @@ public class SHBERPWebService {
     public String AddBudgetPlanByOABXD(@WebParam(name = "psn") String psn) {
         Boolean ret = false;
         try {
-            ret = budgetDetailBean.AddByOABXD(psn);
+            ret = budgetDetailBean.addByOABXD(psn);
         } catch (Exception ex) {
             Logger.getLogger(SHBERPWebService.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -170,7 +170,7 @@ public class SHBERPWebService {
     public String AddBudgetPlanByOAJZD(@WebParam(name = "psn") String psn) {
         Boolean ret = false;
         try {
-            ret = budgetDetailBean.AddByOAJZD(psn);
+            ret = budgetDetailBean.addByOAJZD(psn);
         } catch (Exception ex) {
             Logger.getLogger(SHBERPWebService.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -185,7 +185,7 @@ public class SHBERPWebService {
     public String AddBudgetPlanByOAJZGHD(@WebParam(name = "psn") String psn) {
         Boolean ret = false;
         try {
-            ret = budgetDetailBean.AddByOAJZGHD(psn);
+            ret = budgetDetailBean.addByOAJZGHD(psn);
         } catch (Exception ex) {
             Logger.getLogger(SHBERPWebService.class.getName()).log(Level.SEVERE, null, ex);
         }
