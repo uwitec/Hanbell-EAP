@@ -98,7 +98,7 @@ public class HZCW033reDetail implements Serializable {
     @Column(name = "refund")
     private Float refund;
     @Size(max = 255)
-    @Column(name = "entertainDate")
+    @Column(name = "entertainDate_txt")
     private String entertainDate;
     @Size(max = 255)
     @Column(name = "loanProp")

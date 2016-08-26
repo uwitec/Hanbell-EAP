@@ -19,6 +19,7 @@ import cn.hanbell.oa.entity.HZCW033;
 import cn.hanbell.oa.entity.HZCW033reDetail;
 import cn.hanbell.util.BaseLib;
 import java.math.BigDecimal;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -115,13 +116,13 @@ public class BudgetDetailBean extends SuperEJBForERP<BudgetDetail> {
         }
     }
 
-    public Boolean AddByOABXD(String psn) {
+    public Boolean addByOABXD(String psn) {
         String period;
         Date date;
         HZCW028 b = hzcw028Bean.findByPSN(psn);
         String facno = b.getFacno();
         List<BudgetDetail> budgetDetails = new ArrayList<>();
-
+        List<HZCW028reDetail> details = null;
         try {
 
             date = BaseLib.getDate("yyyy/MM/dd", BaseLib.formatDate("yyyy/MM/dd", b.getAppDate())); //付款日期
@@ -130,15 +131,14 @@ public class BudgetDetailBean extends SuperEJBForERP<BudgetDetail> {
 
             this.setCompany(facno);
 
-            List<HZCW028reDetail> details = hzcw028reDetailBean.findByFSN(b.getFormSerialNumber());
+            details = hzcw028reDetailBean.findByFSN(b.getFormSerialNumber());
 
             for (int i = 0; i < details.size(); i++) {
 
                 HZCW028reDetail detail = details.get(i);
-
                 //预算金额更新逻辑
                 BudgetDetail u;
-                u = new BudgetDetail(facno, "", period, detail.getCenterid(), detail.getAccno(), "R", i + 1, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.valueOf(detail.getTaxInclusive()));
+                u = new BudgetDetail(facno, "", period, detail.getCenterid(), detail.getAccno(), "R", i + 1, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.valueOf(detail.getTaxInclusive() * (b.getRatio())));
                 budgetDetails.add(u);
 
             }
@@ -147,13 +147,72 @@ public class BudgetDetailBean extends SuperEJBForERP<BudgetDetail> {
             this.getEntityManager().flush();
 
             return true;
-        } catch (Exception ex) {
+        } catch (ParseException | RuntimeException ex) {
             Logger.getLogger(ApmpayBean.class.getName()).log(Level.SEVERE, null, ex);
             return false;
+        } finally {
+            if (details != null && !details.isEmpty()) {
+                details.clear();
+            }
+            if (budgetDetails != null && !budgetDetails.isEmpty()) {
+                budgetDetails.clear();
+            }
+            hzcw028reDetailBean.getEntityManager().flush();
+            hzcw028reDetailBean.getEntityManager().clear();
+            hzcw028reDetailBean.getEntityManager().close();
         }
     }
 
-    public Boolean AddByOAJZD(String psn) {
+    public Boolean subtractByOABXD(String psn) {
+        String period;
+        Date date;
+        HZCW028 b = hzcw028Bean.findByPSN(psn);
+        String facno = b.getFacno();
+        List<BudgetDetail> budgetDetails = new ArrayList<>();
+        List<HZCW028reDetail> details = null;
+        try {
+
+            date = BaseLib.getDate("yyyy/MM/dd", BaseLib.formatDate("yyyy/MM/dd", b.getAppDate())); //付款日期
+            period = BaseLib.formatDate("yyyyMM", date);
+            System.out.println(period);
+
+            this.setCompany(facno);
+
+            details = hzcw028reDetailBean.findByFSN(b.getFormSerialNumber());
+
+            for (int i = 0; i < details.size(); i++) {
+
+                HZCW028reDetail detail = details.get(i);
+
+                //预算金额更新逻辑
+                BudgetDetail u;
+                u = new BudgetDetail(facno, "", period, detail.getCenterid(), detail.getAccno(), "R", i + 1, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.valueOf(detail.getTaxInclusive() * (b.getRatio())));
+                budgetDetails.add(u);
+
+            }
+
+            this.subtract(budgetDetails);
+            this.getEntityManager().flush();
+
+            return true;
+        } catch (Exception ex) {
+            Logger.getLogger(ApmpayBean.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        } finally {
+            if (details != null && !details.isEmpty()) {
+                details.clear();
+            }
+            if (budgetDetails != null && !budgetDetails.isEmpty()) {
+                budgetDetails.clear();
+            }
+            hzcw028reDetailBean.getEntityManager().flush();
+            hzcw028reDetailBean.getEntityManager().clear();
+            hzcw028reDetailBean.getEntityManager().close();
+            
+        }
+    }
+
+    public Boolean addByOAJZD(String psn) {
         String period;
         Date date;
         HZCW017 j = hzcw017Bean.findByPSN(psn);
@@ -170,7 +229,7 @@ public class BudgetDetailBean extends SuperEJBForERP<BudgetDetail> {
 
             //预算金额更新逻辑
             BudgetDetail u;
-            u = new BudgetDetail(facno, "", period, j.getCenterid(), j.getPreAccno(), "R", 1, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.valueOf(j.getLoanTotal()));
+            u = new BudgetDetail(facno, "", period, j.getCenterid(), j.getPreAccno(), "R", 1, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.valueOf(j.getTotalRMB()));
             budgetDetails.add(u);
 
             this.add(budgetDetails);
@@ -183,7 +242,37 @@ public class BudgetDetailBean extends SuperEJBForERP<BudgetDetail> {
         }
     }
 
-    public Boolean AddByOAJZGHD(String psn) {
+    public Boolean subtractByOAJZD(String psn) {
+        String period;
+        Date date;
+        HZCW017 j = hzcw017Bean.findByPSN(psn);
+        String facno = j.getFacno();
+        List<BudgetDetail> budgetDetails = new ArrayList<>();
+
+        try {
+
+            date = BaseLib.getDate("yyyy/MM/dd", BaseLib.formatDate("yyyy/MM/dd", j.getLoanDate())); //付款日期
+            period = BaseLib.formatDate("yyyyMM", date);
+            System.out.println(period);
+
+            this.setCompany(facno);
+
+            //预算金额更新逻辑
+            BudgetDetail u;
+            u = new BudgetDetail(facno, "", period, j.getCenterid(), j.getPreAccno(), "R", 1, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.valueOf(j.getTotalRMB()));
+            budgetDetails.add(u);
+
+            this.subtract(budgetDetails);
+            this.getEntityManager().flush();
+
+            return true;
+        } catch (Exception ex) {
+            Logger.getLogger(ApmpayBean.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+
+    public Boolean addByOAJZGHD(String psn) {
         String period;
         Date date;
         HZCW033 j = hzcw033Bean.findByPSN(psn);
@@ -206,12 +295,64 @@ public class BudgetDetailBean extends SuperEJBForERP<BudgetDetail> {
 
                 //预算金额更新逻辑
                 BudgetDetail u;
-                u = new BudgetDetail(facno, "", period, detail.getCenterid(), detail.getAccno(), "R", i + 1, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.valueOf(detail.getTaxInclusive()));
+                u = new BudgetDetail(facno, "", period, detail.getCenterid(), detail.getAccno(), "R", i + 1, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.valueOf(detail.getTaxInclusive() * (j.getRatio())));
                 budgetDetails.add(u);
 
             }
+            //改变借支单科目预扣
+            BudgetDetail u1;
+            HZCW017 jz = hzcw017Bean.findByPSN(details.get(0).getLoanNo());
+            Date date1 = BaseLib.getDate("yyyy/MM/dd", BaseLib.formatDate("yyyy/MM/dd", jz.getLoanDate())); //借支单日期
+            String period1 = BaseLib.formatDate("yyyyMM", date1);
+            u1 = new BudgetDetail(jz.getFacno(), "", period1, jz.getCenterid(), jz.getPreAccno(), "R", 1, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO.subtract(BigDecimal.valueOf(j.getTotaltaxInclusiveRMB())));
+            budgetDetails.add(u1);
 
             this.add(budgetDetails);
+            this.getEntityManager().flush();
+
+            return true;
+        } catch (Exception ex) {
+            Logger.getLogger(ApmpayBean.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+
+    public Boolean subtractByOAJZGHD(String psn) {
+        String period;
+        Date date;
+        HZCW033 j = hzcw033Bean.findByPSN(psn);
+        String facno = j.getFacno();
+        List<BudgetDetail> budgetDetails = new ArrayList<>();
+
+        try {
+
+            date = BaseLib.getDate("yyyy/MM/dd", BaseLib.formatDate("yyyy/MM/dd", j.getAppDate())); //付款日期
+            period = BaseLib.formatDate("yyyyMM", date);
+            System.out.println(period);
+
+            this.setCompany(facno);
+
+            List<HZCW033reDetail> details = hzcw033reDetailBean.findByFSN(j.getFormSerialNumber());
+
+            for (int i = 0; i < details.size(); i++) {
+
+                HZCW033reDetail detail = details.get(i);
+
+                //预算金额更新逻辑
+                BudgetDetail u;
+                u = new BudgetDetail(facno, "", period, detail.getCenterid(), detail.getAccno(), "R", i + 1, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.valueOf(detail.getTaxInclusive() * (j.getRatio())));
+                budgetDetails.add(u);
+
+            }
+            //改变借支单科目预扣
+            BudgetDetail u1;
+            HZCW017 jz = hzcw017Bean.findByPSN(details.get(0).getLoanNo());
+            Date date1 = BaseLib.getDate("yyyy/MM/dd", BaseLib.formatDate("yyyy/MM/dd", jz.getLoanDate())); //借支单日期
+            String period1 = BaseLib.formatDate("yyyyMM", date1);
+            u1 = new BudgetDetail(jz.getFacno(), "", period1, jz.getCenterid(), jz.getPreAccno(), "R", 1, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO.subtract(BigDecimal.valueOf(j.getTotaltaxInclusiveRMB())));
+            budgetDetails.add(u1);
+
+            this.subtract(budgetDetails);
             this.getEntityManager().flush();
 
             return true;
