@@ -11,7 +11,6 @@ import cn.hanbell.erp.entity.Purvdr;
 import cn.hanbell.erp.entity.PurvdrBuyer;
 import cn.hanbell.oa.ejb.HKCG016Bean;
 import cn.hanbell.oa.ejb.HKCG017Bean;
-import cn.hanbell.oa.ejb.SyncEFGPBean;
 import cn.hanbell.oa.entity.HKCG016;
 import cn.hanbell.oa.entity.HKCG017;
 import cn.hanbell.util.BaseLib;
@@ -43,9 +42,6 @@ public class PurvdrBean extends SuperEJBForERP<Purvdr> {
 
     @EJB
     private HKCG017Bean beanHKCG017;
-
-    @EJB
-    private SyncEFGPBean syncEFGPBean;
 
     @EJB
     private SyncGZBean syncGZBean;
@@ -172,12 +168,9 @@ public class PurvdrBean extends SuperEJBForERP<Purvdr> {
             persist(erp, details);
             getEntityManager().flush();
 
-            beanHKCG016.getEntityManager().detach(oa);
             oa.setVdrno(newvdrno);
-            syncEFGPBean.syncUpdate(oa, null);
-            syncEFGPBean.getEntityManager().flush();
-            syncEFGPBean.getEntityManager().clear();
-
+            beanHKCG016.update(oa);
+            
             switch (facno) {
                 case "G":
                     //同步广州ERP
