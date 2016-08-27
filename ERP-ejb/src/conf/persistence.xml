@@ -84,4 +84,13 @@
       <property name="eclipselink.canonicalmodel.subpackage" value="qtc"/>
     </properties>
   </persistence-unit>
+  <persistence-unit name="PU_sderp" transaction-type="JTA">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <jta-data-source>jdbc/sderp</jta-data-source>
+    <shared-cache-mode>NONE</shared-cache-mode>
+    <validation-mode>NONE</validation-mode>
+    <properties>
+      <property name="eclipselink.canonicalmodel.subpackage" value="sd"/>
+    </properties>
+  </persistence-unit>
 </persistence>

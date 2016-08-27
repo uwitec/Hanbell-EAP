@@ -10,7 +10,6 @@ import cn.hanbell.erp.ejb.CdrcusBean;
 import cn.hanbell.erp.entity.Cdrcus;
 import java.util.List;
 import javax.ejb.EJB;
-import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -33,9 +32,6 @@ import javax.ws.rs.core.Response;
 @Path("shberp.cdrcus")
 @javax.enterprise.context.RequestScoped
 public class CdrcusFacadeREST extends AbstractFacade<Cdrcus> {
-
-    @Inject
-    private CdrcusBean cdrcusBean;
 
     @PersistenceContext(unitName = "RESTPU_shberp")
     private EntityManager em;

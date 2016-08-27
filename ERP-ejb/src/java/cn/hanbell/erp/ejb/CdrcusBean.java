@@ -18,7 +18,6 @@ import cn.hanbell.erp.entity.Miscode;
 import cn.hanbell.erp.entity.Transwah;
 import cn.hanbell.oa.ejb.HKYX006Bean;
 import cn.hanbell.oa.ejb.HKYX007Bean;
-import cn.hanbell.oa.ejb.SyncEFGPBean;
 import cn.hanbell.oa.entity.HKYX006;
 import cn.hanbell.oa.entity.HKYX007;
 import cn.hanbell.util.BaseLib;
@@ -48,9 +47,6 @@ public class CdrcusBean extends SuperEJBForERP<Cdrcus> {
     private HKYX007Bean beanHKYX007;
     @EJB
     private CRMGGBean beanCRMGG;
-
-    @EJB
-    private SyncEFGPBean syncEFGPBean;
 
     @EJB
     private SyncGZBean syncGZBean;
@@ -322,11 +318,8 @@ public class CdrcusBean extends SuperEJBForERP<Cdrcus> {
             beanCRMGG.update(crmgg);
             beanCRMGG.getEntityManager().flush();
 
-            beanHKYX006.getEntityManager().detach(oa);
             oa.setPz(newcusno);
-            syncEFGPBean.syncUpdate(oa, null);
-            syncEFGPBean.getEntityManager().flush();
-            syncEFGPBean.getEntityManager().clear();
+            beanHKYX006.update(oa);
 
             switch (facno) {
                 case "G":
