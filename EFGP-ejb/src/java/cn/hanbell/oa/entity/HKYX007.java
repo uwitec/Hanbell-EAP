@@ -60,11 +60,11 @@ public class HKYX007 implements Serializable {
     @Column(name = "dept")
     private String dept;
     @Size(max = 255)
-    @Column(name = "empl")
-    private String empl;
-    @Column(name = "time")
+    @Column(name = "applyuser")
+    private String applyuser;
+    @Column(name = "createdate")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date time;
+    private Date createdate;
     @Size(max = 255)
     @Column(name = "SerialNumber")
     private String serialNumber;
@@ -265,12 +265,12 @@ public class HKYX007 implements Serializable {
         this.title = title;
     }
 
-    public Date getTime() {
-        return time;
+    public Date getCreatedate() {
+        return createdate;
     }
 
-    public void setTime(Date time) {
-        this.time = time;
+    public void setCreatedate(Date createdate) {
+        this.createdate = createdate;
     }
 
     public String getSkfs() {
@@ -361,12 +361,12 @@ public class HKYX007 implements Serializable {
         this.bskfs = bskfs;
     }
 
-    public String getEmpl() {
-        return empl;
+    public String getApplyuser() {
+        return applyuser;
     }
 
-    public void setEmpl(String empl) {
-        this.empl = empl;
+    public void setApplyuser(String applyuser) {
+        this.applyuser = applyuser;
     }
 
     public String getFax() {

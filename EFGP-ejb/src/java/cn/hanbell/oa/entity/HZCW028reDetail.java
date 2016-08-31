@@ -113,7 +113,7 @@ public class HZCW028reDetail implements Serializable {
     @Column(name = "accName")
     private String accName;
     @Size(max = 255)
-    @Column(name = "entertainDate")
+    @Column(name = "entertainDate_txt")
     private String entertainDate;
     @Size(max = 255)
     @Column(name = "budgetAccname")
