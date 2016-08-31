@@ -26,6 +26,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Miscode.findAll", query = "SELECT m FROM Miscode m"),
+    @NamedQuery(name = "Miscode.findByPK", query = "SELECT m FROM Miscode m WHERE m.miscodePK.ckind = :ckind AND m.miscodePK.code = :code"),
     @NamedQuery(name = "Miscode.findByCkind", query = "SELECT m FROM Miscode m WHERE m.miscodePK.ckind = :ckind"),
     @NamedQuery(name = "Miscode.findByCode", query = "SELECT m FROM Miscode m WHERE m.miscodePK.code = :code"),
     @NamedQuery(name = "Miscode.findByCdesc", query = "SELECT m FROM Miscode m WHERE m.cdesc = :cdesc"),
@@ -136,5 +137,5 @@ public class Miscode implements Serializable {
     public String toString() {
         return "cn.hanbell.erp.entity.Miscode[ miscodePK=" + miscodePK + " ]";
     }
-    
+
 }

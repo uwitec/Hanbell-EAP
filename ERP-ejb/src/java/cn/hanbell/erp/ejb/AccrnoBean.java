@@ -26,7 +26,7 @@ public class AccrnoBean extends SuperEJBForERP<Accrno> {
     public AccrnoBean() {
         super(Accrno.class);
     }
-    
+
     public Accrno findMaxByPK(String facno, Date date) {
         Query query = getEntityManager().createNamedQuery("Accrno.findByPK");
         query.setParameter("facno", facno);
@@ -37,7 +37,7 @@ public class AccrnoBean extends SuperEJBForERP<Accrno> {
             return null;
         }
     }
-    
+
     public String getFormId(String facno, Date date, Boolean flag) throws Exception {
         String newid;
         int maxid;
@@ -48,16 +48,18 @@ public class AccrnoBean extends SuperEJBForERP<Accrno> {
             newid = facno + BaseLib.formatDate("yyyyMMdd", date).substring(3) + String.format("%04d", maxid);
             if (flag) {
                 this.update(accrno);
+                this.getEntityManager().flush();
             }
         } else {
             newid = facno + BaseLib.formatDate("yyyyMMdd", date).substring(3) + String.format("%04d", 1);
             if (flag) {
                 Accrno e = new Accrno(facno, date);
-                e.setFinvno((short)1);
+                e.setFinvno((short) 1);
                 this.persist(e);
+                this.getEntityManager().flush();
             }
         }
         return newid;
     }
-    
+
 }
