@@ -179,7 +179,7 @@ public class BudgetDetailBean extends SuperEJBForERP<BudgetDetail> {
             for (int i = 0; i < details.size(); i++) {
 
                 HZCW028reDetail detail = details.get(i);
-                
+
                 //预算金额更新逻辑
                 BudgetDetail u;
                 u = new BudgetDetail(facno, "", period, detail.getCenterid(), detail.getBudgetAcc(), "R", i + 1, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.valueOf(detail.getTaxInclusive() * (b.getRatio())));
@@ -296,7 +296,11 @@ public class BudgetDetailBean extends SuperEJBForERP<BudgetDetail> {
             HZCW017 jz = hzcw017Bean.findByPSN(details.get(0).getLoanNo());
             Date date1 = BaseLib.getDate("yyyy/MM/dd", BaseLib.formatDate("yyyy/MM/dd", jz.getLoanDate())); //借支单日期
             String period1 = BaseLib.formatDate("yyyyMM", date1);
-            u1 = new BudgetDetail(jz.getFacno(), "", period1, jz.getCenterid(), jz.getPreAccno(), "R", 1, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO.subtract(BigDecimal.valueOf(j.getTotaltaxInclusiveRMB())));
+            if (j.getTotaltaxInclusiveRMB() <= jz.getTotalRMB()) {
+                u1 = new BudgetDetail(jz.getFacno(), "", period1, jz.getCenterid(), jz.getPreAccno(), "R", 1, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO.subtract(BigDecimal.valueOf(j.getTotaltaxInclusiveRMB())));
+            } else {
+                u1 = new BudgetDetail(jz.getFacno(), "", period1, jz.getCenterid(), jz.getPreAccno(), "R", 1, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO.subtract(BigDecimal.valueOf(jz.getTotalRMB())));
+            }
             budgetDetails.add(u1);
 
             this.add(budgetDetails);
