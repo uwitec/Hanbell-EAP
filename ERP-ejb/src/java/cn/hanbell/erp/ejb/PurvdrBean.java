@@ -170,8 +170,8 @@ public class PurvdrBean extends SuperEJBForERP<Purvdr> {
 
             oa.setVdrno(newvdrno);
             beanHKCG016.update(oa);
-            
-            switch (facno) {
+
+            switch (oa.getFacno()) {
                 case "G":
                     //同步广州ERP
                     //resetFacno("G");
@@ -236,8 +236,7 @@ public class PurvdrBean extends SuperEJBForERP<Purvdr> {
         if (erp == null) {
             throw new NullPointerException();
         }
-        
-        
+
         if ("1".equals(oa.getCheckbox11())) {
             Miscode m;
             this.miscodeBean.setCompany(facno);
@@ -254,39 +253,39 @@ public class PurvdrBean extends SuperEJBForERP<Purvdr> {
             }
         }
 
-        if(oa.getBvdrds().equals("1")){
-        erp.setVdrds(oa.getVdrds());
+        if (oa.getBvdrds().equals("1")) {
+            erp.setVdrds(oa.getVdrds());
         }
-        if(oa.getBfkfs().equals("1")){
-        erp.setFkfs(oa.getFktype());
+        if (oa.getBfkfs().equals("1")) {
+            erp.setFkfs(oa.getFktype());
         }
-        if(oa.getCheckbox10().equals("1")){
-        erp.setAddress(oa.getAddress());
+        if (oa.getCheckbox10().equals("1")) {
+            erp.setAddress(oa.getAddress());
         }
-        if(oa.getCheckbox12().equals("1")){
-        erp.setTtbanknum(oa.getTtbanknum());
+        if (oa.getCheckbox12().equals("1")) {
+            erp.setTtbanknum(oa.getTtbanknum());
         }
-        if(oa.getCheckbox13().equals("1")){
-        erp.setUniform(oa.getUniform());
+        if (oa.getCheckbox13().equals("1")) {
+            erp.setUniform(oa.getUniform());
         }
-        if(oa.getCheckbox14().equals("1")){
-        erp.setContactman(oa.getContactman());
-        }       
-        if(oa.getCheckbox15().equals("1")){
-        erp.setTel1(oa.getTel1());
+        if (oa.getCheckbox14().equals("1")) {
+            erp.setContactman(oa.getContactman());
         }
-        if(oa.getCheckbox16().equals("1")){
-        erp.setTel2(oa.getTel2());
+        if (oa.getCheckbox15().equals("1")) {
+            erp.setTel1(oa.getTel1());
         }
-        if(oa.getCheckbox17().equals("1")){
-        erp.setFax1(oa.getFax1());
+        if (oa.getCheckbox16().equals("1")) {
+            erp.setTel2(oa.getTel2());
+        }
+        if (oa.getCheckbox17().equals("1")) {
+            erp.setFax1(oa.getFax1());
         }
 
         try {
             update(erp);
             getEntityManager().flush();
 
-            switch (facno) {
+            switch (oa.getFacno()) {
                 case "G":
                     //同步广州ERP
                     //resetFacno("G");
