@@ -98,9 +98,10 @@ public class CdrcusBean extends SuperEJBForERP<Cdrcus> {
         }
 
         CRMGG crmgg = beanCRMGG.findById(oa.getGg001());
-        if (crmgg == null) {
-            throw new NullPointerException();
-        }
+        //放开限制,允许无CRM资料就可以新增客户 C0160 2016/9/2
+        //if (crmgg == null) {
+        //    throw new NullPointerException();
+        //}
 
         switch (oa.getFacno()) {
             //SHB和分公司统一到SHB下
@@ -253,75 +254,79 @@ public class CdrcusBean extends SuperEJBForERP<Cdrcus> {
         transwahAdded.add(t);
         miscodeAdded.add(c);
 
-        crmgg.setGg004(cdrcus.getCusds());
-        crmgg.setGg008(cdrcus.getAreacode());
-        crmgg.setGg009(cdrcus.getSacode());
-        crmgg.setGg010(cdrcus.getCuycode());
-        crmgg.setGg011(cdrcus.getCuskind());
+        //放开限制,允许无CRM资料就可以新增客户 C0160 2016/9/2
+        if (crmgg != null) {
+            crmgg.setGg004(cdrcus.getCusds());
+            crmgg.setGg008(cdrcus.getAreacode());
+            crmgg.setGg009(cdrcus.getSacode());
+            crmgg.setGg010(cdrcus.getCuycode());
+            crmgg.setGg011(cdrcus.getCuskind());
 
-        crmgg.setGg017(BaseLib.formatDate("yyyyMMdd", cdrcus.getBegdate()));
-        crmgg.setGg018(cdrcus.getBoss());
-        crmgg.setGg024(cdrcus.getTel1());
-        crmgg.setGg027(cdrcus.getFax());
-        crmgg.setGg030(cdrcus.getUniform());
-        if (cdrcus.getCapamt() != null) {
-            crmgg.setGg031(BigDecimal.valueOf(cdrcus.getCapamt()));
+            crmgg.setGg017(BaseLib.formatDate("yyyyMMdd", cdrcus.getBegdate()));
+            crmgg.setGg018(cdrcus.getBoss());
+            crmgg.setGg024(cdrcus.getTel1());
+            crmgg.setGg027(cdrcus.getFax());
+            crmgg.setGg030(cdrcus.getUniform());
+            if (cdrcus.getCapamt() != null) {
+                crmgg.setGg031(BigDecimal.valueOf(cdrcus.getCapamt()));
+            }
+            crmgg.setGg036(oa.getGg036());
+            crmgg.setGg043(newcusno);
+            crmgg.setGg084(cdrcus.getCoin());
+            //ERP与CRM定义不同
+            switch (cdrcus.getTax()) {
+                //外加税
+                case '1':
+                    crmgg.setGg098('2');
+                    crmgg.setGg109("S01");
+                //零税
+                case '2':
+                    crmgg.setGg098('3');
+                    crmgg.setGg109("S01");
+                    break;
+                //免税
+                //case '3':
+                //内含
+                case '4':
+                    crmgg.setGg098('1');
+                    crmgg.setGg109("S02");
+                default:
+            }
+            crmgg.setGg105(cdrcus.getCusdse());
+            //交易类别字段形态不符
+            //ERP与CRM定义不同
+            switch (cdrcus.getPaycode()) {
+                case '1':
+                    crmgg.setGg113('1');
+                    break;
+                case '2':
+                    crmgg.setGg113('3');
+                    break;
+                case '3':
+                    crmgg.setGg113('2');
+                    break;
+                case '4':
+                case '5':
+                    crmgg.setGg113('4');
+                    break;
+                default:
+                    crmgg.setGg113('1');
+            }
+            //回写更多内容
         }
-        crmgg.setGg036(oa.getGg036());
-        crmgg.setGg043(newcusno);
-        crmgg.setGg084(cdrcus.getCoin());
-        //ERP与CRM定义不同
-        switch (cdrcus.getTax()) {
-            //外加税
-            case '1':
-                crmgg.setGg098('2');
-                crmgg.setGg109("S01");
-            //零税
-            case '2':
-                crmgg.setGg098('3');
-                crmgg.setGg109("S01");
-                break;
-            //免税
-            //case '3':
-            //内含
-            case '4':
-                crmgg.setGg098('1');
-                crmgg.setGg109("S02");
-            default:
-        }
-        crmgg.setGg105(cdrcus.getCusdse());
-        //交易类别字段形态不符
-        //ERP与CRM定义不同
-        switch (cdrcus.getPaycode()) {
-            case '1':
-                crmgg.setGg113('1');
-                break;
-            case '2':
-                crmgg.setGg113('3');
-                break;
-            case '3':
-                crmgg.setGg113('2');
-                break;
-            case '4':
-            case '5':
-                crmgg.setGg113('4');
-                break;
-            default:
-                crmgg.setGg113('1');
-        }
-        //回写更多内容
-
         try {
             persist(cdrcus, detailAdded);
             getEntityManager().flush();
 
-            beanCRMGG.update(crmgg);
-            beanCRMGG.getEntityManager().flush();
+            if (crmgg != null) {
+                beanCRMGG.update(crmgg);
+                beanCRMGG.getEntityManager().flush();
+            }
 
             oa.setPz(newcusno);
             beanHKYX006.update(oa);
 
-            switch (facno) {
+            switch (oa.getFacno()) {
                 case "G":
                     //同步广州ERP
                     resetFacno("G");
@@ -472,6 +477,7 @@ public class CdrcusBean extends SuperEJBForERP<Cdrcus> {
             //更新ERP客户资料
             update(cdrcus, detailAdded, null, null);
             if (!"".equals(origman) && !"".equals(newman)) {
+                //更新ERP-armhad对应的负责业务
                 updateSalesManInArmhad(cdrcus.getCusno(), origman, newman);
             }
             getEntityManager().flush();
