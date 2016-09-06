@@ -124,7 +124,9 @@ public class PurvdrBean extends SuperEJBForERP<Purvdr> {
         if (oa.getPaycode() != null && !oa.getPaycode().equals("")) {
             erp.setPaycode(oa.getPaycode().charAt(0));
         }
-        erp.setTickdays(Short.valueOf(oa.getTickdays()));
+        if (oa.getTickdays() != null && !oa.getTickdays().equals("")) {
+            erp.setTickdays(Short.valueOf(oa.getTickdays()));
+        }
         erp.setBoss(oa.getBoss());
         erp.setMark1(oa.getMark1());
         erp.setSndcode(oa.getSndcode());
