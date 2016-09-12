@@ -36,6 +36,7 @@ public class PurvdrBean extends SuperEJBForERP<Purvdr> {
     private final HashMap<SuperEJBForERP, List<?>> details = new HashMap<>();
 
     private final List<PurvdrBuyer> purvdrBuyerList = new ArrayList<>();
+    private final List<Miscode> miscodeAdded = new ArrayList<>();
 
     @EJB
     private HKCG016Bean beanHKCG016;
@@ -62,6 +63,7 @@ public class PurvdrBean extends SuperEJBForERP<Purvdr> {
     @Override
     public Boolean initByOAPSN(String psn) {
         details.put(purvdrBuyerBean, purvdrBuyerList);
+        details.put(miscodeBean, miscodeAdded);
         HKCG016 oa = beanHKCG016.findByPSN(psn);
         if (oa == null) {
             throw new NullPointerException();
@@ -163,8 +165,16 @@ public class PurvdrBean extends SuperEJBForERP<Purvdr> {
         //生成采购员
         PurvdrBuyer b = new PurvdrBuyer(facno, "1", newvdrno);
         b.setBuyer(oa.getUserno());
+        
+        //生成MISCODE资料
+        Miscode c = new Miscode("PJ",newvdrno);
+        c.setCdesc(erp.getVdrna());
+        c.setStatus('Y');
+        c.setMascreyn('Y');
+        c.setCusds(erp.getVdrds());
 
         purvdrBuyerList.add(b);
+        miscodeAdded.add(c);
 
         try {
             persist(erp, details);
