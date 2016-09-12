@@ -53,9 +53,6 @@ public class PurvdrBean extends SuperEJBForERP<Purvdr> {
     @EJB
     private SyncSHBBean syncSHBBean;
 
-    @EJB
-    private MiscodeBean miscodeBean;
-
     public PurvdrBean() {
         super(Purvdr.class);
     }
@@ -165,9 +162,9 @@ public class PurvdrBean extends SuperEJBForERP<Purvdr> {
         //生成采购员
         PurvdrBuyer b = new PurvdrBuyer(facno, "1", newvdrno);
         b.setBuyer(oa.getUserno());
-        
+
         //生成MISCODE资料
-        Miscode c = new Miscode("PJ",newvdrno);
+        Miscode c = new Miscode("PJ", newvdrno);
         c.setCdesc(erp.getVdrna());
         c.setStatus('Y');
         c.setMascreyn('Y');
@@ -186,20 +183,20 @@ public class PurvdrBean extends SuperEJBForERP<Purvdr> {
             switch (oa.getFacno()) {
                 case "G":
                     //同步广州ERP
-                    //resetFacno("G");
-                    syncGZBean.persist(erp, null);
+                    resetFacno("G");
+                    syncGZBean.persist(erp, details);
                     syncGZBean.getEntityManager().flush();
                     break;
                 case "J":
                     //同步济南ERP
-                    //resetFacno("J");
-                    syncJNBean.persist(erp, null);
+                    resetFacno("J");
+                    syncJNBean.persist(erp, details);
                     syncJNBean.getEntityManager().flush();
                     break;
                 case "N":
                     //同步南京ERP
-                    //resetFacno("N");
-                    syncNJBean.persist(erp, null);
+                    resetFacno("N");
+                    syncNJBean.persist(erp, details);
                     syncNJBean.getEntityManager().flush();
                     break;
                 default:
@@ -213,9 +210,18 @@ public class PurvdrBean extends SuperEJBForERP<Purvdr> {
 
     }
 
+    protected void resetFacno(String facno) {
+        for (PurvdrBuyer b : purvdrBuyerList) {
+            b.getPurvdrBuyerPK().setFacno(facno);
+        }
+    }
+
     protected void resetObjects() {
         if (purvdrBuyerList != null && !purvdrBuyerList.isEmpty()) {
             purvdrBuyerList.clear();
+        }
+        if (miscodeAdded != null && !miscodeAdded.isEmpty()) {
+            miscodeAdded.clear();
         }
     }
 
