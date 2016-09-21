@@ -170,7 +170,7 @@ public class SHBERPWebService {
         Boolean ret = false;
         try {
             if ("1".equals(isReject)) {
-                ret = budgetDetailBean.subtractByOABXD(psn);
+                ret = apmpayBean.subtractBudgetPlanByOABXD(psn);
             } else {
                 return "200";
             }
@@ -204,7 +204,7 @@ public class SHBERPWebService {
         Boolean ret = false;
         try {
             if ("1".equals(isReject)) {
-                ret = budgetDetailBean.subtractByOAJZD(psn);
+                ret = apmpayBean.subtractBudgetPlanByOAJZD(psn);
             } else {
                 return "200";
             }
@@ -238,7 +238,7 @@ public class SHBERPWebService {
         Boolean ret = false;
         try {
             if ("1".equals(isReject)) {
-                ret = budgetDetailBean.subtractByOAJZGHD(psn);
+                ret = apmpayBean.subtractBudgetPlanByOAJZGHD(psn);
             } else {
                 return "200";
             }

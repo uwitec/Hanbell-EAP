@@ -3,7 +3,7 @@
     <type>org.netbeans.modules.j2ee.ejbjarproject</type>
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/j2ee-ejbjarproject/3">
-            <name>ERP-ejb</name>
+            <name>EFNET-ejb</name>
             <minimum-ant-version>1.6.5</minimum-ant-version>
             <included-library dirs="200">libs.Hanbell-JDK.classpath</included-library>
             <source-roots>
@@ -15,23 +15,7 @@
         </data>
         <references xmlns="http://www.netbeans.org/ns/ant-project-references/1">
             <reference>
-                <foreign-project>CRM-ejb</foreign-project>
-                <artifact-type>jar</artifact-type>
-                <script>build.xml</script>
-                <target>dist</target>
-                <clean-target>clean</clean-target>
-                <id>dist</id>
-            </reference>
-            <reference>
                 <foreign-project>EFGP-ejb</foreign-project>
-                <artifact-type>jar</artifact-type>
-                <script>build.xml</script>
-                <target>dist</target>
-                <clean-target>clean</clean-target>
-                <id>dist</id>
-            </reference>
-            <reference>
-                <foreign-project>EFNET-ejb</foreign-project>
                 <artifact-type>jar</artifact-type>
                 <script>build.xml</script>
                 <target>dist</target>
