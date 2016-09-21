@@ -9,15 +9,18 @@
             <name>Hanbell-JWS</name>
             <minimum-ant-version>1.6.5</minimum-ant-version>
             <web-module-libraries>
-                <library dirs="100">
-                    <file>${reference.ERP-ejb.dist}</file>
+                <library dirs="200">
+                    <file>${libs.Hanbell-JDK.classpath}</file>
+                    <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library dirs="100">
                     <file>${reference.EFGP-ejb.dist}</file>
                 </library>
-                <library dirs="200">
-                    <file>${libs.Hanbell-JDK.classpath}</file>
-                    <path-in-war>WEB-INF/lib</path-in-war>
+                <library dirs="100">
+                    <file>${reference.EFNET-ejb.dist}</file>
+                </library>
+                <library dirs="100">
+                    <file>${reference.ERP-ejb.dist}</file>
                 </library>
             </web-module-libraries>
             <web-module-additional-libraries/>
@@ -31,6 +34,14 @@
         <references xmlns="http://www.netbeans.org/ns/ant-project-references/1">
             <reference>
                 <foreign-project>EFGP-ejb</foreign-project>
+                <artifact-type>jar</artifact-type>
+                <script>build.xml</script>
+                <target>dist</target>
+                <clean-target>clean</clean-target>
+                <id>dist</id>
+            </reference>
+            <reference>
+                <foreign-project>EFNET-ejb</foreign-project>
                 <artifact-type>jar</artifact-type>
                 <script>build.xml</script>
                 <target>dist</target>

@@ -170,21 +170,16 @@ public class BudgetDetailBean extends SuperEJBForERP<BudgetDetail> {
         try {
             date = BaseLib.getDate("yyyy/MM/dd", BaseLib.formatDate("yyyy/MM/dd", b.getAppDate())); //付款日期
             period = BaseLib.formatDate("yyyyMM", date);
-            System.out.println(period);
 
             this.setCompany(facno);
-
             details = hzcw028reDetailBean.findByFSN(b.getFormSerialNumber());
 
             for (int i = 0; i < details.size(); i++) {
-
                 HZCW028reDetail detail = details.get(i);
-
                 //预算金额更新逻辑
                 BudgetDetail u;
                 u = new BudgetDetail(facno, "", period, detail.getCenterid(), detail.getBudgetAcc(), "R", i + 1, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.valueOf(detail.getTaxInclusive() * (b.getRatio())));
                 budgetDetails.add(u);
-
             }
 
             this.subtract(budgetDetails);

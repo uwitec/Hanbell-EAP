@@ -5,6 +5,7 @@
  */
 package cn.hanbell.erp.ejb;
 
+import cn.hanbell.efnet.ejb.HZFWDD05Bean;
 import cn.hanbell.erp.comm.SuperEJBForERP;
 
 import cn.hanbell.erp.entity.Apmpad;
@@ -16,6 +17,7 @@ import cn.hanbell.erp.entity.Miscode;
 import cn.hanbell.oa.ejb.HZCW028reDetailBean;
 import cn.hanbell.oa.ejb.HZCW028Bean;
 import cn.hanbell.oa.ejb.HZCW017Bean;
+import cn.hanbell.oa.ejb.HZCW028tDetailBean;
 import cn.hanbell.oa.ejb.HZCW033reDetailBean;
 import cn.hanbell.oa.ejb.HZCW033Bean;
 import cn.hanbell.oa.entity.HZCW028reDetail;
@@ -61,6 +63,8 @@ public class ApmpayBean extends SuperEJBForERP<Apmpay> {
     private HZCW028Bean hzcw028Bean;
     @EJB
     private HZCW028reDetailBean hzcw028reDetailBean;
+    @EJB
+    private HZCW028tDetailBean hzcw028tDetailBean;
 
     @EJB
     private HZCW017Bean jzdBean;
@@ -69,6 +73,9 @@ public class ApmpayBean extends SuperEJBForERP<Apmpay> {
     private HZCW033Bean jzghdBean;
     @EJB
     private HZCW033reDetailBean jzghdreDetailBean;
+
+    @EJB
+    private HZFWDD05Bean hzfwdd05Bean;
 
     private Miscode miscode;
 
@@ -256,6 +263,10 @@ public class ApmpayBean extends SuperEJBForERP<Apmpay> {
             budgetDetailBean.add(budgetDetails);
             budgetDetailBean.getEntityManager().flush();
 
+            //更新差旅费明细到EFNET服务单上
+            if ("1".equals(b.getReimbursement())) {
+                hzfwdd05Bean.initByEFGPFormSerialNumber(b.getFormSerialNumber());
+            }
             return true;
         } catch (Exception ex) {
             Logger.getLogger(ApmpayBean.class.getName()).log(Level.SEVERE, null, ex);
@@ -692,5 +703,22 @@ public class ApmpayBean extends SuperEJBForERP<Apmpay> {
             Logger.getLogger(ApmpayBean.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
+    }
+
+    public Boolean subtractBudgetPlanByOABXD(String psn) {
+        HZCW028 b = hzcw028Bean.findByPSN(psn);
+        //删除EFNET服务单对应的差旅明细
+        if ("1".equals(b.getReimbursement())) {
+            hzfwdd05Bean.deleteByEFGPFormSerialNumber(b.getFormSerialNumber());
+        }
+        return budgetDetailBean.subtractByOABXD(psn);
+    }
+
+    public Boolean subtractBudgetPlanByOAJZD(String psn) {
+        return budgetDetailBean.subtractByOAJZD(psn);
+    }
+
+    public Boolean subtractBudgetPlanByOAJZGHD(String psn) {
+        return budgetDetailBean.subtractByOAJZGHD(psn);
     }
 }
