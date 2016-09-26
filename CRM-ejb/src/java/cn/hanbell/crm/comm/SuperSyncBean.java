@@ -63,7 +63,7 @@ public abstract class SuperSyncBean implements Serializable {
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void update(Object entity, HashMap<SuperEJBForCRM, List<?>> detailAdded, HashMap<SuperEJBForCRM, List<?>> detailEdited, HashMap<SuperEJBForCRM, List<?>> detailDeleted) {
         try {
-            getEntityManager().persist(entity);
+            getEntityManager().merge(entity);
             if (detailEdited != null && !detailEdited.isEmpty()) {
                 for (Entry<SuperEJBForCRM, List<?>> entry : detailEdited.entrySet()) {
                     for (Object o : entry.getValue()) {
@@ -157,7 +157,7 @@ public abstract class SuperSyncBean implements Serializable {
     @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
     public void syncUpdate(Object entity, HashMap<SuperEJBForCRM, List<?>> detailAdded, HashMap<SuperEJBForCRM, List<?>> detailEdited, HashMap<SuperEJBForCRM, List<?>> detailDeleted) {
         try {
-            getEntityManager().persist(entity);
+            getEntityManager().merge(entity);
             if (detailEdited != null && !detailEdited.isEmpty()) {
                 for (Entry<SuperEJBForCRM, List<?>> entry : detailEdited.entrySet()) {
                     for (Object o : entry.getValue()) {
@@ -168,7 +168,11 @@ public abstract class SuperSyncBean implements Serializable {
             if (detailDeleted != null && !detailDeleted.isEmpty()) {
                 for (Entry<SuperEJBForCRM, List<?>> entry : detailDeleted.entrySet()) {
                     for (Object o : entry.getValue()) {
-                        getEntityManager().remove(o);
+                        if (getEntityManager().contains(o)) {
+                            getEntityManager().remove(o);
+                        } else {
+                            getEntityManager().remove(getEntityManager().merge(o));
+                        }
                     }
                 }
             }

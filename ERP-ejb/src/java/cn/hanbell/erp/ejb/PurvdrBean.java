@@ -36,6 +36,7 @@ public class PurvdrBean extends SuperEJBForERP<Purvdr> {
     private final HashMap<SuperEJBForERP, List<?>> details = new HashMap<>();
 
     private final List<PurvdrBuyer> purvdrBuyerList = new ArrayList<>();
+    private final List<Miscode> miscodeAdded = new ArrayList<>();
 
     @EJB
     private HKCG016Bean beanHKCG016;
@@ -52,9 +53,6 @@ public class PurvdrBean extends SuperEJBForERP<Purvdr> {
     @EJB
     private SyncSHBBean syncSHBBean;
 
-    @EJB
-    private MiscodeBean miscodeBean;
-
     public PurvdrBean() {
         super(Purvdr.class);
     }
@@ -62,6 +60,7 @@ public class PurvdrBean extends SuperEJBForERP<Purvdr> {
     @Override
     public Boolean initByOAPSN(String psn) {
         details.put(purvdrBuyerBean, purvdrBuyerList);
+        details.put(miscodeBean, miscodeAdded);
         HKCG016 oa = beanHKCG016.findByPSN(psn);
         if (oa == null) {
             throw new NullPointerException();
@@ -124,7 +123,9 @@ public class PurvdrBean extends SuperEJBForERP<Purvdr> {
         if (oa.getPaycode() != null && !oa.getPaycode().equals("")) {
             erp.setPaycode(oa.getPaycode().charAt(0));
         }
-        erp.setTickdays(Short.valueOf(oa.getTickdays()));
+        if (oa.getTickdays() != null && !oa.getTickdays().equals("")) {
+            erp.setTickdays(Short.valueOf(oa.getTickdays()));
+        }
         erp.setBoss(oa.getBoss());
         erp.setMark1(oa.getMark1());
         erp.setSndcode(oa.getSndcode());
@@ -162,7 +163,15 @@ public class PurvdrBean extends SuperEJBForERP<Purvdr> {
         PurvdrBuyer b = new PurvdrBuyer(facno, "1", newvdrno);
         b.setBuyer(oa.getUserno());
 
+        //生成MISCODE资料
+        Miscode c = new Miscode("PJ", newvdrno);
+        c.setCdesc(erp.getVdrna());
+        c.setStatus('Y');
+        c.setMascreyn('Y');
+        c.setCusds(erp.getVdrds());
+
         purvdrBuyerList.add(b);
+        miscodeAdded.add(c);
 
         try {
             persist(erp, details);
@@ -170,24 +179,24 @@ public class PurvdrBean extends SuperEJBForERP<Purvdr> {
 
             oa.setVdrno(newvdrno);
             beanHKCG016.update(oa);
-            
-            switch (facno) {
+
+            switch (oa.getFacno()) {
                 case "G":
                     //同步广州ERP
-                    //resetFacno("G");
-                    syncGZBean.persist(erp, null);
+                    resetFacno("G");
+                    syncGZBean.persist(erp, details);
                     syncGZBean.getEntityManager().flush();
                     break;
                 case "J":
                     //同步济南ERP
-                    //resetFacno("J");
-                    syncJNBean.persist(erp, null);
+                    resetFacno("J");
+                    syncJNBean.persist(erp, details);
                     syncJNBean.getEntityManager().flush();
                     break;
                 case "N":
                     //同步南京ERP
-                    //resetFacno("N");
-                    syncNJBean.persist(erp, null);
+                    resetFacno("N");
+                    syncNJBean.persist(erp, details);
                     syncNJBean.getEntityManager().flush();
                     break;
                 default:
@@ -201,9 +210,18 @@ public class PurvdrBean extends SuperEJBForERP<Purvdr> {
 
     }
 
+    protected void resetFacno(String facno) {
+        for (PurvdrBuyer b : purvdrBuyerList) {
+            b.getPurvdrBuyerPK().setFacno(facno);
+        }
+    }
+
     protected void resetObjects() {
         if (purvdrBuyerList != null && !purvdrBuyerList.isEmpty()) {
             purvdrBuyerList.clear();
+        }
+        if (miscodeAdded != null && !miscodeAdded.isEmpty()) {
+            miscodeAdded.clear();
         }
     }
 
@@ -236,8 +254,7 @@ public class PurvdrBean extends SuperEJBForERP<Purvdr> {
         if (erp == null) {
             throw new NullPointerException();
         }
-        
-        
+
         if ("1".equals(oa.getCheckbox11())) {
             Miscode m;
             this.miscodeBean.setCompany(facno);
@@ -254,39 +271,39 @@ public class PurvdrBean extends SuperEJBForERP<Purvdr> {
             }
         }
 
-        if(oa.getBvdrds().equals("1")){
-        erp.setVdrds(oa.getVdrds());
+        if (oa.getBvdrds().equals("1")) {
+            erp.setVdrds(oa.getVdrds());
         }
-        if(oa.getBfkfs().equals("1")){
-        erp.setFkfs(oa.getFktype());
+        if (oa.getBfkfs().equals("1")) {
+            erp.setFkfs(oa.getFktype());
         }
-        if(oa.getCheckbox10().equals("1")){
-        erp.setAddress(oa.getAddress());
+        if (oa.getCheckbox10().equals("1")) {
+            erp.setAddress(oa.getAddress());
         }
-        if(oa.getCheckbox12().equals("1")){
-        erp.setTtbanknum(oa.getTtbanknum());
+        if (oa.getCheckbox12().equals("1")) {
+            erp.setTtbanknum(oa.getTtbanknum());
         }
-        if(oa.getCheckbox13().equals("1")){
-        erp.setUniform(oa.getUniform());
+        if (oa.getCheckbox13().equals("1")) {
+            erp.setUniform(oa.getUniform());
         }
-        if(oa.getCheckbox14().equals("1")){
-        erp.setContactman(oa.getContactman());
-        }       
-        if(oa.getCheckbox15().equals("1")){
-        erp.setTel1(oa.getTel1());
+        if (oa.getCheckbox14().equals("1")) {
+            erp.setContactman(oa.getContactman());
         }
-        if(oa.getCheckbox16().equals("1")){
-        erp.setTel2(oa.getTel2());
+        if (oa.getCheckbox15().equals("1")) {
+            erp.setTel1(oa.getTel1());
         }
-        if(oa.getCheckbox17().equals("1")){
-        erp.setFax1(oa.getFax1());
+        if (oa.getCheckbox16().equals("1")) {
+            erp.setTel2(oa.getTel2());
+        }
+        if (oa.getCheckbox17().equals("1")) {
+            erp.setFax1(oa.getFax1());
         }
 
         try {
             update(erp);
             getEntityManager().flush();
 
-            switch (facno) {
+            switch (oa.getFacno()) {
                 case "G":
                     //同步广州ERP
                     //resetFacno("G");
