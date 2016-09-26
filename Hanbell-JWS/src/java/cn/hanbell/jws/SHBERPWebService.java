@@ -8,6 +8,7 @@ package cn.hanbell.jws;
 import cn.hanbell.erp.ejb.ApmpayBean;
 import cn.hanbell.erp.ejb.BudgetDetailBean;
 import cn.hanbell.erp.ejb.CdrcusBean;
+import cn.hanbell.erp.ejb.InvmasBean;
 import cn.hanbell.erp.ejb.PurvdrBean;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -38,6 +39,9 @@ public class SHBERPWebService {
 
     @EJB
     private BudgetDetailBean budgetDetailBean;
+
+    @EJB
+    private InvmasBean invmasBean;
 
     @WebMethod(operationName = "hello")
     public String hello(@WebParam(name = "name") String txt) {
@@ -242,6 +246,21 @@ public class SHBERPWebService {
             } else {
                 return "200";
             }
+        } catch (Exception ex) {
+            Logger.getLogger(SHBERPWebService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (ret) {
+            return "200";
+        } else {
+            return "404";
+        }
+    }
+
+    @WebMethod(operationName = "createINV140ByOAJHZYD")
+    public String createINV140ByOAJHZYD(@WebParam(name = "psn") String psn) {
+        Boolean ret = false;
+        try {
+            ret = invmasBean.initByOASHBINV140(psn);
         } catch (Exception ex) {
             Logger.getLogger(SHBERPWebService.class.getName()).log(Level.SEVERE, null, ex);
         }
