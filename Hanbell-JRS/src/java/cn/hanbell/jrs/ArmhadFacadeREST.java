@@ -7,6 +7,7 @@ package cn.hanbell.jrs;
 
 import cn.hanbell.erp.entity.Armhad;
 import cn.hanbell.erp.entity.ArmhadPK;
+import cn.hanbell.util.SuperEJB;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -85,26 +86,20 @@ public class ArmhadFacadeREST extends AbstractFacade<Armhad> {
         //super.create(entity);
     }
 
-    @PUT
-    @Path("{id}")
-    @Consumes({"application/xml", "application/json"})
-    public void edit(@PathParam("id") PathSegment id, Armhad entity) {
-        //super.edit(entity);
-    }
-
     @DELETE
     @Path("{id}")
     public void remove(@PathParam("id") PathSegment id) {
         //shberp.entity.ArmhadPK key = getPrimaryKey(id);
-        //super.remove(super.find(key));
+        //super.remove(super.findById(key));
     }
 
     @GET
     @Path("{id}")
     @Produces({"application/xml", "application/json"})
-    public Armhad find(@PathParam("id") PathSegment id) {
-        ArmhadPK key = getPrimaryKey(id);
-        return super.find(key);
+    @Override
+    public Armhad findById(@PathParam("id") PathSegment id) {
+        ArmhadPK key = getPrimaryKey(id);       
+        return null;
     }
 
     @GET
@@ -132,16 +127,14 @@ public class ArmhadFacadeREST extends AbstractFacade<Armhad> {
         return query.getResultList();
     }
 
-    @GET
-    @Path("count")
-    @Produces("text/plain")
-    public String countREST() {
-        return String.valueOf(super.count());
+
+    protected EntityManager getEntityManager() {
+        return em;
     }
 
     @Override
-    protected EntityManager getEntityManager() {
-        return em;
+    protected SuperEJB getSuperEJB() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

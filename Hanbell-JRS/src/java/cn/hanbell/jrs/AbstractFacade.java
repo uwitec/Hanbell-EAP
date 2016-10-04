@@ -5,59 +5,63 @@
  */
 package cn.hanbell.jrs;
 
+import cn.hanbell.util.SuperEJB;
 import java.util.List;
-import javax.persistence.EntityManager;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.PathSegment;
 
 /**
  *
  * @author C0160
+ * @param <T>
+ * @param <V>
  */
 public abstract class AbstractFacade<T> {
+
     private Class<T> entityClass;
+
+    protected abstract SuperEJB getSuperEJB();
 
     public AbstractFacade(Class<T> entityClass) {
         this.entityClass = entityClass;
     }
 
-    protected abstract EntityManager getEntityManager();
-
     public void create(T entity) {
-        getEntityManager().persist(entity);
+        getSuperEJB().persist(entity);
     }
 
-    public void edit(T entity) {
-        getEntityManager().merge(entity);
+//    public void edit(T entity) {
+//        getSuperEJB().update(entity);
+//    }
+    @PUT
+    @Path("{id}")
+    @Consumes({"application/xml", "application/json"})
+    public void edit(@PathParam("id") String id, T entity) {
+        getSuperEJB().persist(entity);
     }
 
     public void remove(T entity) {
-        getEntityManager().remove(getEntityManager().merge(entity));
+        getSuperEJB().delete(entity);
     }
 
-    public T find(Object id) {
-        return getEntityManager().find(entityClass, id);
+    @GET
+    @Path("{id}")
+    @Produces({"application/json"})
+    public T findById(@PathParam("id") PathSegment id) {
+        return (T) getSuperEJB().findById(id.getPath());
     }
 
     public List<T> findAll() {
-        javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
-        cq.select(cq.from(entityClass));
-        return getEntityManager().createQuery(cq).getResultList();
+        return getSuperEJB().findAll();
     }
 
-    public List<T> findRange(int[] range) {
-        javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
-        cq.select(cq.from(entityClass));
-        javax.persistence.Query q = getEntityManager().createQuery(cq);
-        q.setMaxResults(range[1] - range[0] + 1);
-        q.setFirstResult(range[0]);
-        return q.getResultList();
+    public int getRowCount() {
+        return getSuperEJB().getRowCount();
     }
 
-    public int count() {
-        javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
-        javax.persistence.criteria.Root<T> rt = cq.from(entityClass);
-        cq.select(getEntityManager().getCriteriaBuilder().count(rt));
-        javax.persistence.Query q = getEntityManager().createQuery(cq);
-        return ((Long) q.getSingleResult()).intValue();
-    }
-    
 }

@@ -7,6 +7,7 @@ package cn.hanbell.jrs;
 
 import cn.hanbell.erp.ejb.ItemFaultBean;
 import cn.hanbell.erp.entity.ItemFault;
+import cn.hanbell.util.SuperEJB;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -49,13 +50,13 @@ public class ItemFaultFacadeREST extends AbstractFacade<ItemFault> {
     public void create(ItemFault entity) {
         throw new WebApplicationException(Response.Status.NOT_ACCEPTABLE);
     }
-
-    @PUT
-    @Path("{id}")
-    @Consumes({"application/xml", "application/json"})
-    public void edit(@PathParam("id") String id, ItemFault entity) {
-        throw new WebApplicationException(Response.Status.NOT_ACCEPTABLE);
-    }
+//
+//    @PUT
+//    @Path("{id}")
+//    @Consumes({"application/xml", "application/json"})
+//    public void edit(@PathParam("id") String id, ItemFault entity) {
+//        throw new WebApplicationException(Response.Status.NOT_ACCEPTABLE);
+//    }
 
     @DELETE
     @Path("{id}")
@@ -63,12 +64,6 @@ public class ItemFaultFacadeREST extends AbstractFacade<ItemFault> {
         throw new WebApplicationException(Response.Status.NOT_ACCEPTABLE);
     }
 
-    @GET
-    @Path("{id}")
-    @Produces({"application/json"})
-    public ItemFault find(@PathParam("id") String id) {
-        return super.find(id);
-    }
 
     @GET
     @Override
@@ -77,16 +72,13 @@ public class ItemFaultFacadeREST extends AbstractFacade<ItemFault> {
         return itemFaultBean.findAll();
     }
 
-    @GET
-    @Path("count")
-    @Produces("text/plain")
-    public String countREST() {
-        return String.valueOf(super.count());
+    protected EntityManager getEntityManager() {
+        return em;
     }
 
     @Override
-    protected EntityManager getEntityManager() {
-        return em;
+    protected SuperEJB getSuperEJB() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

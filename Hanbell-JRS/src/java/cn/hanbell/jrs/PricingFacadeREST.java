@@ -8,17 +8,14 @@ package cn.hanbell.jrs;
 import cn.hanbell.erp.ejb.PricingBean;
 import cn.hanbell.erp.entity.Pricing;
 import cn.hanbell.erp.entity.PricingPK;
+import cn.hanbell.util.SuperEJB;
 import java.text.ParseException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.ejb.EJB;
-import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -39,9 +36,6 @@ import javax.ws.rs.core.Response;
 @Path("shberp.pricing")
 @javax.enterprise.context.RequestScoped
 public class PricingFacadeREST extends AbstractFacade<Pricing> {
-
-    @PersistenceContext(unitName = "RESTPU_shberp")
-    private EntityManager em;
 
     @Inject
     private PricingBean pricingBean;
@@ -81,13 +75,13 @@ public class PricingFacadeREST extends AbstractFacade<Pricing> {
     public void create(Pricing entity) {
         throw new WebApplicationException(Response.Status.NOT_ACCEPTABLE);
     }
-
-    @PUT
-    @Path("{id}")
-    @Consumes({"application/xml", "application/json"})
-    public void edit(@PathParam("id") PathSegment id, Pricing entity) {
-        throw new WebApplicationException(Response.Status.NOT_ACCEPTABLE);
-    }
+//
+//    @PUT
+//    @Path("{id}")
+//    @Consumes({"application/xml", "application/json"})
+//    public void edit(@PathParam("id") PathSegment id, Pricing entity) {
+//        throw new WebApplicationException(Response.Status.NOT_ACCEPTABLE);
+//    }
 
     @DELETE
     @Path("{id}")
@@ -98,7 +92,8 @@ public class PricingFacadeREST extends AbstractFacade<Pricing> {
     @GET
     @Path("{itnbr}")
     @Produces({"application/json"})
-    public Pricing find(@PathParam("itnbr") PathSegment query) {
+    @Override
+    public Pricing findById(@PathParam("itnbr") PathSegment query) {
         Pricing entity = null;
         MultivaluedMap<String, String> mv = query.getMatrixParameters();
         Map<String, Object> filters = new HashMap<>();
@@ -128,16 +123,9 @@ public class PricingFacadeREST extends AbstractFacade<Pricing> {
         return entity;
     }
 
-    @GET
-    @Path("count")
-    @Produces("text/plain")
-    public String countREST() {
-        return String.valueOf(super.count());
-    }
-
     @Override
-    protected EntityManager getEntityManager() {
-        return em;
+    protected SuperEJB getSuperEJB() {
+        return pricingBean;
     }
 
 }

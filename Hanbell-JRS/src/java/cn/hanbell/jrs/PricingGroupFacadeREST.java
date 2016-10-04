@@ -7,13 +7,11 @@ package cn.hanbell.jrs;
 
 import cn.hanbell.erp.ejb.PricingGroupBean;
 import cn.hanbell.erp.entity.PricingGroup;
-import java.util.ArrayList;
+import cn.hanbell.util.SuperEJB;
 import java.util.List;
-import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -34,10 +32,7 @@ import javax.ws.rs.core.Response;
 public class PricingGroupFacadeREST extends AbstractFacade<PricingGroup> {
 
     @Inject
-    private PricingGroupBean pricin个GroupBean;
-
-    @PersistenceContext(unitName = "RESTPU_shberp")
-    private EntityManager em;
+    private PricingGroupBean pricinGroupBean;
 
     public PricingGroupFacadeREST() {
         super(PricingGroup.class);
@@ -53,6 +48,7 @@ public class PricingGroupFacadeREST extends AbstractFacade<PricingGroup> {
     @PUT
     @Path("{id}")
     @Consumes({"application/xml", "application/json"})
+    @Override
     public void edit(@PathParam("id") String id, PricingGroup entity) {
         throw new WebApplicationException(Response.Status.NOT_ACCEPTABLE);
     }
@@ -64,29 +60,22 @@ public class PricingGroupFacadeREST extends AbstractFacade<PricingGroup> {
     }
 
     @GET
-    @Path("{userno}")
+    @Path("{userno}/list")
     @Produces({"application/json"})
     public List<PricingGroup> find(@PathParam("userno") String userno) {
-        return pricin个GroupBean.findByUserno(userno);
+        return pricinGroupBean.findByUserno(userno);
     }
 
     @GET
     @Path("{userno}/{id}")
     @Produces({"application/json"})
     public PricingGroup find(@PathParam("userno") String userno, @PathParam("id") String id) {
-        return pricin个GroupBean.findByUsernoAndGroupId(userno, id);
-    }
-
-    @GET
-    @Path("count")
-    @Produces("text/plain")
-    public String countREST() {
-        return String.valueOf(super.count());
+        return pricinGroupBean.findByUsernoAndGroupId(userno, id);
     }
 
     @Override
-    protected EntityManager getEntityManager() {
-        return em;
+    protected SuperEJB getSuperEJB() {
+       return pricinGroupBean;
     }
 
 }
