@@ -270,5 +270,20 @@ public class SHBERPWebService {
             return "404";
         }
     }
+    
+    @WebMethod(operationName = "updateINV140ByOAJHXGD")
+    public String updateINV140ByOAJHXGD(@WebParam(name = "psn") String psn) {
+        Boolean ret = false;
+        try {
+            ret = invmasBean.updateByOASHBINV146(psn);
+        } catch (Exception ex) {
+            Logger.getLogger(SHBERPWebService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (ret) {
+            return "200";
+        } else {
+            return "404";
+        }
+    }
 
 }
