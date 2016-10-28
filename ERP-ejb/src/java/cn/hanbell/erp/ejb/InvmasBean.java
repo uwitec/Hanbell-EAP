@@ -50,7 +50,7 @@ public class InvmasBean extends SuperEJBForERP<Invmas> {
     private SHBINV146DetailBean shbinv146DetailBean;
     @EJB
     private InvclsBean invclsBean;
-     @EJB
+    @EJB
     private ScminvmasBean scminvmasBean;
     @EJB
     private SyncGZBean syncGZBean;
@@ -83,7 +83,7 @@ public class InvmasBean extends SuperEJBForERP<Invmas> {
         this.setCompany(h.getFacno());
         try {
 
-//  表身循环
+            //  表身循环
             for (int i = 0; i < details.size(); i++) {
                 HZJS034Detail detail = details.get(i);
                 Invmas m = new Invmas();
@@ -96,12 +96,12 @@ public class InvmasBean extends SuperEJBForERP<Invmas> {
                 m.setEspdsc(detail.getEspdsc());                                //设置英文规格
                 m.setUnmsr1(detail.getUnmsr1());                                //设置单位一
                 m.setUnmsr2(detail.getUnmsr2());                                //设置单位二              
-                m.setUnmsr1e(detail.getUnmsr1e());                               //设置数量单位一（英文）         
+                m.setUnmsr1e(detail.getUnmsr1e());                              //设置数量单位一（英文）         
                 m.setFvco('F');                                                 //设置固定变动区分码
                 m.setJudco("11111");                                            //设置数量单位控制码
                 m.setMorpcode(detail.getMorpcode());                            //设置自制采购码              
-                m.setGroup1(detail.getGroup1());                                 //设置分类码（一） ;
-                m.setGroup2(detail.getGroup2());                                //设置分类码（二） ；
+                m.setGroup1(detail.getGroup1());                                //设置分类码（一） 
+                m.setGroup2(detail.getGroup2());                                //设置分类码（二） 
                 m.setGroup3(detail.getGroup3());
                 m.setGroup4(detail.getGroup4());
                 m.setGroup5(detail.getGroup5());
@@ -112,15 +112,15 @@ public class InvmasBean extends SuperEJBForERP<Invmas> {
                 m.setGroup10(detail.getGroup10());
                 m.setGroup11(detail.getGroup11());
                 m.setGroup12(detail.getGroup12());
-                m.setDirrvyn('N');                                              //设置知否为直接验收
+                m.setDirrvyn('N');                                              //设置是否为直接验收
                 m.setIoyn('N');                                                 //是否验收即出库
                 m.setPurtrtype(detail.getPurtrtype());                          //设置验收类别
                 m.setLowlevel((short) 0);
                 m.setExclcode('0');
-                m.setUserno(h.getEmpl());                                       //设置声请人    
+                m.setUserno(h.getEmpl());                                       //设置申请人    
                 m.setIndate(BaseLib.getDate());
-                m.setLowlevelcst((short) 0);                                     //设置低阶码
-                m.setJityn(detail.getJityn().charAt(0));                                  //即时到货管制 
+                m.setLowlevelcst((short) 0);                                    //设置低阶码
+                m.setJityn(detail.getJityn().charAt(0));                        //即时到货管制 
                 m.setGenre1(detail.getHdgenre1());                              //设置产品别
                 m.setDwf(BigDecimal.ZERO);
                 m.setDwg(BigDecimal.ZERO);
@@ -128,40 +128,44 @@ public class InvmasBean extends SuperEJBForERP<Invmas> {
                 m.setDwt(BigDecimal.ZERO);
                 persist(m);
                 this.getEntityManager().flush();
-                   
-                Scminvmas scm = new Scminvmas();
-                scm.setItnbr(detail.getItnbr());
-                scm.setItdsc(detail.getItdsc());
-                scm.setProducttype(detail.getProducttype());
-                scm.setLevel1(detail.getLevel1());
-                scm.setLevel2(detail.getLevel2());
-                scm.setTracetype(detail.getTracetype());
-                scm.setLotid(detail.getLotid());
                 scm.setCompid(detail.getCompid());
-                scm.setLno(detail.getLno());
-                scm.setWno(detail.getWno());
-                scm.setGetseq(detail.getGetseq());
-                scm.setPrinttype(detail.getPrinttype());
-                scm.setQcdata(detail.getQcdata());
-                scm.setQcdatanum(detail.getQcdatanum());
-                scm.setAsrstype(detail.getAsrstype());
-                scm.setSelfprint(detail.getSelfprint());
-                scm.setTransflag("Y");
-                scm.setTranstime(BaseLib.getDate().toString());
-                scm.setDeydetyn("N");
-                scminvmasBean.setCompany(h.getFacno());
-                scminvmasBean.persist(scm);
-                 
                 if (h.getFacno().equals("C")) {
-
+                    Scminvmas scm = new Scminvmas();
+                    scm.setItnbr(detail.getItnbr());
+                    scm.setItdsc(detail.getItdsc());
+                    scm.setProducttype(detail.getProducttype());
+                    scm.setLevel1(detail.getLevel1());
+                    scm.setLevel2(detail.getLevel2());
+                    scm.setTracetype(detail.getTracetype());
+                    scm.setLotid(detail.getLotid());
+                    scm.setCompid(detail.getCompid());
+                    scm.setLno(detail.getLno());
+                    scm.setWno(detail.getWno());
+                    scm.setGetseq(detail.getGetseq());
+                    scm.setPrinttype(detail.getPrinttype());
+                    scm.setQcdata(detail.getQcdata());
+                    scm.setQcdatanum(detail.getQcdatanum());
+                    scm.setAsrstype(detail.getAsrstype());
+                    scm.setSelfprint(detail.getSelfprint());
+                    scm.setTransflag("Y");
+                    scm.setTranstime(BaseLib.getDate().toString());
+                    scm.setDeydetyn("N");
+                    scminvmasBean.setCompany(h.getFacno());
+                    scminvmasBean.persist(scm);
+                }
+                if (h.getFacno().equals("C")) {
+                    Invcls c = invclsBean.findByItcls(detail.getItcls());
+                    if (c.getNrcode().equals('0')) {
+                        m.setDirrvyn('Y');
+                    }
                     syncNJBean.persist(m, null);
                     syncNJBean.getEntityManager().flush();
                     syncNJBean.getEntityManager().detach(m);
-                    
+
                     syncGZBean.persist(m, null);
                     syncGZBean.getEntityManager().flush();
                     syncGZBean.getEntityManager().detach(m);
-                    
+
                     syncJNBean.persist(m, null);
                     syncJNBean.getEntityManager().flush();
                     syncJNBean.getEntityManager().detach(m);
@@ -241,7 +245,7 @@ public class InvmasBean extends SuperEJBForERP<Invmas> {
 
                 this.setCompany(h.getFacno());
                 Invmas m = findByItnbr(detail.getItnbr());
-                //m.setItcls(detail.getItcls());                                  //设置品号大类               
+                //m.setItcls(detail.getItcls());                                //设置品号大类               
                 m.setItdsc(detail.getItdsc());                                  //设置中文品名
                 m.setSpdsc(detail.getSpdsc());                                  //设置中文规格
                 m.setEitdsc(detail.getEitdsc());                                //设置英文品名
@@ -251,9 +255,56 @@ public class InvmasBean extends SuperEJBForERP<Invmas> {
                 m.setSpdsc2(detail.getSpdsc2());
                 m.setIndate(BaseLib.getDate());
                 m.setUserno(h.getApplyuser());
-
                 update(m);
                 this.getEntityManager().flush();
+
+                if (h.getFacno().equals("C")) {
+                    this.setCompany("N");
+                    if (this.findByItnbr(detail.getItnbr()) != null) {
+                        Invmas nm = this.findByItnbr(detail.getItnbr());
+                        nm.setItdsc(detail.getItdsc());                                  //设置中文品名
+                        nm.setSpdsc(detail.getSpdsc());                                  //设置中文规格
+                        nm.setEitdsc(detail.getEitdsc());                                //设置英文品名
+                        nm.setEspdsc(detail.getEspdsc());                                //设置英文规格
+                        nm.setSitdsc(detail.getSitdsc());                                //设置品号简名
+                        nm.setItdsc2(detail.getItdsc2());
+                        nm.setSpdsc2(detail.getSpdsc2());
+                        nm.setIndate(BaseLib.getDate());
+                        nm.setUserno(h.getApplyuser());
+                        update(nm);
+                    }
+                    this.getEntityManager().flush();
+                    this.setCompany("J");
+                    if (this.findByItnbr(detail.getItnbr()) != null) {
+                        Invmas jm = this.findByItnbr(detail.getItnbr());
+                        jm.setItdsc(detail.getItdsc());                                  //设置中文品名
+                        jm.setSpdsc(detail.getSpdsc());                                  //设置中文规格
+                        jm.setEitdsc(detail.getEitdsc());                                //设置英文品名
+                        jm.setEspdsc(detail.getEspdsc());                                //设置英文规格
+                        jm.setSitdsc(detail.getSitdsc());                                //设置品号简名
+                        jm.setItdsc2(detail.getItdsc2());
+                        jm.setSpdsc2(detail.getSpdsc2());
+                        jm.setIndate(BaseLib.getDate());
+                        jm.setUserno(h.getApplyuser());
+                        update(jm);
+                    }
+                    this.getEntityManager().flush();
+                    this.setCompany("G");
+                    if (this.findByItnbr(detail.getItnbr()) != null) {
+                        Invmas gm = this.findByItnbr(detail.getItnbr());
+                        gm.setItdsc(detail.getItdsc());                                  //设置中文品名
+                        gm.setSpdsc(detail.getSpdsc());                                  //设置中文规格
+                        gm.setEitdsc(detail.getEitdsc());                                //设置英文品名
+                        gm.setEspdsc(detail.getEspdsc());                                //设置英文规格
+                        gm.setSitdsc(detail.getSitdsc());                                //设置品号简名
+                        gm.setItdsc2(detail.getItdsc2());
+                        gm.setSpdsc2(detail.getSpdsc2());
+                        gm.setIndate(BaseLib.getDate());
+                        gm.setUserno(h.getApplyuser());
+                        update(gm);
+                    }
+                    this.getEntityManager().flush();
+                }
             }
 
             return true;
