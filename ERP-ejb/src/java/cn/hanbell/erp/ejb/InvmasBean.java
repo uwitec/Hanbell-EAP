@@ -118,7 +118,7 @@ public class InvmasBean extends SuperEJBForERP<Invmas> {
 
         try {
 
-            //  表身循环
+            //表身循环
             for (int i = 0; i < details.size(); i++) {
 
                 SHBERPINV140Detail detail = details.get(i);
@@ -165,14 +165,14 @@ public class InvmasBean extends SuperEJBForERP<Invmas> {
 
         try {
 
-            //  表身循环
+            //表身循环
             for (int i = 0; i < details.size(); i++) {
 
                 SHBERPINV146Detail detail = details.get(i);
 
                 this.setCompany(h.getFacno());
                 Invmas m = findByItnbr(detail.getItnbr());
-                //m.setItcls(detail.getItcls());                                  //设置品号大类               
+                //m.setItcls(detail.getItcls());                                //设置品号大类               
                 m.setItdsc(detail.getItdsc());                                  //设置中文品名
                 m.setSpdsc(detail.getSpdsc());                                  //设置中文规格
                 m.setEitdsc(detail.getEitdsc());                                //设置英文品名

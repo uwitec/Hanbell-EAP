@@ -295,7 +295,7 @@ public class Cdrcus implements Serializable {
         this.decode = '1';
         this.cussta = '2';
         this.paysepcode = '1';
-        this.tickdays=((short) 0);
+        this.tickdays = ((short) 0);
         this.shptrseq = 1;
         this.ivotrseq = 1;
     }

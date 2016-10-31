@@ -26,17 +26,17 @@ import javax.persistence.Query;
 @Stateless
 @LocalBean
 public class HZFWDD05Bean extends SuperEJBForEFNET<HZFWDD05> {
-    
+
     @EJB
     private HZCW028tDetailBean hzcw028tDetailBean;
-    
+
     @EJB
     private HZFWDBean hzfwdBean;
-    
+
     public HZFWDD05Bean() {
         super(HZFWDD05.class);
     }
-    
+
     public HZFWDD05 findByPK(String id, String seq) {
         Query query = this.getEntityManager().createNamedQuery("HZFWDD05.findByPK");
         query.setParameter("id", id);
@@ -48,7 +48,7 @@ public class HZFWDD05Bean extends SuperEJBForEFNET<HZFWDD05> {
             return null;
         }
     }
-    
+
     public boolean initByEFGPFormSerialNumber(String fsn) {
         List<HZCW028tDetail> traffics = hzcw028tDetailBean.findByFSN(fsn);
         if (traffics != null && !traffics.isEmpty()) {
@@ -82,9 +82,14 @@ public class HZFWDD05Bean extends SuperEJBForEFNET<HZFWDD05> {
                             d.setModifier(entity.getModifier());
                             d.setModiDate(entity.getModiDate());
                             d.setFlag(entity.getFlag());
-                            d.setHzfwdD05004("6617");
+                            d.setHzfwdD05004("6617");//差旅明细中没有科目只好固定
                             d.setHzfwdD05005("差旅费");
-                            d.setHzfwdD05006(t.getTrafficSummary());
+                            if (t.getTrafficSummary() != null && t.getTrafficSummary().length() > 20) {
+                                //因EFNET中栏位长度限制
+                                d.setHzfwdD05006(t.getTrafficSummary().substring(0, 20));
+                            } else {
+                                d.setHzfwdD05006(t.getTrafficSummary());
+                            }
                             d.setHzfwdD05007(entity.getSelect1());
                             d.setHzfwdD05008(t.getSubtotal());
                             d.setHzfwdD05009("0");
@@ -108,7 +113,7 @@ public class HZFWDD05Bean extends SuperEJBForEFNET<HZFWDD05> {
         }
         return true;
     }
-    
+
     public boolean deleteByEFGPFormSerialNumber(String fsn) {
         List<HZCW028tDetail> traffics = hzcw028tDetailBean.findByFSN(fsn);
         if (traffics != null && !traffics.isEmpty()) {
@@ -140,12 +145,12 @@ public class HZFWDD05Bean extends SuperEJBForEFNET<HZFWDD05> {
         }
         return true;
     }
-    
+
     private String formatString(String value, String format) {
         if (value.length() >= format.length()) {
             return value;
         }
         return format.substring(0, format.length() - value.length()) + value;
     }
-    
+
 }
