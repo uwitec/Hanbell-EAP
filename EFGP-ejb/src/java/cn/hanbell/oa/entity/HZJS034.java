@@ -71,6 +71,100 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "HZJS034.findByClsdsc", query = "SELECT h FROM HZJS034 h WHERE h.clsdsc = :clsdsc")})
 public class HZJS034 implements Serializable {
 
+    @Size(max = 255)
+    @Column(name = "lblGroup1")
+    private String lblGroup1;
+    @Size(max = 255)
+    @Column(name = "lblGroup2")
+    private String lblGroup2;
+    @Size(max = 255)
+    @Column(name = "lblGroup3")
+    private String lblGroup3;
+    @Size(max = 255)
+    @Column(name = "lblGroup4")
+    private String lblGroup4;
+    @Size(max = 255)
+    @Column(name = "lblGroup5")
+    private String lblGroup5;
+    @Size(max = 255)
+    @Column(name = "lblGroup6")
+    private String lblGroup6;
+    @Size(max = 255)
+    @Column(name = "lblGroup7")
+    private String lblGroup7;
+    @Size(max = 255)
+    @Column(name = "lblGroup8")
+    private String lblGroup8;
+    @Size(max = 255)
+    @Column(name = "lblGroup9")
+    private String lblGroup9;
+    @Size(max = 255)
+    @Column(name = "unmsr1e")
+    private String unmsr1e;
+    @Size(max = 255)
+    @Column(name = "genre1")
+    private String genre1;
+    @Size(max = 255)
+    @Column(name = "group9")
+    private String group9;
+    @Size(max = 255)
+    @Column(name = "group7")
+    private String group7;
+    @Size(max = 255)
+    @Column(name = "group8")
+    private String group8;
+    @Size(max = 255)
+    @Column(name = "group5")
+    private String group5;
+    @Size(max = 255)
+    @Column(name = "lblGroup12")
+    private String lblGroup12;
+    @Size(max = 255)
+    @Column(name = "group6")
+    private String group6;
+    @Size(max = 255)
+    @Column(name = "lblGroup11")
+    private String lblGroup11;
+    @Size(max = 255)
+    @Column(name = "group3")
+    private String group3;
+    @Size(max = 255)
+    @Column(name = "lblGroup10")
+    private String lblGroup10;
+    @Size(max = 255)
+    @Column(name = "group4")
+    private String group4;
+    @Size(max = 255)
+    @Column(name = "group12")
+    private String group12;
+    @Size(max = 255)
+    @Column(name = "group1")
+    private String group1;
+    @Size(max = 255)
+    @Column(name = "group2")
+    private String group2;
+    @Size(max = 255)
+    @Column(name = "group11")
+    private String group11;
+    @Size(max = 255)
+    @Column(name = "group10")
+    private String group10;
+    @Size(max = 255)
+    @Column(name = "purtrtype")
+    private String purtrtype;
+    @Size(max = 255)
+    @Column(name = "txtItnbrcode")
+    private String txtItnbrcode;
+    @Size(max = 255)
+    @Column(name = "hdgenre1")
+    private String hdgenre1;
+    @Size(max = 255)
+    @Column(name = "itclscode")
+    private String itclscode;
+    @Size(max = 255)
+    @Column(name = "jityn")
+    private String jityn;
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -545,6 +639,254 @@ public class HZJS034 implements Serializable {
     @Override
     public String toString() {
         return "cn.hanbell.oa.entity.HZJS034[ oid=" + oid + " ]";
+    }
+
+    public String getLblGroup1() {
+        return lblGroup1;
+    }
+
+    public void setLblGroup1(String lblGroup1) {
+        this.lblGroup1 = lblGroup1;
+    }
+
+    public String getLblGroup2() {
+        return lblGroup2;
+    }
+
+    public void setLblGroup2(String lblGroup2) {
+        this.lblGroup2 = lblGroup2;
+    }
+
+    public String getLblGroup3() {
+        return lblGroup3;
+    }
+
+    public void setLblGroup3(String lblGroup3) {
+        this.lblGroup3 = lblGroup3;
+    }
+
+    public String getLblGroup4() {
+        return lblGroup4;
+    }
+
+    public void setLblGroup4(String lblGroup4) {
+        this.lblGroup4 = lblGroup4;
+    }
+
+    public String getLblGroup5() {
+        return lblGroup5;
+    }
+
+    public void setLblGroup5(String lblGroup5) {
+        this.lblGroup5 = lblGroup5;
+    }
+
+    public String getLblGroup6() {
+        return lblGroup6;
+    }
+
+    public void setLblGroup6(String lblGroup6) {
+        this.lblGroup6 = lblGroup6;
+    }
+
+    public String getLblGroup7() {
+        return lblGroup7;
+    }
+
+    public void setLblGroup7(String lblGroup7) {
+        this.lblGroup7 = lblGroup7;
+    }
+
+    public String getLblGroup8() {
+        return lblGroup8;
+    }
+
+    public void setLblGroup8(String lblGroup8) {
+        this.lblGroup8 = lblGroup8;
+    }
+
+    public String getLblGroup9() {
+        return lblGroup9;
+    }
+
+    public void setLblGroup9(String lblGroup9) {
+        this.lblGroup9 = lblGroup9;
+    }
+
+    public String getUnmsr1e() {
+        return unmsr1e;
+    }
+
+    public void setUnmsr1e(String unmsr1e) {
+        this.unmsr1e = unmsr1e;
+    }
+
+    public String getGenre1() {
+        return genre1;
+    }
+
+    public void setGenre1(String genre1) {
+        this.genre1 = genre1;
+    }
+
+    public String getGroup9() {
+        return group9;
+    }
+
+    public void setGroup9(String group9) {
+        this.group9 = group9;
+    }
+
+    public String getGroup7() {
+        return group7;
+    }
+
+    public void setGroup7(String group7) {
+        this.group7 = group7;
+    }
+
+    public String getGroup8() {
+        return group8;
+    }
+
+    public void setGroup8(String group8) {
+        this.group8 = group8;
+    }
+
+    public String getGroup5() {
+        return group5;
+    }
+
+    public void setGroup5(String group5) {
+        this.group5 = group5;
+    }
+
+    public String getLblGroup12() {
+        return lblGroup12;
+    }
+
+    public void setLblGroup12(String lblGroup12) {
+        this.lblGroup12 = lblGroup12;
+    }
+
+    public String getGroup6() {
+        return group6;
+    }
+
+    public void setGroup6(String group6) {
+        this.group6 = group6;
+    }
+
+    public String getLblGroup11() {
+        return lblGroup11;
+    }
+
+    public void setLblGroup11(String lblGroup11) {
+        this.lblGroup11 = lblGroup11;
+    }
+
+    public String getGroup3() {
+        return group3;
+    }
+
+    public void setGroup3(String group3) {
+        this.group3 = group3;
+    }
+
+    public String getLblGroup10() {
+        return lblGroup10;
+    }
+
+    public void setLblGroup10(String lblGroup10) {
+        this.lblGroup10 = lblGroup10;
+    }
+
+    public String getGroup4() {
+        return group4;
+    }
+
+    public void setGroup4(String group4) {
+        this.group4 = group4;
+    }
+
+    public String getGroup12() {
+        return group12;
+    }
+
+    public void setGroup12(String group12) {
+        this.group12 = group12;
+    }
+
+    public String getGroup1() {
+        return group1;
+    }
+
+    public void setGroup1(String group1) {
+        this.group1 = group1;
+    }
+
+    public String getGroup2() {
+        return group2;
+    }
+
+    public void setGroup2(String group2) {
+        this.group2 = group2;
+    }
+
+    public String getGroup11() {
+        return group11;
+    }
+
+    public void setGroup11(String group11) {
+        this.group11 = group11;
+    }
+
+    public String getGroup10() {
+        return group10;
+    }
+
+    public void setGroup10(String group10) {
+        this.group10 = group10;
+    }
+
+    public String getPurtrtype() {
+        return purtrtype;
+    }
+
+    public void setPurtrtype(String purtrtype) {
+        this.purtrtype = purtrtype;
+    }
+
+    public String getTxtItnbrcode() {
+        return txtItnbrcode;
+    }
+
+    public void setTxtItnbrcode(String txtItnbrcode) {
+        this.txtItnbrcode = txtItnbrcode;
+    }
+
+    public String getHdgenre1() {
+        return hdgenre1;
+    }
+
+    public void setHdgenre1(String hdgenre1) {
+        this.hdgenre1 = hdgenre1;
+    }
+
+    public String getItclscode() {
+        return itclscode;
+    }
+
+    public void setItclscode(String itclscode) {
+        this.itclscode = itclscode;
+    }
+
+    public String getJityn() {
+        return jityn;
+    }
+
+    public void setJityn(String jityn) {
+        this.jityn = jityn;
     }
     
 }

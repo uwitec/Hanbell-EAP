@@ -59,6 +59,64 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "HZJS034Detail.findByClsdsc", query = "SELECT h FROM HZJS034Detail h WHERE h.clsdsc = :clsdsc")})
 public class HZJS034Detail implements Serializable {
 
+    @Size(max = 255)
+    @Column(name = "isDUnit")
+    private String isDUnit;
+    @Size(max = 255)
+    @Column(name = "group9")
+    private String group9;
+    @Size(max = 255)
+    @Column(name = "group7")
+    private String group7;
+    @Size(max = 255)
+    @Column(name = "group8")
+    private String group8;
+    @Size(max = 255)
+    @Column(name = "group5")
+    private String group5;
+    @Size(max = 255)
+    @Column(name = "group6")
+    private String group6;
+    @Size(max = 255)
+    @Column(name = "group3")
+    private String group3;
+    @Size(max = 255)
+    @Column(name = "group4")
+    private String group4;
+    @Size(max = 255)
+    @Column(name = "unmsr1e")
+    private String unmsr1e;
+    @Size(max = 255)
+    @Column(name = "group12")
+    private String group12;
+    @Size(max = 255)
+    @Column(name = "group1")
+    private String group1;
+    @Size(max = 255)
+    @Column(name = "group2")
+    private String group2;
+    @Size(max = 255)
+    @Column(name = "genre1")
+    private String genre1;
+    @Size(max = 255)
+    @Column(name = "group11")
+    private String group11;
+    @Size(max = 255)
+    @Column(name = "group10")
+    private String group10;
+    @Size(max = 255)
+    @Column(name = "purtrtype")
+    private String purtrtype;
+    @Size(max = 255)
+    @Column(name = "hdgenre1")
+    private String hdgenre1;
+    @Size(max = 255)
+    @Column(name = "itclscode")
+    private String itclscode;
+    @Size(max = 255)
+    @Column(name = "jityn")
+    private String jityn;
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -446,6 +504,158 @@ public class HZJS034Detail implements Serializable {
     @Override
     public String toString() {
         return "cn.hanbell.oa.entity.HZJS034Detail[ oid=" + oid + " ]";
+    }
+
+    public String getIsDUnit() {
+        return isDUnit;
+    }
+
+    public void setIsDUnit(String isDUnit) {
+        this.isDUnit = isDUnit;
+    }
+
+    public String getGroup9() {
+        return group9;
+    }
+
+    public void setGroup9(String group9) {
+        this.group9 = group9;
+    }
+
+    public String getGroup7() {
+        return group7;
+    }
+
+    public void setGroup7(String group7) {
+        this.group7 = group7;
+    }
+
+    public String getGroup8() {
+        return group8;
+    }
+
+    public void setGroup8(String group8) {
+        this.group8 = group8;
+    }
+
+    public String getGroup5() {
+        return group5;
+    }
+
+    public void setGroup5(String group5) {
+        this.group5 = group5;
+    }
+
+    public String getGroup6() {
+        return group6;
+    }
+
+    public void setGroup6(String group6) {
+        this.group6 = group6;
+    }
+
+    public String getGroup3() {
+        return group3;
+    }
+
+    public void setGroup3(String group3) {
+        this.group3 = group3;
+    }
+
+    public String getGroup4() {
+        return group4;
+    }
+
+    public void setGroup4(String group4) {
+        this.group4 = group4;
+    }
+
+    public String getUnmsr1e() {
+        return unmsr1e;
+    }
+
+    public void setUnmsr1e(String unmsr1e) {
+        this.unmsr1e = unmsr1e;
+    }
+
+    public String getGroup12() {
+        return group12;
+    }
+
+    public void setGroup12(String group12) {
+        this.group12 = group12;
+    }
+
+    public String getGroup1() {
+        return group1;
+    }
+
+    public void setGroup1(String group1) {
+        this.group1 = group1;
+    }
+
+    public String getGroup2() {
+        return group2;
+    }
+
+    public void setGroup2(String group2) {
+        this.group2 = group2;
+    }
+
+    public String getGenre1() {
+        return genre1;
+    }
+
+    public void setGenre1(String genre1) {
+        this.genre1 = genre1;
+    }
+
+    public String getGroup11() {
+        return group11;
+    }
+
+    public void setGroup11(String group11) {
+        this.group11 = group11;
+    }
+
+    public String getGroup10() {
+        return group10;
+    }
+
+    public void setGroup10(String group10) {
+        this.group10 = group10;
+    }
+
+    public String getPurtrtype() {
+        return purtrtype;
+    }
+
+    public void setPurtrtype(String purtrtype) {
+        this.purtrtype = purtrtype;
+    }
+
+    public String getHdgenre1() {
+        return hdgenre1;
+    }
+
+    public void setHdgenre1(String hdgenre1) {
+        this.hdgenre1 = hdgenre1;
+    }
+
+    public String getItclscode() {
+        return itclscode;
+    }
+
+    public void setItclscode(String itclscode) {
+        this.itclscode = itclscode;
+    }
+
+    public String getJityn() {
+        return jityn;
+    }
+
+    public void setJityn(String jityn) {
+        this.jityn = jityn;
     }
 
   
