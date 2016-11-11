@@ -8,13 +8,12 @@ package cn.hanbell.jrs;
 import cn.hanbell.erp.ejb.CdrscheduleBean;
 import cn.hanbell.erp.entity.Cdrschedule;
 import cn.hanbell.erp.entity.CdrschedulePK;
+import cn.hanbell.util.SuperEJB;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -36,9 +35,6 @@ import javax.ws.rs.core.Response;
 @Path("shberp.cdrschedule")
 public class CdrscheduleFacadeREST extends AbstractFacade<Cdrschedule> {
 
-    @PersistenceContext(unitName = "RESTPU_shberp")
-    private EntityManager em;
-    
     @EJB
     private CdrscheduleBean cdrscheduleBean;
 
@@ -74,12 +70,12 @@ public class CdrscheduleFacadeREST extends AbstractFacade<Cdrschedule> {
         throw new WebApplicationException(Response.Status.NOT_ACCEPTABLE);
     }
 
-    @PUT
-    @Path("{id}")
-    @Consumes({"application/xml", "application/json"})
-    public void edit(@PathParam("id") PathSegment id, Cdrschedule entity) {
-        throw new WebApplicationException(Response.Status.NOT_ACCEPTABLE);
-    }
+//    @PUT
+//    @Path("{id}")
+//    @Consumes({"application/xml", "application/json"})
+//    public void edit(@PathParam("id") PathSegment id, Cdrschedule entity) {
+//        throw new WebApplicationException(Response.Status.NOT_ACCEPTABLE);
+//    }
 
     @DELETE
     @Path("{id}")
@@ -90,9 +86,16 @@ public class CdrscheduleFacadeREST extends AbstractFacade<Cdrschedule> {
     @GET
     @Path("{id}")
     @Produces({"application/xml", "application/json"})
-    public Cdrschedule find(@PathParam("id") PathSegment id) {
-        CdrschedulePK key = getPrimaryKey(id);
-        return super.find(key);
+    @Override
+    public Cdrschedule findById(@PathParam("id") PathSegment id) {
+        HashMap<String, Object> filters = new HashMap<>();
+        javax.ws.rs.core.MultivaluedMap<String, String> map = id.getMatrixParameters();
+        java.util.List<String> facno = map.get("facno");
+        java.util.List<String> cdrno = map.get("cdrno");
+        if (facno != null && !facno.isEmpty() && cdrno != null && !cdrno.isEmpty()) {
+            return cdrscheduleBean.findByPK(facno.get(0), cdrno.get(0));
+        }
+        throw new WebApplicationException(Response.Status.BAD_REQUEST);
     }
 
     //QueryParam
@@ -100,8 +103,8 @@ public class CdrscheduleFacadeREST extends AbstractFacade<Cdrschedule> {
     @Path("{cusno}/{filter}")
     @Produces({"application/json"})
     public List<Cdrschedule> findByCustomer(@PathParam("cusno") String cusno, @PathParam("filter") PathSegment filter) {
-        String key,value,state;
-        state = filter.getPath();  
+        String key, value, state;
+        state = filter.getPath();
         MultivaluedMap<String, String> mm = filter.getMatrixParameters();
         Map<String, Object> filters = new HashMap<>();
         for (Map.Entry<String, List<String>> entrySet : mm.entrySet()) {
@@ -117,8 +120,8 @@ public class CdrscheduleFacadeREST extends AbstractFacade<Cdrschedule> {
     }
 
     @Override
-    protected EntityManager getEntityManager() {
-        return em;
+    protected SuperEJB getSuperEJB() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

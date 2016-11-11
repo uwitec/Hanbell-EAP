@@ -6,6 +6,7 @@
 package cn.hanbell.jrs;
 
 import cn.hanbell.erp.entity.Invwh;
+import cn.hanbell.util.SuperEJB;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -26,6 +27,7 @@ import javax.ws.rs.Produces;
 @Stateless
 @Path("shberp.invwh")
 public class InvwhFacadeREST extends AbstractFacade<Invwh> {
+
     @PersistenceContext(unitName = "RESTPU_shberp")
     private EntityManager em;
 
@@ -40,25 +42,12 @@ public class InvwhFacadeREST extends AbstractFacade<Invwh> {
         super.create(entity);
     }
 
-    @PUT
-    @Path("{id}")
-    @Consumes({"application/xml", "application/json"})
-    public void edit(@PathParam("id") String id, Invwh entity) {
-        super.edit(entity);
-    }
-
     @DELETE
     @Path("{id}")
     public void remove(@PathParam("id") String id) {
-        super.remove(super.find(id));
+        //super.remove(super.findById(id));
     }
 
-    @GET
-    @Path("{id}")
-    @Produces({"application/json"})
-    public Invwh find(@PathParam("id") String id) {
-        return super.find(id);
-    }
 
     @GET
     @Override
@@ -67,23 +56,13 @@ public class InvwhFacadeREST extends AbstractFacade<Invwh> {
         return super.findAll();
     }
 
-    @GET
-    @Path("{from}/{to}")
-    @Produces({"application/xml", "application/json"})
-    public List<Invwh> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
-        return super.findRange(new int[]{from, to});
-    }
-
-    @GET
-    @Path("count")
-    @Produces("text/plain")
-    public String countREST() {
-        return String.valueOf(super.count());
-    }
-
-    @Override
     protected EntityManager getEntityManager() {
         return em;
     }
-    
+
+    @Override
+    protected SuperEJB getSuperEJB() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

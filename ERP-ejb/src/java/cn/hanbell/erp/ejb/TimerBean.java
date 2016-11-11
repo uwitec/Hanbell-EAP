@@ -77,30 +77,30 @@ public class TimerBean {
     @Schedule(minute = "*/1", hour = "*", persistent = false)
     public void automaticTimeout() {
 
-        logger.info("Automatic timeout occurred");
-        String formInstance, formXml, status;
-        LinkedHashMap<String, List<?>> details = new LinkedHashMap<>();
-
-        HelloNaNa master = new HelloNaNa("C0160", "C0583", "13120", "这是一个对象转换测试", "13000");
-        List<BudgetDetail> budgetDetail = new ArrayList<>();
-        budgetDetail.add(new BudgetDetail("1", "summary", "1601", "固定资产", "1000", "100"));
-        budgetDetail.add(new BudgetDetail("2", "summary", "6717", "差旅费", "2000", "200"));
-        budgetDetail.add(new BudgetDetail("3", "summary", "6717", "差旅费", "3000", "3000"));
-
-        details.put("budgetDetail", budgetDetail);
-        formXml = workFlowBean.buildXmlForEFGP("HelloNaNa", master, details);
-
-        //System.out.println("formXml:" + formXml);
-        //formInstance = formXml.replace("</HelloNaNa>", "<trafficDetail id=\"trafficDetail\"><records><record id=\"trafficDetail_0\"><item id=\"seq\" dataType=\"java.lang.String\" perDataProId=\"\">1</item>             <item id=\"content\" dataType=\"java.lang.String\" perDataProId=\"\">出差市区</item>             <item id=\"trafficamts\" dataType=\"java.lang.String\" perDataProId=\"\">12</item>             <item id=\"chargeamts\" dataType=\"java.lang.String\" perDataProId=\"\">25</item>             <item id=\"otheramts\" dataType=\"java.lang.String\" perDataProId=\"\">12</item>          </record>        </records>      </trafficDetail>    </HelloNaNa> ");
-        try {
-            workFlowBean.initUserInfo("C0160");
-            //status = workFlowBean.invokeProcess("http://192.168.1.73", "8086", "PKG14600928645341", formInstance, "Invoke Process From ERP");
-            //System.out.println("processResult:" + status);
-        } catch (Exception ex) {
-            Logger.getLogger(TimerBean.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        System.out.println("XML:" + formXml);
+//        logger.info("Automatic timeout occurred");
+//        String formInstance, formXml, status;
+//        LinkedHashMap<String, List<?>> details = new LinkedHashMap<>();
+//
+//        HelloNaNa master = new HelloNaNa("C0160", "C0583", "13120", "这是一个对象转换测试", "13000");
+//        List<BudgetDetail> budgetDetail = new ArrayList<>();
+//        budgetDetail.add(new BudgetDetail("1", "summary", "1601", "固定资产", "1000", "100"));
+//        budgetDetail.add(new BudgetDetail("2", "summary", "6717", "差旅费", "2000", "200"));
+//        budgetDetail.add(new BudgetDetail("3", "summary", "6717", "差旅费", "3000", "3000"));
+//
+//        details.put("budgetDetail", budgetDetail);
+//        formXml = workFlowBean.buildXmlForEFGP("HelloNaNa", master, details);
+//
+//        //System.out.println("formXml:" + formXml);
+//        //formInstance = formXml.replace("</HelloNaNa>", "<trafficDetail id=\"trafficDetail\"><records><record id=\"trafficDetail_0\"><item id=\"seq\" dataType=\"java.lang.String\" perDataProId=\"\">1</item>             <item id=\"content\" dataType=\"java.lang.String\" perDataProId=\"\">出差市区</item>             <item id=\"trafficamts\" dataType=\"java.lang.String\" perDataProId=\"\">12</item>             <item id=\"chargeamts\" dataType=\"java.lang.String\" perDataProId=\"\">25</item>             <item id=\"otheramts\" dataType=\"java.lang.String\" perDataProId=\"\">12</item>          </record>        </records>      </trafficDetail>    </HelloNaNa> ");
+//        try {
+//            workFlowBean.initUserInfo("C0160");
+//            //status = workFlowBean.invokeProcess("http://192.168.1.73", "8086", "PKG14600928645341", formInstance, "Invoke Process From ERP");
+//            //System.out.println("processResult:" + status);
+//        } catch (Exception ex) {
+//            Logger.getLogger(TimerBean.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//
+//        System.out.println("XML:" + formXml);
 
     }
 

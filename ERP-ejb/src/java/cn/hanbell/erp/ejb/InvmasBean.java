@@ -128,7 +128,6 @@ public class InvmasBean extends SuperEJBForERP<Invmas> {
                 m.setDwt(BigDecimal.ZERO);
                 persist(m);
                 this.getEntityManager().flush();
-                scm.setCompid(detail.getCompid());
                 if (h.getFacno().equals("C")) {
                     Scminvmas scm = new Scminvmas();
                     scm.setItnbr(detail.getItnbr());
@@ -189,7 +188,7 @@ public class InvmasBean extends SuperEJBForERP<Invmas> {
 
         try {
 
-            //  表身循环
+            //表身循环
             for (int i = 0; i < details.size(); i++) {
 
                 SHBERPINV140Detail detail = details.get(i);
@@ -238,7 +237,7 @@ public class InvmasBean extends SuperEJBForERP<Invmas> {
 
         try {
 
-            //  表身循环
+            //表身循环
             for (int i = 0; i < details.size(); i++) {
 
                 SHBERPINV146Detail detail = details.get(i);

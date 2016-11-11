@@ -7,14 +7,10 @@ package cn.hanbell.jrs;
 
 import cn.hanbell.erp.ejb.ItemKindBean;
 import cn.hanbell.erp.entity.ItemKind;
-import java.util.ArrayList;
-import java.util.List;
-import javax.ejb.EJB;
-import javax.ejb.Stateless;
+import cn.hanbell.util.SuperEJB;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -51,12 +47,13 @@ public class ItemKindFacadeREST extends AbstractFacade<ItemKind> {
         throw new WebApplicationException(Response.Status.NOT_ACCEPTABLE);
     }
 
-    @PUT
-    @Path("{id}")
-    @Consumes({"application/xml", "application/json"})
-    public void edit(@PathParam("id") String id, ItemKind entity) {
-        throw new WebApplicationException(Response.Status.NOT_ACCEPTABLE);
-    }
+//    @PUT
+//    @Path("{id}")
+//    @Consumes({"application/xml", "application/json"})
+//    @Override
+//    public void edit(@PathParam("id") String id, ItemKind entity) {
+//        throw new WebApplicationException(Response.Status.NOT_ACCEPTABLE);
+//    }
 
     @DELETE
     @Path("{id}")
@@ -64,24 +61,13 @@ public class ItemKindFacadeREST extends AbstractFacade<ItemKind> {
         throw new WebApplicationException(Response.Status.NOT_ACCEPTABLE);
     }
 
-    @GET
-    @Path("{id}")
-    @Produces({"application/xml", "application/json"})
-    public ItemKind find(@PathParam("id") String id) {
-        return super.find(id);
-    }
-
-    @GET
-    @Override
-    @Produces({"application/json"})
-    public List<ItemKind> findAll() {
-        itemKindBean.setCompany("C");
-        return itemKindBean.findAll();
-    }
-
-    @Override
     protected EntityManager getEntityManager() {
         return em;
+    }
+
+    @Override
+    protected SuperEJB getSuperEJB() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

@@ -11,8 +11,11 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -33,6 +36,12 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Cdrcusman.findByMan", query = "SELECT c FROM Cdrcusman c WHERE c.man = :man"),
     @NamedQuery(name = "Cdrcusman.findByLatdate", query = "SELECT c FROM Cdrcusman c WHERE c.latdate = :latdate")})
 public class Cdrcusman implements Serializable {
+
+    @JoinColumns({
+        @JoinColumn(name = "cusno", referencedColumnName = "cusno", insertable = false, updatable = false)
+    })
+    @OneToOne()
+    private Cdrcus cdrcus;
 
     private static final long serialVersionUID = 1L;
     @EmbeddedId
@@ -105,5 +114,12 @@ public class Cdrcusman implements Serializable {
     public String toString() {
         return "cn.hanbell.erp.entity.Cdrcusman[ cdrcusmanPK=" + cdrcusmanPK + " ]";
     }
-    
+
+    /**
+     * @return the cdrcus
+     */
+    public Cdrcus getCdrcus() {
+        return cdrcus;
+    }
+
 }

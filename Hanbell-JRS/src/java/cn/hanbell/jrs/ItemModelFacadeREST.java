@@ -7,6 +7,7 @@ package cn.hanbell.jrs;
 
 import cn.hanbell.erp.ejb.ItemModelBean;
 import cn.hanbell.erp.entity.ItemModel;
+import cn.hanbell.util.SuperEJB;
 import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -21,6 +22,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.PathSegment;
 import javax.ws.rs.core.Response;
 
 /**
@@ -47,13 +49,14 @@ public class ItemModelFacadeREST extends AbstractFacade<ItemModel> {
     public void create(ItemModel entity) {
         throw new WebApplicationException(Response.Status.NOT_ACCEPTABLE);
     }
-
-    @PUT
-    @Path("{id}")
-    @Consumes({"application/xml", "application/json"})
-    public void edit(@PathParam("id") String id, ItemModel entity) {
-        throw new WebApplicationException(Response.Status.NOT_ACCEPTABLE);
-    }
+//
+//    @PUT
+//    @Path("{id}")
+//    @Consumes({"application/xml", "application/json"})
+//    @Override
+//    public void edit(@PathParam("id") String id, ItemModel entity) {
+//        throw new WebApplicationException(Response.Status.NOT_ACCEPTABLE);
+//    }
 
     @DELETE
     @Path("{id}")
@@ -64,8 +67,9 @@ public class ItemModelFacadeREST extends AbstractFacade<ItemModel> {
     @GET
     @Path("{model}")
     @Produces({"application/xml", "application/json"})
-    public ItemModel find(@PathParam("model") String model) {
-        Query query = em.createNativeQuery("SELECT cmcmodel,itnbr FROM cdrdmmodel WHERE cmcmodel = '" + model + "' ORDER BY cmcmodel ");
+    @Override
+    public ItemModel findById(@PathParam("model") PathSegment model) {
+        Query query = em.createNativeQuery("SELECT cmcmodel,itnbr FROM cdrdmmodel WHERE cmcmodel = '" + model.getPath() + "' ORDER BY cmcmodel ");
         Object[] row = (Object[]) query.getSingleResult();
         ItemModel newEntity = new ItemModel(row[0].toString(), row[1].toString());
         return newEntity;
@@ -78,16 +82,13 @@ public class ItemModelFacadeREST extends AbstractFacade<ItemModel> {
         return itemModelBean.findByKind(kind);
     }
 
-    @GET
-    @Path("count")
-    @Produces("text/plain")
-    public String countREST() {
-        return String.valueOf(super.count());
+    protected EntityManager getEntityManager() {
+        return em;
     }
 
     @Override
-    protected EntityManager getEntityManager() {
-        return em;
+    protected SuperEJB getSuperEJB() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

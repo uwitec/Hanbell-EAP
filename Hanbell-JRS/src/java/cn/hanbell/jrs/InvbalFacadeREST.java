@@ -8,13 +8,11 @@ package cn.hanbell.jrs;
 import cn.hanbell.erp.ejb.InvbalBean;
 import cn.hanbell.erp.entity.Invbal;
 import cn.hanbell.erp.entity.InvbalPK;
+import cn.hanbell.util.SuperEJB;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -35,9 +33,6 @@ import javax.ws.rs.core.Response;
 @Path("shberp.invbal")
 @javax.enterprise.context.RequestScoped
 public class InvbalFacadeREST extends AbstractFacade<Invbal> {
-
-    @PersistenceContext(unitName = "RESTPU_shberp")
-    private EntityManager em;
 
     @Inject
     private InvbalBean invbalBean;
@@ -82,12 +77,12 @@ public class InvbalFacadeREST extends AbstractFacade<Invbal> {
         throw new WebApplicationException(Response.Status.NOT_ACCEPTABLE);
     }
 
-    @PUT
-    @Path("{id}")
-    @Consumes({"application/xml", "application/json"})
-    public void edit(@PathParam("id") PathSegment id, Invbal entity) {
-        throw new WebApplicationException(Response.Status.NOT_ACCEPTABLE);
-    }
+//    @PUT
+//    @Path("{id}")
+//    @Consumes({"application/xml", "application/json"})
+//    public void edit(@PathParam("id") PathSegment id, Invbal entity) {
+//        throw new WebApplicationException(Response.Status.NOT_ACCEPTABLE);
+//    }
 
     @DELETE
     @Path("{id}")
@@ -96,7 +91,7 @@ public class InvbalFacadeREST extends AbstractFacade<Invbal> {
     }
 
     @GET
-    @Path("{itnbr}")
+    @Path("{itnbr}/list")
     @Produces({"application/json"})
     public List<Invbal> findByItnbrAndFilter(@PathParam("itnbr") PathSegment query) {
         String key, value;
@@ -144,8 +139,8 @@ public class InvbalFacadeREST extends AbstractFacade<Invbal> {
     }
 
     @Override
-    protected EntityManager getEntityManager() {
-        return em;
+    protected SuperEJB getSuperEJB() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

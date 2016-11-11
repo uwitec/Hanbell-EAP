@@ -7,6 +7,7 @@ package cn.hanbell.jrs;
 
 import cn.hanbell.erp.entity.Cdrdmas;
 import cn.hanbell.erp.entity.CdrdmasPK;
+import cn.hanbell.util.SuperEJB;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -22,16 +23,18 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.PathSegment;
 
-/**I
+/**
+ * I
+ *
  * @author C0160
  */
 @Stateless
 @Path("shberp.cdrdmas")
 public class CdrdmasFacadeREST extends AbstractFacade<Cdrdmas> {
-    
+
     @PersistenceContext(unitName = "RESTPU_shberp")
     private EntityManager em;
-    
+
     private CdrdmasPK getPrimaryKey(PathSegment pathSegment) {
         /*
          * pathSemgent represents a URI path segment and any associated matrix parameters.
@@ -56,60 +59,58 @@ public class CdrdmasFacadeREST extends AbstractFacade<Cdrdmas> {
         }
         return key;
     }
-    
+
     public CdrdmasFacadeREST() {
         super(Cdrdmas.class);
     }
-    
+
     @POST
     @Override
     @Consumes({"application/xml", "application/json"})
     public void create(Cdrdmas entity) {
         //super.create(entity);
     }
-    
-    @PUT
-    @Path("{id}")
-    @Consumes({"application/xml", "application/json"})
-    public void edit(@PathParam("id") PathSegment id, Cdrdmas entity) {
-        //super.edit(entity);
-    }
-    
+
+//    @PUT
+//    @Path("{id}")
+//    @Consumes({"application/xml", "application/json"})
+//    public void edit(@PathParam("id") PathSegment id, Cdrdmas entity) {
+//        //super.edit(entity);
+//    }
+
     @DELETE
     @Path("{id}")
     public void remove(@PathParam("id") PathSegment id) {
         //shberp.entity.CdrdmasPK key = getPrimaryKey(id);
-        //super.remove(super.find(key));
+        //super.remove(super.findById(key));
     }
-    
+
     @GET
     @Path("{id}")
     @Produces({"application/xml", "application/json"})
-    public Cdrdmas find(@PathParam("id") PathSegment id) {
+    @Override
+    public Cdrdmas findById(@PathParam("id") PathSegment id) {
         CdrdmasPK key = getPrimaryKey(id);
-        return super.find(key);
+        return null;
     }
-    
+
     @GET
     @Path("{cusno}/{itnbrcus}/{count}")
     @Produces({"application/xml", "application/json"})
-    public List<Cdrdmas> findByCustomerAndItnbrcus(@PathParam("cusno") String cusno, @PathParam("itnbrcus") String itnbrcus,@PathParam("count") int count) {
+    public List<Cdrdmas> findByCustomerAndItnbrcus(@PathParam("cusno") String cusno, @PathParam("itnbrcus") String itnbrcus, @PathParam("count") int count) {
         Query query = em.createNamedQuery("Cdrdmas.findByCusnoAndItnbrcus").setFirstResult(0).setMaxResults(count);
         query.setParameter("cusno", cusno);
         query.setParameter("itnbrcus", "%" + itnbrcus + "%");
         return query.getResultList();
     }
-    
-    @GET
-    @Path("count")
-    @Produces("text/plain")
-    public String countREST() {
-        return String.valueOf(super.count());
-    }
-    
-    @Override
+
     protected EntityManager getEntityManager() {
         return em;
     }
-    
+
+    @Override
+    protected SuperEJB getSuperEJB() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

@@ -6,6 +6,7 @@
 package cn.hanbell.jrs;
 
 import cn.hanbell.erp.entity.Company;
+import cn.hanbell.util.SuperEJB;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -20,6 +21,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.PathSegment;
 import javax.ws.rs.core.Response;
 
 /**
@@ -44,12 +46,13 @@ public class CompanyFacadeREST extends AbstractFacade<Company> {
         throw new WebApplicationException(Response.Status.NOT_ACCEPTABLE);
     }
 
-    @PUT
-    @Path("{id}")
-    @Consumes({"application/xml", "application/json"})
-    public void edit(@PathParam("id") String id, Company entity) {
-        throw new WebApplicationException(Response.Status.NOT_ACCEPTABLE);
-    }
+//    @PUT
+//    @Path("{id}")
+//    @Consumes({"application/xml", "application/json"})
+//    @Override
+//    public void edit(@PathParam("id") String id, Company entity) {
+//        throw new WebApplicationException(Response.Status.NOT_ACCEPTABLE);
+//    }
 
     @DELETE
     @Path("{id}")
@@ -60,7 +63,8 @@ public class CompanyFacadeREST extends AbstractFacade<Company> {
     @GET
     @Path("{id}")
     @Produces({"application/xml", "application/json"})
-    public Company find(@PathParam("id") String id) {
+    @Override
+    public Company findById(@PathParam("id") PathSegment id) {
         throw new WebApplicationException(Response.Status.NOT_ACCEPTABLE);
     }
 
@@ -76,9 +80,13 @@ public class CompanyFacadeREST extends AbstractFacade<Company> {
         return entityList;
     }
 
-    @Override
     protected EntityManager getEntityManager() {
         return em;
+    }
+
+    @Override
+    protected SuperEJB getSuperEJB() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

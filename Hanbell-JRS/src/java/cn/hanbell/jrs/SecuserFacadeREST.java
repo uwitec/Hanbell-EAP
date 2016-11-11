@@ -7,12 +7,8 @@ package cn.hanbell.jrs;
 
 import cn.hanbell.erp.ejb.SecuserBean;
 import cn.hanbell.erp.entity.Secuser;
-import javax.ejb.DependsOn;
-import javax.ejb.Stateless;
+import cn.hanbell.util.SuperEJB;
 import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -32,9 +28,6 @@ import javax.ws.rs.core.UriInfo;
 @Path("shberp.secuser")
 @javax.enterprise.context.RequestScoped
 public class SecuserFacadeREST extends AbstractFacade<Secuser> {
-
-    @PersistenceContext(unitName = "RESTPU_shberp")
-    EntityManager em;
 
     @Context
     private UriInfo context;
@@ -56,6 +49,7 @@ public class SecuserFacadeREST extends AbstractFacade<Secuser> {
     @PUT
     @Path("{id}")
     @Consumes({"application/xml", "application/json"})
+    @Override
     public void edit(@PathParam("id") String id, Secuser entity) {
         throw new WebApplicationException(Response.Status.NOT_ACCEPTABLE);
     }
@@ -64,24 +58,25 @@ public class SecuserFacadeREST extends AbstractFacade<Secuser> {
     @Path("{id}/{opwd}/{npwd}")
     @Consumes({"application/xml", "application/json"})
     public void edit(@PathParam("id") String id, @PathParam("opwd") String opwd, @PathParam("npwd") String npwd, Secuser entity) {
-        Query query = getEntityManager().createNamedQuery("Secuser.findByUsernoAndPwd");
-        query.setParameter("userno", id);
-        query.setParameter("pwd", opwd);
         try {
-            Secuser u = (Secuser) query.getSingleResult();
-            u.setSigntext(npwd);
-            getEntityManager().merge(u);
+            Secuser u = secuserBean.findByUsernoAndPwd(id, opwd);
+            if (u != null) {
+                u.setSigntext(npwd);
+                secuserBean.update(u);
+            } else {
+                throw new WebApplicationException(Response.Status.NOT_FOUND);
+            }
         } catch (Exception e) {
             throw new WebApplicationException(Response.Status.NOT_FOUND);
         }
     }
-
-    @GET
-    @Path("{id}")
-    @Produces({"application/json"})
-    public Secuser find(@PathParam("id") String id) {
-        return super.find(id);
-    }
+//
+//    @GET
+//    @Path("{id}")
+//    @Produces({"application/json"})
+//    public Secuser find(@PathParam("id") String id) {
+//        return super.findById(id);
+//    }
 
     @GET
     @Path("{id}/{pwd}")
@@ -96,8 +91,8 @@ public class SecuserFacadeREST extends AbstractFacade<Secuser> {
     }
 
     @Override
-    protected EntityManager getEntityManager() {
-        return em;
+    protected SuperEJB getSuperEJB() {
+        return this.secuserBean;
     }
 
 }

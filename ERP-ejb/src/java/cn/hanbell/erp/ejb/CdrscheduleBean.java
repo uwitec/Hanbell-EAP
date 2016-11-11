@@ -29,6 +29,18 @@ public class CdrscheduleBean extends SuperEJBForERP<Cdrschedule> {
         super(Cdrschedule.class);
     }
 
+    public Cdrschedule findByPK(String facno, String cdrno) {
+        Query query = this.getEntityManager().createNamedQuery("Cdrschedule.findByPK");
+        query.setParameter("facno", facno);
+        query.setParameter("cdrno", cdrno);
+        try {
+            Object o = query.getSingleResult();
+            return (Cdrschedule) o;
+        } catch (Exception ex) {
+            return null;
+        }
+    }
+
     public List<Cdrschedule> findByCustomerAndStatusAndFilters(String cusno, String status, Map<String, Object> filters) {
         int mon = 0;
         StringBuilder sb = new StringBuilder();

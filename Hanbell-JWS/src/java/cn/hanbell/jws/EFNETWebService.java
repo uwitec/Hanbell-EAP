@@ -19,7 +19,7 @@ import javax.jws.soap.SOAPBinding;
  *
  * @author C0160
  */
-@WebService(serviceName = "WebService")
+@WebService(serviceName = "EFNET")
 @Stateless()
 @SOAPBinding(style = SOAPBinding.Style.RPC)
 public class EFNETWebService {

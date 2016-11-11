@@ -87,6 +87,19 @@ public class CdrcusBean extends SuperEJBForERP<Cdrcus> {
         super(Cdrcus.class);
     }
 
+    public List<Cdrcus> findByMan(String userno) {
+        List<Cdrcusman> results = cdrcusmanBean.findByMan(userno);
+        if (results != null && !results.isEmpty()) {
+            List<Cdrcus> cdrcusList = new ArrayList<>();
+            for (Cdrcusman m : results) {
+                cdrcusList.add(m.getCdrcus());
+            }
+            return cdrcusList;
+        } else {
+            return null;
+        }
+    }
+
     @Override
     public Boolean initByOAPSN(String psn) {
 

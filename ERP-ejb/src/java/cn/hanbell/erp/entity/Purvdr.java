@@ -272,6 +272,8 @@ public class Purvdr implements Serializable {
     private String fkfs;
 
     public Purvdr() {
+        this.shr="mis";
+        this.shzt = "Y";
     }
 
     public Purvdr(String vdrno) {
