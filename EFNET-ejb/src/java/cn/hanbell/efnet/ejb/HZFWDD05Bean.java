@@ -10,6 +10,7 @@ import cn.hanbell.efnet.entity.HZFWD;
 import cn.hanbell.efnet.entity.HZFWDD05;
 import cn.hanbell.oa.ejb.HZCW028tDetailBean;
 import cn.hanbell.oa.entity.HZCW028tDetail;
+import cn.hanbell.util.BaseLib;
 import java.util.List;
 import java.util.Objects;
 import java.util.logging.Level;
@@ -62,6 +63,7 @@ public class HZFWDD05Bean extends SuperEJBForEFNET<HZFWDD05> {
                         if (!Objects.equals(t.getServiceno2(), serviceid)) {
                             //遇到不同服务单就把先前的资料更新
                             if (entity != null) {
+                                entity.setPaydate(BaseLib.getDate());
                                 entity.setHzfwd007(amts.toString());
                                 hzfwdBean.update(entity);
                                 hzfwdBean.getEntityManager().flush();
@@ -102,6 +104,7 @@ public class HZFWDD05Bean extends SuperEJBForEFNET<HZFWDD05> {
                 }
                 //循环结束后更新最后一个服务单的累计金额
                 if (entity != null) {
+                    entity.setPaydate(BaseLib.getDate());
                     entity.setHzfwd007(amts.toString());
                     hzfwdBean.update(entity);
                     hzfwdBean.getEntityManager().flush();

@@ -128,7 +128,6 @@ public class InvmasBean extends SuperEJBForERP<Invmas> {
                 m.setDwt(BigDecimal.ZERO);
                 persist(m);
                 this.getEntityManager().flush();
-                scm.setCompid(detail.getCompid());
                 if (h.getFacno().equals("C")) {
                     Scminvmas scm = new Scminvmas();
                     scm.setItnbr(detail.getItnbr());

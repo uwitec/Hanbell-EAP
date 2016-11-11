@@ -7,12 +7,15 @@ package cn.hanbell.efnet.entity;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -162,6 +165,10 @@ public class HZFWD implements Serializable {
     private BigDecimal wlajtot;
     @Column(name = "dzf")
     private BigDecimal dzf;
+
+    @Column(name = "paydate")
+    @Temporal(TemporalType.DATE)
+    private Date paydate;
 
     public HZFWD() {
     }
@@ -557,6 +564,20 @@ public class HZFWD implements Serializable {
     @Override
     public String toString() {
         return "cn.hanbell.efnet.entity.HZFWD[ hZFWDPK=" + hZFWDPK + " ]";
+    }
+
+    /**
+     * @return the paydate
+     */
+    public Date getPaydate() {
+        return paydate;
+    }
+
+    /**
+     * @param paydate the paydate to set
+     */
+    public void setPaydate(Date paydate) {
+        this.paydate = paydate;
     }
 
 }
