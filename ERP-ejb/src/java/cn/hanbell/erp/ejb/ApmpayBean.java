@@ -141,7 +141,11 @@ public class ApmpayBean extends SuperEJBForERP<Apmpay> {
 
                 if ("53".equals(apmpad.getAccno().substring(0, 2))) {
                     apmpad.setCuskind("9J");
-                    apmpad.setVdrna(detail0l.getResearch());
+                    apmpad.setVdrno(detail0l.getResearch());
+                     miscode = miscodeBean.findByPK("9J", apmpad.getVdrno());
+                    if (miscode != null) {
+                    apmpad.setVdrna(miscode.getCdesc());
+                     }
                 } else {
                     apmpad.setCuskind("GE");                                    //设置对象代号类别（cuskind）
                     apmpad.setVdrno(detail0l.getBudgetDepttxt());               //设置费用部门（预算部门）
@@ -602,7 +606,7 @@ public class ApmpayBean extends SuperEJBForERP<Apmpay> {
                 }
                 apmpads.add(apmpad4);
 
-                g.setApplyAmount(reDetail.get(0).getApplyAmount() - g.getTotalRefund() * (g.getRatio()) - g.getTotaltaxInclusiveRMB());
+                g.setApplyAmount(j.getArrears() - g.getTotalRefund() * (g.getRatio()) - g.getTotaltaxInclusiveRMB());
                 j.setArrears(g.getApplyAmount());
 
             }
