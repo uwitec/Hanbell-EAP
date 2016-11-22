@@ -113,11 +113,11 @@ public class ApmpayBean extends SuperEJBForERP<Apmpay> {
             h.setSumry(b.getSummary());                                         //取得OA报销摘要
             h.setUsrno(b.getCreator());                                         //OA表单输入人员
             //h.setAppuserno(b.getAppUser());                                   //OA请款人
-            h.setTaxym(BaseLib.formatDate("yyyyMM", date));                     //取得OA请款日期设置申报年月 
+            h.setTaxym(BaseLib.formatDate("yyyyMM", date));                     //取得OA请款日期设置申报年月
             h.setBilltype("HZ_CW028");                                          //取得OA表单名称
             h.setSrcno(b.getProcessSerialNumber());                             //取得OA表单序列号
             h.setPaystat('0');                                                  //设置付款状态
-            h.setSrckind("3");                                                  //设置来源区分码         
+            h.setSrckind("3");                                                  //设置来源区分码
 
             List<HZCW028reDetail> details01 = hzcw028reDetailBean.findByFSN(b.getFormSerialNumber());
             List<Apmpad> apmpads = new ArrayList<>();
@@ -142,10 +142,10 @@ public class ApmpayBean extends SuperEJBForERP<Apmpay> {
                 if ("53".equals(apmpad.getAccno().substring(0, 2))) {
                     apmpad.setCuskind("9J");
                     apmpad.setVdrno(detail0l.getResearch());
-                     miscode = miscodeBean.findByPK("9J", apmpad.getVdrno());
+                    miscode = miscodeBean.findByPK("9J", apmpad.getVdrno());
                     if (miscode != null) {
-                    apmpad.setVdrna(miscode.getCdesc());
-                     }
+                        apmpad.setVdrna(miscode.getCdesc());
+                    }
                 } else {
                     apmpad.setCuskind("GE");                                    //设置对象代号类别（cuskind）
                     apmpad.setVdrno(detail0l.getBudgetDepttxt());               //设置费用部门（预算部门）
@@ -208,7 +208,7 @@ public class ApmpayBean extends SuperEJBForERP<Apmpay> {
                 apmpad.setCramt(BigDecimal.ZERO);
                 apmpad.setTnfamt(BigDecimal.ZERO);     //本次冲账金额本币
                 apmpad.setTnfamtfs(BigDecimal.ZERO);   //本次冲账金额原币
-                apmpad.setRefamt(BigDecimal.ZERO);     //对应相关金额本币                 
+                apmpad.setRefamt(BigDecimal.ZERO);     //对应相关金额本币
                 apmpad.setRefamtfs(BigDecimal.ZERO);   //对应相关金额原币
 
                 apmpad.setAccno("2222");
@@ -239,7 +239,7 @@ public class ApmpayBean extends SuperEJBForERP<Apmpay> {
             apmpad2.setCramtfs(BigDecimal.valueOf(b.getTotaltaxInclusive()));   //设置贷方原币
             apmpad2.setTnfamt(BigDecimal.ZERO);     //本次冲账金额本币
             apmpad2.setTnfamtfs(BigDecimal.ZERO);   //本次冲账金额原币
-            apmpad2.setRefamt(BigDecimal.ZERO);     //对应相关金额本币           
+            apmpad2.setRefamt(BigDecimal.ZERO);     //对应相关金额本币
             apmpad2.setRefamtfs(BigDecimal.ZERO);   //对应相关金额原币
 
             apmpad2.setAccno("2242");
@@ -308,7 +308,7 @@ public class ApmpayBean extends SuperEJBForERP<Apmpay> {
             h.setBilltype("HZ_CW017");                                          //取得OA表单名称
             h.setSrcno(j.getProcessSerialNumber());                             //取得OA表单序列号
             h.setPaystat('0');                                                  //设置付款状态
-            h.setSrckind("3");                                                  //设置来源区分码 
+            h.setSrckind("3");                                                  //设置来源区分码
 
             List<Apmpad> apmpads = new ArrayList<>();
             Apmpad apmpad = new Apmpad();
@@ -427,7 +427,7 @@ public class ApmpayBean extends SuperEJBForERP<Apmpay> {
             h.setBilltype("HZ_CW033");                                          //取得OA表单名称
             h.setSrcno(g.getProcessSerialNumber());                             //取得OA表单序列号
             h.setPaystat('0');                                                  //设置付款状态
-            h.setSrckind("3");                                                  //设置来源区分码 
+            h.setSrckind("3");                                                  //设置来源区分码
 
             List<HZCW033reDetail> reDetail = jzghdreDetailBean.findByFSN(g.getFormSerialNumber());
             List<Apmpad> apmpads = new ArrayList<>();
