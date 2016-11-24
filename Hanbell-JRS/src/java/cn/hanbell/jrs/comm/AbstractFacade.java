@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cn.hanbell.jrs;
+package cn.hanbell.jrs.comm;
 
 import cn.hanbell.util.SuperEJB;
 import java.util.List;

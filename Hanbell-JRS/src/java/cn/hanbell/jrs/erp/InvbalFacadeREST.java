@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cn.hanbell.jrs;
+package cn.hanbell.jrs.erp;
 
+import cn.hanbell.jrs.comm.AbstractFacade;
 import cn.hanbell.erp.ejb.InvbalBean;
 import cn.hanbell.erp.entity.Invbal;
 import cn.hanbell.erp.entity.InvbalPK;

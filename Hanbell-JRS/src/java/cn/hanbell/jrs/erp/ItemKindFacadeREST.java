@@ -3,13 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cn.hanbell.jrs;
+package cn.hanbell.jrs.erp;
 
-import cn.hanbell.erp.ejb.ItemMasterBean;
-import cn.hanbell.erp.entity.ItemMaster;
+import cn.hanbell.jrs.comm.AbstractFacade;
+import cn.hanbell.erp.ejb.ItemKindBean;
+import cn.hanbell.erp.entity.ItemKind;
 import cn.hanbell.util.SuperEJB;
-import java.util.List;
 import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -25,29 +27,32 @@ import javax.ws.rs.core.Response;
  *
  * @author C0160
  */
-@Path("shberp.servitemmaster")
+@Path("shberp.itemkind")
 @javax.enterprise.context.RequestScoped
-public class ItemMasterFacadeREST extends AbstractFacade<ItemMaster> {
+public class ItemKindFacadeREST extends AbstractFacade<ItemKind> {
 
     @Inject
-    private ItemMasterBean itemMasterBean;
+    private ItemKindBean itemKindBean;
 
-    public ItemMasterFacadeREST() {
-        super(ItemMaster.class);
+    @PersistenceContext(unitName = "RESTPU_shberp")
+    private EntityManager em;
+
+    public ItemKindFacadeREST() {
+        super(ItemKind.class);
     }
 
     @POST
     @Override
     @Consumes({"application/xml", "application/json"})
-    public void create(ItemMaster entity) {
+    public void create(ItemKind entity) {
         throw new WebApplicationException(Response.Status.NOT_ACCEPTABLE);
     }
-//
+
 //    @PUT
 //    @Path("{id}")
 //    @Consumes({"application/xml", "application/json"})
 //    @Override
-//    public void edit(@PathParam("id") String id, ItemMaster entity) {
+//    public void edit(@PathParam("id") String id, ItemKind entity) {
 //        throw new WebApplicationException(Response.Status.NOT_ACCEPTABLE);
 //    }
 
@@ -57,23 +62,13 @@ public class ItemMasterFacadeREST extends AbstractFacade<ItemMaster> {
         throw new WebApplicationException(Response.Status.NOT_ACCEPTABLE);
     }
 
-    @GET
-    @Path("{category}/list")
-    @Produces({"application/json"})
-    public List<ItemMaster> findByCategory(@PathParam("category") String category) {
-        return itemMasterBean.findByCategory(category);
-    }
-
-    @GET
-    @Path("{model}/{category}")
-    @Produces({"application/json"})
-    public List<ItemMaster> findByModelAndCategory(@PathParam("model") String model, @PathParam("category") String category) {
-        return itemMasterBean.findByModelAndCategory(model, category);
+    protected EntityManager getEntityManager() {
+        return em;
     }
 
     @Override
     protected SuperEJB getSuperEJB() {
-        return itemMasterBean;
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

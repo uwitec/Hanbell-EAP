@@ -3,16 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cn.hanbell.jrs;
+package cn.hanbell.jrs.erp;
 
-import cn.hanbell.erp.ejb.ItemModelBean;
-import cn.hanbell.erp.entity.ItemModel;
+import cn.hanbell.jrs.comm.AbstractFacade;
+import cn.hanbell.erp.entity.Company;
 import cn.hanbell.util.SuperEJB;
+import java.util.ArrayList;
 import java.util.List;
-import javax.inject.Inject;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -29,32 +29,29 @@ import javax.ws.rs.core.Response;
  *
  * @author C0160
  */
-@Path("shberp.itemmodel")
-@javax.enterprise.context.RequestScoped
-public class ItemModelFacadeREST extends AbstractFacade<ItemModel> {
-
-    @Inject
-    private ItemModelBean itemModelBean;
+@Stateless
+@Path("shberp.company")
+public class CompanyFacadeREST extends AbstractFacade<Company> {
 
     @PersistenceContext(unitName = "RESTPU_shberp")
     private EntityManager em;
 
-    public ItemModelFacadeREST() {
-        super(ItemModel.class);
+    public CompanyFacadeREST() {
+        super(Company.class);
     }
 
     @POST
     @Override
     @Consumes({"application/xml", "application/json"})
-    public void create(ItemModel entity) {
+    public void create(Company entity) {
         throw new WebApplicationException(Response.Status.NOT_ACCEPTABLE);
     }
-//
+
 //    @PUT
 //    @Path("{id}")
 //    @Consumes({"application/xml", "application/json"})
 //    @Override
-//    public void edit(@PathParam("id") String id, ItemModel entity) {
+//    public void edit(@PathParam("id") String id, Company entity) {
 //        throw new WebApplicationException(Response.Status.NOT_ACCEPTABLE);
 //    }
 
@@ -65,21 +62,23 @@ public class ItemModelFacadeREST extends AbstractFacade<ItemModel> {
     }
 
     @GET
-    @Path("{model}")
+    @Path("{id}")
     @Produces({"application/xml", "application/json"})
     @Override
-    public ItemModel findById(@PathParam("model") PathSegment model) {
-        Query query = em.createNativeQuery("SELECT cmcmodel,itnbr FROM cdrdmmodel WHERE cmcmodel = '" + model.getPath() + "' ORDER BY cmcmodel ");
-        Object[] row = (Object[]) query.getSingleResult();
-        ItemModel newEntity = new ItemModel(row[0].toString(), row[1].toString());
-        return newEntity;
+    public Company findById(@PathParam("id") PathSegment id) {
+        throw new WebApplicationException(Response.Status.NOT_ACCEPTABLE);
     }
 
     @GET
-    @Path("kind/{kind}")
+    @Override
     @Produces({"application/json"})
-    public List<ItemModel> findByKind(@PathParam("kind") String kind) {
-        return itemModelBean.findByKind(kind);
+    public List<Company> findAll() {
+        List<Company> entityList = new ArrayList();
+        entityList.add(new Company("C", "上海汉钟"));
+        entityList.add(new Company("G", "汉钟广州"));
+        entityList.add(new Company("J", "汉钟济南"));
+        entityList.add(new Company("N", "汉钟南京"));
+        return entityList;
     }
 
     protected EntityManager getEntityManager() {

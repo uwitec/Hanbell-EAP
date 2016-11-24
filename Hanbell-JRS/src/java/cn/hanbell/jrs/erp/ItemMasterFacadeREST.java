@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cn.hanbell.jrs;
+package cn.hanbell.jrs.erp;
 
-import cn.hanbell.erp.ejb.CdrcusBean;
-import cn.hanbell.erp.entity.Cdrcus;
+import cn.hanbell.jrs.comm.AbstractFacade;
+import cn.hanbell.erp.ejb.ItemMasterBean;
+import cn.hanbell.erp.entity.ItemMaster;
 import cn.hanbell.util.SuperEJB;
 import java.util.List;
 import javax.inject.Inject;
@@ -14,6 +15,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -24,29 +26,29 @@ import javax.ws.rs.core.Response;
  *
  * @author C0160
  */
-@Path("shberp.cdrcus")
+@Path("shberp.servitemmaster")
 @javax.enterprise.context.RequestScoped
-public class CdrcusFacadeREST extends AbstractFacade<Cdrcus> {
-    
-    
-    @Inject
-    private CdrcusBean cdrcusBean;
+public class ItemMasterFacadeREST extends AbstractFacade<ItemMaster> {
 
-    public CdrcusFacadeREST() {
-        super(Cdrcus.class);
+    @Inject
+    private ItemMasterBean itemMasterBean;
+
+    public ItemMasterFacadeREST() {
+        super(ItemMaster.class);
     }
 
     @POST
     @Override
     @Consumes({"application/xml", "application/json"})
-    public void create(Cdrcus entity) {
+    public void create(ItemMaster entity) {
         throw new WebApplicationException(Response.Status.NOT_ACCEPTABLE);
     }
-
+//
 //    @PUT
 //    @Path("{id}")
 //    @Consumes({"application/xml", "application/json"})
-//    public void edit(@PathParam("id") String id, Cdrcus entity) {
+//    @Override
+//    public void edit(@PathParam("id") String id, ItemMaster entity) {
 //        throw new WebApplicationException(Response.Status.NOT_ACCEPTABLE);
 //    }
 
@@ -56,25 +58,23 @@ public class CdrcusFacadeREST extends AbstractFacade<Cdrcus> {
         throw new WebApplicationException(Response.Status.NOT_ACCEPTABLE);
     }
 
-//    @GET
-//    @Path("{id}")
-//    @Produces({"application/json"})
-//    public Cdrcus find(@PathParam("id") String id) {
-//        return cdrcusBean.findById(id);
-//    }
+    @GET
+    @Path("{category}/list")
+    @Produces({"application/json"})
+    public List<ItemMaster> findByCategory(@PathParam("category") String category) {
+        return itemMasterBean.findByCategory(category);
+    }
 
     @GET
-    @Path("man/{man}")
+    @Path("{model}/{category}")
     @Produces({"application/json"})
-    public List<Cdrcus> findByMan(@PathParam("man") String man) {
-        return cdrcusBean.findByMan(man);
+    public List<ItemMaster> findByModelAndCategory(@PathParam("model") String model, @PathParam("category") String category) {
+        return itemMasterBean.findByModelAndCategory(model, category);
     }
 
     @Override
     protected SuperEJB getSuperEJB() {
-        return this.cdrcusBean;
+        return itemMasterBean;
     }
-
-
 
 }

@@ -3,18 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cn.hanbell.jrs;
+package cn.hanbell.jrs.erp;
 
-import cn.hanbell.erp.ejb.ItemCategoryBean;
-import cn.hanbell.erp.entity.ItemCategory;
+import cn.hanbell.jrs.comm.AbstractFacade;
+import cn.hanbell.erp.ejb.PricingPolicyBean;
+import cn.hanbell.erp.entity.PricingPolicy;
 import cn.hanbell.util.SuperEJB;
-import java.util.ArrayList;
-import java.util.List;
-import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -30,31 +25,29 @@ import javax.ws.rs.core.Response;
  *
  * @author C0160
  */
-@Path("shberp.itemcategory")
+@Path("shberp.pricingpolicy")
 @javax.enterprise.context.RequestScoped
-public class ItemCategoryFacadeREST extends AbstractFacade<ItemCategory> {
-
-    @PersistenceContext(unitName = "RESTPU_shberp")
-    private EntityManager em;
+public class PricingPolicyFacadeREST extends AbstractFacade<PricingPolicy> {
 
     @Inject
-    private ItemCategoryBean itemCategoryBean;
+    private PricingPolicyBean pricingPolicyBean;
 
-    public ItemCategoryFacadeREST() {
-        super(ItemCategory.class);
+    public PricingPolicyFacadeREST() {
+        super(PricingPolicy.class);
     }
 
     @POST
     @Override
     @Consumes({"application/xml", "application/json"})
-    public void create(ItemCategory entity) {
+    public void create(PricingPolicy entity) {
         throw new WebApplicationException(Response.Status.NOT_ACCEPTABLE);
     }
 //
 //    @PUT
 //    @Path("{id}")
 //    @Consumes({"application/xml", "application/json"})
-//    public void edit(@PathParam("id") String id, ItemCategory entity) {
+//    @Override
+//    public void edit(@PathParam("id") String id, PricingPolicy entity) {
 //        throw new WebApplicationException(Response.Status.NOT_ACCEPTABLE);
 //    }
 
@@ -64,21 +57,9 @@ public class ItemCategoryFacadeREST extends AbstractFacade<ItemCategory> {
         throw new WebApplicationException(Response.Status.NOT_ACCEPTABLE);
     }
 
-
-    @GET
-    @Override
-    @Produces({"application/json"})
-    public List<ItemCategory> findAll() {
-        return itemCategoryBean.findAll();
-    }
-
-    protected EntityManager getEntityManager() {
-        return em;
-    }
-
     @Override
     protected SuperEJB getSuperEJB() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return pricingPolicyBean;
     }
 
 }
