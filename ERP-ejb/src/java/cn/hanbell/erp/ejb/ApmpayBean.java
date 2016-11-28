@@ -418,7 +418,7 @@ public class ApmpayBean extends SuperEJBForERP<Apmpay> {
             accrnoBean.setCompany(facno);
             h.setVouno(accrnoBean.getFormId(facno, date, Boolean.TRUE));        //设置初稿传票编号
 
-            h.setDepno(g.getBudgetDept());                                      //取得OA预算部门
+            h.setDepno(g.getAppDept());                                      //取得OA预算部门
             h.setRkd("MR01");
             //h.setSumry("");                                                   //取得OA报销摘要
             h.setUsrno(g.getCreator());                                         //OA表单输入人员
