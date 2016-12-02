@@ -16,15 +16,15 @@
                     <path-in-war>/</path-in-war>
                 </library>
                 <library>
-                    <file>${reference.Hanbell-JRS.dist-ear}</file>
-                    <path-in-war>/</path-in-war>
-                </library>
-                <library>
-                    <file>${reference.Hanbell-JWS.dist-ear}</file>
-                    <path-in-war>/</path-in-war>
-                </library>
-                <library>
                     <file>${reference.CRM-ejb.dist-ear}</file>
+                    <path-in-war>/</path-in-war>
+                </library>
+                <library>
+                    <file>${reference.EFNET-ejb.dist-ear}</file>
+                    <path-in-war>/</path-in-war>
+                </library>
+                <library>
+                    <file>${reference.Hanbell-RPT.dist-ear}</file>
                     <path-in-war>/</path-in-war>
                 </library>
             </web-module-additional-libraries>
@@ -47,6 +47,14 @@
                 <id>dist-ear</id>
             </reference>
             <reference>
+                <foreign-project>EFNET-ejb</foreign-project>
+                <artifact-type>j2ee_ear_archive</artifact-type>
+                <script>build.xml</script>
+                <target>dist-ear</target>
+                <clean-target>clean-ear</clean-target>
+                <id>dist-ear</id>
+            </reference>
+            <reference>
                 <foreign-project>ERP-ejb</foreign-project>
                 <artifact-type>j2ee_ear_archive</artifact-type>
                 <script>build.xml</script>
@@ -55,15 +63,7 @@
                 <id>dist-ear</id>
             </reference>
             <reference>
-                <foreign-project>Hanbell-JRS</foreign-project>
-                <artifact-type>j2ee_ear_archive</artifact-type>
-                <script>build.xml</script>
-                <target>dist-ear</target>
-                <clean-target>clean-ear</clean-target>
-                <id>dist-ear</id>
-            </reference>
-            <reference>
-                <foreign-project>Hanbell-JWS</foreign-project>
+                <foreign-project>Hanbell-RPT</foreign-project>
                 <artifact-type>j2ee_ear_archive</artifact-type>
                 <script>build.xml</script>
                 <target>dist-ear</target>
