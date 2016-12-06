@@ -221,11 +221,7 @@ is divided into following sections:
             <property location="${build.dir}" name="dist.ear.dir"/>
             <property name="deploy.on.save" value="${build.deploy.on.save}"/>
         </ant>
-        <ant antfile="${project.Hanbell-JRS}/build.xml" inheritall="false" target="dist-ear">
-            <property location="${build.dir}" name="dist.ear.dir"/>
-            <property name="deploy.on.save" value="${build.deploy.on.save}"/>
-        </ant>
-        <ant antfile="${project.Hanbell-JWS}/build.xml" inheritall="false" target="dist-ear">
+        <ant antfile="${project.Hanbell-Admin}/build.xml" inheritall="false" target="dist-ear">
             <property location="${build.dir}" name="dist.ear.dir"/>
             <property name="deploy.on.save" value="${build.deploy.on.save}"/>
         </ant>
@@ -246,8 +242,7 @@ is divided into following sections:
         <copyfiles files="${reference.EFGP-ejb.dist-ear}" todir="${build.dir}//"/>
         <copyfiles files="${reference.EFNET-ejb.dist-ear}" todir="${build.dir}//"/>
         <copyfiles files="${reference.ERP-ejb.dist-ear}" todir="${build.dir}//"/>
-        <copyfiles files="${reference.Hanbell-JWS.dist-ear}" todir="${build.dir}//"/>
-        <copyfiles files="${reference.Hanbell-JRS.dist-ear}" todir="${build.dir}//"/>
+        <copyfiles files="${reference.Hanbell-Admin.dist-ear}" todir="${build.dir}//"/>
     </target>
     <target name="post-compile">
         <!-- Empty placeholder for easier customization. -->
@@ -329,8 +324,7 @@ is divided into following sections:
         <ant antfile="${project.EFGP-ejb}/build.xml" inheritall="false" target="-run-deploy-am"/>
         <ant antfile="${project.EFNET-ejb}/build.xml" inheritall="false" target="-run-deploy-am"/>
         <ant antfile="${project.ERP-ejb}/build.xml" inheritall="false" target="-run-deploy-am"/>
-        <ant antfile="${project.Hanbell-JRS}/build.xml" inheritall="false" target="-run-deploy-am"/>
-        <ant antfile="${project.Hanbell-JWS}/build.xml" inheritall="false" target="-run-deploy-am"/>
+        <ant antfile="${project.Hanbell-Admin}/build.xml" inheritall="false" target="-run-deploy-am"/>
     </target>
     <target depends="-init-cos,dist-directory-deploy,pre-run-deploy,-pre-nbmodule-run-deploy,-run-deploy-nb,-init-deploy-ant,-deploy-ant,-run-deploy-am,-post-nbmodule-run-deploy,post-run-deploy" name="run-deploy"/>
     <target if="netbeans.home" name="-run-deploy-nb">
@@ -675,11 +669,7 @@ is divided into following sections:
             <property location="${build.dir}" name="dist.ear.dir"/>
             <property name="deploy.on.save" value="${build.deploy.on.save}"/>
         </ant>
-        <ant antfile="${project.Hanbell-JRS}/build.xml" inheritall="false" target="clean-ear">
-            <property location="${build.dir}" name="dist.ear.dir"/>
-            <property name="deploy.on.save" value="${build.deploy.on.save}"/>
-        </ant>
-        <ant antfile="${project.Hanbell-JWS}/build.xml" inheritall="false" target="clean-ear">
+        <ant antfile="${project.Hanbell-Admin}/build.xml" inheritall="false" target="clean-ear">
             <property location="${build.dir}" name="dist.ear.dir"/>
             <property name="deploy.on.save" value="${build.deploy.on.save}"/>
         </ant>
