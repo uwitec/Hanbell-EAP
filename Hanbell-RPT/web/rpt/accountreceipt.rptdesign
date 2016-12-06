@@ -37,23 +37,6 @@
                 <property name="category">Unformatted</property>
             </structure>
         </scalar-parameter>
-        <scalar-parameter name="rectype" id="943">
-            <property name="hidden">true</property>
-            <property name="valueType">static</property>
-            <property name="isRequired">false</property>
-            <property name="dataType">string</property>
-            <property name="distinct">true</property>
-            <simple-property-list name="defaultValue">
-                <value type="constant"></value>
-            </simple-property-list>
-            <list-property name="selectionList"/>
-            <property name="paramType">simple</property>
-            <property name="concealValue">true</property>
-            <property name="controlType">text-box</property>
-            <structure name="format">
-                <property name="category">Unformatted</property>
-            </structure>
-        </scalar-parameter>
     </parameters>
     <data-sources>
         <script-data-source name="scriptDS" id="225"/>
@@ -73,58 +56,63 @@
                 </structure>
                 <structure>
                     <property name="position">3</property>
-                    <property name="name">cusno</property>
+                    <property name="name">rectype</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
                     <property name="position">4</property>
-                    <property name="name">customer</property>
+                    <property name="name">paytype</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
                     <property name="position">5</property>
-                    <property name="name">dept</property>
+                    <property name="name">cusno</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
                     <property name="position">6</property>
-                    <property name="name">exchange</property>
-                    <property name="dataType">float</property>
+                    <property name="name">customer</property>
+                    <property name="dataType">string</property>
                 </structure>
                 <structure>
                     <property name="position">7</property>
-                    <property name="name">chamts</property>
+                    <property name="name">dept</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
                     <property name="position">8</property>
-                    <property name="name">summary</property>
-                    <property name="dataType">string</property>
+                    <property name="name">exchange</property>
+                    <property name="dataType">float</property>
                 </structure>
                 <structure>
                     <property name="position">9</property>
-                    <property name="name">billno</property>
+                    <property name="name">chamts</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
                     <property name="position">10</property>
-                    <property name="name">currency</property>
+                    <property name="name">summary</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
                     <property name="position">11</property>
+                    <property name="name">billno</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">12</property>
+                    <property name="name">currency</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">13</property>
                     <property name="name">amts</property>
                     <property name="dataType">float</property>
                 </structure>
                 <structure>
-                    <property name="position">12</property>
+                    <property name="position">14</property>
                     <property name="name">recamts</property>
                     <property name="dataType">float</property>
-                </structure>
-                <structure>
-                    <property name="position">13</property>
-                    <property name="name">rectype</property>
-                    <property name="dataType">string</property>
                 </structure>
             </list-property>
             <list-property name="columnHints">
@@ -133,6 +121,12 @@
                 </structure>
                 <structure>
                     <property name="columnName">formdate</property>
+                </structure>
+                <structure>
+                    <property name="columnName">rectype</property>
+                </structure>
+                <structure>
+                    <property name="columnName">paytype</property>
                 </structure>
                 <structure>
                     <property name="columnName">cusno</property>
@@ -164,9 +158,6 @@
                 <structure>
                     <property name="columnName">recamts</property>
                 </structure>
-                <structure>
-                    <property name="columnName">rectype</property>
-                </structure>
             </list-property>
             <structure name="cachedMetaData">
                 <list-property name="resultSet">
@@ -182,58 +173,63 @@
                     </structure>
                     <structure>
                         <property name="position">3</property>
-                        <property name="name">cusno</property>
+                        <property name="name">rectype</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
                         <property name="position">4</property>
-                        <property name="name">customer</property>
+                        <property name="name">paytype</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
                         <property name="position">5</property>
-                        <property name="name">dept</property>
+                        <property name="name">cusno</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
                         <property name="position">6</property>
-                        <property name="name">exchange</property>
-                        <property name="dataType">float</property>
+                        <property name="name">customer</property>
+                        <property name="dataType">string</property>
                     </structure>
                     <structure>
                         <property name="position">7</property>
-                        <property name="name">chamts</property>
+                        <property name="name">dept</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
                         <property name="position">8</property>
-                        <property name="name">summary</property>
-                        <property name="dataType">string</property>
+                        <property name="name">exchange</property>
+                        <property name="dataType">float</property>
                     </structure>
                     <structure>
                         <property name="position">9</property>
-                        <property name="name">billno</property>
+                        <property name="name">chamts</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
                         <property name="position">10</property>
-                        <property name="name">currency</property>
+                        <property name="name">summary</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
                         <property name="position">11</property>
+                        <property name="name">billno</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">12</property>
+                        <property name="name">currency</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">13</property>
                         <property name="name">amts</property>
                         <property name="dataType">float</property>
                     </structure>
                     <structure>
-                        <property name="position">12</property>
+                        <property name="position">14</property>
                         <property name="name">recamts</property>
                         <property name="dataType">float</property>
-                    </structure>
-                    <structure>
-                        <property name="position">13</property>
-                        <property name="name">rectype</property>
-                        <property name="dataType">string</property>
                     </structure>
                 </list-property>
             </structure>
@@ -247,7 +243,6 @@ ejbClient.setEJB(params["JNDIName"]);
 master = ejbClient.getEntity(params["formid"]);
 
 if(master!=null){
-	params["rectype"] = master.getSkxz().charAt(0);
 	detail = ejbClient.getDetail(master.getFormSerialNumber());
 }
 
@@ -265,7 +260,8 @@ if (currentRow<6){
 		dataSetRow["currency"] = detail.get(currentRow).getBibi();	
 		dataSetRow["summary"] = detail.get(currentRow).getZy();	
 		dataSetRow["amts"] = detail.get(currentRow).getYsje();	
-		dataSetRow["recamts"] = detail.get(currentRow).getSsje();						
+		dataSetRow["recamts"] = detail.get(currentRow).getSsje();
+		dataSetRow["paytype"] = master.getBfkfs();		
 		currentRow++;
 		return true;
 	}
@@ -274,6 +270,7 @@ if (currentRow<6){
 	dataSetRow["customer"] = master.getVdrd();	
 	dataSetRow["rectype"] = master.getSkxz();
 	dataSetRow["chamts"] = master.getDx();
+	dataSetRow["paytype"] = master.getBfkfs();
 	currentRow++;
 	return true;	
 }
@@ -529,6 +526,21 @@ return false;]]></method>
             <property name="borderRightStyle">solid</property>
             <property name="borderRightWidth">thin</property>
             <property name="width">7.7in</property>
+            <property name="dataSet">dataDetail</property>
+            <list-property name="boundDataColumns">
+                <structure>
+                    <property name="name">formtype</property>
+                    <expression name="expression" type="javascript">dataSetRow["rectype"]=="1"</expression>
+                    <property name="dataType">boolean</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">color3</property>
+                    <expression name="expression" type="javascript">dataSetRow["paytype"]=="3"?"black":""</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+            </list-property>
             <column id="729"/>
             <column id="862">
                 <property name="width">0.3in</property>
@@ -582,12 +594,9 @@ return false;]]></method>
                         <property name="marginRight">4pt</property>
                         <list-property name="highlightRules">
                             <structure>
-                                <property name="operator">eq</property>
+                                <property name="operator">is-false</property>
                                 <property name="backgroundColor">#000000</property>
-                                <expression name="testExpr" type="javascript">params["rectype"].value</expression>
-                                <simple-property-list name="value1">
-                                    <value type="javascript">2</value>
-                                </simple-property-list>
+                                <expression name="testExpr" type="javascript">row["formtype"]</expression>
                             </structure>
                         </list-property>
                         <text-property name="text"> </text-property>
@@ -620,12 +629,9 @@ return false;]]></method>
                         <property name="marginRight">4pt</property>
                         <list-property name="highlightRules">
                             <structure>
-                                <property name="operator">eq</property>
+                                <property name="operator">is-true</property>
                                 <property name="backgroundColor">#000000</property>
-                                <expression name="testExpr" type="javascript">params["rectype"].value</expression>
-                                <simple-property-list name="value1">
-                                    <value type="javascript">1</value>
-                                </simple-property-list>
+                                <expression name="testExpr" type="javascript">row["formtype"]</expression>
                             </structure>
                         </list-property>
                         <text-property name="text"> </text-property>
@@ -743,7 +749,7 @@ return false;]]></method>
                     <text id="808">
                         <property name="marginTop">5pt</property>
                         <property name="contentType">html</property>
-                        <text-property name="content"><![CDATA[  □ 现金    <span style="background-color:black">□</span> 电汇    □ 汇票    □ 支票   □ 信用证]]></text-property>
+                        <text-property name="content"><![CDATA[□ 现金  <span style='background-color:<VALUE-OF>row["color3"]</VALUE-OF>'>□</span> 电汇   □ 汇票    □ 支票   □ 信用证]]></text-property>
                     </text>
                 </cell>
                 <cell id="825">
@@ -1049,16 +1055,6 @@ return false;]]></method>
                     <property name="borderLeftWidth">thin</property>
                     <property name="borderRightStyle">solid</property>
                     <property name="borderRightWidth">thin</property>
-                    <data id="944">
-                        <list-property name="boundDataColumns">
-                            <structure>
-                                <property name="name">rectype</property>
-                                <expression name="expression" type="javascript">params["rectype"]</expression>
-                                <property name="dataType">string</property>
-                            </structure>
-                        </list-property>
-                        <property name="resultSetColumn">rectype</property>
-                    </data>
                 </cell>
                 <cell id="908">
                     <property name="borderLeftStyle">solid</property>

@@ -5,7 +5,6 @@
  */
 package cn.hanbell.rpt.control;
 
-import cn.hanbell.efgp.rpt.HZCW027Report;
 import cn.hanbell.util.BaseLib;
 import cn.hanbell.util.SuperReportManagedBean;
 import java.util.HashMap;
@@ -14,9 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-
 import javax.faces.context.FacesContext;
-import org.eclipse.birt.report.engine.api.EngineConstants;
 
 /**
  *
@@ -48,10 +45,10 @@ public class ReportManagedBean extends SuperReportManagedBean {
         paramMap = fc.getExternalContext().getRequestParameterValuesMap();
         try {
             if (paramMap == null || paramMap.isEmpty()) {
-                FacesContext.getCurrentInstance().getExternalContext().redirect("404");
+                FacesContext.getCurrentInstance().getExternalContext().redirect("params.xhtml");
             }
-            if (!paramMap.containsKey("system") || !paramMap.containsKey("api") || !paramMap.containsKey("formid")) {
-                FacesContext.getCurrentInstance().getExternalContext().redirect("404");
+            if (!paramMap.containsKey("system") || !paramMap.containsKey("api")) {
+                FacesContext.getCurrentInstance().getExternalContext().redirect("params.xhtml");
             }
             setReportClass(Class.forName("cn.hanbell.efgp.rpt.HZCW027Report").getClassLoader());
             print();
@@ -64,8 +61,17 @@ public class ReportManagedBean extends SuperReportManagedBean {
     public void print() throws Exception {
         HashMap<String, Object> reportParams = new HashMap<>();
         reportParams.put("JNDIName", "java:global/Hanbell-EAP/EFGP-ejb/HZCW027Bean!cn.hanbell.oa.ejb.HZCW027Bean");
-        reportParams.put("formid", paramMap.get("formid")[0]);
-        String fileName = "accountreceipt" + BaseLib.formatDate("yyyyMMddHHmmss", BaseLib.getDate()) + ".pdf";
+        if (paramMap.containsKey("formid")) {
+            reportParams.put("formid", paramMap.get("formid")[0]);
+        }
+        if (paramMap.containsKey("filterFields")) {
+            reportParams.put("filterFields", paramMap.get("filterFields")[0]);
+        }
+        if (paramMap.containsKey("sortFields")) {
+            reportParams.put("sortFields", paramMap.get("sortFields")[0]);
+        }
+        reportOutputFormat = "pdf";
+        String fileName = "accountreceipt" + BaseLib.formatDate("yyyyMMddHHmmss", BaseLib.getDate()) + "." + reportOutputFormat;
         String reportName = reportPath + "accountreceipt.rptdesign";
         String outputName = reportOutputPath + fileName;
         reportViewPath = reportViewContext + fileName;
@@ -73,7 +79,7 @@ public class ReportManagedBean extends SuperReportManagedBean {
             //初始配置
             this.reportInitAndConfig();
             //生成报表
-            this.reportRunAndOutput(reportName, reportParams, outputName, "pdf", null);
+            this.reportRunAndOutput(reportName, reportParams, outputName, reportOutputFormat, null);
             //预览报表
             this.preview();
         } catch (Exception ex) {
