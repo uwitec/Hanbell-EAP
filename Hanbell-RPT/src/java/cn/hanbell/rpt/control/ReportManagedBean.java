@@ -5,12 +5,15 @@
  */
 package cn.hanbell.rpt.control;
 
+import cn.hanbell.eap.ejb.SystemProgramBean;
+import cn.hanbell.eap.entity.SystemProgram;
 import cn.hanbell.util.BaseLib;
 import cn.hanbell.util.SuperReportManagedBean;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
@@ -23,8 +26,13 @@ import javax.faces.context.FacesContext;
 @ViewScoped
 public class ReportManagedBean extends SuperReportManagedBean {
 
+    @EJB
+    private SystemProgramBean systemProgramBean;
+
     private String msg;
     private Map<String, String[]> paramMap;
+
+    protected SystemProgram systemProgram;
 
     public ReportManagedBean() {
     }
@@ -44,13 +52,9 @@ public class ReportManagedBean extends SuperReportManagedBean {
         FacesContext fc = FacesContext.getCurrentInstance();
         paramMap = fc.getExternalContext().getRequestParameterValuesMap();
         try {
-            if (paramMap == null || paramMap.isEmpty()) {
+            if (paramMap == null || paramMap.isEmpty() || !paramMap.containsKey("system") || !paramMap.containsKey("api")) {
                 FacesContext.getCurrentInstance().getExternalContext().redirect("params.xhtml");
             }
-            if (!paramMap.containsKey("system") || !paramMap.containsKey("api")) {
-                FacesContext.getCurrentInstance().getExternalContext().redirect("params.xhtml");
-            }
-            setReportClass(Class.forName("cn.hanbell.efgp.rpt.HZCW027Report").getClassLoader());
             print();
         } catch (Exception ex) {
             Logger.getLogger(ReportManagedBean.class.getName()).log(Level.SEVERE, null, ex);
@@ -59,8 +63,12 @@ public class ReportManagedBean extends SuperReportManagedBean {
 
     @Override
     public void print() throws Exception {
+        systemProgram = systemProgramBean.findByAPI(paramMap.get("api")[0]);
+        if (systemProgram == null) {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("deny.xhtml");
+        }
         HashMap<String, Object> reportParams = new HashMap<>();
-        reportParams.put("JNDIName", "java:global/Hanbell-EAP/EFGP-ejb/HZCW027Bean!cn.hanbell.oa.ejb.HZCW027Bean");
+        reportParams.put("JNDIName", systemProgram.getRptjndi());
         if (paramMap.containsKey("formid")) {
             reportParams.put("formid", paramMap.get("formid")[0]);
         }
@@ -70,12 +78,13 @@ public class ReportManagedBean extends SuperReportManagedBean {
         if (paramMap.containsKey("sortFields")) {
             reportParams.put("sortFields", paramMap.get("sortFields")[0]);
         }
-        reportOutputFormat = "pdf";
-        String fileName = "accountreceipt" + BaseLib.formatDate("yyyyMMddHHmmss", BaseLib.getDate()) + "." + reportOutputFormat;
-        String reportName = reportPath + "accountreceipt.rptdesign";
+        reportOutputFormat = systemProgram.getRptformat();
+        String fileName = systemProgram.getApi() + BaseLib.formatDate("yyyyMMddHHmmss", BaseLib.getDate()) + "." + reportOutputFormat;
+        String reportName = reportPath + systemProgram.getRptdesign();
         String outputName = reportOutputPath + fileName;
         reportViewPath = reportViewContext + fileName;
         try {
+            this.setReportClass(Class.forName(systemProgram.getRptclazz()).getClassLoader());
             //初始配置
             this.reportInitAndConfig();
             //生成报表
