@@ -221,3 +221,4 @@ pip-log.txt
 .mr.developer.cfg
 /JSF-demo/nbproject/private/
 /CRM-ejb/nbproject/private/
+/EAP-ejb/nbproject/private/

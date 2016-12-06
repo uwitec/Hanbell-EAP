@@ -30,18 +30,16 @@ public class HZCW027Bean extends SuperEJBForEFGP<HZCW027> {
         super(HZCW027.class);
     }
 
+    @Override
+    public void setDetail(Object value) {
+        this.detailList = hzcw027DetailBean.findByFSN(value);
+    }
+
     /**
      * @return the detailList
      */
     public List<HZCW027Detail> getDetailList() {
         return detailList;
-    }
-
-    /**
-     * @param value
-     */
-    public void setDetailList(Object value) {
-        this.detailList = hzcw027DetailBean.findByFSN(value);
     }
 
 }
