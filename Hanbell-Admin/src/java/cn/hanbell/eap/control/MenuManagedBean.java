@@ -60,25 +60,24 @@ public class MenuManagedBean implements Serializable {
             menuitem = new DefaultMenuItem("Home");
             menuitem.setId("menu_home");
             menuitem.setOutcome("home");
-            menuitem.setIcon("icon-home-outline");
-            menuitem.setContainerStyleClass("layout-menubar-active");
+            menuitem.setIcon("dashboard");
 
             model.addElement(menuitem);
 
             appmenu = new DefaultSubMenu("应用");
-            appmenu.setIcon("icon-th-thumb");
+            appmenu.setIcon("menu");
 
             sysgantModuleList = sysgrantModuleBean.findByUserId(userManagedBean.getCurrentUser().getId());
             if (sysgantModuleList != null && !sysgantModuleList.isEmpty()) {
                 for (SystemGrantModule grantModule : sysgantModuleList) {
                     submenu = new DefaultSubMenu(grantModule.getSystemModule().getName());
-                    submenu.setIcon("icon-th-thumb");
+                    submenu.setIcon("list");
                     sysprgList = null;
                     sysprgList = sysprgBean.findByModuleId(grantModule.getSystemModule().getId());
                     if (sysprgList != null && !sysprgList.isEmpty()) {
                         for (SystemProgram prg : sysprgList) {
                             menuitem = new DefaultMenuItem(prg.getName());
-                            menuitem.setIcon("icon-doc-text-1");
+                            menuitem.setIcon("menu");
                             menuitem.setOutcome(prg.getApi());
                             submenu.addElement(menuitem);
                         }
@@ -89,25 +88,40 @@ public class MenuManagedBean implements Serializable {
             model.addElement(appmenu);
 
             submenu = new DefaultSubMenu("用户");
-            submenu.setIcon("icon-vcard");
+            submenu.setIcon("menu");
             menuitem = new DefaultMenuItem("更改密码");
-            menuitem.setIcon("icon-doc-text");
+            menuitem.setIcon("menu");
             menuitem.setOutcome("resetPwd");
             submenu.addElement(menuitem);
 
             model.addElement(submenu);
             //系统管理菜单
             submenu = new DefaultSubMenu("系统");
-            submenu.setIcon("icon-th-thumb");
+            submenu.setIcon("menu");
             submenu.setRendered(userManagedBean.getCurrentUser().getUserid().equals("Admin"));
 
             menuitem = new DefaultMenuItem("用户维护");
-            menuitem.setIcon("icon-doc-text");
+            menuitem.setIcon("menu");
             menuitem.setOutcome("systemuser");
+            submenu.addElement(menuitem);
+            
+            menuitem = new DefaultMenuItem("系统维护");
+            menuitem.setIcon("menu");
+            menuitem.setOutcome("sysname");
+            submenu.addElement(menuitem);
+            
+            menuitem = new DefaultMenuItem("模块维护");
+            menuitem.setIcon("menu");
+            menuitem.setOutcome("sysmodule");
+            submenu.addElement(menuitem);
+
+            menuitem = new DefaultMenuItem("功能维护");
+            menuitem.setIcon("menu");
+            menuitem.setOutcome("sysprg");
             submenu.addElement(menuitem);
 
             menuitem = new DefaultMenuItem("模块授权");
-            menuitem.setIcon("icon-doc-text");
+            menuitem.setIcon("menu");
             menuitem.setOutcome("sysgrantmodule");
             submenu.addElement(menuitem);
 
@@ -115,16 +129,6 @@ public class MenuManagedBean implements Serializable {
             //menuitem.setIcon("icon-doc-text");
             //menuitem.setOutcome("sysgrantprg");
             //submenu.addElement(menuitem);
-            menuitem = new DefaultMenuItem("模块维护");
-            menuitem.setIcon("icon-doc-text");
-            menuitem.setOutcome("sysmodule");
-            submenu.addElement(menuitem);
-
-            menuitem = new DefaultMenuItem("功能维护");
-            menuitem.setIcon("icon-doc-text");
-            menuitem.setOutcome("sysprg");
-            submenu.addElement(menuitem);
-
             model.addElement(submenu);
         }
     }

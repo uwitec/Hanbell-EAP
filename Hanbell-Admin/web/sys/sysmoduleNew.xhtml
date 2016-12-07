@@ -15,11 +15,13 @@
                     <p:button id="btnReturn" value="返回" outcome="sysmodule" icon="ui-icon-arrowreturn-1-w"/> 
                 </f:facet>
                 <f:facet name="right">
-                    <p:commandButton id="btnPersist" value="保存" action="#{systemModuleManagedBean.persist('sysmodule')}" icon="ui-icon-disk"  update="plgNew"/>
+                    <p:commandButton id="btnSave" value="保存" action="#{systemModuleManagedBean.persist()}" icon="ui-icon-disk"  update="plgHead"/>
                 </f:facet>
             </p:toolbar>  
             <p:panel id="panelNew" header="系统模块－新增">
-                <h:panelGrid id="plgNew" columns="2" columnClasses="Wid20,Wid80" styleClass="plgNew Wid60 Responsive">
+                <h:panelGrid id="plgHead" columns="2" columnClasses="Wid20,Wid80" styleClass="plgHead ui-g-12 ui-lg-6">
+                    <p:outputLabel value="系统" for="sysname" />
+                    <p:inputText id="sysname" value="#{systemModuleManagedBean.newEntity.sysname}" title="sysname" required="true" requiredMessage="系统不能为空."/>
                     <p:outputLabel value="名称" for="name" />
                     <p:inputText id="name" value="#{systemModuleManagedBean.newEntity.name}" title="Name" required="true" requiredMessage="名称不能为空."/>
                     <p:outputLabel value="排序" for="sortid" />

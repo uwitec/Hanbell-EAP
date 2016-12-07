@@ -22,9 +22,9 @@
                                      rendered="#{systemProgramManagedBean.currentEntity.status!='V' }" update=":formList">
                         <p:confirm header="系统提示" message="删除吗?" icon="ui-icon-alert" />
                     </p:commandButton>
-                    <p:commandButton id="btnVerify" actionListener="#{systemProgramManagedBean.verify()}" icon="ui-icon-locked" value="审核" 
+                    <p:commandButton id="btnVerify" actionListener="#{systemProgramManagedBean.verify()}" icon="ui-icon-check" value="审核" 
                                      rendered="#{systemProgramManagedBean.currentEntity.status!='V'}"   update=":formList"/>
-                    <p:commandButton id="btnUnverify" actionListener="#{systemProgramManagedBean.unverify()}" icon="ui-icon-unlocked" value="还原" 
+                    <p:commandButton id="btnUnverify" actionListener="#{systemProgramManagedBean.unverify()}" icon="ui-icon-restore" value="还原" 
                                      rendered="#{systemProgramManagedBean.currentEntity.status=='V'}"  update=":formList"/>                   
                     <p:commandButton id="btnCreate" icon="ui-icon-plus" value="新增"
                                      action="#{systemProgramManagedBean.create('sysprgNew')}" /> 
@@ -39,7 +39,19 @@
                 </f:facet>
                 <p:ajax event="rowSelect"  update=":formList:toolbar" />
                 <p:ajax event="rowUnselect" update=":formList:toolbar" />
-                <p:column styleClass="Ｗid20">
+                <p:column styleClass="Wid10">
+                    <f:facet name="header">
+                        <h:outputText value="所属系统"/>
+                    </f:facet>
+                    <h:outputText id="sysname" value="#{item.sysname}" title="sysname"/>
+                </p:column>
+                <p:column styleClass="Wid10">
+                    <f:facet name="header">
+                        <h:outputText value="所属模块"/>
+                    </f:facet>
+                    <h:outputText id="moduleid" value="#{item.systemModule.name}" title="Moduleid"/>
+                </p:column>
+                <p:column styleClass="Wid20">
                     <f:facet name="header">
                         <h:outputText value="功能名称"/>
                     </f:facet>
@@ -56,12 +68,6 @@
                         <h:outputText value="编号"/>
                     </f:facet>
                     <h:outputText value="#{item.nolead}"/>
-                </p:column>
-                <p:column styleClass="Wid20">
-                    <f:facet name="header">
-                        <h:outputText value="所属模块"/>
-                    </f:facet>
-                    <h:outputText id="moduleid" value="#{item.sysmodule.name}" title="Moduleid"/>
                 </p:column>
                 <p:column styleClass="Wid10">
                     <f:facet name="header">

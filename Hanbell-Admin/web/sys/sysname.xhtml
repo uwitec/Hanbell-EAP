@@ -3,37 +3,35 @@
 <ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 template="./../WEB-INF/template.xhtml"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
-                xmlns:f="http://xmlns.jcp.org/jsf/core"
-                xmlns:p="http://primefaces.org/ui">
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="content">
-
         <h:form id="formList">
             <p:growl id="growl" showSummary="false" showDetail="true" autoUpdate="true"/>
             <p:toolbar id="toolbar" styleClass="topToolbar">
                 <f:facet name="left">
-                    <p:commandButton id="btnLoad" value="刷新" actionListener="#{systemModuleManagedBean.init()}"  icon="ui-icon-search"  update=":formList"/>
-                    <p:commandButton id="btnView" value="查看" action="#{systemModuleManagedBean.view('sysmoduleView')}"  icon="ui-icon-document"/>
+                    <p:commandButton id="btnLoad" value="刷新" actionListener="#{systemNameManagedBean.init()}"  icon="ui-icon-search"  update=":formList"/>
+                    <p:commandButton id="btnView" value="查看" action="#{systemNameManagedBean.view('sysnameView')}"  icon="ui-icon-document"/>
                 </f:facet>
                 <f:facet name="right">
-                    <p:commandButton id="btnEdit" icon="ui-icon-pencil" value="编辑" rendered="#{systemModuleManagedBean.currentEntity.status!='V'}"
-                                     action="#{systemModuleManagedBean.edit('sysmoduleEdit')}"/>
-                    <p:commandButton id="btnDelete" actionListener="#{systemModuleManagedBean.delete()}" icon="ui-icon-trash" value="删除"
-                                     rendered="#{systemModuleManagedBean.currentEntity.status!='V' }" update=":formList"/>
-                    <p:commandButton id="btnVerify" actionListener="#{systemModuleManagedBean.verify()}" icon="ui-icon-check" value="审核"
-                                     rendered="#{systemModuleManagedBean.currentEntity.status!='V'}"   update=":formList"/>
-                    <p:commandButton id="btnUnverify" actionListener="#{systemModuleManagedBean.unverify()}" icon="ui-icon-unlocked" value="还原"
-                                     rendered="#{systemModuleManagedBean.currentEntity.status=='V'}"  update=":formList"/>
-                    <p:commandButton id="btnCreate" icon="ui-icon-plus" value="新增"
-                                     action="#{systemModuleManagedBean.create('sysmoduleNew')}" />
+                    <p:commandButton id="btnEdit" icon="ui-icon-pencil" value="编辑" rendered="#{systemNameManagedBean.currentEntity.status!='V'}"
+                                     action="#{systemNameManagedBean.edit('sysnameEdit')}"/>
+                    <p:commandButton id="btnDelete" actionListener="#{systemNameManagedBean.delete()}" icon="ui-icon-trash" value="删除"
+                                     rendered="#{systemNameManagedBean.currentEntity.status!='V' }" update=":formList"/>
+                    <p:commandButton id="btnVerify" actionListener="#{systemNameManagedBean.verify()}" icon="ui-icon-check" value="审核"
+                                     rendered="#{systemNameManagedBean.currentEntity.status!='V'}"   update=":formList"/>
+                    <p:commandButton id="btnUnverify" actionListener="#{systemNameManagedBean.unverify()}" icon="ui-icon-restore" value="还原"
+                                     rendered="#{systemNameManagedBean.currentEntity.status=='V'}"  update=":formList"/>
+                    <p:commandButton id="btnCreate" icon="ui-icon-plus" value="新增" action="#{systemNameManagedBean.create('sysnameNew')}" 
+                                     process="@this"/>
                 </f:facet>
             </p:toolbar>
-            <p:dataTable value="#{systemModuleManagedBean.model}" var="item"  tableStyleClass="tableList" paginator="true" paginatorPosition="bottom" rows="15"
+            <p:dataTable value="#{systemNameManagedBean.model}" var="item" tableStyleClass="tableList" paginator="true" paginatorPosition="bottom" rows="15"
                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                         rowsPerPageTemplate="15,30,45"  lazy="true"
-                         selectionMode="single" selection="#{systemModuleManagedBean.currentEntity}" rowKey="#{item.id}" >
+                         rowsPerPageTemplate="15,30,45" lazy="true" selectionMode="single" selection="#{systemNameManagedBean.currentEntity}" rowKey="#{item.id}" >
                 <f:facet name="header">
-                    模块维护
+                    系统维护
                 </f:facet>
                 <p:ajax event="rowSelect"  update=":formList:toolbar" />
                 <p:ajax event="rowUnselect" update=":formList:toolbar" />
@@ -63,7 +61,6 @@
                 </p:column>
             </p:dataTable>
         </h:form>
-
     </ui:define>
 
 </ui:composition>

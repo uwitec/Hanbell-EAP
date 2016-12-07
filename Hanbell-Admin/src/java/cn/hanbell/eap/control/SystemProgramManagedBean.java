@@ -20,7 +20,7 @@ import javax.faces.bean.SessionScoped;
  *
  * @author kevindong
  */
-@ManagedBean
+@ManagedBean(name="systemProgramManagedBean")
 @SessionScoped
 public class SystemProgramManagedBean extends SuperSingleBean<SystemProgram> {
 
@@ -29,7 +29,7 @@ public class SystemProgramManagedBean extends SuperSingleBean<SystemProgram> {
     @EJB
     private SystemProgramBean sysprgBean;
 
-    private List<SystemModule> sysmoduleList;
+    private List<SystemModule> systemModuleList;
 
     public SystemProgramManagedBean() {
         super(SystemProgram.class);
@@ -81,17 +81,17 @@ public class SystemProgramManagedBean extends SuperSingleBean<SystemProgram> {
     }
 
     /**
-     * @return the sysmoduleList
+     * @return the systemModuleList
      */
     public List<SystemModule> getSystemModuleList() {
-        return sysmoduleList;
+        return systemModuleList;
     }
 
     /**
-     * @param sysmoduleList the sysmoduleList to set
+     * @param sysmoduleList the systemModuleList to set
      */
     public void setSystemModuleList(List<SystemModule> sysmoduleList) {
-        this.sysmoduleList = sysmoduleList;
+        this.systemModuleList = sysmoduleList;
     }
 
 }

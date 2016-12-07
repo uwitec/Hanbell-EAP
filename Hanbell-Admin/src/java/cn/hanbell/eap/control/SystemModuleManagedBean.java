@@ -17,7 +17,7 @@ import javax.faces.bean.SessionScoped;
  *
  * @author kevindong
  */
-@ManagedBean
+@ManagedBean(name="systemModuleManagedBean")
 @SessionScoped
 public class SystemModuleManagedBean extends SuperSingleBean<SystemModule> {
 

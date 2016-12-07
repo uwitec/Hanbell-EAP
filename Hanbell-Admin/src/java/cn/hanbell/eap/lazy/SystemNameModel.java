@@ -5,20 +5,18 @@
  */
 package cn.hanbell.eap.lazy;
 
-import cn.hanbell.eap.entity.SystemProgram;
+import cn.hanbell.eap.entity.SystemName;
 import com.lightshell.comm.BaseLazyModel;
 import com.lightshell.comm.SuperEJB;
 
 /**
  *
- * @author kevindong
+ * @author C0160
  */
-public class SystemProgramModel extends BaseLazyModel<SystemProgram> {
-
-    public SystemProgramModel(SuperEJB superEJB) {
+public class SystemNameModel extends BaseLazyModel<SystemName>{
+    
+    public SystemNameModel(SuperEJB superEJB){
         this.superEJB = superEJB;
-        this.sortFields.put("systemModule.sortid", "ASC");
-        this.sortFields.put("sortid", "ASC");
     }
-
+    
 }

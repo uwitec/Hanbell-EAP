@@ -2,14 +2,17 @@
 <faces-config version="2.0" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
               xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
-
+    <lifecycle>
+        <phase-listener>
+            cn.hanbell.eap.web.SignCheck
+        </phase-listener>
+    </lifecycle>
     <name>primefaces_ultima</name>
-    
     <component>
         <component-type>org.primefaces.component.UltimaMenu</component-type>
         <component-class>org.primefaces.ultima.component.menu.UltimaMenu</component-class>
     </component>
-    
+
     <render-kit>
         <renderer>
             <component-family>org.primefaces.component</component-family>
@@ -22,19 +25,181 @@
         <from-view-id>/*</from-view-id>
         <navigation-case>
             <from-outcome>home</from-outcome>
-            <to-view-id>home.xhtml</to-view-id>
+            <to-view-id>/home.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>login</from-outcome>
+            <to-view-id>/login.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>resetPwd</from-outcome>
+            <to-view-id>/resetPwd.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
             <from-outcome>404</from-outcome>
-            <to-view-id>404.xhtml</to-view-id>
+            <to-view-id>/404.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
-            <from-outcome>block</from-outcome>
-            <to-view-id>block.xhtml</to-view-id>
+            <from-outcome>deny</from-outcome>
+            <to-view-id>/deny.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>error</from-outcome>
+            <to-view-id>/error.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
     </navigation-rule>
-
+    <navigation-rule>
+        <description>系统模块一级导航</description>
+        <from-view-id>/*</from-view-id>
+        <navigation-case>
+            <from-outcome>sysname</from-outcome>
+            <to-view-id>/sys/sysname.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>sysmodule</from-outcome>
+            <to-view-id>/sys/sysmodule.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>sysprg</from-outcome>
+            <to-view-id>/sys/sysprg.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>sysgrantmodule</from-outcome>
+            <to-view-id>/sys/sysgrantmodule.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>sysgrantprg</from-outcome>
+            <to-view-id>/sys/sysgrantprg.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>systemuser</from-outcome>
+            <to-view-id>/sys/systemuser.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <description>系统设置</description>
+        <from-view-id>/sys/sysname.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>sysnameNew</from-outcome>
+            <to-view-id>/sys/sysnameNew.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>sysnameEdit</from-outcome>
+            <to-view-id>/sys/sysnameEdit.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>sysnameView</from-outcome>
+            <to-view-id>/sys/sysnameView.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <description>模块设置</description>
+        <from-view-id>/sys/sysmodule.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>sysmoduleNew</from-outcome>
+            <to-view-id>/sys/sysmoduleNew.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>sysmoduleEdit</from-outcome>
+            <to-view-id>/sys/sysmoduleEdit.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>sysmoduleView</from-outcome>
+            <to-view-id>/sys/sysmoduleView.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <description>系统程序</description>
+        <from-view-id>/sys/sysprg.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>sysprgNew</from-outcome>
+            <to-view-id>/sys/sysprgNew.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>sysprgEdit</from-outcome>
+            <to-view-id>/sys/sysprgEdit.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>sysprgView</from-outcome>
+            <to-view-id>/sys/sysprgView.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <description>模块授权</description>
+        <from-view-id>/sys/sysgrantmodule.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>sysgrantmoduleNew</from-outcome>
+            <to-view-id>/sys/sysgrantmoduleNew.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>sysgrantmoduleEdit</from-outcome>
+            <to-view-id>/sys/sysgrantmoduleEdit.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>sysgrantmoduleView</from-outcome>
+            <to-view-id>/sys/sysgrantmoduleView.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <description>程序授权</description>
+        <from-view-id>/*</from-view-id>
+        <navigation-case>
+            <from-outcome>sysgrantprgNew</from-outcome>
+            <to-view-id>/sys/sysgrantprgNew.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>sysgrantprgEdit</from-outcome>
+            <to-view-id>/sys/sysgrantprgEdit.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>sysgrantprgView</from-outcome>
+            <to-view-id>/sys/sysgrantprgView.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <description>系统用户</description>
+        <from-view-id>/sys/systemuser.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>systemuserNew</from-outcome>
+            <to-view-id>/sys/systemuserNew.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>systemuserEdit</from-outcome>
+            <to-view-id>/sys/systemuserEdit.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>systemuserView</from-outcome>
+            <to-view-id>/sys/systemuserView.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
 </faces-config>

@@ -19,30 +19,30 @@
     </h:head>
 
     <h:body styleClass="login-body">
-        <div class="card login-panel ui-fluid">
-            <div class="ui-g">
-                <div class="ui-g-12">
-                    <p:graphicImage name="images/logo-ultima.svg" library="ultima-layout" />
-                </div>
-                <div class="ui-g-12">
-                    <h:panelGroup styleClass="md-inputfield">
-                        <p:inputText />
-                        <label>Username</label>
-                    </h:panelGroup>
-                </div>
-                <div class="ui-g-12">
-                    <h:panelGroup styleClass="md-inputfield">
-                        <p:password />
-                        <label>Password</label>
-                    </h:panelGroup>
-                </div>
-                <div class="ui-g-12">
-                    <p:button value="登录系统" icon="ui-icon-person" />
-                    <p:button value="忘记密码" icon="ui-icon-help" styleClass="secondary"/>
+        <h:form>
+            <div class="card login-panel ui-fluid">
+                <div class="ui-g">
+                    <div class="ui-g-12">
+                        <p:graphicImage name="images/HB-logo.png" library="ultima-layout" />
+                    </div>
+                    <div class="ui-g-12">
+                        <h:panelGroup styleClass="md-inputfield">
+                            <p:inputText  value="#{userManagedBean.userid}" required="true" requiredMessage="请输入账号"/>
+                            <label>账号</label>
+                        </h:panelGroup>
+                    </div>
+                    <div class="ui-g-12">
+                        <h:panelGroup styleClass="md-inputfield">
+                            <p:password value="#{userManagedBean.pwd}" required="true" requiredMessage="请输入密码" feedback="false"/>
+                            <label>密码</label>
+                        </h:panelGroup>
+                    </div>
+                    <div class="ui-g-12">
+                        <p:commandButton value="登录系统" action="#{userManagedBean.login()}" update="@form"/>
+                    </div>
                 </div>
             </div>
-        </div>
-
+        </h:form>
         <div class="login-footer">汉钟精机 | MiddleWare</div>
 
         <h:outputStylesheet name="css/ripple.css" library="ultima-layout" />
