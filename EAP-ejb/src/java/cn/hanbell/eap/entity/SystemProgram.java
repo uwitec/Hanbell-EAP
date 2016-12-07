@@ -6,19 +6,14 @@
 package cn.hanbell.eap.entity;
 
 import com.lightshell.comm.SuperEntity;
-import java.io.Serializable;
-import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -35,10 +30,14 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "SystemProgram.findById", query = "SELECT s FROM SystemProgram s WHERE s.id = :id"),
     @NamedQuery(name = "SystemProgram.findByName", query = "SELECT s FROM SystemProgram s WHERE s.name = :name"),
     @NamedQuery(name = "SystemProgram.findByAPI", query = "SELECT s FROM SystemProgram s WHERE s.api = :api"),
-    @NamedQuery(name = "SystemProgram.findBySysname", query = "SELECT s FROM SystemProgram s WHERE s.sysname = :sysname"),
-    @NamedQuery(name = "SystemProgram.findByModuleId", query = "SELECT s FROM SystemProgram s WHERE s.moduleid = :moduleid"),
+    @NamedQuery(name = "SystemProgram.findBySystemAndAPI", query = "SELECT s FROM SystemProgram s WHERE s.sysname = :sysname AND s.api = :api"),
+    @NamedQuery(name = "SystemProgram.findByModuleId", query = "SELECT s FROM SystemProgram s WHERE s.systemModule.id = :moduleid"),
     @NamedQuery(name = "SystemProgram.findByStatus", query = "SELECT s FROM SystemProgram s WHERE s.status = :status")})
 public class SystemProgram extends SuperEntity {
+
+    @JoinColumn(name = "moduleid", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private SystemModule systemModule;
 
     @Basic(optional = false)
     @NotNull
@@ -55,10 +54,7 @@ public class SystemProgram extends SuperEntity {
     @Size(min = 1, max = 20)
     @Column(name = "sysname")
     private String sysname;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "moduleid")
-    private int moduleid;
+
     @Column(name = "sortid")
     private Integer sortid;
     @Basic(optional = false)
@@ -154,12 +150,12 @@ public class SystemProgram extends SuperEntity {
         this.sysname = sysname;
     }
 
-    public int getModuleid() {
-        return moduleid;
+    public SystemModule getSystemModule() {
+        return systemModule;
     }
 
-    public void setModuleid(int moduleid) {
-        this.moduleid = moduleid;
+    public void setSystemModule(SystemModule systemModule) {
+        this.systemModule = systemModule;
     }
 
     public Integer getSortid() {

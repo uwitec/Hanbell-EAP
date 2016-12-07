@@ -22,14 +22,25 @@ public class SystemProgramBean extends SuperEJBForEAP<SystemProgram> {
         super(SystemProgram.class);
     }
 
+    public SystemProgram findByAPI(String api) {
+        Query query = getEntityManager().createNamedQuery("SystemProgram.findByAPI");
+        query.setParameter("api", api);
+        try {
+            return (SystemProgram) query.getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
     public List<SystemProgram> findByModuleId(int id) {
         Query query = getEntityManager().createNamedQuery("SystemProgram.findByModuleId");
         query.setParameter("moduleid", id);
         return query.getResultList();
     }
 
-    public SystemProgram findByAPI(String api) {
-        Query query = getEntityManager().createNamedQuery("SystemProgram.findByAPI");
+    public SystemProgram findBySystemAndAPI(String sysname, String api) {
+        Query query = getEntityManager().createNamedQuery("SystemProgram.findBySystemAndAPI");
+        query.setParameter("sysname", sysname);
         query.setParameter("api", api);
         try {
             return (SystemProgram) query.getSingleResult();
