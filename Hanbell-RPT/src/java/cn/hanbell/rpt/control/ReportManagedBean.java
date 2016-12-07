@@ -63,7 +63,7 @@ public class ReportManagedBean extends SuperReportManagedBean {
 
     @Override
     public void print() throws Exception {
-        systemProgram = systemProgramBean.findByAPI(paramMap.get("api")[0]);
+        systemProgram = systemProgramBean.findBySystemAndAPI(paramMap.get("system")[0], paramMap.get("api")[0]);
         if (systemProgram == null) {
             FacesContext.getCurrentInstance().getExternalContext().redirect("deny.xhtml");
         }
