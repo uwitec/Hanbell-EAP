@@ -21,7 +21,7 @@
             <p:panel id="panelHead" header="系统功能－修改">
                 <p:panelGrid id="plgHead" columns="4" columnClasses="Widw20,Wid30,Wid20,Wid30" styleClass="plgHead ui-g-12">
                     <p:outputLabel value="系统" for="sysname" />
-                    <p:inputText id="sysname" value="#{systemProgramManagedBean.newEntity.sysname}" title="sysname" required="true" requiredMessage="系统不能为空."/>
+                    <p:inputText id="sysname" value="#{systemProgramManagedBean.currentEntity.sysname}" title="sysname" required="true" requiredMessage="系统不能为空."/>
                     <p:outputLabel value="模块" for="moduleid" />
                     <p:selectOneMenu id="moduleid" value="#{systemProgramManagedBean.currentEntity.systemModule}" title="Moduleid"
                                      required="true" requiredMessage="所属模块不可空白" converter="systemModuleConverter">
@@ -57,7 +57,7 @@
                     <p:outputLabel value="自动编号" for="noauto" />
                     <p:inputSwitch id="noauto" value="#{systemProgramManagedBean.currentEntity.noauto}"
                                    required="true">
-                        <p:ajax process="@this" update="plgEdit"/>
+                        <p:ajax process="@this" update="plgHead"/>
                     </p:inputSwitch>
                     <p:outputLabel value="编号格式" for="noformat" rendered="#{systemProgramManagedBean.currentEntity.noauto}" />
                     <p:inputText id="noformat" value="#{systemProgramManagedBean.currentEntity.noformat}"
