@@ -126,9 +126,9 @@ public class InvmasBean extends SuperEJBForERP<Invmas> {
                 m.setDwg(BigDecimal.ZERO);
                 m.setDwl(BigDecimal.ZERO);
                 m.setDwt(BigDecimal.ZERO);
+       
                 persist(m);
                 this.getEntityManager().flush();
-                scm.setCompid(detail.getCompid());
                 if (h.getFacno().equals("C")) {
                     Scminvmas scm = new Scminvmas();
                     scm.setItnbr(detail.getItnbr());
@@ -160,15 +160,12 @@ public class InvmasBean extends SuperEJBForERP<Invmas> {
                     }
                     syncNJBean.persist(m, null);
                     syncNJBean.getEntityManager().flush();
-                    syncNJBean.getEntityManager().detach(m);
 
                     syncGZBean.persist(m, null);
                     syncGZBean.getEntityManager().flush();
-                    syncGZBean.getEntityManager().detach(m);
 
                     syncJNBean.persist(m, null);
                     syncJNBean.getEntityManager().flush();
-                    syncJNBean.getEntityManager().detach(m);
 
                 }
 
