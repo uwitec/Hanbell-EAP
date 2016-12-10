@@ -9,6 +9,7 @@ import cn.hanbell.erp.ejb.ApmpayBean;
 import cn.hanbell.erp.ejb.BudgetDetailBean;
 import cn.hanbell.erp.ejb.CdrcusBean;
 import cn.hanbell.erp.ejb.InvmasBean;
+import cn.hanbell.erp.ejb.PurhaskBean;
 import cn.hanbell.erp.ejb.PurvdrBean;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -42,6 +43,9 @@ public class SHBERPWebService {
 
     @EJB
     private InvmasBean invmasBean;
+    
+    @EJB
+    private PurhaskBean purhaskBean ;
 
     @WebMethod(operationName = "hello")
     public String hello(@WebParam(name = "name") String txt) {
@@ -286,8 +290,8 @@ public class SHBERPWebService {
         }
     }
     
-    @WebMethod(operationName = "createINV140ByOAJHSQD")
-    public String createINV140ByOAJHSQD(@WebParam(name = "psn") String psn) {
+    @WebMethod(operationName = "creatINV140ByOAJHSQD")
+    public String creatINV140ByOAJHSQD(@WebParam(name = "psn") String psn) {
         Boolean ret = false;
         try {
             ret = invmasBean.initByOAJHSQD(psn);
@@ -300,5 +304,20 @@ public class SHBERPWebService {
             return "404";
         }
     }
-
+    
+    @WebMethod(operationName = "createPurhaskByOAQGD")
+    public String createPurhaskByOAQGD(@WebParam(name = "psn") String psn) {
+        Boolean ret = false;
+        try {
+            ret = purhaskBean.initByOAQGD001(psn);
+        } catch (Exception ex) {
+            Logger.getLogger(SHBERPWebService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (ret) {
+            return "200";
+        } else {
+            return "404";
+        }
+    }
+    
 }
