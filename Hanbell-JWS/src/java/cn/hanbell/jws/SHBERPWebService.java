@@ -290,8 +290,8 @@ public class SHBERPWebService {
         }
     }
     
-    @WebMethod(operationName = "creatINV140ByOAJHSQD")
-    public String creatINV140ByOAJHSQD(@WebParam(name = "psn") String psn) {
+    @WebMethod(operationName = "createINV140ByOAJHSQD")
+    public String createINV140ByOAJHSQD(@WebParam(name = "psn") String psn) {
         Boolean ret = false;
         try {
             ret = invmasBean.initByOAJHSQD(psn);
