@@ -503,7 +503,7 @@ public class ApmpayBean extends SuperEJBForERP<Apmpay> {
                 apmpadPK2.setFacno(facno);
                 apmpadPK2.setPaycode('2');
                 apmpadPK2.setPayno(pk.getPayno());
-                apmpadPK2.setTrse((short) (reDetail.size() + 1));
+                apmpadPK2.setTrse((short) (apmpads.size() + 1));
                 apmpad2.setApmpadPK(apmpadPK2);
 
                 apmpad2.setDramt(BigDecimal.ZERO);
@@ -533,11 +533,7 @@ public class ApmpayBean extends SuperEJBForERP<Apmpay> {
                 apmpadPK3.setFacno(facno);
                 apmpadPK3.setPaycode('2');
                 apmpadPK3.setPayno(pk.getPayno());
-                if (g.getTotaltaxesRMB() > 0) {
-                    apmpadPK3.setTrse((short) (reDetail.size() + 2));
-                } else {
-                    apmpadPK3.setTrse((short) (reDetail.size() + 1));
-                }
+                apmpadPK3.setTrse((short) (apmpads.size()+1));
                 apmpad3.setApmpadPK(apmpadPK3);
 
                 apmpad3.setAccno("1001");                                       //设置会计科目
@@ -566,20 +562,14 @@ public class ApmpayBean extends SuperEJBForERP<Apmpay> {
             }
 
             //处理贷方明细
-            if (g.getTotalRefund() * (g.getRatio()) + g.getTotaltaxInclusiveRMB() <= reDetail.get(0).getApplyAmount()) {
+            if (g.getTotalRefund() + g.getTotaltaxInclusive() <= reDetail.get(0).getApplyAmount()) {
 
                 Apmpad apmpad4 = new Apmpad();
                 ApmpadPK apmpadPK4 = new ApmpadPK();
                 apmpadPK4.setFacno(facno);
                 apmpadPK4.setPaycode('2');
                 apmpadPK4.setPayno(pk.getPayno());
-                if (g.getTotaltaxesRMB() > 0 && g.getTotalRefund() > 0) {
-                    apmpadPK4.setTrse((short) (reDetail.size() + 3));
-                } else if (g.getTotaltaxesRMB() > 0 && g.getTotalRefund() == 0) {
-                    apmpadPK4.setTrse((short) (reDetail.size() + 2));
-                } else if (g.getTotaltaxesRMB() == 0 && g.getTotalRefund() == 0) {
-                    apmpadPK4.setTrse((short) (reDetail.size() + 1));
-                }
+                apmpadPK4.setTrse((short) (apmpads.size() + 1));
                 apmpad4.setApmpadPK(apmpadPK4);
 
                 apmpad4.setDramt(BigDecimal.ZERO);
@@ -606,32 +596,19 @@ public class ApmpayBean extends SuperEJBForERP<Apmpay> {
                 }
                 apmpads.add(apmpad4);
 
-                g.setApplyAmount(j.getArrears() - g.getTotalRefund() * (g.getRatio()) - g.getTotaltaxInclusiveRMB());
+                g.setApplyAmount(j.getArrears() - g.getTotalRefund() - g.getTotaltaxInclusive());
                 j.setArrears(g.getApplyAmount());
 
             }
-            if (g.getTotalRefund() * (g.getRatio()) + g.getTotaltaxInclusiveRMB() > reDetail.get(0).getApplyAmount()) {
+            if (g.getTotalRefund() + g.getTotaltaxInclusive() > reDetail.get(0).getApplyAmount()) {
 
                 Apmpad apmpad5 = new Apmpad();
                 ApmpadPK apmpadPK5 = new ApmpadPK();
                 apmpadPK5.setFacno(facno);
                 apmpadPK5.setPaycode('2');
-                apmpadPK5.setPayno(pk.getPayno());
-
-                Apmpad apmpad6 = new Apmpad();
-                ApmpadPK apmpadPK6 = new ApmpadPK();
-                apmpadPK6.setFacno(facno);
-                apmpadPK6.setPaycode('2');
-                apmpadPK6.setPayno(pk.getPayno());
-                if (g.getTotaltaxesRMB() > 0) {
-                    apmpadPK6.setTrse((short) (reDetail.size() + 3));
-                    apmpadPK5.setTrse((short) (reDetail.size() + 2));
-                } else {
-                    apmpadPK6.setTrse((short) (reDetail.size() + 2));
-                    apmpadPK5.setTrse((short) (reDetail.size() + 1));
-                }
+                apmpadPK5.setPayno(pk.getPayno());   
+                apmpadPK5.setTrse((short) (apmpads.size()+ 1));
                 apmpad5.setApmpadPK(apmpadPK5);
-                apmpad6.setApmpadPK(apmpadPK6);
 
                 apmpad5.setDramt(BigDecimal.ZERO);
                 apmpad5.setDramtfs(BigDecimal.ZERO);
@@ -657,15 +634,22 @@ public class ApmpayBean extends SuperEJBForERP<Apmpay> {
                 }
                 apmpads.add(apmpad5);
 
+                Apmpad apmpad6 = new Apmpad();
+                ApmpadPK apmpadPK6 = new ApmpadPK();
+                apmpadPK6.setFacno(facno);
+                apmpadPK6.setPaycode('2');
+                apmpadPK6.setPayno(pk.getPayno());
+                apmpadPK6.setTrse((short) (apmpads.size() + 1));
                 apmpad6.setDramt(BigDecimal.ZERO);
                 apmpad6.setDramtfs(BigDecimal.ZERO);
                 apmpad6.setCoin(g.getCoin());                                   //设置币别
-                apmpad6.setRatio(BigDecimal.valueOf(g.getRatio()));             //设置汇率
-                double c3 = g.getTotaltaxInclusive() - reDetail.get(0).getApplyAmount();
+                apmpad6.setRatio(BigDecimal.valueOf(g.getRatio()));              //设置汇率
+                double c3 = g.getTotalRefund() + g.getTotaltaxInclusive() - reDetail.get(0).getApplyAmount();
                 apmpad6.setCramtfs(BigDecimal.valueOf(c3));                     //设置cramtfs报销总额原币
-                double c4 = g.getRatio() * c3;
+                double c4 = c3 * g.getRatio();
                 apmpad6.setCramt(BigDecimal.valueOf(c4));                       //设置cramt报销总额本币
-
+                
+                apmpad6.setApmpadPK(apmpadPK6);
                 apmpad6.setTnfamt(BigDecimal.ZERO);
                 apmpad6.setTnfamtfs(BigDecimal.ZERO);
                 apmpad6.setRefamtfs(BigDecimal.ZERO);
