@@ -305,8 +305,8 @@ public class SHBERPWebService {
         }
     }
     
-    @WebMethod(operationName = "createPurhaskByOAQGD")
-    public String createPurhaskByOAQGD(@WebParam(name = "psn") String psn) {
+    @WebMethod(operationName = "createPUR210ByOAQGD")
+    public String createPUR210ByOAQGD(@WebParam(name = "psn") String psn) {
         Boolean ret = false;
         try {
             ret = purhaskBean.initByOAQGD001(psn);
