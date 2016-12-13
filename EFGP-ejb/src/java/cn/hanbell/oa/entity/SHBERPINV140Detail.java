@@ -46,6 +46,52 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "SHBERPINV140Detail.findByClsdsc", query = "SELECT s FROM SHBERPINV140Detail s WHERE s.clsdsc = :clsdsc")})
 public class SHBERPINV140Detail implements Serializable {
 
+    @Size(max = 255)
+    @Column(name = "brate2")
+    private String brate2;
+    @Size(max = 255)
+    @Column(name = "bmorpcode")
+    private String bmorpcode;
+    @Size(max = 255)
+    @Column(name = "bespdsc")
+    private String bespdsc;
+    @Size(max = 255)
+    @Column(name = "bitdsc")
+    private String bitdsc;
+    @Size(max = 255)
+    @Column(name = "bitnbr")
+    private String bitnbr;
+    @Size(max = 255)
+    @Column(name = "bspdsc")
+    private String bspdsc;
+    @Size(max = 255)
+    @Column(name = "bitcls")
+    private String bitcls;
+    @Size(max = 255)
+    @Column(name = "bunmsr1")
+    private String bunmsr1;
+    @Size(max = 255)
+    @Column(name = "bunmsr2")
+    private String bunmsr2;
+    @Size(max = 255)
+    @Column(name = "beitdsc")
+    private String beitdsc;
+    @Size(max = 255)
+    @Column(name = "bspdsc2")
+    private String bspdsc2;
+    @Size(max = 255)
+    @Column(name = "bsitdsc")
+    private String bsitdsc;
+    @Size(max = 255)
+    @Column(name = "bclsdsc")
+    private String bclsdsc;
+    @Size(max = 255)
+    @Column(name = "bfvco")
+    private String bfvco;
+    @Size(max = 255)
+    @Column(name = "bitdsc2")
+    private String bitdsc2;
+
     private static final long serialVersionUID = 1L;
     @Size(max = 255)
     @Column(name = "sitdsc")
@@ -279,6 +325,126 @@ public class SHBERPINV140Detail implements Serializable {
     @Override
     public String toString() {
         return "cn.hanbell.oa.entity.SHBERPINV140Detail[ oid=" + oid + " ]";
+    }
+
+    public String getBrate2() {
+        return brate2;
+    }
+
+    public void setBrate2(String brate2) {
+        this.brate2 = brate2;
+    }
+
+    public String getBmorpcode() {
+        return bmorpcode;
+    }
+
+    public void setBmorpcode(String bmorpcode) {
+        this.bmorpcode = bmorpcode;
+    }
+
+    public String getBespdsc() {
+        return bespdsc;
+    }
+
+    public void setBespdsc(String bespdsc) {
+        this.bespdsc = bespdsc;
+    }
+
+    public String getBitdsc() {
+        return bitdsc;
+    }
+
+    public void setBitdsc(String bitdsc) {
+        this.bitdsc = bitdsc;
+    }
+
+    public String getBitnbr() {
+        return bitnbr;
+    }
+
+    public void setBitnbr(String bitnbr) {
+        this.bitnbr = bitnbr;
+    }
+
+    public String getBspdsc() {
+        return bspdsc;
+    }
+
+    public void setBspdsc(String bspdsc) {
+        this.bspdsc = bspdsc;
+    }
+
+    public String getBitcls() {
+        return bitcls;
+    }
+
+    public void setBitcls(String bitcls) {
+        this.bitcls = bitcls;
+    }
+
+    public String getBunmsr1() {
+        return bunmsr1;
+    }
+
+    public void setBunmsr1(String bunmsr1) {
+        this.bunmsr1 = bunmsr1;
+    }
+
+    public String getBunmsr2() {
+        return bunmsr2;
+    }
+
+    public void setBunmsr2(String bunmsr2) {
+        this.bunmsr2 = bunmsr2;
+    }
+
+    public String getBeitdsc() {
+        return beitdsc;
+    }
+
+    public void setBeitdsc(String beitdsc) {
+        this.beitdsc = beitdsc;
+    }
+
+    public String getBspdsc2() {
+        return bspdsc2;
+    }
+
+    public void setBspdsc2(String bspdsc2) {
+        this.bspdsc2 = bspdsc2;
+    }
+
+    public String getBsitdsc() {
+        return bsitdsc;
+    }
+
+    public void setBsitdsc(String bsitdsc) {
+        this.bsitdsc = bsitdsc;
+    }
+
+    public String getBclsdsc() {
+        return bclsdsc;
+    }
+
+    public void setBclsdsc(String bclsdsc) {
+        this.bclsdsc = bclsdsc;
+    }
+
+    public String getBfvco() {
+        return bfvco;
+    }
+
+    public void setBfvco(String bfvco) {
+        this.bfvco = bfvco;
+    }
+
+    public String getBitdsc2() {
+        return bitdsc2;
+    }
+
+    public void setBitdsc2(String bitdsc2) {
+        this.bitdsc2 = bitdsc2;
     }
     
 }
