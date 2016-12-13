@@ -30,7 +30,6 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "HZJS034Detail.findByPrinttype", query = "SELECT h FROM HZJS034Detail h WHERE h.printtype = :printtype"),
     @NamedQuery(name = "HZJS034Detail.findByLno", query = "SELECT h FROM HZJS034Detail h WHERE h.lno = :lno"),
     @NamedQuery(name = "HZJS034Detail.findByRemark", query = "SELECT h FROM HZJS034Detail h WHERE h.remark = :remark"),
-    @NamedQuery(name = "HZJS034Detail.findByNo", query = "SELECT h FROM HZJS034Detail h WHERE h.no = :no"),
     @NamedQuery(name = "HZJS034Detail.findByEspdsc", query = "SELECT h FROM HZJS034Detail h WHERE h.espdsc = :espdsc"),
     @NamedQuery(name = "HZJS034Detail.findByLotid", query = "SELECT h FROM HZJS034Detail h WHERE h.lotid = :lotid"),
     @NamedQuery(name = "HZJS034Detail.findByMorpcode", query = "SELECT h FROM HZJS034Detail h WHERE h.morpcode = :morpcode"),
@@ -43,7 +42,6 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "HZJS034Detail.findByItnbr", query = "SELECT h FROM HZJS034Detail h WHERE h.itnbr = :itnbr"),
     @NamedQuery(name = "HZJS034Detail.findByGetseq", query = "SELECT h FROM HZJS034Detail h WHERE h.getseq = :getseq"),
     @NamedQuery(name = "HZJS034Detail.findByProducttype", query = "SELECT h FROM HZJS034Detail h WHERE h.producttype = :producttype"),
-    @NamedQuery(name = "HZJS034Detail.findByFp", query = "SELECT h FROM HZJS034Detail h WHERE h.fp = :fp"),
     @NamedQuery(name = "HZJS034Detail.findByQcdatanum", query = "SELECT h FROM HZJS034Detail h WHERE h.qcdatanum = :qcdatanum"),
     @NamedQuery(name = "HZJS034Detail.findByAsrstype", query = "SELECT h FROM HZJS034Detail h WHERE h.asrstype = :asrstype"),
     @NamedQuery(name = "HZJS034Detail.findByDeydetyn", query = "SELECT h FROM HZJS034Detail h WHERE h.deydetyn = :deydetyn"),
@@ -58,6 +56,13 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "HZJS034Detail.findByFSN", query = "SELECT h FROM HZJS034Detail h WHERE h.formSerialNumber = :fsn"),
     @NamedQuery(name = "HZJS034Detail.findByClsdsc", query = "SELECT h FROM HZJS034Detail h WHERE h.clsdsc = :clsdsc")})
 public class HZJS034Detail implements Serializable {
+
+    @Size(max = 255)
+    @Column(name = "gx")
+    private String gx;
+    @Size(max = 255)
+    @Column(name = "seq")
+    private String seq;
 
     @Size(max = 255)
     @Column(name = "isDUnit")
@@ -96,9 +101,6 @@ public class HZJS034Detail implements Serializable {
     @Column(name = "group2")
     private String group2;
     @Size(max = 255)
-    @Column(name = "genre1")
-    private String genre1;
-    @Size(max = 255)
     @Column(name = "group11")
     private String group11;
     @Size(max = 255)
@@ -133,9 +135,6 @@ public class HZJS034Detail implements Serializable {
     @Size(max = 255)
     @Column(name = "remark")
     private String remark;
-    @Size(max = 255)
-    @Column(name = "no")
-    private String no;
     @Size(max = 255)
     @Column(name = "espdsc")
     private String espdsc;
@@ -172,9 +171,6 @@ public class HZJS034Detail implements Serializable {
     @Size(max = 255)
     @Column(name = "producttype")
     private String producttype;
-    @Size(max = 255)
-    @Column(name = "fp")
-    private String fp;
     @Size(max = 255)
     @Column(name = "qcdatanum")
     private String qcdatanum;
@@ -257,13 +253,6 @@ public class HZJS034Detail implements Serializable {
         this.remark = remark;
     }
 
-    public String getNo() {
-        return no;
-    }
-
-    public void setNo(String no) {
-        this.no = no;
-    }
 
     public String getEspdsc() {
         return espdsc;
@@ -359,14 +348,6 @@ public class HZJS034Detail implements Serializable {
 
     public void setProducttype(String producttype) {
         this.producttype = producttype;
-    }
-
-    public String getFp() {
-        return fp;
-    }
-
-    public void setFp(String fp) {
-        this.fp = fp;
     }
 
     public String getQcdatanum() {
@@ -602,14 +583,6 @@ public class HZJS034Detail implements Serializable {
         this.group2 = group2;
     }
 
-    public String getGenre1() {
-        return genre1;
-    }
-
-    public void setGenre1(String genre1) {
-        this.genre1 = genre1;
-    }
-
     public String getGroup11() {
         return group11;
     }
@@ -656,6 +629,22 @@ public class HZJS034Detail implements Serializable {
 
     public void setJityn(String jityn) {
         this.jityn = jityn;
+    }
+
+    public String getGx() {
+        return gx;
+    }
+
+    public void setGx(String gx) {
+        this.gx = gx;
+    }
+
+    public String getSeq() {
+        return seq;
+    }
+
+    public void setSeq(String seq) {
+        this.seq = seq;
     }
 
   
