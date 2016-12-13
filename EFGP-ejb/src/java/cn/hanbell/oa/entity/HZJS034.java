@@ -43,7 +43,6 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "HZJS034.findByLevel2", query = "SELECT h FROM HZJS034 h WHERE h.level2 = :level2"),
     @NamedQuery(name = "HZJS034.findByIndate", query = "SELECT h FROM HZJS034 h WHERE h.indate = :indate"),
     @NamedQuery(name = "HZJS034.findByLevel1", query = "SELECT h FROM HZJS034 h WHERE h.level1 = :level1"),
-    @NamedQuery(name = "HZJS034.findByCpb", query = "SELECT h FROM HZJS034 h WHERE h.cpb = :cpb"),
     @NamedQuery(name = "HZJS034.findByItcls", query = "SELECT h FROM HZJS034 h WHERE h.itcls = :itcls"),
     @NamedQuery(name = "HZJS034.findByItnbr", query = "SELECT h FROM HZJS034 h WHERE h.itnbr = :itnbr"),
     @NamedQuery(name = "HZJS034.findByGetseq", query = "SELECT h FROM HZJS034 h WHERE h.getseq = :getseq"),
@@ -52,7 +51,6 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "HZJS034.findByProducttype", query = "SELECT h FROM HZJS034 h WHERE h.producttype = :producttype"),
     @NamedQuery(name = "HZJS034.findByIsDUnit", query = "SELECT h FROM HZJS034 h WHERE h.isDUnit = :isDUnit"),
     @NamedQuery(name = "HZJS034.findByEmpl", query = "SELECT h FROM HZJS034 h WHERE h.empl = :empl"),
-    @NamedQuery(name = "HZJS034.findByFp", query = "SELECT h FROM HZJS034 h WHERE h.fp = :fp"),
     @NamedQuery(name = "HZJS034.findByQcdatanum", query = "SELECT h FROM HZJS034 h WHERE h.qcdatanum = :qcdatanum"),
     @NamedQuery(name = "HZJS034.findByAsrstype", query = "SELECT h FROM HZJS034 h WHERE h.asrstype = :asrstype"),
     @NamedQuery(name = "HZJS034.findByDeydetyn", query = "SELECT h FROM HZJS034 h WHERE h.deydetyn = :deydetyn"),
@@ -63,13 +61,19 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "HZJS034.findByUnmsr2", query = "SELECT h FROM HZJS034 h WHERE h.unmsr2 = :unmsr2"),
     @NamedQuery(name = "HZJS034.findByTracetype", query = "SELECT h FROM HZJS034 h WHERE h.tracetype = :tracetype"),
     @NamedQuery(name = "HZJS034.findByYt", query = "SELECT h FROM HZJS034 h WHERE h.yt = :yt"),
-    @NamedQuery(name = "HZJS034.findByPz", query = "SELECT h FROM HZJS034 h WHERE h.pz = :pz"),
     @NamedQuery(name = "HZJS034.findBySelfprint", query = "SELECT h FROM HZJS034 h WHERE h.selfprint = :selfprint"),
     @NamedQuery(name = "HZJS034.findByWno", query = "SELECT h FROM HZJS034 h WHERE h.wno = :wno"),
     @NamedQuery(name = "HZJS034.findByChkteshu", query = "SELECT h FROM HZJS034 h WHERE h.chkteshu = :chkteshu"),
-    @NamedQuery(name = "HZJS034.findByFormSerialNumber", query = "SELECT h FROM HZJS034 h WHERE h.formSerialNumber = :formSerialNumber"),
+    @NamedQuery(name = "HZJS034.findByFormSerialNumber", query = "SELECT h FROM HZJS034 h WHERE h.formSerialNumber = :fsn"),
     @NamedQuery(name = "HZJS034.findByClsdsc", query = "SELECT h FROM HZJS034 h WHERE h.clsdsc = :clsdsc")})
 public class HZJS034 implements Serializable {
+
+    @Size(max = 255)
+    @Column(name = "SerialNumber")
+    private String serialNumber;
+    @Size(max = 255)
+    @Column(name = "gx")
+    private String gx;
 
     @Size(max = 255)
     @Column(name = "lblGroup1")
@@ -212,9 +216,6 @@ public class HZJS034 implements Serializable {
     @Column(name = "level1")
     private String level1;
     @Size(max = 255)
-    @Column(name = "cpb")
-    private String cpb;
-    @Size(max = 255)
     @Column(name = "itcls")
     private String itcls;
     @Size(max = 255)
@@ -238,9 +239,6 @@ public class HZJS034 implements Serializable {
     @Size(max = 255)
     @Column(name = "empl")
     private String empl;
-    @Size(max = 255)
-    @Column(name = "fp")
-    private String fp;
     @Column(name = "qcdatanum")
     private Integer qcdatanum;
     @Size(max = 255)
@@ -270,9 +268,6 @@ public class HZJS034 implements Serializable {
     @Size(max = 255)
     @Column(name = "yt")
     private String yt;
-    @Size(max = 255)
-    @Column(name = "pz")
-    private String pz;
     @Size(max = 255)
     @Column(name = "selfprint")
     private String selfprint;
@@ -408,14 +403,6 @@ public class HZJS034 implements Serializable {
         this.level1 = level1;
     }
 
-    public String getCpb() {
-        return cpb;
-    }
-
-    public void setCpb(String cpb) {
-        this.cpb = cpb;
-    }
-
     public String getItcls() {
         return itcls;
     }
@@ -478,14 +465,6 @@ public class HZJS034 implements Serializable {
 
     public void setEmpl(String empl) {
         this.empl = empl;
-    }
-
-    public String getFp() {
-        return fp;
-    }
-
-    public void setFp(String fp) {
-        this.fp = fp;
     }
 
     public Integer getQcdatanum() {
@@ -566,14 +545,6 @@ public class HZJS034 implements Serializable {
 
     public void setYt(String yt) {
         this.yt = yt;
-    }
-
-    public String getPz() {
-        return pz;
-    }
-
-    public void setPz(String pz) {
-        this.pz = pz;
     }
 
     public String getSelfprint() {
@@ -887,6 +858,22 @@ public class HZJS034 implements Serializable {
 
     public void setJityn(String jityn) {
         this.jityn = jityn;
+    }
+
+    public String getSerialNumber() {
+        return serialNumber;
+    }
+
+    public void setSerialNumber(String serialNumber) {
+        this.serialNumber = serialNumber;
+    }
+
+    public String getGx() {
+        return gx;
+    }
+
+    public void setGx(String gx) {
+        this.gx = gx;
     }
     
 }
