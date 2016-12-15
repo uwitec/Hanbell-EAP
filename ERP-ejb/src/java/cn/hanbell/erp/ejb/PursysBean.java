@@ -45,6 +45,7 @@ public class PursysBean extends SuperEJBForERP<Pursys> {
         String newid;
         String prno;
         int maxSeq;
+        this.setCompany(facno);
         Pursys p = this.findByPK(facno, prono);
         if (p == null) {
             throw new NullPointerException();
