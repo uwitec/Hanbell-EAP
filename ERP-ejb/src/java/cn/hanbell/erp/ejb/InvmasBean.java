@@ -154,6 +154,7 @@ public class InvmasBean extends SuperEJBForERP<Invmas> {
                     scminvmasBean.persist(scm);
                 }
                 if (h.getFacno().equals("C")) {
+                    invclsBean.setCompany(h.getFacno());
                     Invcls c = invclsBean.findByItcls(detail.getItcls());
                     if (c.getNrcode().equals('0')) {
                         m.setDirrvyn('Y');

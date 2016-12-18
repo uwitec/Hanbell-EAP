@@ -64,6 +64,7 @@ public class PurhaskBean extends SuperEJBForERP<Purhask> {
             facno = q.getFacno();
             prono = q.getProno();
             date = BaseLib.getDate("yyyy/MM/dd", BaseLib.formatDate("yyyy/MM/dd", BaseLib.getDate()));
+            pursysBean.setCompany(facno);
             String prno = pursysBean.getFormId(facno, prono, date, Boolean.TRUE);
             System.out.println(prno);
             this.setCompany(q.getFacno());
@@ -136,10 +137,11 @@ public class PurhaskBean extends SuperEJBForERP<Purhask> {
                 pd.setTotamts(BigDecimal.valueOf(Double.parseDouble(detail.getCtotamts())));
                 pd.setTramts(BigDecimal.valueOf(Double.parseDouble(detail.getCtramts())));
                 pd.setTaxamts(BigDecimal.valueOf(Double.parseDouble(detail.getCtaxamts())));
-                pd.setAskdate(format.parse(detail.getAskdateTxt()));                         //设置预计交期
-
+                pd.setAskdate(format.parse(detail.getAskdateTxt()));                         //设置预计交期                
+                purvdrBean.setCompany(facno);
                 Purvdr pv = purvdrBean.findBy(detail.getVdrno());
                 pd.setTermcode(pv.getTermcode());
+                miscodeBean.setCompany(facno);
                 Miscode m1 = miscodeBean.findByPK("GH", pd.getTermcode());
                 pd.setTermcodedsc(m1.getCdesc());
                 pd.setSndcode(pv.getSndcode());
