@@ -12,6 +12,8 @@ import cn.hanbell.erp.entity.Purdask;
 import cn.hanbell.erp.entity.PurdaskPK;
 import cn.hanbell.erp.entity.Purhask;
 import cn.hanbell.erp.entity.PurhaskPK;
+import cn.hanbell.erp.entity.Purqnam;
+import cn.hanbell.erp.entity.PurqnamPK;
 import cn.hanbell.erp.entity.Purvdr;
 import cn.hanbell.oa.ejb.HKCG007Bean;
 import cn.hanbell.oa.ejb.HKCG007purDetailBean;
@@ -27,6 +29,7 @@ import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
+import javax.persistence.Query;
 
 /**
  *
@@ -50,25 +53,40 @@ public class PurhaskBean extends SuperEJBForERP<Purhask> {
     MiscodeBean miscodeBean;
     @EJB
     PurdaskBean purdaskBean;
+    @EJB
+    PurqnamBean purqnamBean;
 
     public PurhaskBean() {
         super(Purhask.class);
     }
 
-    public Boolean initByOAQGD001(String psn) {
+    public Purhask findBySrcno(String srcno) {
+        Query query = getEntityManager().createNamedQuery("Purhask.findBySrcno");
+        query.setParameter("srcno", srcno);
+        try {
+            return (Purhask) query.getSingleResult();
+        } catch (Exception ex) {
+            return null;
+        }
+    }
+
+    public Boolean initByOAQGD(String psn) {
         Date date;
         String facno;
         String prono;
+
         try {
             HKCG007 q = hkcg007Bean.findByPSN(psn);
             facno = q.getFacno();
+            //判断ERP中是否已经抛转
+            this.setCompany(q.getFacno());
+            if (this.findBySrcno(q.getProcessSerialNumber()) != null) {
+                return true;
+            }
             prono = q.getProno();
             date = BaseLib.getDate("yyyy/MM/dd", BaseLib.formatDate("yyyy/MM/dd", BaseLib.getDate()));
             pursysBean.setCompany(facno);
             String prno = pursysBean.getFormId(facno, prono, date, Boolean.TRUE);
-            System.out.println(prno);
-            this.setCompany(q.getFacno());
-
             Purhask p = new Purhask();
             PurhaskPK ppk = new PurhaskPK();
             ppk.setFacno(facno);
@@ -79,13 +97,13 @@ public class PurhaskBean extends SuperEJBForERP<Purhask> {
             p.setPrdate(q.getAppDate());
             p.setDepno(q.getDepno());
             p.setSrcno(q.getProcessSerialNumber());
-            p.setBudgetcode(q.getBudgetcode());                                 //获得专案预算代号 
+            p.setBudgetcode(q.getBudgetcode());                                 //获得专案预算代号
             p.setHmark1(q.getHmark1());                                         //材料区分
             p.setHmark2(q.getCenterid());
             p.setHasksta('Y');
             p.setUserno(q.getCreator());
             p.setIndate(date);
-            p.setCfmuserno(prno);                                               //申请部门权责主管
+            p.setCfmuserno(q.getCfmuserno());                                   //申请部门权责主管
             p.setCfmdate(date);
             p.setPrtcnt((short) 0);
             if (q.getFormid().isEmpty()) {
@@ -130,16 +148,15 @@ public class PurhaskBean extends SuperEJBForERP<Purhask> {
                 pd.setCoin(q.getCurrency());
                 double d1 = Double.parseDouble(detail.getUnpris());
                 pd.setUnpris(BigDecimal.valueOf(d1));
-
                 pd.setRatio(BigDecimal.valueOf(q.getRate()));
                 pd.setTax(detail.getTax().charAt(0));
                 pd.setTaxrate(BigDecimal.valueOf(Double.parseDouble(detail.getTaxrate())));
                 pd.setTotamts(BigDecimal.valueOf(Double.parseDouble(detail.getCtotamts())));
                 pd.setTramts(BigDecimal.valueOf(Double.parseDouble(detail.getCtramts())));
                 pd.setTaxamts(BigDecimal.valueOf(Double.parseDouble(detail.getCtaxamts())));
-                pd.setAskdate(format.parse(detail.getAskdateTxt()));                         //设置预计交期                
+                pd.setAskdate(format.parse(detail.getAskdateTxt()));                         //设置预计交期
                 purvdrBean.setCompany(facno);
-                Purvdr pv = purvdrBean.findBy(detail.getVdrno());
+                Purvdr pv = purvdrBean.findByVdrno(detail.getVdrno());
                 pd.setTermcode(pv.getTermcode());
                 miscodeBean.setCompany(facno);
                 Miscode m1 = miscodeBean.findByPK("GH", pd.getTermcode());
@@ -163,10 +180,10 @@ public class PurhaskBean extends SuperEJBForERP<Purhask> {
                 pd.setHandays4(pv.getHandays4());
                 pd.setTickdays(pv.getTickdays());
                 pd.setPrepayamts(BigDecimal.ZERO);
-                pd.setAddcode(detail.getAddcode());                              //设置收货地址 
+                pd.setAddcode(detail.getAddcode());                              //设置收货地址
                 pd.setDecode(pv.getDecode());
                 pd.setPoprtcnt((short) 0);
-                pd.setPosrccode(detail.getPosrccode().charAt(0));                 //单价来源码-------
+                pd.setPosrccode(detail.getPosrccode().charAt(0));                 //单价来源码
                 pd.setRefno(q.getFormid());                                       //请购来源编号
                 pd.setModnum((short) 0);
                 pd.setTransno("N");
@@ -175,7 +192,25 @@ public class PurhaskBean extends SuperEJBForERP<Purhask> {
                 purdaskBean.setCompany(q.getFacno());
                 purdaskBean.persist(pd);
 
+                //9件号，更新purqnam 表
+                if ("9".equals(detail.getItnbr())) {
+                    Purqnam purqnam = new Purqnam();
+                    PurqnamPK purqnamPK = new PurqnamPK();
+                    purqnamPK.setFacno(facno);
+                    purqnamPK.setPrno(prno);
+                    purqnamPK.setProno(prono);
+                    purqnamPK.setTrseq(pdk.getTrseq());
+                    purqnam.setPurqnamPK(purqnamPK);
+                    purqnam.setItdsc(detail.getItdsc());
+                    purqnam.setSpdsc(detail.getSpdsc());
+                    purqnam.setUnmsr1(detail.getAppunit());
+                    purqnamBean.setCompany(facno);
+                    purqnamBean.persist(purqnam);
+
+                }
+
             }
+
             return true;
         } catch (Exception ex) {
             Logger.getLogger(ApmpayBean.class.getName()).log(Level.SEVERE, null, ex);
