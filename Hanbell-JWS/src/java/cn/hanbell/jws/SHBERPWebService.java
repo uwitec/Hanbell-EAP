@@ -309,7 +309,7 @@ public class SHBERPWebService {
     public String createPUR210ByOAQGD(@WebParam(name = "psn") String psn) {
         Boolean ret = false;
         try {
-            ret = purhaskBean.initByOAQGD001(psn);
+            ret = purhaskBean.initByOAQGD(psn);
         } catch (Exception ex) {
             Logger.getLogger(SHBERPWebService.class.getName()).log(Level.SEVERE, null, ex);
         }
