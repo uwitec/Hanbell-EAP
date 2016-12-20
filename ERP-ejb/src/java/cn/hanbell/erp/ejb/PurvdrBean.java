@@ -58,7 +58,7 @@ public class PurvdrBean extends SuperEJBForERP<Purvdr> {
         super(Purvdr.class);
     }
     
-        public Purvdr findBy(String vdrno) {
+        public Purvdr findByVdrno(String vdrno) {
         Query query = getEntityManager().createNamedQuery("Purvdr.findByVdrno");
         query.setParameter("vdrno", vdrno);
         try {
