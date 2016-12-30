@@ -3,11 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cn.hanbell.jrs;
+package cn.hanbell.erp.jrs;
 
 import cn.hanbell.erp.ejb.PricingBean;
 import cn.hanbell.erp.entity.Pricing;
 import cn.hanbell.erp.entity.PricingPK;
+import cn.hanbell.jrs.SuperRESTForERP;
 import cn.hanbell.util.SuperEJB;
 import java.text.ParseException;
 import java.util.HashMap;
@@ -16,18 +17,12 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.inject.Inject;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.PathSegment;
-import javax.ws.rs.core.Response;
 
 /**
  *
@@ -35,10 +30,15 @@ import javax.ws.rs.core.Response;
  */
 @Path("shberp.pricing")
 @javax.enterprise.context.RequestScoped
-public class PricingFacadeREST extends AbstractFacade<Pricing> {
+public class PricingFacadeREST extends SuperRESTForERP<Pricing> {
 
     @Inject
     private PricingBean pricingBean;
+
+    @Override
+    protected SuperEJB getSuperEJB() {
+        return pricingBean;
+    }
 
     private PricingPK getPrimaryKey(PathSegment pathSegment) {
         /*
@@ -67,26 +67,6 @@ public class PricingFacadeREST extends AbstractFacade<Pricing> {
 
     public PricingFacadeREST() {
         super(Pricing.class);
-    }
-
-    @POST
-    @Override
-    @Consumes({"application/xml", "application/json"})
-    public void create(Pricing entity) {
-        throw new WebApplicationException(Response.Status.NOT_ACCEPTABLE);
-    }
-//
-//    @PUT
-//    @Path("{id}")
-//    @Consumes({"application/xml", "application/json"})
-//    public void edit(@PathParam("id") PathSegment id, Pricing entity) {
-//        throw new WebApplicationException(Response.Status.NOT_ACCEPTABLE);
-//    }
-
-    @DELETE
-    @Path("{id}")
-    public void remove(@PathParam("id") PathSegment id) {
-        throw new WebApplicationException(Response.Status.NOT_ACCEPTABLE);
     }
 
     @GET
@@ -121,11 +101,6 @@ public class PricingFacadeREST extends AbstractFacade<Pricing> {
             Logger.getLogger(PricingFacadeREST.class.getName()).log(Level.SEVERE, null, ex);
         }
         return entity;
-    }
-
-    @Override
-    protected SuperEJB getSuperEJB() {
-        return pricingBean;
     }
 
 }

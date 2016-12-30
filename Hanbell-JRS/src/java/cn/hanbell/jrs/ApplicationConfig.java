@@ -29,24 +29,24 @@ public class ApplicationConfig extends Application {
      * If required, comment out calling this method in getClasses().
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
-        resources.add(cn.hanbell.jrs.ArmhadFacadeREST.class);
-        resources.add(cn.hanbell.jrs.ArmhadSumFacadeREST.class);
+        resources.add(cn.hanbell.erp.jrs.ArmhadFacadeREST.class);
+        resources.add(cn.hanbell.erp.jrs.ArmhadSumFacadeREST.class);
+        resources.add(cn.hanbell.erp.jrs.CdrcusFacadeREST.class);
+        resources.add(cn.hanbell.erp.jrs.CdrdmasFacadeREST.class);
+        resources.add(cn.hanbell.erp.jrs.CdrscheduleFacadeREST.class);
+        resources.add(cn.hanbell.erp.jrs.CompanyFacadeREST.class);
+        resources.add(cn.hanbell.erp.jrs.InvbalFacadeREST.class);
+        resources.add(cn.hanbell.erp.jrs.InvwhFacadeREST.class);
+        resources.add(cn.hanbell.erp.jrs.ItemCategoryFacadeREST.class);
+        resources.add(cn.hanbell.erp.jrs.ItemFaultFacadeREST.class);
+        resources.add(cn.hanbell.erp.jrs.ItemKindFacadeREST.class);
+        resources.add(cn.hanbell.erp.jrs.ItemMasterFacadeREST.class);
+        resources.add(cn.hanbell.erp.jrs.ItemModelFacadeREST.class);
+        resources.add(cn.hanbell.erp.jrs.PricingFacadeREST.class);
+        resources.add(cn.hanbell.erp.jrs.PricingGroupFacadeREST.class);
+        resources.add(cn.hanbell.erp.jrs.PricingPolicyFacadeREST.class);
+        resources.add(cn.hanbell.erp.jrs.SecuserFacadeREST.class);
         resources.add(cn.hanbell.jrs.CORSFilter.class);
-        resources.add(cn.hanbell.jrs.CdrcusFacadeREST.class);
-        resources.add(cn.hanbell.jrs.CdrdmasFacadeREST.class);
-        resources.add(cn.hanbell.jrs.CdrscheduleFacadeREST.class);
-        resources.add(cn.hanbell.jrs.CompanyFacadeREST.class);
-        resources.add(cn.hanbell.jrs.InvbalFacadeREST.class);
-        resources.add(cn.hanbell.jrs.InvwhFacadeREST.class);
-        resources.add(cn.hanbell.jrs.ItemCategoryFacadeREST.class);
-        resources.add(cn.hanbell.jrs.ItemFaultFacadeREST.class);
-        resources.add(cn.hanbell.jrs.ItemKindFacadeREST.class);
-        resources.add(cn.hanbell.jrs.ItemMasterFacadeREST.class);
-        resources.add(cn.hanbell.jrs.ItemModelFacadeREST.class);
-        resources.add(cn.hanbell.jrs.PricingFacadeREST.class);
-        resources.add(cn.hanbell.jrs.PricingGroupFacadeREST.class);
-        resources.add(cn.hanbell.jrs.PricingPolicyFacadeREST.class);
-        resources.add(cn.hanbell.jrs.SecuserFacadeREST.class);
     }
     
 }
