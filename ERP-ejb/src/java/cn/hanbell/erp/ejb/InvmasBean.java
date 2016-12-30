@@ -126,6 +126,7 @@ public class InvmasBean extends SuperEJBForERP<Invmas> {
                 m.setDwg(BigDecimal.ZERO);
                 m.setDwl(BigDecimal.ZERO);
                 m.setDwt(BigDecimal.ZERO);
+       
                 persist(m);
                 this.getEntityManager().flush();
                 if (h.getFacno().equals("C")) {
@@ -153,21 +154,19 @@ public class InvmasBean extends SuperEJBForERP<Invmas> {
                     scminvmasBean.persist(scm);
                 }
                 if (h.getFacno().equals("C")) {
+                    invclsBean.setCompany(h.getFacno());
                     Invcls c = invclsBean.findByItcls(detail.getItcls());
                     if (c.getNrcode().equals('0')) {
                         m.setDirrvyn('Y');
                     }
                     syncNJBean.persist(m, null);
                     syncNJBean.getEntityManager().flush();
-                    syncNJBean.getEntityManager().detach(m);
 
                     syncGZBean.persist(m, null);
                     syncGZBean.getEntityManager().flush();
-                    syncGZBean.getEntityManager().detach(m);
 
                     syncJNBean.persist(m, null);
                     syncJNBean.getEntityManager().flush();
-                    syncJNBean.getEntityManager().detach(m);
 
                 }
 

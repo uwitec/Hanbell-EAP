@@ -21,6 +21,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
+import javax.persistence.Query;
 
 /**
  *
@@ -55,6 +56,16 @@ public class PurvdrBean extends SuperEJBForERP<Purvdr> {
 
     public PurvdrBean() {
         super(Purvdr.class);
+    }
+    
+        public Purvdr findByVdrno(String vdrno) {
+        Query query = getEntityManager().createNamedQuery("Purvdr.findByVdrno");
+        query.setParameter("vdrno", vdrno);
+        try {
+            return (Purvdr) query.getSingleResult();
+        } catch (Exception ex) {
+            return null;
+        }
     }
 
     @Override
