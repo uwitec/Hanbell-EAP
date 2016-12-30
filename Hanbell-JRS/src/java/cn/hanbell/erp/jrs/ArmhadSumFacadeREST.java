@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cn.hanbell.jrs;
+package cn.hanbell.erp.jrs;
 
 import cn.hanbell.erp.entity.ArmhadSum;
+import cn.hanbell.jrs.SuperRESTForERP;
 import cn.hanbell.util.SuperEJB;
 import java.math.BigDecimal;
 import java.util.List;
@@ -25,7 +26,7 @@ import javax.ws.rs.core.PathSegment;
  */
 @Stateless
 @Path("shberp.armhadsum")
-public class ArmhadSumFacadeREST extends AbstractFacade<ArmhadSum> {
+public class ArmhadSumFacadeREST extends SuperRESTForERP<ArmhadSum> {
 
     @PersistenceContext(unitName = "RESTPU_shberp")
     private EntityManager em;

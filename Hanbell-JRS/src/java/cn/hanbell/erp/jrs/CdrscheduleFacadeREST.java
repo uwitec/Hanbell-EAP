@@ -3,22 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cn.hanbell.jrs;
+package cn.hanbell.erp.jrs;
 
 import cn.hanbell.erp.ejb.CdrscheduleBean;
 import cn.hanbell.erp.entity.Cdrschedule;
 import cn.hanbell.erp.entity.CdrschedulePK;
+import cn.hanbell.jrs.SuperRESTForERP;
 import cn.hanbell.util.SuperEJB;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
+import javax.inject.Inject;
 import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -33,10 +30,19 @@ import javax.ws.rs.core.Response;
  */
 @Stateless
 @Path("shberp.cdrschedule")
-public class CdrscheduleFacadeREST extends AbstractFacade<Cdrschedule> {
+public class CdrscheduleFacadeREST extends SuperRESTForERP<Cdrschedule> {
 
-    @EJB
+    @Inject
     private CdrscheduleBean cdrscheduleBean;
+
+    @Override
+    protected SuperEJB getSuperEJB() {
+        return cdrscheduleBean;
+    }
+
+    public CdrscheduleFacadeREST() {
+        super(Cdrschedule.class);
+    }
 
     private CdrschedulePK getPrimaryKey(PathSegment pathSegment) {
         /*
@@ -57,30 +63,6 @@ public class CdrscheduleFacadeREST extends AbstractFacade<Cdrschedule> {
             key.setCdrno(cdrno.get(0));
         }
         return key;
-    }
-
-    public CdrscheduleFacadeREST() {
-        super(Cdrschedule.class);
-    }
-
-    @POST
-    @Override
-    @Consumes({"application/xml", "application/json"})
-    public void create(Cdrschedule entity) {
-        throw new WebApplicationException(Response.Status.NOT_ACCEPTABLE);
-    }
-
-//    @PUT
-//    @Path("{id}")
-//    @Consumes({"application/xml", "application/json"})
-//    public void edit(@PathParam("id") PathSegment id, Cdrschedule entity) {
-//        throw new WebApplicationException(Response.Status.NOT_ACCEPTABLE);
-//    }
-
-    @DELETE
-    @Path("{id}")
-    public void remove(@PathParam("id") PathSegment id) {
-        throw new WebApplicationException(Response.Status.NOT_ACCEPTABLE);
     }
 
     @GET
@@ -117,11 +99,6 @@ public class CdrscheduleFacadeREST extends AbstractFacade<Cdrschedule> {
             filters.put(key, value);
         }
         return cdrscheduleBean.findByCustomerAndStatusAndFilters(cusno, state, filters);
-    }
-
-    @Override
-    protected SuperEJB getSuperEJB() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
