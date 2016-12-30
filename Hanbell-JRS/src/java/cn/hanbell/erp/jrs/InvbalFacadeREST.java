@@ -3,29 +3,23 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cn.hanbell.jrs.erp;
+package cn.hanbell.erp.jrs;
 
-import cn.hanbell.jrs.comm.AbstractFacade;
 import cn.hanbell.erp.ejb.InvbalBean;
 import cn.hanbell.erp.entity.Invbal;
 import cn.hanbell.erp.entity.InvbalPK;
+import cn.hanbell.jrs.SuperRESTForERP;
 import cn.hanbell.util.SuperEJB;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.inject.Inject;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.PathSegment;
-import javax.ws.rs.core.Response;
 
 /**
  *
@@ -33,10 +27,19 @@ import javax.ws.rs.core.Response;
  */
 @Path("shberp.invbal")
 @javax.enterprise.context.RequestScoped
-public class InvbalFacadeREST extends AbstractFacade<Invbal> {
+public class InvbalFacadeREST extends SuperRESTForERP<Invbal> {
 
     @Inject
     private InvbalBean invbalBean;
+
+    @Override
+    protected SuperEJB getSuperEJB() {
+        return invbalBean;
+    }
+
+    public InvbalFacadeREST() {
+        super(Invbal.class);
+    }
 
     private InvbalPK getPrimaryKey(PathSegment pathSegment) {
         /*
@@ -65,30 +68,6 @@ public class InvbalFacadeREST extends AbstractFacade<Invbal> {
             key.setWareh(wareh.get(0));
         }
         return key;
-    }
-
-    public InvbalFacadeREST() {
-        super(Invbal.class);
-    }
-
-    @POST
-    @Override
-    @Consumes({"application/xml", "application/json"})
-    public void create(Invbal entity) {
-        throw new WebApplicationException(Response.Status.NOT_ACCEPTABLE);
-    }
-
-//    @PUT
-//    @Path("{id}")
-//    @Consumes({"application/xml", "application/json"})
-//    public void edit(@PathParam("id") PathSegment id, Invbal entity) {
-//        throw new WebApplicationException(Response.Status.NOT_ACCEPTABLE);
-//    }
-
-    @DELETE
-    @Path("{id}")
-    public void remove(@PathParam("id") PathSegment id) {
-        throw new WebApplicationException(Response.Status.NOT_ACCEPTABLE);
     }
 
     @GET
@@ -137,11 +116,6 @@ public class InvbalFacadeREST extends AbstractFacade<Invbal> {
         }
         return entityList;
 
-    }
-
-    @Override
-    protected SuperEJB getSuperEJB() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

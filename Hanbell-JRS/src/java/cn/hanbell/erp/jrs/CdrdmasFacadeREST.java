@@ -3,22 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cn.hanbell.jrs.erp;
+package cn.hanbell.erp.jrs;
 
-import cn.hanbell.jrs.comm.AbstractFacade;
 import cn.hanbell.erp.entity.Cdrdmas;
 import cn.hanbell.erp.entity.CdrdmasPK;
+import cn.hanbell.jrs.SuperRESTForERP;
 import cn.hanbell.util.SuperEJB;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -31,7 +27,7 @@ import javax.ws.rs.core.PathSegment;
  */
 @Stateless
 @Path("shberp.cdrdmas")
-public class CdrdmasFacadeREST extends AbstractFacade<Cdrdmas> {
+public class CdrdmasFacadeREST extends SuperRESTForERP<Cdrdmas> {
 
     @PersistenceContext(unitName = "RESTPU_shberp")
     private EntityManager em;
@@ -63,27 +59,6 @@ public class CdrdmasFacadeREST extends AbstractFacade<Cdrdmas> {
 
     public CdrdmasFacadeREST() {
         super(Cdrdmas.class);
-    }
-
-    @POST
-    @Override
-    @Consumes({"application/xml", "application/json"})
-    public void create(Cdrdmas entity) {
-        //super.create(entity);
-    }
-
-//    @PUT
-//    @Path("{id}")
-//    @Consumes({"application/xml", "application/json"})
-//    public void edit(@PathParam("id") PathSegment id, Cdrdmas entity) {
-//        //super.edit(entity);
-//    }
-
-    @DELETE
-    @Path("{id}")
-    public void remove(@PathParam("id") PathSegment id) {
-        //shberp.entity.CdrdmasPK key = getPrimaryKey(id);
-        //super.remove(super.findById(key));
     }
 
     @GET
