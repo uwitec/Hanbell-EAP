@@ -12,7 +12,6 @@ import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 import javax.persistence.Query;
 
-
 @Stateless
 @LocalBean
 public class PormyBean extends SuperEJBForCRM<Pormy> {
@@ -21,12 +20,12 @@ public class PormyBean extends SuperEJBForCRM<Pormy> {
         super(Pormy.class);
     }
 
-     public Pormy findByMY002(String crmno) {
-         PormyPK pk = new  PormyPK();
-         pk.setMy001("A1");
-         pk.setMy002(crmno);
-        Query query = getEntityManager().createNamedQuery("Pormy.findByMy002");
-        query.setParameter("my002", crmno);
+    public Pormy findByMY002(String crmno) {
+        PormyPK pk = new PormyPK();
+        pk.setMy001("A1");
+        pk.setMy002(crmno);
+        Query query = getEntityManager().createNamedQuery("Pormy.findByPK");
+        query.setParameter("pormyPK", pk);
         try {
             Object o = query.getSingleResult();
             return (Pormy) o;

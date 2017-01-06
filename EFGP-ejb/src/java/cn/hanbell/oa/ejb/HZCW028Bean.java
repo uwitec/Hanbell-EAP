@@ -17,16 +17,14 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 
-
 @Stateless
 @LocalBean
-public class HZCW028Bean extends SuperEJBForEFGP<HZCW028>  {
-    
+public class HZCW028Bean extends SuperEJBForEFGP<HZCW028> {
+
     @EJB
     private HZCW028reDetailBean hzcw028reDetailBean;
     @EJB
     private PormyBean pormyBean;
- 
 
     public HZCW028Bean() {
         super(HZCW028.class);
@@ -39,18 +37,16 @@ public class HZCW028Bean extends SuperEJBForEFGP<HZCW028>  {
 
             //表身循环
             for (int i = 0; i < details.size(); i++) {
-
                 HZCW028reDetail detail = details.get(i);
-                
-               Pormy p = pormyBean.findByMY002( detail.getSummary());
-               if(p != null ){
-                   if("".equals(p.getMy026())){
-                       p.setMy026(psn);
-                       p.setMy025(detail.getFormSerialNumber());
-                   }
-               }
-               pormyBean.update(p);
-               pormyBean.getEntityManager().flush();
+                Pormy p = pormyBean.findByMY002(detail.getSummary());
+                if (p != null) {
+                    if ("".equals(p.getMy026())) {
+                        p.setMy026(psn);
+                        p.setMy025(detail.getFormSerialNumber());
+                    }
+                }
+                pormyBean.update(p);
+                pormyBean.getEntityManager().flush();
 
             }
 
@@ -62,26 +58,24 @@ public class HZCW028Bean extends SuperEJBForEFGP<HZCW028>  {
 
     }
 
-    public Boolean subtractsubtractCRMPORMY(String psn) {
+    public Boolean subtractCRMPORMY(String psn) {
         try {
             HZCW028 h = this.findByPSN(psn);
             List<HZCW028reDetail> details = hzcw028reDetailBean.findByFSN(h.getFormSerialNumber());
 
             //表身循环
             for (int i = 0; i < details.size(); i++) {
-
                 HZCW028reDetail detail = details.get(i);
-                
-               Pormy p = pormyBean.findByMY002( detail.getSummary());
-               if(p != null ){
-                   if(p.getMy026().isEmpty()){
-                   } else {
-                       p.setMy026("");
-                       p.setMy025("");
+                Pormy p = pormyBean.findByMY002(detail.getSummary());
+                if (p != null) {
+                    if (p.getMy026().isEmpty()) {
+                    } else {
+                        p.setMy026("");
+                        p.setMy025("");
                     }
-               }
-               pormyBean.update(p);
-               pormyBean.getEntityManager().flush();
+                }
+                pormyBean.update(p);
+                pormyBean.getEntityManager().flush();
 
             }
 
@@ -92,6 +86,5 @@ public class HZCW028Bean extends SuperEJBForEFGP<HZCW028>  {
         }
 
     }
-    
 
 }

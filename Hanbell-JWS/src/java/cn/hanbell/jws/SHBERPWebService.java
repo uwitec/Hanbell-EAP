@@ -44,11 +44,11 @@ public class SHBERPWebService {
 
     @EJB
     private InvmasBean invmasBean;
-    
+
     @EJB
-    private PurhaskBean purhaskBean ;
+    private PurhaskBean purhaskBean;
     @EJB
-    private HZCW028Bean hzcw028Bean ;
+    private HZCW028Bean hzcw028Bean;
 
     @WebMethod(operationName = "hello")
     public String hello(@WebParam(name = "name") String txt) {
@@ -277,7 +277,7 @@ public class SHBERPWebService {
             return "404";
         }
     }
-    
+
     @WebMethod(operationName = "updateINV140ByOAJHXGD")
     public String updateINV140ByOAJHXGD(@WebParam(name = "psn") String psn) {
         Boolean ret = false;
@@ -292,7 +292,7 @@ public class SHBERPWebService {
             return "404";
         }
     }
-    
+
     @WebMethod(operationName = "createINV140ByOAJHSQD")
     public String createINV140ByOAJHSQD(@WebParam(name = "psn") String psn) {
         Boolean ret = false;
@@ -307,7 +307,7 @@ public class SHBERPWebService {
             return "404";
         }
     }
-    
+
     @WebMethod(operationName = "createPUR210ByOAQGD")
     public String createPUR210ByOAQGD(@WebParam(name = "psn") String psn) {
         Boolean ret = false;
@@ -322,9 +322,9 @@ public class SHBERPWebService {
             return "404";
         }
     }
-    
-        @WebMethod(operationName = "updateCRMPORMY")
-    public String updateCRMPORMY(@WebParam(name = "psn") String psn) {
+
+    @WebMethod(operationName = "updateCRMPORMYByOABXD")
+    public String updateCRMPORMYByOABXD(@WebParam(name = "psn") String psn) {
         Boolean ret = false;
         try {
             ret = hzcw028Bean.updateCRMPORMY(psn);
@@ -337,16 +337,12 @@ public class SHBERPWebService {
             return "404";
         }
     }
-    
-     @WebMethod(operationName = "subtractCRMPORMY")
-    public String subtractCRMPORMY(@WebParam(name = "psn") String psn, @WebParam(name = "isReject") String isReject) {
+
+    @WebMethod(operationName = "subtractCRMPORMYByOABXD")
+    public String subtractCRMPORMYByOABXD(@WebParam(name = "psn") String psn) {
         Boolean ret = false;
         try {
-            if ("1".equals(isReject)) {
-                ret = hzcw028Bean.subtractsubtractCRMPORMY(psn);
-            } else {
-                return "200";
-            }
+            ret = hzcw028Bean.subtractCRMPORMY(psn);
         } catch (Exception ex) {
             Logger.getLogger(SHBERPWebService.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -356,5 +352,5 @@ public class SHBERPWebService {
             return "404";
         }
     }
-    
+
 }
