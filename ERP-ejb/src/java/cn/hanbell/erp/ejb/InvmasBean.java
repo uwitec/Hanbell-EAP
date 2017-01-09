@@ -147,7 +147,7 @@ public class InvmasBean extends SuperEJBForERP<Invmas> {
                     scm.setQcdatanum(detail.getQcdatanum());
                     scm.setAsrstype(detail.getAsrstype());
                     scm.setSelfprint(detail.getSelfprint());
-                    scm.setTransflag("Y");
+                    scm.setTransflag("N");
                     scm.setTranstime(BaseLib.getDate().toString());
                     scm.setDeydetyn("N");
                     scminvmasBean.setCompany(h.getFacno());
