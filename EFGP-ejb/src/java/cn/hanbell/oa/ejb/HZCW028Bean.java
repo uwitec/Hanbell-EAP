@@ -38,18 +38,15 @@ public class HZCW028Bean extends SuperEJBForEFGP<HZCW028> {
             //表身循环
             for (int i = 0; i < details.size(); i++) {
                 HZCW028reDetail detail = details.get(i);
-                Pormy p = pormyBean.findByMY002(detail.getSummary());
-                if (p != null) {
-                    if ("".equals(p.getMy026())) {
-                        p.setMy026(psn);
-                        p.setMy025(detail.getFormSerialNumber());
-                    }
+                Pormy p = pormyBean.findByMY002(detail.getRemark());
+                if (p != null && "".equals(p.getMy026())) {
+                    p.setMy026(psn);
+                    p.setMy025(detail.getFormSerialNumber());
+                    pormyBean.update(p);
                 }
-                pormyBean.update(p);
-                pormyBean.getEntityManager().flush();
 
             }
-
+            pormyBean.getEntityManager().flush();
             return true;
         } catch (Exception ex) {
             Logger.getLogger(HZCW028Bean.class.getName()).log(Level.SEVERE, null, ex);
@@ -58,7 +55,7 @@ public class HZCW028Bean extends SuperEJBForEFGP<HZCW028> {
 
     }
 
-    public Boolean subtractCRMPORMY(String psn) {
+    public Boolean rollbackCRMPORMY(String psn) {
         try {
             HZCW028 h = this.findByPSN(psn);
             List<HZCW028reDetail> details = hzcw028reDetailBean.findByFSN(h.getFormSerialNumber());
@@ -66,19 +63,15 @@ public class HZCW028Bean extends SuperEJBForEFGP<HZCW028> {
             //表身循环
             for (int i = 0; i < details.size(); i++) {
                 HZCW028reDetail detail = details.get(i);
-                Pormy p = pormyBean.findByMY002(detail.getSummary());
-                if (p != null) {
-                    if (p.getMy026().isEmpty()) {
-                    } else {
-                        p.setMy026("");
-                        p.setMy025("");
-                    }
+                Pormy p = pormyBean.findByMY002(detail.getRemark());
+                if (p != null && !p.getMy026().isEmpty()) {
+                    p.setMy026("");
+                    p.setMy025("");
+                    pormyBean.update(p);
                 }
-                pormyBean.update(p);
-                pormyBean.getEntityManager().flush();
 
             }
-
+            pormyBean.getEntityManager().flush();
             return true;
         } catch (Exception ex) {
             Logger.getLogger(HZCW028Bean.class.getName()).log(Level.SEVERE, null, ex);

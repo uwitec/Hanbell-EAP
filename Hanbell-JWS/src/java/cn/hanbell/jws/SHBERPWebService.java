@@ -338,11 +338,11 @@ public class SHBERPWebService {
         }
     }
 
-    @WebMethod(operationName = "subtractCRMPORMYByOABXD")
-    public String subtractCRMPORMYByOABXD(@WebParam(name = "psn") String psn) {
+    @WebMethod(operationName = "rollbackCRMPORMYByOABXD")
+    public String rollbackCRMPORMYByOABXD(@WebParam(name = "psn") String psn) {
         Boolean ret = false;
         try {
-            ret = hzcw028Bean.subtractCRMPORMY(psn);
+            ret = hzcw028Bean.rollbackCRMPORMY(psn);
         } catch (Exception ex) {
             Logger.getLogger(SHBERPWebService.class.getName()).log(Level.SEVERE, null, ex);
         }
