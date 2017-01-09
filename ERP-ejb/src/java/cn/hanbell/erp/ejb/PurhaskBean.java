@@ -132,7 +132,6 @@ public class PurhaskBean extends SuperEJBForERP<Purhask> {
                 SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
                 pd.setRqtdate(format.parse(detail.getRqtdateTxt()));                           //需求日期
                 pd.setEmgyn(detail.getEmgyn().charAt(0));
-                pd.setJudco("11");
                 pd.setDmark1(detail.getDmark1());
                 pd.setDmark2(detail.getDmark2());
                 pd.setDasksta("20");                                                        //请购单身状态码
@@ -140,8 +139,11 @@ public class PurhaskBean extends SuperEJBForERP<Purhask> {
                     invmasBean.setCompany(q.getFacno());
                     Invmas m = invmasBean.findByItnbr(detail.getItnbr());
                     pd.setPurtrtype(m.getPurtrtype());                                       //品号验收类别
+                    String purjudco = m.getJudco();
+                    pd.setJudco(purjudco.substring(2, 3)+ purjudco.substring(3, 4));
                 } else {
                     pd.setPurtrtype("");
+                    pd.setJudco("11");
                 }
                 pd.setVdrno(detail.getVdrno());
                 pd.setBuyer(detail.getBuyer());
