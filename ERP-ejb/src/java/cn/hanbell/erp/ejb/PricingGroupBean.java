@@ -37,9 +37,9 @@ public class PricingGroupBean extends SuperEJBForERP<PricingGroup> {
         sb.append("'");
         Query query = getEntityManager().createNativeQuery(sb.toString());
         List result = query.getResultList();
+        List<PricingGroup> dataList = new ArrayList<>();
         PricingGroup newEntity;
         if (result != null && !result.isEmpty()) {
-            List<PricingGroup> dataList = new ArrayList<>();
             String groupid = "", groupname = "", pricingtype = "";
             boolean price09 = false, price08 = false, price07 = false, price06 = false, price05 = false, price04 = false, price03 = false, price02 = false, price01 = false;
             for (int i = 0; i < result.size(); i++) {
@@ -59,9 +59,8 @@ public class PricingGroupBean extends SuperEJBForERP<PricingGroup> {
                 newEntity = new PricingGroup(groupid, groupname, price09, price08, price07, price06, price05, price04, price03, price02, price01, pricingtype);
                 dataList.add(newEntity);
             }
-            return dataList;
         }
-        return null;
+        return dataList;
     }
 
     public PricingGroup findByUsernoAndGroupId(String userno, String id) {

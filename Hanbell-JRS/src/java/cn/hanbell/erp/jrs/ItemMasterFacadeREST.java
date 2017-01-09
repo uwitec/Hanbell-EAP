@@ -37,7 +37,7 @@ public class ItemMasterFacadeREST extends SuperRESTForERP<ItemMaster> {
     }
 
     @GET
-    @Path("{category}/list")
+    @Path("list/{category}")
     @Produces({"application/json"})
     public List<ItemMaster> findByCategory(@PathParam("category") String category) {
         return itemMasterBean.findByCategory(category);
