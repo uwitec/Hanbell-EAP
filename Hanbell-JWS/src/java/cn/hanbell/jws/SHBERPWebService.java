@@ -11,6 +11,7 @@ import cn.hanbell.erp.ejb.CdrcusBean;
 import cn.hanbell.erp.ejb.InvmasBean;
 import cn.hanbell.erp.ejb.PurhaskBean;
 import cn.hanbell.erp.ejb.PurvdrBean;
+import cn.hanbell.oa.ejb.HZCW028Bean;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -43,9 +44,11 @@ public class SHBERPWebService {
 
     @EJB
     private InvmasBean invmasBean;
-    
+
     @EJB
-    private PurhaskBean purhaskBean ;
+    private PurhaskBean purhaskBean;
+    @EJB
+    private HZCW028Bean hzcw028Bean;
 
     @WebMethod(operationName = "hello")
     public String hello(@WebParam(name = "name") String txt) {
@@ -274,7 +277,7 @@ public class SHBERPWebService {
             return "404";
         }
     }
-    
+
     @WebMethod(operationName = "updateINV140ByOAJHXGD")
     public String updateINV140ByOAJHXGD(@WebParam(name = "psn") String psn) {
         Boolean ret = false;
@@ -289,7 +292,7 @@ public class SHBERPWebService {
             return "404";
         }
     }
-    
+
     @WebMethod(operationName = "createINV140ByOAJHSQD")
     public String createINV140ByOAJHSQD(@WebParam(name = "psn") String psn) {
         Boolean ret = false;
@@ -304,7 +307,7 @@ public class SHBERPWebService {
             return "404";
         }
     }
-    
+
     @WebMethod(operationName = "createPUR210ByOAQGD")
     public String createPUR210ByOAQGD(@WebParam(name = "psn") String psn) {
         Boolean ret = false;
@@ -319,5 +322,35 @@ public class SHBERPWebService {
             return "404";
         }
     }
-    
+
+    @WebMethod(operationName = "updateCRMPORMYByOABXD")
+    public String updateCRMPORMYByOABXD(@WebParam(name = "psn") String psn) {
+        Boolean ret = false;
+        try {
+            ret = hzcw028Bean.updateCRMPORMY(psn);
+        } catch (Exception ex) {
+            Logger.getLogger(SHBERPWebService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (ret) {
+            return "200";
+        } else {
+            return "404";
+        }
+    }
+
+    @WebMethod(operationName = "rollbackCRMPORMYByOABXD")
+    public String rollbackCRMPORMYByOABXD(@WebParam(name = "psn") String psn) {
+        Boolean ret = false;
+        try {
+            ret = hzcw028Bean.rollbackCRMPORMY(psn);
+        } catch (Exception ex) {
+            Logger.getLogger(SHBERPWebService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (ret) {
+            return "200";
+        } else {
+            return "404";
+        }
+    }
+
 }
