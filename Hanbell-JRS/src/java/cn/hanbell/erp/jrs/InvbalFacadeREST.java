@@ -50,7 +50,7 @@ public class InvbalFacadeREST extends SuperRESTForERP<Invbal> {
          * Matrix parameters are used as field names to build a primary key instance.
          */
         cn.hanbell.erp.entity.InvbalPK key = new cn.hanbell.erp.entity.InvbalPK();
-        javax.ws.rs.core.MultivaluedMap<String, String> map = pathSegment.getMatrixParameters();
+        MultivaluedMap<String, String> map = pathSegment.getMatrixParameters();
         java.util.List<String> itnbr = map.get("itnbr");
         if (itnbr != null && !itnbr.isEmpty()) {
             key.setItnbr(itnbr.get(0));

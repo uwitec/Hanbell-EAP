@@ -58,4 +58,19 @@ public class ItemModelBean extends SuperEJBForERP<ItemModel> {
         return dataList;
     }
 
+    public List<ItemModel> findByKind(String kind, int from,int pageSize) {
+        Query query = getEntityManager().createNativeQuery("SELECT cmcmodel,itnbr FROM cdrdmmodel WHERE kind = '" + kind + "' ORDER BY cmcmodel ").setFirstResult(from).setMaxResults(pageSize);
+        List result = query.getResultList();
+        List<ItemModel> dataList = new ArrayList<>();
+        if (result != null && !result.isEmpty()) {
+            ItemModel newEntity;
+            for (int i = 0; i < result.size(); i++) {
+                Object[] row = (Object[]) result.get(i);
+                newEntity = new ItemModel(row[0].toString(), row[1].toString());
+                dataList.add(newEntity);
+            }
+        }
+        return dataList;
+    }
+
 }

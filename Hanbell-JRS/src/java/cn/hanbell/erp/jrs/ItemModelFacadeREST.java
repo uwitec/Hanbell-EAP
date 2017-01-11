@@ -55,5 +55,12 @@ public class ItemModelFacadeREST extends SuperRESTForERP<ItemModel> {
     public List<ItemModel> findByKind(@PathParam("kind") String kind) {
         return itemModelBean.findByKind(kind);
     }
+    
+    @GET
+    @Path("kind/{kind}/{offset}/{pageSize}")
+    @Produces({"application/json"})
+    public List<ItemModel> findByKind(@PathParam("kind") String kind,@PathParam("offset") int from,@PathParam("pageSize") int pageSize) {
+        return itemModelBean.findByKind(kind,from,pageSize);
+    }
 
 }
