@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Scene Scope="Project" version="2">
+    <Scope Scope="Faces Configuration Only"/>
+    <Scope Scope="Project">
+        <Node id="404.xhtml" x="650" y="300" zoom="true"/>
+        <Node id="sys/sysmoduleNew.xhtml" x="150" y="450" zoom="true"/>
+        <Node id="sys/sysgrantmoduleView.xhtml" x="400" y="450" zoom="true"/>
+        <Node id="sys/sysprgNew.xhtml" x="150" y="750" zoom="true"/>
+        <Node id="deny.xhtml" x="1650" y="150" zoom="true"/>
+        <Node id="sys/sysgrantmoduleEdit.xhtml" x="400" y="300" zoom="true"/>
+        <Node id="sys/sysmodule.xhtml" x="650" y="150" zoom="true"/>
+        <Node id="sys/systemuserNew.xhtml" x="1400" y="300" zoom="true"/>
+        <Node id="home.xhtml" x="400" y="750" zoom="true"/>
+        <Node id="sys/sysnameNew.xhtml" x="1400" y="450" zoom="true"/>
+        <Node id="empty.xhtml" x="1400" y="150" zoom="true"/>
+        <Node id="sys/sysprgEdit.xhtml" x="150" y="300" zoom="true"/>
+        <Node id="sys/sysprgView.xhtml" x="650" y="600" zoom="true"/>
+        <Node id="sys/sysnameEdit.xhtml" x="1900" y="150" zoom="true"/>
+        <Node id="sys/sysgrantmodule.xhtml" x="400" y="150" zoom="true"/>
+        <Node id="sys/sysprg.xhtml" x="900" y="450" zoom="true"/>
+        <Node id="sys/sysnameView.xhtml" x="150" y="600" zoom="true"/>
+        <Node id="sys/sysname.xhtml" x="1650" y="300" zoom="true"/>
+        <Node id="error.xhtml" x="400" y="600" zoom="true"/>
+        <Node id="sys/sysgrantprg.xhtml" x="900" y="600" zoom="true"/>
+        <Node id="*" x="333" y="11" zoom="true"/>
+        <Node id="sys/sysgrantprgNew.xhtml" x="400" y="900" zoom="true"/>
+        <Node id="sys/sysgrantprgEdit.xhtml" x="150" y="1050" zoom="true"/>
+        <Node id="sys/systemuser.xhtml" x="1150" y="300" zoom="true"/>
+        <Node id="resetPwd.xhtml" x="150" y="150" zoom="true"/>
+        <Node id="sys/sysgrantmoduleNew.xhtml" x="1150" y="150" zoom="true"/>
+        <Node id="login.xhtml" x="650" y="450" zoom="true"/>
+        <Node id="sys/sysgrantprgView.xhtml" x="650" y="750" zoom="true"/>
+        <Node id="sys/systemuserEdit.xhtml" x="900" y="150" zoom="true"/>
+        <Node id="sys/sysmoduleEdit.xhtml" x="150" y="900" zoom="true"/>
+        <Node id="sys/systemuserView.xhtml" x="1150" y="450" zoom="true"/>
+        <Node id="sys/sysmoduleView.xhtml" x="900" y="300" zoom="true"/>
+    </Scope>
+    <Scope Scope="All Faces Configurations"/>
+</Scene>
