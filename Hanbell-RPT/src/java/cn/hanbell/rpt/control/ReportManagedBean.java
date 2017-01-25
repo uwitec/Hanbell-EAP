@@ -7,6 +7,8 @@ package cn.hanbell.rpt.control;
 
 import cn.hanbell.eap.ejb.SystemProgramBean;
 import cn.hanbell.eap.entity.SystemProgram;
+import cn.hanbell.oa.ejb.ProcessInstanceBean;
+import cn.hanbell.oa.entity.ProcessInstance;
 import cn.hanbell.util.BaseLib;
 import cn.hanbell.util.SuperReportManagedBean;
 import java.util.HashMap;
@@ -28,7 +30,9 @@ public class ReportManagedBean extends SuperReportManagedBean {
 
     @EJB
     private SystemProgramBean systemProgramBean;
-
+    @EJB
+    private ProcessInstanceBean processInstanceBean ;
+    
     private String msg;
     private Map<String, String[]> paramMap;
 
@@ -70,7 +74,13 @@ public class ReportManagedBean extends SuperReportManagedBean {
         HashMap<String, Object> reportParams = new HashMap<>();
         reportParams.put("JNDIName", systemProgram.getRptjndi());
         if (paramMap.containsKey("formid")) {
-            reportParams.put("formid", paramMap.get("formid")[0]);
+            if("EFGP".equals(paramMap.get("system")[0])){
+                ProcessInstance pi =  processInstanceBean.findByOID(paramMap.get("formid")[0]);
+                reportParams.put("formid", pi.getSerialNumber());
+            }else{
+                reportParams.put("formid", paramMap.get("formid")[0]);
+            }
+          
         }
         if (paramMap.containsKey("filterFields")) {
             reportParams.put("filterFields", paramMap.get("filterFields")[0]);
