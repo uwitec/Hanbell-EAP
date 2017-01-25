@@ -98,7 +98,12 @@ public class InvmasBean extends SuperEJBForERP<Invmas> {
                 m.setUnmsr2(detail.getUnmsr2());                                //设置单位二              
                 m.setUnmsr1e(detail.getUnmsr1e());                              //设置数量单位一（英文）         
                 m.setFvco('F');                                                 //设置固定变动区分码
-                m.setJudco("11111");                                            //设置数量单位控制码
+                if ("".equals(detail.getUnmsr2())) {
+                    m.setJudco("11111");                                        //设置数量单位控制码
+                } else {
+                    m.setJudco("41111");
+                }
+                m.setRate2(BigDecimal.valueOf(Double.parseDouble(detail.getRate2())));       //设置换算率
                 m.setMorpcode(detail.getMorpcode());                            //设置自制采购码              
                 m.setGroup1(detail.getGroup1());                                //设置分类码（一） 
                 m.setGroup2(detail.getGroup2());                                //设置分类码（二） 
@@ -126,7 +131,7 @@ public class InvmasBean extends SuperEJBForERP<Invmas> {
                 m.setDwg(BigDecimal.ZERO);
                 m.setDwl(BigDecimal.ZERO);
                 m.setDwt(BigDecimal.ZERO);
-       
+
                 persist(m);
                 this.getEntityManager().flush();
                 if (h.getFacno().equals("C")) {
