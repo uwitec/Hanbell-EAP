@@ -9,13 +9,16 @@ import cn.hanbell.erp.ejb.ItemModelBean;
 import cn.hanbell.erp.entity.ItemModel;
 import cn.hanbell.jrs.SuperRESTForERP;
 import cn.hanbell.util.SuperEJB;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.inject.Inject;
 import javax.persistence.Query;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.PathSegment;
 
 /**
@@ -50,17 +53,35 @@ public class ItemModelFacadeREST extends SuperRESTForERP<ItemModel> {
     }
 
     @GET
-    @Path("kind/{kind}")
+    @Path("kind/{query}")
     @Produces({"application/json"})
-    public List<ItemModel> findByKind(@PathParam("kind") String kind) {
-        return itemModelBean.findByKind(kind);
+    public List<ItemModel> findByKind(@PathParam("query") PathSegment queryFilters) {
+        MultivaluedMap<String, String> mv = queryFilters.getMatrixParameters();
+        if (mv == null || mv.isEmpty()) {
+            return itemModelBean.findByKind(queryFilters.getPath(), null);
+        } else {
+            Map<String, Object> filters = new HashMap<>();
+            for (Map.Entry<String, List<String>> entrySet : mv.entrySet()) {
+                filters.put(entrySet.getKey(), entrySet.getValue().get(0));
+            }
+            return itemModelBean.findByKind(queryFilters.getPath(), filters);
+        }
     }
-    
+
     @GET
-    @Path("kind/{kind}/{offset}/{pageSize}")
+    @Path("kind/{query}/{offset}/{pageSize}")
     @Produces({"application/json"})
-    public List<ItemModel> findByKind(@PathParam("kind") String kind,@PathParam("offset") int from,@PathParam("pageSize") int pageSize) {
-        return itemModelBean.findByKind(kind,from,pageSize);
+    public List<ItemModel> findByKind(@PathParam("query") PathSegment queryFilters, @PathParam("offset") int offset, @PathParam("pageSize") int pageSize) {
+        MultivaluedMap<String, String> mv = queryFilters.getMatrixParameters();
+        if (mv == null || mv.isEmpty()) {
+            return itemModelBean.findByKind(queryFilters.getPath(), null, offset, pageSize);
+        } else {
+            Map<String, Object> filters = new HashMap<>();
+            for (Map.Entry<String, List<String>> entrySet : mv.entrySet()) {
+                filters.put(entrySet.getKey(), entrySet.getValue().get(0));
+            }
+            return itemModelBean.findByKind(queryFilters.getPath(), filters, offset, pageSize);
+        }
     }
 
 }

@@ -15,6 +15,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.PathSegment;
 
 /**
  *
@@ -37,17 +38,17 @@ public class ItemMasterFacadeREST extends SuperRESTForERP<ItemMaster> {
     }
 
     @GET
-    @Path("list/{category}")
+    @Path("list/{query}/{offset}/{pageSize}")
     @Produces({"application/json"})
-    public List<ItemMaster> findByCategory(@PathParam("category") String category) {
-        return itemMasterBean.findByCategory(category);
+    public List<ItemMaster> findByCategory(@PathParam("query") PathSegment queryFilters, @PathParam("offset") int offset, @PathParam("pageSize") int pageSize) {
+        return itemMasterBean.findByCategory(queryFilters.getPath(), offset, pageSize);
     }
 
     @GET
-    @Path("{model}/{category}")
+    @Path("{model}/{category}/{offset}/{pageSize}")
     @Produces({"application/json"})
-    public List<ItemMaster> findByModelAndCategory(@PathParam("model") String model, @PathParam("category") String category) {
-        return itemMasterBean.findByModelAndCategory(model, category);
+    public List<ItemMaster> findByModelAndCategory(@PathParam("model") String model, @PathParam("category") String category, @PathParam("offset") int offset, @PathParam("pageSize") int pageSize) {
+        return itemMasterBean.findByModelAndCategory(model, category, offset, pageSize);
     }
 
 }

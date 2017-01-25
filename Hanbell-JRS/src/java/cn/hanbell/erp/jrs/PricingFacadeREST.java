@@ -90,17 +90,4 @@ public class PricingFacadeREST extends SuperRESTForERP<Pricing> {
         return entity;
     }
 
-    @GET
-    @Path("{itnbr}/{category}")
-    @Produces({"application/json"})
-    public Pricing findByItnbrAndCategory(@PathParam("itnbr") String itnbr, @PathParam("category") String category) {
-        Pricing entity = null;
-        try {
-            entity = pricingBean.findByItnbrAndCategory(itnbr, category);
-        } catch (ParseException ex) {
-            Logger.getLogger(PricingFacadeREST.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return entity;
-    }
-
 }

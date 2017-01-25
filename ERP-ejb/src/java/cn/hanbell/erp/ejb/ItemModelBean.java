@@ -9,6 +9,7 @@ import cn.hanbell.erp.comm.SuperEJBForERP;
 import cn.hanbell.erp.entity.ItemModel;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 import javax.inject.Named;
@@ -43,8 +44,16 @@ public class ItemModelBean extends SuperEJBForERP<ItemModel> {
         return dataList;
     }
 
-    public List<ItemModel> findByKind(String kind) {
-        Query query = getEntityManager().createNativeQuery("SELECT cmcmodel,itnbr FROM cdrdmmodel WHERE kind = '" + kind + "' ORDER BY cmcmodel ");
+    public List<ItemModel> findByKind(String kind, Map<String, Object> filters) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("SELECT cmcmodel,itnbr FROM cdrdmmodel WHERE kind = '").append(kind).append("' ");
+        if (filters != null) {
+            for (Map.Entry<String, Object> e : filters.entrySet()) {
+                sb.append(" AND ").append(e.getKey()).append(" LIKE '%").append(e.getValue()).append("%' ");
+            }
+        }
+        sb.append(" ORDER BY cmcmodel ");
+        Query query = getEntityManager().createNativeQuery(sb.toString());
         List result = query.getResultList();
         List<ItemModel> dataList = new ArrayList<>();
         if (result != null && !result.isEmpty()) {
@@ -58,8 +67,16 @@ public class ItemModelBean extends SuperEJBForERP<ItemModel> {
         return dataList;
     }
 
-    public List<ItemModel> findByKind(String kind, int from,int pageSize) {
-        Query query = getEntityManager().createNativeQuery("SELECT cmcmodel,itnbr FROM cdrdmmodel WHERE kind = '" + kind + "' ORDER BY cmcmodel ").setFirstResult(from).setMaxResults(pageSize);
+    public List<ItemModel> findByKind(String kind, Map<String, Object> filters, int offset, int pageSize) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("SELECT cmcmodel,itnbr FROM cdrdmmodel WHERE kind = '").append(kind).append("' ");
+        if (filters != null) {
+            for (Map.Entry<String, Object> e : filters.entrySet()) {
+                sb.append(" AND ").append(e.getKey()).append(" LIKE '%").append(e.getValue()).append("%' ");
+            }
+        }
+        sb.append(" ORDER BY cmcmodel ");
+        Query query = getEntityManager().createNativeQuery(sb.toString()).setFirstResult(offset).setMaxResults(pageSize);
         List result = query.getResultList();
         List<ItemModel> dataList = new ArrayList<>();
         if (result != null && !result.isEmpty()) {

@@ -86,7 +86,7 @@ public class ArmhadFacadeREST extends SuperRESTForERP<Armhad> {
     }
 
     @GET
-    @Path("{cusno}/{state}")
+    @Path("list/{cusno}/{state}")
     @Produces({"application/json"})
     public List<Armhad> findByCustomer(@PathParam("cusno") String cusno, @PathParam("state") String state) {
         Query query;

@@ -58,6 +58,7 @@ public abstract class SuperREST<T> {
     }
 
     @DELETE
+    @Path("{id}")
     @Produces({"application/json"})
     public ResponseMessage remove(@PathParam("id") PathSegment id) {
         try {
@@ -73,6 +74,12 @@ public abstract class SuperREST<T> {
     }
 
     @GET
+    @Produces({"application/json"})
+    public List<T> findAll() {
+        return getSuperEJB().findAll();
+    }
+
+    @GET
     @Path("{id}")
     @Produces({"application/json"})
     public T findById(@PathParam("id") PathSegment id) {
@@ -80,9 +87,10 @@ public abstract class SuperREST<T> {
     }
 
     @GET
+    @Path("{offset}/{pageSize}")
     @Produces({"application/json"})
-    public List<T> findAll() {
-        return getSuperEJB().findAll();
+    public List<T> findAll(@PathParam("offset") int offset, @PathParam("pageSize") int pageSize) {
+        return getSuperEJB().findAll(offset, pageSize);
     }
 
     public int getRowCount() {

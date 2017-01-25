@@ -71,7 +71,7 @@ public class InvbalFacadeREST extends SuperRESTForERP<Invbal> {
     }
 
     @GET
-    @Path("{itnbr}/list")
+    @Path("list/{itnbr}")
     @Produces({"application/json"})
     public List<Invbal> findByItnbrAndFilter(@PathParam("itnbr") PathSegment query) {
         String key, value;
@@ -92,7 +92,7 @@ public class InvbalFacadeREST extends SuperRESTForERP<Invbal> {
     }
 
     @GET
-    @Path("{itnbr}/{fuzzy}")
+    @Path("list/{itnbr}/{fuzzy}")
     @Produces({"application/json"})
     public List<Invbal> findByItnbrAndFilterFuzzy(@PathParam("itnbr") PathSegment query, @PathParam("fuzzy") Boolean fuzzy) {
         String key, value;

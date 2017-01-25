@@ -82,7 +82,7 @@ public class CdrscheduleFacadeREST extends SuperRESTForERP<Cdrschedule> {
 
     //QueryParam
     @GET
-    @Path("{cusno}/{filter}")
+    @Path("list/{cusno}/{filter}")
     @Produces({"application/json"})
     public List<Cdrschedule> findByCustomer(@PathParam("cusno") String cusno, @PathParam("filter") PathSegment filter) {
         String key, value, state;

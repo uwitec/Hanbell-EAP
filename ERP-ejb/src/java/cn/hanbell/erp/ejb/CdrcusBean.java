@@ -25,6 +25,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -88,16 +89,25 @@ public class CdrcusBean extends SuperEJBForERP<Cdrcus> {
     }
 
     public List<Cdrcus> findByMan(String userno) {
+        List<Cdrcus> cdrcusList = new ArrayList<>();
         List<Cdrcusman> results = cdrcusmanBean.findByMan(userno);
         if (results != null && !results.isEmpty()) {
-            List<Cdrcus> cdrcusList = new ArrayList<>();
             for (Cdrcusman m : results) {
                 cdrcusList.add(m.getCdrcus());
             }
-            return cdrcusList;
-        } else {
-            return null;
         }
+        return cdrcusList;
+    }
+
+    public List<Cdrcus> findByMan(Map<String, Object> filters, int first, int pageSize) {
+        List<Cdrcus> cdrcusList = new ArrayList<>();
+        List<Cdrcusman> results = cdrcusmanBean.findByFilters(filters, first, pageSize);
+        if (results != null && !results.isEmpty()) {
+            for (Cdrcusman m : results) {
+                cdrcusList.add(m.getCdrcus());
+            }
+        }
+        return cdrcusList;
     }
 
     @Override
