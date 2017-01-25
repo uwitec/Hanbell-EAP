@@ -58,6 +58,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class HZJS034Detail implements Serializable {
 
     @Size(max = 255)
+    @Column(name = "rate2")
+    private String rate2;
+    @Size(max = 255)
     @Column(name = "gx")
     private String gx;
     @Size(max = 255)
@@ -253,7 +256,6 @@ public class HZJS034Detail implements Serializable {
         this.remark = remark;
     }
 
-
     public String getEspdsc() {
         return espdsc;
     }
@@ -398,14 +400,14 @@ public class HZJS034Detail implements Serializable {
         this.unmsr1 = unmsr1;
     }
 
-      public String getUnmsr2() {
+    public String getUnmsr2() {
         return unmsr2;
     }
 
     public void setUnmsr2(String unmsr2) {
         this.unmsr2 = unmsr2;
     }
-    
+
     public String getItdsc() {
         return itdsc;
     }
@@ -647,6 +649,12 @@ public class HZJS034Detail implements Serializable {
         this.seq = seq;
     }
 
-  
-    
+    public String getRate2() {
+        return rate2;
+    }
+
+    public void setRate2(String rate2) {
+        this.rate2 = rate2;
+    }
+
 }
