@@ -13,6 +13,7 @@ import cn.hanbell.util.BaseLib;
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.rmi.RemoteException;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +22,7 @@ import java.util.logging.Logger;
 import javax.ejb.DependsOn;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
+import javax.inject.Named;
 import javax.xml.namespace.QName;
 import javax.xml.rpc.ServiceException;
 import org.apache.axis.client.Call;
@@ -31,7 +33,8 @@ import org.apache.axis.client.Call;
  */
 @Stateless
 @LocalBean
-@DependsOn({"UsersBean", "FunctionsBean"})
+@Named
+@DependsOn({"UsersBean", "FunctionsBean", "TitleBean"})
 public class WorkFlowBean extends SuperEJBForEFGP<FormInstance> implements Serializable {
 
     public WorkFlowBean() {
@@ -59,7 +62,7 @@ public class WorkFlowBean extends SuperEJBForEFGP<FormInstance> implements Seria
         for (Field f : fields) {
             try {
                 f.setAccessible(true);
-                if (f.getName().equals("creator") || f.getName().endsWith("user") || f.getName().endsWith("User")) {
+                if ((f.getName().equals("creator") || f.getName().equals("emply") || f.getName().equals("employee") || f.getName().endsWith("user") || f.getName().endsWith("User")) && (!f.getName().startsWith("hdn"))) {
                     Users user = this.findUserByUserno(f.get(master).toString());
                     if (user == null) {
                         Logger.getLogger(this.getClass().getName()).log(Level.INFO, null, f.get(master).toString() + "用户不存在");
@@ -68,7 +71,7 @@ public class WorkFlowBean extends SuperEJBForEFGP<FormInstance> implements Seria
                     builder.append("<").append(f.getName()).append("  id=\"").append(f.getName()).append("\" label=\"").append(user.getUserName()).append("\"");
                     builder.append("  hidden=\"").append(user.getOid()).append("\" list_hidden=\"\"");
                     builder.append("  dataType=\"").append(f.getType().getName()).append("\">").append(f.get(master)).append("</").append(f.getName()).append(">");
-                } else if (f.getName().equals("dept") || f.getName().equals("department") || f.getName().endsWith("dept") || f.getName().endsWith("Dept")) {
+                } else if ((f.getName().equals("dept") || f.getName().equals("department") || f.getName().endsWith("dept") || f.getName().endsWith("Dept")) && (!f.getName().startsWith("hdn"))) {
                     OrganizationUnit dept = this.findOrgUnitByDeptno(f.get(master).toString());
                     if (dept == null) {
                         Logger.getLogger(this.getClass().getName()).log(Level.INFO, null, f.get(master).toString() + "部门不存在");
@@ -77,6 +80,9 @@ public class WorkFlowBean extends SuperEJBForEFGP<FormInstance> implements Seria
                     builder.append("<").append(f.getName()).append("  id=\"").append(f.getName()).append("\" label=\"").append(dept.getOrganizationUnitName()).append("\"");
                     builder.append("  hidden=\"").append(dept.getOid()).append("\" list_hidden=\"\"");
                     builder.append("  dataType=\"").append(f.getType().getName()).append("\">").append(f.get(master)).append("</").append(f.getName()).append(">");
+                } else if (f.getType().getName().equals("java.util.Date")) {
+                    builder.append("<").append(f.getName()).append("  id=\"").append(f.getName()).append("\" list_hidden=\"\" dataType=\"").append(f.getType().getName()).append("\" >");
+                    builder.append(BaseLib.formatDate("yyyy/MM/dd", (Date)f.get(master))).append("</").append(f.getName()).append(">");
                 } else {
                     builder.append("<").append(f.getName()).append("  id=\"").append(f.getName()).append("\"  dataType=\"").append(f.getType().getName()).append("\" perDataProId=\"\">");
                     builder.append(f.get(master)).append("</").append(f.getName()).append(">");

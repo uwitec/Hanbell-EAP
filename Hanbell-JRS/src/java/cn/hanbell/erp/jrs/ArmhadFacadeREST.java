@@ -25,7 +25,7 @@ import javax.ws.rs.core.PathSegment;
  * @author C0160
  */
 @Stateless
-@Path("shberp.armhad")
+@Path("shberp/armhad")
 public class ArmhadFacadeREST extends SuperRESTForERP<Armhad> {
 
     @PersistenceContext(unitName = "RESTPU_shberp")

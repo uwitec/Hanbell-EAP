@@ -18,7 +18,7 @@ import javax.ws.rs.Path;
  * @author C0160
  */
 @Stateless
-@Path("shberp.invwh")
+@Path("shberp/invwh")
 public class InvwhFacadeREST extends SuperRESTForERP<Invwh> {
 
     @PersistenceContext(unitName = "RESTPU_shberp")

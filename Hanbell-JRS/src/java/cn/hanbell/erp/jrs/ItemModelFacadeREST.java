@@ -25,7 +25,7 @@ import javax.ws.rs.core.PathSegment;
  *
  * @author C0160
  */
-@Path("shberp.itemmodel")
+@Path("shberp/itemmodel")
 @javax.enterprise.context.RequestScoped
 public class ItemModelFacadeREST extends SuperRESTForERP<ItemModel> {
 

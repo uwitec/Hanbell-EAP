@@ -16,7 +16,7 @@ import javax.ws.rs.Path;
  *
  * @author C0160
  */
-@Path("shberp.pricingpolicy")
+@Path("shberp/pricingpolicy")
 @javax.enterprise.context.RequestScoped
 public class PricingPolicyFacadeREST extends SuperRESTForERP<PricingPolicy> {
 

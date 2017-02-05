@@ -21,7 +21,7 @@ import javax.ws.rs.core.PathSegment;
  *
  * @author C0160
  */
-@Path("shberp.servitemmaster")
+@Path("shberp/servitemmaster")
 @javax.enterprise.context.RequestScoped
 public class ItemMasterFacadeREST extends SuperRESTForERP<ItemMaster> {
 

@@ -25,7 +25,7 @@ import javax.ws.rs.core.PathSegment;
  *
  * @author C0160
  */
-@Path("shberp.invbal")
+@Path("shberp/invbal")
 @javax.enterprise.context.RequestScoped
 public class InvbalFacadeREST extends SuperRESTForERP<Invbal> {
 

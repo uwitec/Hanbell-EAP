@@ -24,7 +24,7 @@ import javax.ws.rs.core.Response;
  *
  * @author C0160
  */
-@Path("shberp.secuser")
+@Path("shberp/secuser")
 @javax.enterprise.context.RequestScoped
 public class SecuserFacadeREST extends SuperRESTForERP<Secuser> {
 

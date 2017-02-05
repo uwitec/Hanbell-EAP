@@ -20,7 +20,7 @@ import javax.ws.rs.Produces;
  *
  * @author C0160
  */
-@Path("shberp.pricinggroup")
+@Path("shberp/pricinggroup")
 @javax.enterprise.context.RequestScoped
 public class PricingGroupFacadeREST extends SuperRESTForERP<PricingGroup> {
 

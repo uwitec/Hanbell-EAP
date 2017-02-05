@@ -28,7 +28,7 @@ import javax.ws.rs.core.PathSegment;
  *
  * @author C0160
  */
-@Path("shberp.pricing")
+@Path("shberp/pricing")
 @javax.enterprise.context.RequestScoped
 public class PricingFacadeREST extends SuperRESTForERP<Pricing> {
 

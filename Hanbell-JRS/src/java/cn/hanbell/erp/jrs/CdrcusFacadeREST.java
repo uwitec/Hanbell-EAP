@@ -24,7 +24,7 @@ import javax.ws.rs.core.PathSegment;
  *
  * @author C0160
  */
-@Path("shberp.cdrcus")
+@Path("shberp/cdrcus")
 @javax.enterprise.context.RequestScoped
 public class CdrcusFacadeREST extends SuperRESTForERP<Cdrcus> {
 

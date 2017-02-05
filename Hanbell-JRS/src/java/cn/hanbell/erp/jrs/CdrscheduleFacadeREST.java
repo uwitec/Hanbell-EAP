@@ -29,7 +29,7 @@ import javax.ws.rs.core.Response;
  * @author C0160
  */
 @Stateless
-@Path("shberp.cdrschedule")
+@Path("shberp/cdrschedule")
 public class CdrscheduleFacadeREST extends SuperRESTForERP<Cdrschedule> {
 
     @Inject
