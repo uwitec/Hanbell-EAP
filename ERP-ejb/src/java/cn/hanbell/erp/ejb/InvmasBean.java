@@ -83,7 +83,7 @@ public class InvmasBean extends SuperEJBForERP<Invmas> {
         this.setCompany(h.getFacno());
         try {
 
-            //  表身循环
+            //表身循环
             for (int i = 0; i < details.size(); i++) {
                 HZJS034Detail detail = details.get(i);
                 Invmas m = new Invmas();
@@ -102,8 +102,8 @@ public class InvmasBean extends SuperEJBForERP<Invmas> {
                     m.setJudco("11111");                                        //设置数量单位控制码
                 } else {
                     m.setJudco("41111");
+                    m.setRate2(BigDecimal.valueOf(Double.parseDouble(detail.getRate2())));       //设置换算率                  
                 }
-                m.setRate2(BigDecimal.valueOf(Double.parseDouble(detail.getRate2())));       //设置换算率
                 m.setMorpcode(detail.getMorpcode());                            //设置自制采购码              
                 m.setGroup1(detail.getGroup1());                                //设置分类码（一） 
                 m.setGroup2(detail.getGroup2());                                //设置分类码（二） 

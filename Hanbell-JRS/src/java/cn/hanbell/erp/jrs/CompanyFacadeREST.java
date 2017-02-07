@@ -24,7 +24,7 @@ import javax.ws.rs.core.Response;
  * @author C0160
  */
 @Stateless
-@Path("shberp.company")
+@Path("shberp/company")
 public class CompanyFacadeREST extends SuperRESTForERP<Company> {
 
     public CompanyFacadeREST() {

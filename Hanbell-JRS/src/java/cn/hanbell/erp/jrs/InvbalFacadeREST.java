@@ -25,7 +25,7 @@ import javax.ws.rs.core.PathSegment;
  *
  * @author C0160
  */
-@Path("shberp.invbal")
+@Path("shberp/invbal")
 @javax.enterprise.context.RequestScoped
 public class InvbalFacadeREST extends SuperRESTForERP<Invbal> {
 
@@ -50,7 +50,7 @@ public class InvbalFacadeREST extends SuperRESTForERP<Invbal> {
          * Matrix parameters are used as field names to build a primary key instance.
          */
         cn.hanbell.erp.entity.InvbalPK key = new cn.hanbell.erp.entity.InvbalPK();
-        javax.ws.rs.core.MultivaluedMap<String, String> map = pathSegment.getMatrixParameters();
+        MultivaluedMap<String, String> map = pathSegment.getMatrixParameters();
         java.util.List<String> itnbr = map.get("itnbr");
         if (itnbr != null && !itnbr.isEmpty()) {
             key.setItnbr(itnbr.get(0));
@@ -71,7 +71,7 @@ public class InvbalFacadeREST extends SuperRESTForERP<Invbal> {
     }
 
     @GET
-    @Path("{itnbr}/list")
+    @Path("list/{itnbr}")
     @Produces({"application/json"})
     public List<Invbal> findByItnbrAndFilter(@PathParam("itnbr") PathSegment query) {
         String key, value;
@@ -92,7 +92,7 @@ public class InvbalFacadeREST extends SuperRESTForERP<Invbal> {
     }
 
     @GET
-    @Path("{itnbr}/{fuzzy}")
+    @Path("list/{itnbr}/{fuzzy}")
     @Produces({"application/json"})
     public List<Invbal> findByItnbrAndFilterFuzzy(@PathParam("itnbr") PathSegment query, @PathParam("fuzzy") Boolean fuzzy) {
         String key, value;

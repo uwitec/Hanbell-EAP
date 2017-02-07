@@ -27,8 +27,8 @@ public class ItemMasterBean extends SuperEJBForERP<ItemMaster> {
         super(ItemMaster.class);
     }
 
-    public List<ItemMaster> findByCategory(String category) {
-        Query query = getEntityManager().createNativeQuery("SELECT mc_smalltype_itnbr,itdsc FROM fw_mc_smalltype,invmas WHERE mc_smalltype_itnbr=itnbr AND mc_bigtype_itnbr = '" + category + "'");
+    public List<ItemMaster> findByCategory(String category, int first, int pageSize) {
+        Query query = getEntityManager().createNativeQuery("SELECT mc_smalltype_itnbr,itdsc FROM fw_mc_smalltype,invmas WHERE mc_smalltype_itnbr=itnbr AND mc_bigtype_itnbr = '" + category + "'").setFirstResult(first).setMaxResults(pageSize);
         List result = query.getResultList();
         List<ItemMaster> dataList = new ArrayList<>();
         if (result != null && !result.isEmpty()) {
@@ -42,8 +42,8 @@ public class ItemMasterBean extends SuperEJBForERP<ItemMaster> {
         return dataList;
     }
 
-    public List<ItemMaster> findByModelAndCategory(String model, String category) {
-        Query query = getEntityManager().createNativeQuery("SELECT mc_smalltype_itnbr,itdsc FROM fw_mc_smalltype,invmas WHERE mc_smalltype_itnbr=itnbr AND mc_type_code = '" + model + "' AND mc_bigtype_itnbr = '" + category + "'");
+    public List<ItemMaster> findByModelAndCategory(String model, String category, int first, int pageSize) {
+        Query query = getEntityManager().createNativeQuery("SELECT mc_smalltype_itnbr,itdsc FROM fw_mc_smalltype,invmas WHERE mc_smalltype_itnbr=itnbr AND mc_type_code = '" + model + "' AND mc_bigtype_itnbr = '" + category + "'").setFirstResult(first).setMaxResults(pageSize);
         List result = query.getResultList();
         List<ItemMaster> dataList = new ArrayList<>();
         if (result != null && !result.isEmpty()) {
@@ -56,4 +56,5 @@ public class ItemMasterBean extends SuperEJBForERP<ItemMaster> {
         }
         return dataList;
     }
+
 }

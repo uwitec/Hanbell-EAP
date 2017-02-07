@@ -25,7 +25,7 @@ import javax.ws.rs.core.PathSegment;
  * @author C0160
  */
 @Stateless
-@Path("shberp.armhad")
+@Path("shberp/armhad")
 public class ArmhadFacadeREST extends SuperRESTForERP<Armhad> {
 
     @PersistenceContext(unitName = "RESTPU_shberp")
@@ -86,7 +86,7 @@ public class ArmhadFacadeREST extends SuperRESTForERP<Armhad> {
     }
 
     @GET
-    @Path("{cusno}/{state}")
+    @Path("list/{cusno}/{state}")
     @Produces({"application/json"})
     public List<Armhad> findByCustomer(@PathParam("cusno") String cusno, @PathParam("state") String state) {
         Query query;

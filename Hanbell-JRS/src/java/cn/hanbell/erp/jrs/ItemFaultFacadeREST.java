@@ -16,7 +16,7 @@ import javax.ws.rs.Path;
  *
  * @author C0160
  */
-@Path("shberp.itemfault")
+@Path("shberp/itemfault")
 @javax.enterprise.context.RequestScoped
 public class ItemFaultFacadeREST extends SuperRESTForERP<ItemFault> {
 

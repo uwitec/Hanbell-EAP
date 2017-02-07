@@ -25,7 +25,7 @@ import javax.ws.rs.core.PathSegment;
  * @author C0160
  */
 @Stateless
-@Path("shberp.armhadsum")
+@Path("shberp/armhadsum")
 public class ArmhadSumFacadeREST extends SuperRESTForERP<ArmhadSum> {
 
     @PersistenceContext(unitName = "RESTPU_shberp")
