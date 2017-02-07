@@ -7,9 +7,11 @@ package cn.hanbell.oa.comm;
 
 import cn.hanbell.oa.ejb.FunctionsBean;
 import cn.hanbell.oa.ejb.OrganizationUnitBean;
+import cn.hanbell.oa.ejb.TitleBean;
 import cn.hanbell.oa.ejb.UsersBean;
 import cn.hanbell.oa.entity.Functions;
 import cn.hanbell.oa.entity.OrganizationUnit;
+import cn.hanbell.oa.entity.Title;
 import cn.hanbell.oa.entity.Users;
 import cn.hanbell.util.SuperEJB;
 import java.util.List;
@@ -34,10 +36,13 @@ public abstract class SuperEJBForEFGP<T> extends SuperEJB<T> {
     protected FunctionsBean functionsBean;
     @EJB
     protected OrganizationUnitBean organizationUnitBean;
+    @EJB
+    protected TitleBean titleBean;
 
     protected Users currentUser;
     protected Functions userFunction;
     protected OrganizationUnit organizationUnit;
+    protected Title userTitle;
 
     public SuperEJBForEFGP(Class<T> entityClass) {
         super(entityClass);
@@ -107,6 +112,7 @@ public abstract class SuperEJBForEFGP<T> extends SuperEJB<T> {
     public void initUserInfo(String userid) {
         this.currentUser = usersBean.findById(userid);
         this.userFunction = functionsBean.findByUserOID(getCurrentUser().getOid());
+        this.userTitle = titleBean.findByOUOIDAndUserOID(userFunction.getOrganizationUnit().getOid(), getCurrentUser().getOid());
     }
 
     /**
@@ -128,6 +134,13 @@ public abstract class SuperEJBForEFGP<T> extends SuperEJB<T> {
      */
     public OrganizationUnit getOrganizationUnit() {
         return organizationUnit;
+    }
+
+    /**
+     * @return the userTitle
+     */
+    public Title getUserTitle() {
+        return userTitle;
     }
 
 }

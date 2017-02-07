@@ -24,7 +24,7 @@ import javax.ws.rs.core.Response;
  *
  * @author C0160
  */
-@Path("shberp.secuser")
+@Path("shberp/secuser")
 @javax.enterprise.context.RequestScoped
 public class SecuserFacadeREST extends SuperRESTForERP<Secuser> {
 
@@ -60,7 +60,7 @@ public class SecuserFacadeREST extends SuperRESTForERP<Secuser> {
     }
 
     @GET
-    @Path("{id}/{pwd}")
+    @Path("single/{id}/{pwd}")
     @Produces({"application/json"})
     public Secuser findByUsernoAndPwd(@PathParam("id") String id, @PathParam("pwd") String pwd) {
         Secuser u = secuserBean.findByUsernoAndPwd(id, pwd);

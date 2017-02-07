@@ -9,18 +9,22 @@ import cn.hanbell.erp.ejb.CdrcusBean;
 import cn.hanbell.erp.entity.Cdrcus;
 import cn.hanbell.jrs.SuperRESTForERP;
 import cn.hanbell.util.SuperEJB;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.MultivaluedMap;
+import javax.ws.rs.core.PathSegment;
 
 /**
  *
  * @author C0160
  */
-@Path("shberp.cdrcus")
+@Path("shberp/cdrcus")
 @javax.enterprise.context.RequestScoped
 public class CdrcusFacadeREST extends SuperRESTForERP<Cdrcus> {
 
@@ -37,10 +41,25 @@ public class CdrcusFacadeREST extends SuperRESTForERP<Cdrcus> {
     }
 
     @GET
-    @Path("man/{man}")
+    @Path("list/{man}")
     @Produces({"application/json"})
     public List<Cdrcus> findByMan(@PathParam("man") String man) {
         return cdrcusBean.findByMan(man);
+    }
+
+    @GET
+    @Path("list/{query}/{offset}/{pageSize}")
+    @Produces({"application/json"})
+    public List<Cdrcus> findByManAndFilters(@PathParam("query") PathSegment queryFilters, @PathParam("offset") int offset, @PathParam("pageSize") int pageSize) {
+        Map<String, Object> filters = new HashMap<>();
+        filters.put("man", queryFilters.getPath());
+        MultivaluedMap<String, String> mv = queryFilters.getMatrixParameters();
+        if (mv != null && !mv.isEmpty()) {
+            for (Map.Entry<String, List<String>> entrySet : mv.entrySet()) {
+                filters.put(entrySet.getKey(), entrySet.getValue().get(0));
+            }
+        }
+        return cdrcusBean.findByMan(filters, offset, pageSize);
     }
 
 }

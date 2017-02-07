@@ -28,7 +28,7 @@ import javax.ws.rs.core.PathSegment;
  *
  * @author C0160
  */
-@Path("shberp.pricing")
+@Path("shberp/pricing")
 @javax.enterprise.context.RequestScoped
 public class PricingFacadeREST extends SuperRESTForERP<Pricing> {
 
@@ -84,19 +84,6 @@ public class PricingFacadeREST extends SuperRESTForERP<Pricing> {
         }
         try {
             entity = pricingBean.findByItnbrAndFilters(query.getPath(), filters);
-        } catch (ParseException ex) {
-            Logger.getLogger(PricingFacadeREST.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return entity;
-    }
-
-    @GET
-    @Path("{itnbr}/{category}")
-    @Produces({"application/json"})
-    public Pricing findByItnbrAndCategory(@PathParam("itnbr") String itnbr, @PathParam("category") String category) {
-        Pricing entity = null;
-        try {
-            entity = pricingBean.findByItnbrAndCategory(itnbr, category);
         } catch (ParseException ex) {
             Logger.getLogger(PricingFacadeREST.class.getName()).log(Level.SEVERE, null, ex);
         }

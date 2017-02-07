@@ -16,7 +16,7 @@ import javax.ws.rs.Path;
  *
  * @author C0160
  */
-@Path("shberp.itemkind")
+@Path("shberp/itemkind")
 @javax.enterprise.context.RequestScoped
 public class ItemKindFacadeREST extends SuperRESTForERP<ItemKind> {
 

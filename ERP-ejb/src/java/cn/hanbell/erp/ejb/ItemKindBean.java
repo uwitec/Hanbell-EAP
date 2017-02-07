@@ -41,6 +41,20 @@ public class ItemKindBean extends SuperEJBForERP<ItemKind> {
         }
         return dataList;
     }
+
+    @Override
+    public List<ItemKind> findAll(int first, int pageSize) {
+        Query query = this.getEntityManager().createNativeQuery("SELECT distinct kind FROM cdrdmmodel ORDER BY kind ").setFirstResult(first).setMaxResults(pageSize);
+        List result = query.getResultList();
+        List<ItemKind> dataList = new ArrayList<>();
+        if (result != null && !result.isEmpty()) {
+            ItemKind kind;
+            for (Object o : result) {
+                kind = new ItemKind(o.toString());
+                dataList.add(kind);
+            }
+        }
+        return dataList;
+    }
+
 }
-
-

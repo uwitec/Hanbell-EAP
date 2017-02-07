@@ -26,7 +26,7 @@ import javax.ws.rs.core.PathSegment;
  * @author C0160
  */
 @Stateless
-@Path("shberp.cdrdmas")
+@Path("shberp/cdrdmas")
 public class CdrdmasFacadeREST extends SuperRESTForERP<Cdrdmas> {
 
     @PersistenceContext(unitName = "RESTPU_shberp")

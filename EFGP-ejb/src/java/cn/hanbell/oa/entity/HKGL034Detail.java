@@ -38,11 +38,11 @@ public class HKGL034Detail implements Serializable {
     @Column(name = "OID")
     private String oid;
     @Size(max = 255)
-    @Column(name = "jbnr")
-    private String jbnr;
+    @Column(name = "content")
+    private String content;
     @Size(max = 255)
-    @Column(name = "no")
-    private String no;
+    @Column(name = "seq")
+    private String seq;
     @Size(max = 255)
     @Column(name = "hour")
     private String hour;
@@ -56,11 +56,11 @@ public class HKGL034Detail implements Serializable {
     @Column(name = "endtime_txt")
     private String endtimeTxt;
     @Size(max = 255)
-    @Column(name = "hdn_dinner")
-    private String hdnDinner;
+    @Column(name = "dinner")
+    private String dinner;
     @Size(max = 255)
-    @Column(name = "hdn_lunch")
-    private String hdnLunch;
+    @Column(name = "lunch")
+    private String lunch;
     @Size(max = 255)
     @Column(name = "emplname")
     private String emplname;
@@ -92,20 +92,20 @@ public class HKGL034Detail implements Serializable {
         this.oid = oid;
     }
 
-    public String getJbnr() {
-        return jbnr;
+    public String getContent() {
+        return content;
     }
 
-    public void setJbnr(String jbnr) {
-        this.jbnr = jbnr;
+    public void setContent(String content) {
+        this.content = content;
     }
 
-    public String getNo() {
-        return no;
+    public String getSeq() {
+        return seq;
     }
 
-    public void setNo(String no) {
-        this.no = no;
+    public void setSeq(String seq) {
+        this.seq = seq;
     }
 
     public String getHour() {
@@ -140,20 +140,20 @@ public class HKGL034Detail implements Serializable {
         this.endtimeTxt = endtimeTxt;
     }
 
-    public String getHdnDinner() {
-        return hdnDinner;
+    public String getDinner() {
+        return dinner;
     }
 
-    public void setHdnDinner(String hdnDinner) {
-        this.hdnDinner = hdnDinner;
+    public void setDinner(String dinner) {
+        this.dinner = dinner;
     }
 
-    public String getHdnLunch() {
-        return hdnLunch;
+    public String getLunch() {
+        return lunch;
     }
 
-    public void setHdnLunch(String hdnLunch) {
-        this.hdnLunch = hdnLunch;
+    public void setLunch(String lunch) {
+        this.lunch = lunch;
     }
 
     public String getEmplname() {

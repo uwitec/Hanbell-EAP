@@ -20,7 +20,7 @@ import javax.ws.rs.Produces;
  *
  * @author C0160
  */
-@Path("shberp.pricinggroup")
+@Path("shberp/pricinggroup")
 @javax.enterprise.context.RequestScoped
 public class PricingGroupFacadeREST extends SuperRESTForERP<PricingGroup> {
 
@@ -37,14 +37,14 @@ public class PricingGroupFacadeREST extends SuperRESTForERP<PricingGroup> {
     }
 
     @GET
-    @Path("{userno}/list")
+    @Path("list/{userno}")
     @Produces({"application/json"})
     public List<PricingGroup> find(@PathParam("userno") String userno) {
         return pricinGroupBean.findByUserno(userno);
     }
 
     @GET
-    @Path("{userno}/{id}")
+    @Path("single/{userno}/{id}")
     @Produces({"application/json"})
     public PricingGroup find(@PathParam("userno") String userno, @PathParam("id") String id) {
         return pricinGroupBean.findByUsernoAndGroupId(userno, id);
