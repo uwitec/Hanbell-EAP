@@ -25,6 +25,22 @@ public class SecuserBean extends SuperEJBForERP<Secuser> {
         super(Secuser.class);
     }
 
+    @Override
+    public Secuser findById(Object value) {
+        return findByUserno(value.toString());
+    }
+
+    public Secuser findByUserno(String userno) {
+        Query query = getEntityManager().createNamedQuery("Secuser.findByUserno");
+        query.setParameter("userno", userno);
+        try {
+            Object o = query.getSingleResult();
+            return (Secuser) o;
+        } catch (Exception ex) {
+            return null;
+        }
+    }
+
     public Secuser findByUsernoAndPwd(String userno, String pwd) {
         Query query = getEntityManager().createNamedQuery("Secuser.findByUsernoAndPwd");
         query.setParameter("userno", userno);

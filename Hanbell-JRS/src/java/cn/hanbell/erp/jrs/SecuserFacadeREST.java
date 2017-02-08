@@ -9,6 +9,7 @@ import cn.hanbell.erp.ejb.SecuserBean;
 import cn.hanbell.erp.entity.Secuser;
 import cn.hanbell.jrs.SuperRESTForERP;
 import cn.hanbell.jrs.ResponseMessage;
+import cn.hanbell.util.BaseLib;
 import cn.hanbell.util.SuperEJB;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -69,6 +70,25 @@ public class SecuserFacadeREST extends SuperRESTForERP<Secuser> {
         } else {
             throw new WebApplicationException(Response.Status.NOT_FOUND);
         }
+    }
+
+    @GET
+    @Path("LDAP/single/{id}/{pwd}")
+    @Produces({"application/json"})
+    public Secuser findByLDAPAccount(@PathParam("id") String id, @PathParam("pwd") String pwd) {
+        try {
+            if (BaseLib.ADAuth("172.16.10.6:389", id + "@hanbell.com.cn", pwd)) {
+                Secuser u = secuserBean.findByUserno(id);
+                if (u != null) {
+                    return u;
+                } else {
+                    throw new WebApplicationException(Response.Status.NOT_FOUND);
+                }
+            }
+        } catch (Exception ex) {
+            throw new WebApplicationException(Response.Status.NOT_FOUND);
+        }
+        throw new WebApplicationException(Response.Status.NOT_FOUND);
     }
 
 }
