@@ -12,7 +12,6 @@
         <component-type>org.primefaces.component.UltimaMenu</component-type>
         <component-class>org.primefaces.ultima.component.menu.UltimaMenu</component-class>
     </component>
-
     <render-kit>
         <renderer>
             <component-family>org.primefaces.component</component-family>
@@ -20,8 +19,8 @@
             <renderer-class>org.primefaces.ultima.component.menu.UltimaMenuRenderer</renderer-class>
         </renderer>
     </render-kit>
-
     <navigation-rule>
+        <description>入口导航</description>
         <from-view-id>/*</from-view-id>
         <navigation-case>
             <from-outcome>home</from-outcome>
@@ -199,6 +198,34 @@
         <navigation-case>
             <from-outcome>systemuserView</from-outcome>
             <to-view-id>/sys/systemuserView.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <description>预约系统一级导航</description>
+        <from-view-id>/*</from-view-id>
+        <navigation-case>
+            <from-outcome>bookingkind</from-outcome>
+            <to-view-id>/app/rs/bookingkind.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <description>预约类别</description>
+        <from-view-id>/app/rs/bookingkind.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>bookingkindNew</from-outcome>
+            <to-view-id>/app/rs/bookingkindNew.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>bookingkindEdit</from-outcome>
+            <to-view-id>/app/rs/bookingkindEdit.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>bookingkindView</from-outcome>
+            <to-view-id>/app/rs/bookingkindView.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
     </navigation-rule>
