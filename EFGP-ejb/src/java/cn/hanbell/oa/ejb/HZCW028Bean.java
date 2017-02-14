@@ -38,11 +38,24 @@ public class HZCW028Bean extends SuperEJBForEFGP<HZCW028> {
             //表身循环
             for (int i = 0; i < details.size(); i++) {
                 HZCW028reDetail detail = details.get(i);
-                Pormy p = pormyBean.findByMY002(detail.getRemark());
-                if (p != null && "".equals(p.getMy026())) {
-                    p.setMy026(psn);
-                    p.setMy025(detail.getFormSerialNumber());
-                    pormyBean.update(p);
+                if ("6617".equals(detail.getBudgetAcc())) {
+                    String[] split = detail.getRemark().split(",");
+                    for (String s : split) {
+                        Pormy p = pormyBean.findByMY002(s);
+                        if (p != null && "".equals(p.getMy026())) {
+                            p.setMy026(psn);
+                            p.setMy025(detail.getFormSerialNumber());
+                            pormyBean.update(p);
+                        }
+                    }
+                } else {
+                    Pormy p = pormyBean.findByMY002(detail.getRemark());
+                    if (p != null && "".equals(p.getMy026())) {
+                        p.setMy026(psn);
+                        p.setMy025(detail.getFormSerialNumber());
+                        pormyBean.update(p);
+                    }
+
                 }
 
             }
@@ -63,11 +76,24 @@ public class HZCW028Bean extends SuperEJBForEFGP<HZCW028> {
             //表身循环
             for (int i = 0; i < details.size(); i++) {
                 HZCW028reDetail detail = details.get(i);
-                Pormy p = pormyBean.findByMY002(detail.getRemark());
-                if (p != null && !p.getMy026().isEmpty()) {
-                    p.setMy026("");
-                    p.setMy025("");
-                    pormyBean.update(p);
+                if ("6617".equals(detail.getBudgetAcc())) {
+                    String[] split = detail.getRemark().split(",");
+                    for (String s : split) {
+                        Pormy p = pormyBean.findByMY002(s);
+                        if (p != null && !p.getMy026().isEmpty()) {
+                            p.setMy026("");
+                            p.setMy025("");
+                            pormyBean.update(p);
+                        }
+                    }
+                } else {
+                    Pormy p = pormyBean.findByMY002(detail.getRemark());
+                    if (p != null && !p.getMy026().isEmpty()) {
+                        p.setMy026("");
+                        p.setMy025("");
+                        pormyBean.update(p);
+                    }
+
                 }
 
             }
