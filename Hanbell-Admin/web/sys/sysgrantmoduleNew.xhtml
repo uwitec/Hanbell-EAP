@@ -8,31 +8,31 @@
 
     <ui:define name="content">
 
-        <h:form id="formNew">
+        <h:form id="formOne">
             <p:growl id="growl"  showSummary="false" showDetail="true" autoUpdate="true" />          
             <p:toolbar id="toolbar" styleClass="topToolbar">
                 <f:facet name="left">
                     <p:button id="btnReturn" value="返回" outcome="sysgrantmodule" icon="ui-icon-arrowreturn-1-w"/> 
                 </f:facet>
                 <f:facet name="right">
-                    <p:commandButton id="btnPersist" value="保存" action="#{systemGrantModuleManagedBean.persist('sysgrantmodule')}" icon="ui-icon-disk"  update="plgNew"/>
+                    <p:commandButton id="btnPersist" value="保存" action="#{systemGrantModuleManagedBean.persist('sysgrantmodule')}" icon="ui-icon-disk"  update="plgHead"/>
                 </f:facet>
             </p:toolbar>  
-            <p:panel id="panelNew" header="模块授权－新增">
-                <h:panelGrid id="plgNew" columns="2" columnClasses="Wid20,Wid80" styleClass="plgNew Wid60 Responsive">
+            <p:panel id="panelHead" header="模块授权－新增">
+                <h:panelGrid id="plgHead" columns="2" columnClasses="Wid20,Wid80" styleClass="plgHead ui-g-12 ui-lg-8">
                     <p:outputLabel value="账号" for="systemUser" />
-                    <p:selectOneMenu id="systemUser" value="#{systemGrantModuleManagedBean.newEntity.systemuser}" 
+                    <p:selectOneMenu id="systemUser" value="#{systemGrantModuleManagedBean.newEntity.systemUser}" 
                                      converter="systemUserConverter" required="true" requiredMessage="选择账号.">
                         <!-- TODO: update below reference to list of available items-->
                         <f:selectItem itemLabel="Select One" itemValue="" />
-                        <f:selectItems value="#{systemGrantModuleManagedBean.systemuserList}" var="u" itemLabel="#{u.username}" itemValue="#{u}"/>
+                        <f:selectItems value="#{systemGrantModuleManagedBean.systemUserList}" var="u" itemLabel="#{u.username}" itemValue="#{u}"/>
                     </p:selectOneMenu>
                     <p:outputLabel value="模块" for="sysmodule" />
-                    <p:selectOneMenu id="sysmodule" value="#{systemGrantModuleManagedBean.newEntity.sysmodule}" 
-                                     converter="sysmoduleConverter" required="true" requiredMessage="选择模块.">
+                    <p:selectOneMenu id="sysmodule" value="#{systemGrantModuleManagedBean.newEntity.systemModule}" 
+                                     converter="systemModuleConverter" required="true" requiredMessage="选择模块.">
                         <!-- TODO: update below reference to list of available items-->
                         <f:selectItem itemLabel="Select One" itemValue="" />
-                        <f:selectItems value="#{systemGrantModuleManagedBean.sysmoduleList}" var="m" itemLabel="#{m.name}" itemValue="#{m}"/>
+                        <f:selectItems value="#{systemGrantModuleManagedBean.systemModuleList}" var="m" itemLabel="#{m.name}" itemValue="#{m}"/>
                     </p:selectOneMenu>
                 </h:panelGrid>
             </p:panel>

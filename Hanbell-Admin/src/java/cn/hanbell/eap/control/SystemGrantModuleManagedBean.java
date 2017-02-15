@@ -33,8 +33,8 @@ public class SystemGrantModuleManagedBean extends SuperSingleBean<SystemGrantMod
     @EJB
     private SystemModuleBean sysmoduleBean;
 
-    private List<SystemUser> systemuserList;
-    private List<SystemModule> sysmoduleList;
+    private List<SystemUser> systemUserList;
+    private List<SystemModule> systemModuleList;
 
     /**
      * Creates a new instance of SystemGrantModuleManagedBean
@@ -57,7 +57,7 @@ public class SystemGrantModuleManagedBean extends SuperSingleBean<SystemGrantMod
     public void init() {
         setSuperEJB(sysgrantModuleBean);
         setModel(new SystemGrantModuleModel(sysgrantModuleBean));
-        setSystemuserList(systemUserBean.findAll());
+        setSystemUserList(systemUserBean.findAll());
         setSystemModuleList(sysmoduleBean.findAll());
         if (currentEntity == null) {
             currentEntity = newEntity;
@@ -76,31 +76,31 @@ public class SystemGrantModuleManagedBean extends SuperSingleBean<SystemGrantMod
     }
 
     /**
-     * @return the systemuserList
+     * @return the systemUserList
      */
-    public List<SystemUser> getSystemuserList() {
-        return systemuserList;
+    public List<SystemUser> getSystemUserList() {
+        return systemUserList;
     }
 
     /**
-     * @param systemuserList the systemuserList to set
+     * @param systemUserList the systemUserList to set
      */
-    public void setSystemuserList(List<SystemUser> systemuserList) {
-        this.systemuserList = systemuserList;
+    public void setSystemUserList(List<SystemUser> systemUserList) {
+        this.systemUserList = systemUserList;
     }
 
     /**
-     * @return the sysmoduleList
+     * @return the systemModuleList
      */
     public List<SystemModule> getSystemModuleList() {
-        return sysmoduleList;
+        return systemModuleList;
     }
 
     /**
-     * @param sysmoduleList the sysmoduleList to set
+     * @param systemModuleList the systemModuleList to set
      */
-    public void setSystemModuleList(List<SystemModule> sysmoduleList) {
-        this.sysmoduleList = sysmoduleList;
+    public void setSystemModuleList(List<SystemModule> systemModuleList) {
+        this.systemModuleList = systemModuleList;
     }
 
 }

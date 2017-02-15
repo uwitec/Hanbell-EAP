@@ -11,6 +11,11 @@ import cn.hanbell.oa.ejb.ProcessInstanceBean;
 import cn.hanbell.oa.entity.ProcessInstance;
 import cn.hanbell.util.BaseLib;
 import cn.hanbell.util.SuperReportManagedBean;
+import com.lowagie.text.pdf.PdfCopyFields;
+import com.lowagie.text.pdf.PdfReader;
+import java.io.ByteArrayOutputStream;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
@@ -31,8 +36,8 @@ public class ReportManagedBean extends SuperReportManagedBean {
     @EJB
     private SystemProgramBean systemProgramBean;
     @EJB
-    private ProcessInstanceBean processInstanceBean ;
-    
+    private ProcessInstanceBean processInstanceBean;
+
     private String msg;
     private Map<String, String[]> paramMap;
 
@@ -67,20 +72,21 @@ public class ReportManagedBean extends SuperReportManagedBean {
 
     @Override
     public void print() throws Exception {
-        systemProgram = systemProgramBean.findBySystemAndAPI(paramMap.get("system")[0], paramMap.get("api")[0]);
+        String system = paramMap.get("system")[0];
+        String api = paramMap.get("api")[0];
+        systemProgram = systemProgramBean.findBySystemAndAPI(system, api);
         if (systemProgram == null) {
             FacesContext.getCurrentInstance().getExternalContext().redirect("deny.xhtml");
         }
         HashMap<String, Object> reportParams = new HashMap<>();
         reportParams.put("JNDIName", systemProgram.getRptjndi());
         if (paramMap.containsKey("formid")) {
-            if("EFGP".equals(paramMap.get("system")[0])){
-                ProcessInstance pi =  processInstanceBean.findByOID(paramMap.get("formid")[0]);
+            if ("EFGP".equals(system)) {
+                ProcessInstance pi = processInstanceBean.findByOID(paramMap.get("formid")[0]);
                 reportParams.put("formid", pi.getSerialNumber());
-            }else{
+            } else {
                 reportParams.put("formid", paramMap.get("formid")[0]);
             }
-          
         }
         if (paramMap.containsKey("filterFields")) {
             reportParams.put("filterFields", paramMap.get("filterFields")[0]);
@@ -94,11 +100,37 @@ public class ReportManagedBean extends SuperReportManagedBean {
         String outputName = reportOutputPath + fileName;
         reportViewPath = reportViewContext + fileName;
         try {
-            this.setReportClass(Class.forName(systemProgram.getRptclazz()).getClassLoader());
-            //初始配置
-            this.reportInitAndConfig();
-            //生成报表
-            this.reportRunAndOutput(reportName, reportParams, outputName, reportOutputFormat, null);
+            if ("EFGP".equals(system)) {
+                OutputStream os = new FileOutputStream(outputName);
+                PdfCopyFields pdfCopy = new PdfCopyFields(os);
+                ByteArrayOutputStream baos;
+                //生成表单内容
+                this.setReportClass(Class.forName(systemProgram.getRptclazz()).getClassLoader());
+                //初始配置
+                this.reportInitAndConfig();
+                //生成报表
+                baos = new ByteArrayOutputStream();
+                this.reportRunAndOutput(reportName, reportParams, null, "pdf", baos);
+                pdfCopy.addDocument(new PdfReader(baos.toByteArray()));
+                //生成签核流程
+                this.setReportClass(Class.forName("cn.hanbell.efgp.rpt.ProcessCheckReport").getClassLoader());//设置成流程报表
+                reportParams.remove("JNDIName");
+                reportParams.put("JNDIName", "java:global/Hanbell-EAP/EFGP-ejb/ProcessCheckBean!cn.hanbell.oa.ejb.ProcessCheckBean");//设置成流程报表Bean
+                //初始配置
+                this.reportInitAndConfig();
+                //生成报表
+                baos = new ByteArrayOutputStream();
+                this.reportRunAndOutput(reportPath + "processcheck.rptdesign", reportParams, null, "pdf", baos);
+                pdfCopy.addDocument(new PdfReader(baos.toByteArray()));
+                //生成合并文件
+                pdfCopy.close();
+            } else {
+                this.setReportClass(Class.forName(systemProgram.getRptclazz()).getClassLoader());
+                //初始配置
+                this.reportInitAndConfig();
+                //生成报表
+                this.reportRunAndOutput(reportName, reportParams, outputName, reportOutputFormat, null);
+            }
             //预览报表
             this.preview();
         } catch (Exception ex) {
