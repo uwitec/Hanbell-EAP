@@ -32,13 +32,17 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "SystemGrantModule.findById", query = "SELECT s FROM SystemGrantModule s WHERE s.id = :id"),
     @NamedQuery(name = "SystemGrantModule.findByKind", query = "SELECT s FROM SystemGrantModule s WHERE s.kind = :kind"),
     @NamedQuery(name = "SystemGrantModule.findByUserId", query = "SELECT s FROM SystemGrantModule s WHERE s.systemUser.id = :userid ORDER BY s.systemModule.sortid "),
+    @NamedQuery(name = "SystemGrantModule.findByRoleId", query = "SELECT s FROM SystemGrantModule s WHERE s.systemRole.id = :roleid ORDER BY s.systemModule.sortid "),
     @NamedQuery(name = "SystemGrantModule.findByModuleId", query = "SELECT s FROM SystemGrantModule s WHERE s.systemModule.id = :moduleid"),
     @NamedQuery(name = "SystemGrantModule.findByStatus", query = "SELECT s FROM SystemGrantModule s WHERE s.status = :status")})
 public class SystemGrantModule extends SuperEntity {
 
     @JoinColumn(name = "userid", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = true)
     private SystemUser systemUser;
+    @JoinColumn(name = "roleid", referencedColumnName = "id")
+    @ManyToOne(optional = true)
+    private SystemRole systemRole;
     @JoinColumn(name = "moduleid", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private SystemModule systemModule;
@@ -98,6 +102,20 @@ public class SystemGrantModule extends SuperEntity {
      */
     public void setSystemUser(SystemUser systemUser) {
         this.systemUser = systemUser;
+    }
+
+    /**
+     * @return the systemRole
+     */
+    public SystemRole getSystemRole() {
+        return systemRole;
+    }
+
+    /**
+     * @param systemRole the systemRole to set
+     */
+    public void setSystemRole(SystemRole systemRole) {
+        this.systemRole = systemRole;
     }
 
     /**

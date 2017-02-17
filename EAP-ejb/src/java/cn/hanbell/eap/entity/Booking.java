@@ -11,6 +11,9 @@ import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
@@ -36,12 +39,61 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Booking.findByFormdate", query = "SELECT b FROM Booking b WHERE b.formdate = :formdate")})
 public class Booking extends FormEntity {
 
+    @Size(max = 45)
+    @Column(name = "key1")
+    private String key1;
+    @Size(max = 45)
+    @Column(name = "value1")
+    private String value1;
+    @Size(max = 45)
+    @Column(name = "key2")
+    private String key2;
+    @Size(max = 45)
+    @Column(name = "value2")
+    private String value2;
+    @Size(max = 45)
+    @Column(name = "key3")
+    private String key3;
+    @Size(max = 45)
+    @Column(name = "value3")
+    private String value3;
+    @Size(max = 45)
+    @Column(name = "key4")
+    private String key4;
+    @Size(max = 45)
+    @Column(name = "value4")
+    private String value4;
+    @Size(max = 45)
+    @Column(name = "key5")
+    private String key5;
+    @Size(max = 45)
+    @Column(name = "value5")
+    private String value5;
+    @Size(max = 45)
+    @Column(name = "key6")
+    private String key6;
+    @Size(max = 45)
+    @Column(name = "value6")
+    private String value6;
+    @Size(max = 45)
+    @Column(name = "key7")
+    private String key7;
+    @Size(max = 45)
+    @Column(name = "value7")
+    private String value7;
+    @Size(max = 45)
+    @Column(name = "key8")
+    private String key8;
+    @Size(max = 45)
+    @Column(name = "value8")
+    private String value8;
+
     @Size(max = 10)
     @Column(name = "formtype")
     private String formtype;
 
-    @JoinColumn(name = "formkind",referencedColumnName="kind")
-    @ManyToOne(optional=true)
+    @JoinColumn(name = "formkind", referencedColumnName = "kind")
+    @ManyToOne(optional = true)
     private BookingKind bookingKind;
     @Basic(optional = false)
     @NotNull
@@ -214,15 +266,143 @@ public class Booking extends FormEntity {
             return false;
         }
         Booking other = (Booking) object;
-       if (this.id != null && other.id != null && !this.id.equals(other.id)) {
+        if (this.id != null && other.id != null && !this.id.equals(other.id)) {
             return false;
         }
-        return Objects.equals(this.formid, other.formid); 
+        return Objects.equals(this.formid, other.formid);
     }
 
     @Override
     public String toString() {
         return "cn.hanbell.eap.entity.Booking[ id=" + id + " ]";
+    }
+
+    public String getKey1() {
+        return key1;
+    }
+
+    public void setKey1(String key1) {
+        this.key1 = key1;
+    }
+
+    public String getValue1() {
+        return value1;
+    }
+
+    public void setValue1(String value1) {
+        this.value1 = value1;
+    }
+
+    public String getKey2() {
+        return key2;
+    }
+
+    public void setKey2(String key2) {
+        this.key2 = key2;
+    }
+
+    public String getValue2() {
+        return value2;
+    }
+
+    public void setValue2(String value2) {
+        this.value2 = value2;
+    }
+
+    public String getKey3() {
+        return key3;
+    }
+
+    public void setKey3(String key3) {
+        this.key3 = key3;
+    }
+
+    public String getValue3() {
+        return value3;
+    }
+
+    public void setValue3(String value3) {
+        this.value3 = value3;
+    }
+
+    public String getKey4() {
+        return key4;
+    }
+
+    public void setKey4(String key4) {
+        this.key4 = key4;
+    }
+
+    public String getValue4() {
+        return value4;
+    }
+
+    public void setValue4(String value4) {
+        this.value4 = value4;
+    }
+
+    public String getKey5() {
+        return key5;
+    }
+
+    public void setKey5(String key5) {
+        this.key5 = key5;
+    }
+
+    public String getValue5() {
+        return value5;
+    }
+
+    public void setValue5(String value5) {
+        this.value5 = value5;
+    }
+
+    public String getKey6() {
+        return key6;
+    }
+
+    public void setKey6(String key6) {
+        this.key6 = key6;
+    }
+
+    public String getValue6() {
+        return value6;
+    }
+
+    public void setValue6(String value6) {
+        this.value6 = value6;
+    }
+
+    public String getKey7() {
+        return key7;
+    }
+
+    public void setKey7(String key7) {
+        this.key7 = key7;
+    }
+
+    public String getValue7() {
+        return value7;
+    }
+
+    public void setValue7(String value7) {
+        this.value7 = value7;
+    }
+
+    public String getKey8() {
+        return key8;
+    }
+
+    public void setKey8(String key8) {
+        this.key8 = key8;
+    }
+
+    public String getValue8() {
+        return value8;
+    }
+
+    public void setValue8(String value8) {
+        this.value8 = value8;
     }
 
 }

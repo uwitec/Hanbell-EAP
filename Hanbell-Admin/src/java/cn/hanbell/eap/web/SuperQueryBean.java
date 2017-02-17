@@ -7,6 +7,7 @@ package cn.hanbell.eap.web;
 
 import cn.hanbell.eap.control.UserManagedBean;
 import cn.hanbell.eap.ejb.SystemProgramBean;
+import cn.hanbell.eap.entity.SystemGrantPrg;
 import cn.hanbell.eap.entity.SystemProgram;
 
 import com.lightshell.comm.BaseEntity;
@@ -14,14 +15,9 @@ import com.lightshell.comm.BaseLib;
 import com.lightshell.comm.SuperSingleManagedBean;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 
 /**
  *
@@ -39,7 +35,7 @@ public abstract class SuperQueryBean<T extends BaseEntity> extends SuperSingleMa
     protected String persistenceUnitName;
     protected String appDataPath;
     protected String appImgPath;
-    protected SystemProgram currentSystemProgram;
+    protected SystemGrantPrg currentPrgGrant;
 
     protected Map<String, String[]> params;//页面传参
 
@@ -72,7 +68,11 @@ public abstract class SuperQueryBean<T extends BaseEntity> extends SuperSingleMa
         reportViewContext = fc.getExternalContext().getInitParameter("cn.hanbell.eap.web.reportviewcontext");
         int beginIndex = fc.getViewRoot().getViewId().lastIndexOf("/") + 1;
         int endIndex = fc.getViewRoot().getViewId().lastIndexOf(".");
-        currentSystemProgram = sysprgBean.findByAPI(fc.getViewRoot().getViewId().substring(beginIndex, endIndex));
+        if (userManagedBean.getSystemGrantPrgList() != null && !userManagedBean.getSystemGrantPrgList().isEmpty()) {
+            userManagedBean.getSystemGrantPrgList().stream().filter((p) -> (p.getSysprg().getApi().equals(fc.getViewRoot().getViewId().substring(beginIndex, endIndex)))).forEachOrdered((p) -> {
+                currentPrgGrant = p;
+            });
+        }
         super.construct();
     }
 
@@ -108,9 +108,9 @@ public abstract class SuperQueryBean<T extends BaseEntity> extends SuperSingleMa
 
     @Override
     public void print() throws Exception {
-        if (currentSystemProgram != null && currentSystemProgram.getDoprt()) {
+        if (currentPrgGrant != null && currentPrgGrant.getDoprt()) {
             HashMap<String, Object> reportParams = new HashMap<>();
-            reportParams.put("JNDIName", this.currentSystemProgram.getRptjndi());
+            reportParams.put("JNDIName", this.currentPrgGrant.getSysprg().getRptjndi());
             if (!this.model.getFilterFields().isEmpty()) {
                 reportParams.put("filterFields", BaseLib.convertMapToStringWithClass(this.model.getFilterFields()));
             } else {
@@ -123,18 +123,18 @@ public abstract class SuperQueryBean<T extends BaseEntity> extends SuperSingleMa
             }
             //设置报表名称
             String reportFormat;
-            if (this.currentSystemProgram.getRptformat() != null) {
-                reportFormat = this.currentSystemProgram.getRptformat();
+            if (this.currentPrgGrant.getSysprg().getRptformat() != null) {
+                reportFormat = this.currentPrgGrant.getSysprg().getRptformat();
             } else {
                 reportFormat = reportOutputFormat;
             }
-            this.fileName = this.currentSystemProgram.getApi() + BaseLib.formatDate("yyyyMMddHHss", this.getDate()) + "." + reportFormat;
-            String reportName = reportPath + this.currentSystemProgram.getRptdesign();
+            this.fileName = this.currentPrgGrant.getSysprg().getApi() + BaseLib.formatDate("yyyyMMddHHss", this.getDate()) + "." + reportFormat;
+            String reportName = reportPath + this.currentPrgGrant.getSysprg().getRptdesign();
             String outputName = reportOutputPath + this.fileName;
             this.reportViewPath = reportViewContext + this.fileName;
             try {
-                if (this.currentSystemProgram != null && this.currentSystemProgram.getRptclazz() != null) {
-                    reportClassLoader = Class.forName(this.currentSystemProgram.getRptclazz()).getClassLoader();
+                if (this.currentPrgGrant != null && this.currentPrgGrant.getSysprg().getRptclazz() != null) {
+                    reportClassLoader = Class.forName(this.currentPrgGrant.getSysprg().getRptclazz()).getClassLoader();
                 }
                 //初始配置
                 this.reportInitAndConfig();
@@ -165,13 +165,13 @@ public abstract class SuperQueryBean<T extends BaseEntity> extends SuperSingleMa
 
     @Override
     protected void setToolBar() {
-        if (this.currentSystemProgram != null) {
+        if (this.currentPrgGrant != null) {
             this.doAdd = false;
             this.doEdit = false;
             this.doDel = false;
             this.doCfm = false;
             this.doUnCfm = false;
-            this.doPrt = this.currentSystemProgram.getDoprt();
+            this.doPrt = this.currentPrgGrant.getDoprt();
         }
     }
 

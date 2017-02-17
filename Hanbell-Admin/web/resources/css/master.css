@@ -1,9 +1,13 @@
 *{
-    padding: 0px;  
+    padding: 0px;
 }
 
 li{
-    list-style: none;    
+    list-style: none;
+}
+
+body .ui-panelgrid .ui-panelgrid-cell {
+    padding: 0px 16px;
 }
 
 .right{
@@ -14,15 +18,44 @@ li{
     float: left;
 }
 
-.Wid30 input,
-.Wid40 input,
-.Wid50 input,
-.Wid60 input,
-.Wid70 input,
-.Wid80 input,
-.Wid90 input,
-.Wid100 input{
-    width:100%; 
+.Mtop10{
+    margin-top: 10px;
+}
+
+.Wid10{
+    width: 10%;
+}
+.Wid20{
+    width: 20%;
+}
+.Wid30{
+    width: 30%;
+}
+.Wid40{
+    width: 40%;
+}
+.Wid50{
+    width: 50%;
+}
+.Wid60{
+    width: 60%;
+}
+.Wid70{
+    width: 70%;
+}
+.Wid80{
+    width: 80%;
+}
+.Wid90{
+    width: 90%;
+}
+.Wid100{
+    width: 100%;
+}
+
+.Wid30 input,.Wid40 input,.Wid50 input,.Wid60 input,.Wid70 input,.Wid80 input,.Wid90 input,.Wid100 input
+{
+    width:100%;
 }
 
 .Wid30 input.inputWithButton,.Wid40 input.inputWithButton,
@@ -33,7 +66,7 @@ li{
 }
 
 button.inputWithButton{
-    float: right;    
+    float: right;
 }
 
 .topToolbar{

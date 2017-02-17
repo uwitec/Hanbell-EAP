@@ -8,7 +8,7 @@ package cn.hanbell.eap.web;
 import com.lightshell.comm.SuperEntity;
 import cn.hanbell.eap.control.UserManagedBean;
 import cn.hanbell.eap.ejb.SystemProgramBean;
-import cn.hanbell.eap.entity.SystemProgram;
+import cn.hanbell.eap.entity.SystemGrantPrg;
 import com.lightshell.comm.SuperDetailEntity;
 import com.lightshell.comm.SuperMultiManagedBean;
 import java.util.HashMap;
@@ -21,9 +21,9 @@ import javax.faces.context.FacesContext;
  *
  * @author KevinDong
  * @param <T>
- * @param <V>
+ * @param <D1>
  */
-public abstract class SuperMultiBean<T extends SuperEntity, V extends SuperDetailEntity> extends SuperMultiManagedBean<T, V> {
+public abstract class SuperMultiBean<T extends SuperEntity, D1 extends SuperDetailEntity> extends SuperMultiManagedBean<T, D1> {
 
     @EJB
     protected SystemProgramBean sysprgBean;
@@ -34,13 +34,13 @@ public abstract class SuperMultiBean<T extends SuperEntity, V extends SuperDetai
     protected String persistenceUnitName;
     protected String appDataPath;
     protected String appImgPath;
-    protected SystemProgram currentSystemProgram;
+    protected SystemGrantPrg currentPrgGrant;
 
     /**
      * @param entityClass
      * @param detailClass
      */
-    public SuperMultiBean(Class<T> entityClass, Class<V> detailClass) {
+    public SuperMultiBean(Class<T> entityClass, Class<D1> detailClass) {
         this.entityClass = entityClass;
         this.detailClass = detailClass;
     }
@@ -66,10 +66,15 @@ public abstract class SuperMultiBean<T extends SuperEntity, V extends SuperDetai
         reportViewContext = fc.getExternalContext().getInitParameter("cn.hanbell.eap.web.reportviewcontext");
         int beginIndex = fc.getViewRoot().getViewId().lastIndexOf("/") + 1;
         int endIndex = fc.getViewRoot().getViewId().lastIndexOf(".");
-        currentSystemProgram = sysprgBean.findByAPI(fc.getViewRoot().getViewId().substring(beginIndex, endIndex));
-        if (getCurrentSystemProgram() != null) {
-            this.doAdd = getCurrentSystemProgram().getDoadd();
-            this.doPrt = getCurrentSystemProgram().getDoprt();
+        if (userManagedBean.getSystemGrantPrgList() != null && !userManagedBean.getSystemGrantPrgList().isEmpty()) {
+            userManagedBean.getSystemGrantPrgList().stream().filter((p) -> (p.getSysprg().getApi().equals(fc.getViewRoot().getViewId().substring(beginIndex, endIndex)))).forEachOrdered((p) -> {
+                currentPrgGrant = p;
+            });
+        }
+        if (getCurrentPrgGrant() != null) {
+            this.doAdd = getCurrentPrgGrant().getDoadd();
+            this.doPriv = getCurrentPrgGrant().getDopriv();
+            this.doPrt = getCurrentPrgGrant().getDoprt();
         }
         super.construct();
     }
@@ -83,6 +88,12 @@ public abstract class SuperMultiBean<T extends SuperEntity, V extends SuperDetai
             newEntity.setCredateToNow();
         }
         setCurrentEntity(newEntity);
+    }
+
+    @Override
+    public void createDetail() {
+        super.createDetail();
+        this.setCurrentDetail(this.newDetail);
     }
 
     @Override
@@ -110,20 +121,20 @@ public abstract class SuperMultiBean<T extends SuperEntity, V extends SuperDetai
         HashMap<String, Object> params = new HashMap<>();
         params.put("id", currentEntity.getId());
         params.put("pid", currentEntity.getId());
-        params.put("JNDIName", this.currentSystemProgram.getRptjndi());
+        params.put("JNDIName", this.currentPrgGrant.getSysprg().getRptjndi());
         //设置报表名称
         String reportFormat;
-        if (this.currentSystemProgram.getRptformat() != null) {
-            reportFormat = this.currentSystemProgram.getRptformat();
+        if (this.currentPrgGrant.getSysprg().getRptformat() != null) {
+            reportFormat = this.currentPrgGrant.getSysprg().getRptformat();
         } else {
             reportFormat = reportOutputFormat;
         }
-        String reportName = reportPath + this.currentSystemProgram.getRptdesign();
+        String reportName = reportPath + this.currentPrgGrant.getSysprg().getRptdesign();
         String outputName = reportOutputPath + currentEntity.getId() + "." + reportFormat;
         this.reportViewPath = reportViewContext + currentEntity.getId() + "." + reportFormat;
         try {
-            if (this.currentSystemProgram != null && this.currentSystemProgram.getRptclazz() != null) {
-                reportClassLoader = Class.forName(this.currentSystemProgram.getRptclazz()).getClassLoader();
+            if (this.currentPrgGrant != null && this.currentPrgGrant.getSysprg().getRptclazz() != null) {
+                reportClassLoader = Class.forName(this.currentPrgGrant.getSysprg().getRptclazz()).getClassLoader();
             }
             //初始配置
             this.reportInitAndConfig();
@@ -153,18 +164,18 @@ public abstract class SuperMultiBean<T extends SuperEntity, V extends SuperDetai
 
     @Override
     protected void setToolBar() {
-        if (currentEntity != null && getCurrentSystemProgram() != null && currentEntity.getStatus() != null) {
+        if (currentEntity != null && getCurrentPrgGrant() != null && currentEntity.getStatus() != null) {
             switch (currentEntity.getStatus()) {
                 case "V":
-                    this.doEdit = getCurrentSystemProgram().getDoedit() && false;
-                    this.doDel = getCurrentSystemProgram().getDodel() && false;
+                    this.doEdit = getCurrentPrgGrant().getDoedit() && false;
+                    this.doDel = getCurrentPrgGrant().getDodel() && false;
                     this.doCfm = false;
-                    this.doUnCfm = getCurrentSystemProgram().getDouncfm() && true;
+                    this.doUnCfm = getCurrentPrgGrant().getDouncfm() && true;
                     break;
                 default:
-                    this.doEdit = getCurrentSystemProgram().getDoedit() && true;
-                    this.doDel = getCurrentSystemProgram().getDodel() && true;
-                    this.doCfm = getCurrentSystemProgram().getDocfm() && true;
+                    this.doEdit = getCurrentPrgGrant().getDoedit() && true;
+                    this.doDel = getCurrentPrgGrant().getDodel() && true;
+                    this.doCfm = getCurrentPrgGrant().getDocfm() && true;
                     this.doUnCfm = false;
             }
         } else {
@@ -236,10 +247,10 @@ public abstract class SuperMultiBean<T extends SuperEntity, V extends SuperDetai
     }
 
     /**
-     * @return the currentSystemProgram
+     * @return the currentPrgGrant
      */
-    public SystemProgram getCurrentSystemProgram() {
-        return currentSystemProgram;
+    public SystemGrantPrg getCurrentPrgGrant() {
+        return currentPrgGrant;
     }
 
 }

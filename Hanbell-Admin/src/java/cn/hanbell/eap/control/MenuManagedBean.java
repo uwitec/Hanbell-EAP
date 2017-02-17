@@ -6,10 +6,14 @@
 package cn.hanbell.eap.control;
 
 import cn.hanbell.eap.ejb.SystemGrantModuleBean;
-import cn.hanbell.eap.ejb.SystemProgramBean;
+import cn.hanbell.eap.ejb.SystemGrantPrgBean;
+import cn.hanbell.eap.ejb.SystemRoleDetailBean;
 import cn.hanbell.eap.entity.SystemGrantModule;
+import cn.hanbell.eap.entity.SystemGrantPrg;
 import cn.hanbell.eap.entity.SystemProgram;
+import cn.hanbell.eap.entity.SystemRoleDetail;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -31,15 +35,22 @@ import org.primefaces.model.menu.MenuModel;
 public class MenuManagedBean implements Serializable {
 
     @EJB
-    private SystemProgramBean sysprgBean;
+    private SystemRoleDetailBean systemRoleDetailBean;
     @EJB
-    private SystemGrantModuleBean sysgrantModuleBean;
+    private SystemGrantModuleBean systemGrantModuleBean;
+    @EJB
+    private SystemGrantPrgBean systemGrantPrgBean;
 
     @ManagedProperty(value = "#{userManagedBean}")
     private UserManagedBean userManagedBean;
 
-    private List<SystemGrantModule> sysgantModuleList;
-    private List<SystemProgram> sysprgList;
+    private List<SystemGrantModule> userModuleGrantList;
+    private List<SystemGrantModule> roleModuleGrantList;
+    private List<SystemGrantModule> moduleGrantList;
+    private List<SystemGrantPrg> userPrgGrantList;
+    private List<SystemGrantPrg> rolePrgGrantList;
+    private List<SystemGrantPrg> prgGrantList;
+    private List<SystemRoleDetail> roleList;
 
     private MenuModel model;
 
@@ -48,6 +59,10 @@ public class MenuManagedBean implements Serializable {
 
     @PostConstruct
     public void init() {
+
+        boolean flag;
+        moduleGrantList = new ArrayList<>();
+        prgGrantList = new ArrayList<>();
 
         model = new DefaultMenuModel();
 
@@ -66,24 +81,81 @@ public class MenuManagedBean implements Serializable {
 
             appmenu = new DefaultSubMenu("应用");
             appmenu.setIcon("menu");
-
-            sysgantModuleList = sysgrantModuleBean.findByUserId(userManagedBean.getCurrentUser().getId());
-            if (sysgantModuleList != null && !sysgantModuleList.isEmpty()) {
-                for (SystemGrantModule grantModule : sysgantModuleList) {
-                    submenu = new DefaultSubMenu(grantModule.getSystemModule().getName());
-                    submenu.setIcon("list");
-                    sysprgList = null;
-                    sysprgList = sysprgBean.findByModuleId(grantModule.getSystemModule().getId());
-                    if (sysprgList != null && !sysprgList.isEmpty()) {
-                        for (SystemProgram prg : sysprgList) {
-                            menuitem = new DefaultMenuItem(prg.getName());
-                            menuitem.setIcon("menu");
-                            menuitem.setOutcome(prg.getApi());
-                            submenu.addElement(menuitem);
+            //将用户权限和角色权限合并后产生菜单,用户权限优先角色权限
+            moduleGrantList.clear();
+            userModuleGrantList = systemGrantModuleBean.findByUserId(userManagedBean.getCurrentUser().getId());
+            userModuleGrantList.forEach((m) -> {
+                moduleGrantList.add(m);
+            });
+            prgGrantList.clear();
+            userPrgGrantList = systemGrantPrgBean.findByUserId(userManagedBean.getCurrentUser().getId());
+            userPrgGrantList.forEach((p) -> {
+                prgGrantList.add(p);
+            });
+            roleList = systemRoleDetailBean.findByUserId(userManagedBean.getCurrentUser().getId());
+            for (SystemRoleDetail r : roleList) {
+                roleModuleGrantList = systemGrantModuleBean.findByRoleId(r.getPid());
+                if (userModuleGrantList.isEmpty()) {
+                    moduleGrantList.addAll(roleModuleGrantList);
+                } else {
+                    for (SystemGrantModule m : roleModuleGrantList) {
+                        flag = true;
+                        for (SystemGrantModule e : userModuleGrantList) {
+                            if (e.getSystemModule().getId().compareTo(m.getSystemModule().getId()) == 0) {
+                                flag = false;
+                                break;
+                            }
+                        }
+                        if (flag) {
+                            moduleGrantList.add(m);
                         }
                     }
-                    appmenu.addElement(submenu);
                 }
+                rolePrgGrantList = systemGrantPrgBean.findByRoleId(r.getPid());
+                if (userPrgGrantList.isEmpty()) {
+                    prgGrantList.addAll(rolePrgGrantList);
+                } else {
+                    for (SystemGrantPrg p : rolePrgGrantList) {
+                        flag = true;
+                        for (SystemGrantPrg e : userPrgGrantList) {
+                            if (e.getSysprg().getId().compareTo(p.getSysprg().getId()) == 0) {
+                                flag = false;
+                                break;
+                            }
+                        }
+                        if (flag) {
+                            prgGrantList.add(p);
+                        }
+                    }
+                }
+            }
+            moduleGrantList.sort((SystemGrantModule o1, SystemGrantModule o2) -> {
+                if (o1.getSystemModule().getSortid() < o2.getSystemModule().getSortid()) {
+                    return -1;
+                } else {
+                    return 1;
+                }
+            });
+            prgGrantList.sort((SystemGrantPrg o1, SystemGrantPrg o2) -> {
+                if (o1.getSysprg().getSortid() < o2.getSysprg().getSortid()) {
+                    return -1;
+                } else {
+                    return 1;
+                }
+            });
+            userManagedBean.setSystemGrantPrgList(prgGrantList);
+            for (SystemGrantModule m : moduleGrantList) {
+                submenu = new DefaultSubMenu(m.getSystemModule().getName());
+                submenu.setIcon("menu");
+                for (SystemGrantPrg p : prgGrantList) {
+                    if (p.getPid() == m.getSystemModule().getId()) {
+                        menuitem = new DefaultMenuItem(p.getSysprg().getName());
+                        menuitem.setIcon("menu");
+                        menuitem.setOutcome(p.getSysprg().getApi());
+                        submenu.addElement(menuitem);
+                    }
+                }
+                appmenu.addElement(submenu);
             }
             model.addElement(appmenu);
 
@@ -104,12 +176,27 @@ public class MenuManagedBean implements Serializable {
             menuitem.setIcon("menu");
             menuitem.setOutcome("systemuser");
             submenu.addElement(menuitem);
-            
+
+            menuitem = new DefaultMenuItem("用户授权");
+            menuitem.setIcon("menu");
+            menuitem.setOutcome("usergrant");
+            submenu.addElement(menuitem);
+
+            menuitem = new DefaultMenuItem("角色群组");
+            menuitem.setIcon("menu");
+            menuitem.setOutcome("systemrole");
+            submenu.addElement(menuitem);
+
+            menuitem = new DefaultMenuItem("角色授权");
+            menuitem.setIcon("menu");
+            menuitem.setOutcome("rolegrant");
+            submenu.addElement(menuitem);
+
             menuitem = new DefaultMenuItem("系统维护");
             menuitem.setIcon("menu");
             menuitem.setOutcome("sysname");
             submenu.addElement(menuitem);
-            
+
             menuitem = new DefaultMenuItem("模块维护");
             menuitem.setIcon("menu");
             menuitem.setOutcome("sysmodule");
@@ -120,15 +207,6 @@ public class MenuManagedBean implements Serializable {
             menuitem.setOutcome("sysprg");
             submenu.addElement(menuitem);
 
-            menuitem = new DefaultMenuItem("模块授权");
-            menuitem.setIcon("menu");
-            menuitem.setOutcome("sysgrantmodule");
-            submenu.addElement(menuitem);
-
-            //menuitem = new DefaultMenuItem("功能授权");
-            //menuitem.setIcon("icon-doc-text");
-            //menuitem.setOutcome("sysgrantprg");
-            //submenu.addElement(menuitem);
             model.addElement(submenu);
         }
     }
