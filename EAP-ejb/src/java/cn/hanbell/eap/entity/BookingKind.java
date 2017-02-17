@@ -11,6 +11,9 @@ import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -37,6 +40,31 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "BookingKind.findBySubtitle", query = "SELECT b FROM BookingKind b WHERE b.subtitle = :subtitle"),
     @NamedQuery(name = "BookingKind.findByStatus", query = "SELECT b FROM BookingKind b WHERE b.status = :status")})
 public class BookingKind extends SuperEntity {
+
+    @Size(max = 45)
+    @Column(name = "key1")
+    private String key1;
+    @Size(max = 45)
+    @Column(name = "key2")
+    private String key2;
+    @Size(max = 45)
+    @Column(name = "key3")
+    private String key3;
+    @Size(max = 45)
+    @Column(name = "key4")
+    private String key4;
+    @Size(max = 45)
+    @Column(name = "key5")
+    private String key5;
+    @Size(max = 45)
+    @Column(name = "key6")
+    private String key6;
+    @Size(max = 45)
+    @Column(name = "key7")
+    private String key7;
+    @Size(max = 45)
+    @Column(name = "key8")
+    private String key8;
 
     @Basic(optional = false)
     @NotNull
@@ -240,12 +268,76 @@ public class BookingKind extends SuperEntity {
         if (this.id != null && other.id != null && !this.id.equals(other.id)) {
             return false;
         }
-        return Objects.equals(this.kind, other.kind); 
+        return Objects.equals(this.kind, other.kind);
     }
 
     @Override
     public String toString() {
         return "cn.hanbell.eap.entity.BookingKind[ id=" + id + " ]";
+    }
+
+    public String getKey1() {
+        return key1;
+    }
+
+    public void setKey1(String key1) {
+        this.key1 = key1;
+    }
+
+    public String getKey2() {
+        return key2;
+    }
+
+    public void setKey2(String key2) {
+        this.key2 = key2;
+    }
+
+    public String getKey3() {
+        return key3;
+    }
+
+    public void setKey3(String key3) {
+        this.key3 = key3;
+    }
+
+    public String getKey4() {
+        return key4;
+    }
+
+    public void setKey4(String key4) {
+        this.key4 = key4;
+    }
+
+    public String getKey5() {
+        return key5;
+    }
+
+    public void setKey5(String key5) {
+        this.key5 = key5;
+    }
+
+    public String getKey6() {
+        return key6;
+    }
+
+    public void setKey6(String key6) {
+        this.key6 = key6;
+    }
+
+    public String getKey7() {
+        return key7;
+    }
+
+    public void setKey7(String key7) {
+        this.key7 = key7;
+    }
+
+    public String getKey8() {
+        return key8;
+    }
+
+    public void setKey8(String key8) {
+        this.key8 = key8;
     }
 
 }

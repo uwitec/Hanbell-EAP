@@ -38,4 +38,10 @@ public class SystemGrantModuleBean extends SuperEJBForEAP<SystemGrantModule> {
         return query.getResultList();
     }
 
+    public List<SystemGrantModule> findByRoleId(int id) {
+        Query query = this.getEntityManager().createNamedQuery("SystemGrantModule.findByRoleId");
+        query.setParameter("roleid", id);
+        return query.getResultList();
+    }
+
 }

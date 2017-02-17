@@ -52,9 +52,9 @@ public class BookingKindManagedBean extends SuperMultiBean<BookingKind, BookingS
         if (!super.doBeforePersist()) {
             return false;
         }
-        if (this.getCurrentSystemProgram() != null) {
-            if (this.getCurrentSystemProgram().getNoauto() && !this.getCurrentSystemProgram().getNochange()) {
-                String formid = superEJB.getFormId(newEntity.getCredate(), this.getCurrentSystemProgram().getNolead(), this.getCurrentSystemProgram().getNoformat(), this.getCurrentSystemProgram().getNoseqlen(), "kind");
+        if (this.getCurrentPrgGrant() != null) {
+            if (this.getCurrentPrgGrant().getSysprg().getNoauto() && !this.getCurrentPrgGrant().getSysprg().getNochange()) {
+                String formid = superEJB.getFormId(newEntity.getCredate(), this.getCurrentPrgGrant().getSysprg().getNolead(), this.getCurrentPrgGrant().getSysprg().getNoformat(), this.getCurrentPrgGrant().getSysprg().getNoseqlen(), "kind");
                 this.newEntity.setKind(formid);
             } else {
                 Map<String, Object> filters = new HashMap<>();

@@ -6,9 +6,11 @@ package cn.hanbell.eap.control;
 
 
 import cn.hanbell.eap.ejb.SystemUserBean;
+import cn.hanbell.eap.entity.SystemGrantPrg;
 import cn.hanbell.eap.entity.SystemUser;
 import com.lightshell.comm.BaseLib;
 import java.io.Serializable;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -35,6 +37,8 @@ public class UserManagedBean implements Serializable {
     private String newpwd;
     private String secpwd;
     private boolean status;
+    
+    private List<SystemGrantPrg> systemGrantPrgList;
 
     public UserManagedBean() {
         status = false;
@@ -214,6 +218,20 @@ public class UserManagedBean implements Serializable {
      */
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    /**
+     * @return the systemGrantPrgList
+     */
+    public List<SystemGrantPrg> getSystemGrantPrgList() {
+        return systemGrantPrgList;
+    }
+
+    /**
+     * @param systemGrantPrgList the systemGrantPrgList to set
+     */
+    public void setSystemGrantPrgList(List<SystemGrantPrg> systemGrantPrgList) {
+        this.systemGrantPrgList = systemGrantPrgList;
     }
 
 }

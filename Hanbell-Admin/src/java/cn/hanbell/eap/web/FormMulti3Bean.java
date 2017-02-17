@@ -7,6 +7,7 @@ package cn.hanbell.eap.web;
 
 import cn.hanbell.eap.control.UserManagedBean;
 import cn.hanbell.eap.ejb.SystemProgramBean;
+import cn.hanbell.eap.entity.SystemGrantPrg;
 import cn.hanbell.eap.entity.SystemProgram;
 import com.lightshell.comm.FormDetailEntity;
 import com.lightshell.comm.FormEntity;
@@ -21,11 +22,11 @@ import javax.faces.context.FacesContext;
  *
  * @author KevinDong
  * @param <T>
- * @param <V>
- * @param <X>
- * @param <Z>
+ * @param <D1>
+ * @param <D2>
+ * @param <D3>
  */
-public abstract class FormMulti3Bean<T extends FormEntity, V extends FormDetailEntity, X extends FormDetailEntity, Z extends FormDetailEntity> extends FormMulti3ManagedBean<T, V, X, Z> {
+public abstract class FormMulti3Bean<T extends FormEntity, D1 extends FormDetailEntity, D2 extends FormDetailEntity, D3 extends FormDetailEntity> extends FormMulti3ManagedBean<T, D1, D2, D3> {
 
     @EJB
     protected SystemProgramBean sysprgBean;
@@ -36,7 +37,7 @@ public abstract class FormMulti3Bean<T extends FormEntity, V extends FormDetailE
     protected String persistenceUnitName;
     protected String appDataPath;
     protected String appImgPath;
-    protected SystemProgram currentSystemProgram;
+    protected SystemGrantPrg currentPrgGrant;
 
     /**
      * @param entityClass
@@ -44,7 +45,7 @@ public abstract class FormMulti3Bean<T extends FormEntity, V extends FormDetailE
      * @param detailClass2
      * @param detailClass3
      */
-    public FormMulti3Bean(Class<T> entityClass, Class<V> detailClass, Class<X> detailClass2, Class<Z> detailClass3) {
+    public FormMulti3Bean(Class<T> entityClass, Class<D1> detailClass, Class<D2> detailClass2, Class<D3> detailClass3) {
         this.entityClass = entityClass;
         this.detailClass = detailClass;
         this.detailClass2 = detailClass2;
@@ -72,10 +73,15 @@ public abstract class FormMulti3Bean<T extends FormEntity, V extends FormDetailE
         reportViewContext = fc.getExternalContext().getInitParameter("cn.hanbell.eap.web.reportviewcontext");
         int beginIndex = fc.getViewRoot().getViewId().lastIndexOf("/") + 1;
         int endIndex = fc.getViewRoot().getViewId().lastIndexOf(".");
-        currentSystemProgram = sysprgBean.findByAPI(fc.getViewRoot().getViewId().substring(beginIndex, endIndex));
-        if (getCurrentSystemProgram() != null) {
-            this.doAdd = getCurrentSystemProgram().getDoadd();
-            this.doPrt = getCurrentSystemProgram().getDoprt();
+        if (userManagedBean.getSystemGrantPrgList() != null && !userManagedBean.getSystemGrantPrgList().isEmpty()) {
+            userManagedBean.getSystemGrantPrgList().stream().filter((p) -> (p.getSysprg().getApi().equals(fc.getViewRoot().getViewId().substring(beginIndex, endIndex)))).forEachOrdered((p) -> {
+                currentPrgGrant = p;
+            });
+        }
+        if (getCurrentPrgGrant() != null) {
+            this.doAdd = getCurrentPrgGrant().getDoadd();
+            this.doPriv = getCurrentPrgGrant().getDopriv();
+            this.doPrt = getCurrentPrgGrant().getDoprt();
         }
         super.construct();
     }
@@ -93,39 +99,39 @@ public abstract class FormMulti3Bean<T extends FormEntity, V extends FormDetailE
 
     @Override
     protected boolean doBeforePersist() throws Exception {
-        if (this.newEntity != null && this.getCurrentSystemProgram() != null) {
-            if (this.getCurrentSystemProgram().getNoauto()) {
-                String formid = this.superEJB.getFormId(newEntity.getFormdate(), this.getCurrentSystemProgram().getNolead(), this.getCurrentSystemProgram().getNoformat(), this.getCurrentSystemProgram().getNoseqlen());
+        if (this.newEntity != null && this.getCurrentPrgGrant() != null) {
+            if (this.getCurrentPrgGrant().getSysprg().getNoauto()) {
+                String formid = this.superEJB.getFormId(newEntity.getFormdate(), this.getCurrentPrgGrant().getSysprg().getNolead(), this.getCurrentPrgGrant().getSysprg().getNoformat(), this.getCurrentPrgGrant().getSysprg().getNoseqlen());
                 this.newEntity.setFormid(formid);
             }
             if (this.addedDetailList != null && !this.addedDetailList.isEmpty()) {
-                for (V detail : this.addedDetailList) {
+                for (D1 detail : this.addedDetailList) {
                     detail.setPid(newEntity.getFormid());
                 }
             }
             if (this.editedDetailList != null && !this.editedDetailList.isEmpty()) {
-                for (V detail : this.editedDetailList) {
+                for (D1 detail : this.editedDetailList) {
                     detail.setPid(newEntity.getFormid());
                 }
 
             }
             if (this.addedDetailList2 != null && !this.addedDetailList2.isEmpty()) {
-                for (X detail : this.addedDetailList2) {
+                for (D2 detail : this.addedDetailList2) {
                     detail.setPid(newEntity.getFormid());
                 }
             }
             if (this.editedDetailList2 != null && !this.editedDetailList2.isEmpty()) {
-                for (X detail : this.editedDetailList2) {
+                for (D2 detail : this.editedDetailList2) {
                     detail.setPid(newEntity.getFormid());
                 }
             }
             if (this.addedDetailList3 != null && !this.addedDetailList3.isEmpty()) {
-                for (Z detail : this.addedDetailList3) {
+                for (D3 detail : this.addedDetailList3) {
                     detail.setPid(newEntity.getFormid());
                 }
             }
             if (this.editedDetailList3 != null && !this.editedDetailList3.isEmpty()) {
-                for (Z detail : this.editedDetailList3) {
+                for (D3 detail : this.editedDetailList3) {
                     detail.setPid(newEntity.getFormid());
                 }
             }
@@ -159,20 +165,20 @@ public abstract class FormMulti3Bean<T extends FormEntity, V extends FormDetailE
         HashMap<String, Object> params = new HashMap<>();
         params.put("id", currentEntity.getId());
         params.put("formid", currentEntity.getFormid());
-        params.put("JNDIName", this.currentSystemProgram.getRptjndi());
+        params.put("JNDIName", this.currentPrgGrant.getSysprg().getRptjndi());
         //设置报表名称
         String reportFormat;
-        if (this.currentSystemProgram.getRptformat() != null) {
-            reportFormat = this.currentSystemProgram.getRptformat();
+        if (this.currentPrgGrant.getSysprg().getRptformat() != null) {
+            reportFormat = this.currentPrgGrant.getSysprg().getRptformat();
         } else {
             reportFormat = reportOutputFormat;
         }
-        String reportName = reportPath + this.currentSystemProgram.getRptdesign();
+        String reportName = reportPath + this.currentPrgGrant.getSysprg().getRptdesign();
         String outputName = reportOutputPath + currentEntity.getFormid() + "." + reportFormat;
         this.reportViewPath = reportViewContext + currentEntity.getFormid() + "." + reportFormat;
         try {
-            if (this.currentSystemProgram != null && this.currentSystemProgram.getRptclazz() != null) {
-                reportClassLoader = Class.forName(this.currentSystemProgram.getRptclazz()).getClassLoader();
+            if (this.currentPrgGrant != null && this.currentPrgGrant.getSysprg().getRptclazz() != null) {
+                reportClassLoader = Class.forName(this.currentPrgGrant.getSysprg().getRptclazz()).getClassLoader();
             }
             //初始配置
             this.reportInitAndConfig();
@@ -202,18 +208,18 @@ public abstract class FormMulti3Bean<T extends FormEntity, V extends FormDetailE
 
     @Override
     protected void setToolBar() {
-        if (currentEntity != null && getCurrentSystemProgram() != null && currentEntity.getStatus() != null) {
+        if (currentEntity != null && getCurrentPrgGrant() != null && currentEntity.getStatus() != null) {
             switch (currentEntity.getStatus()) {
                 case "V":
-                    this.doEdit = getCurrentSystemProgram().getDoedit() && false;
-                    this.doDel = getCurrentSystemProgram().getDodel() && false;
+                    this.doEdit = getCurrentPrgGrant().getDoedit() && false;
+                    this.doDel = getCurrentPrgGrant().getDodel() && false;
                     this.doCfm = false;
-                    this.doUnCfm = getCurrentSystemProgram().getDouncfm() && true;
+                    this.doUnCfm = getCurrentPrgGrant().getDouncfm() && true;
                     break;
                 default:
-                    this.doEdit = getCurrentSystemProgram().getDoedit() && true;
-                    this.doDel = getCurrentSystemProgram().getDodel() && true;
-                    this.doCfm = getCurrentSystemProgram().getDocfm() && true;
+                    this.doEdit = getCurrentPrgGrant().getDoedit() && true;
+                    this.doDel = getCurrentPrgGrant().getDodel() && true;
+                    this.doCfm = getCurrentPrgGrant().getDocfm() && true;
                     this.doUnCfm = false;
             }
         } else {
@@ -285,10 +291,10 @@ public abstract class FormMulti3Bean<T extends FormEntity, V extends FormDetailE
     }
 
     /**
-     * @return the currentSystemProgram
+     * @return the currentPrgGrant
      */
-    public SystemProgram getCurrentSystemProgram() {
-        return currentSystemProgram;
+    public SystemGrantPrg getCurrentPrgGrant() {
+        return currentPrgGrant;
     }
 
 }
