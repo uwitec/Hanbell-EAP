@@ -11,9 +11,6 @@ import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
@@ -100,6 +97,9 @@ public class Booking extends FormEntity {
     @Size(min = 1, max = 45)
     @Column(name = "name")
     private String name;
+    @Size(max = 2)
+    @Column(name = "gender")
+    private String gender;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
@@ -112,6 +112,9 @@ public class Booking extends FormEntity {
     @Size(max = 100)
     @Column(name = "company")
     private String company;
+    @Size(max = 45)
+    @Column(name = "title")
+    private String title;
     @Column(name = "startDate")
     @Temporal(TemporalType.DATE)
     private Date startDate;
@@ -125,8 +128,12 @@ public class Booking extends FormEntity {
     @Temporal(TemporalType.TIME)
     private Date endTime;
     @Size(max = 45)
-    @Column(name = "contactor")
-    private String contactor;
+    @Column(name = "contacter")
+    private String contacter;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "num")
+    private int num;
     @Size(max = 45)
     @Column(name = "room")
     private String room;
@@ -138,6 +145,16 @@ public class Booking extends FormEntity {
     private String remark;
 
     public Booking() {
+        this.num = 1;
+        this.key1 = "";
+        this.key2 = "";
+        this.key3 = "";
+        this.key4 = "";
+        this.key5 = "";
+        this.key6 = "";
+        this.key7 = "";
+        this.key8 = "";
+        this.status = "N";
     }
 
     public String getFormtype() {
@@ -164,6 +181,20 @@ public class Booking extends FormEntity {
         this.name = name;
     }
 
+    /**
+     * @return the gender
+     */
+    public String getGender() {
+        return gender;
+    }
+
+    /**
+     * @param gender the gender to set
+     */
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
     public String getMobile() {
         return mobile;
     }
@@ -186,6 +217,20 @@ public class Booking extends FormEntity {
 
     public void setCompany(String company) {
         this.company = company;
+    }
+
+    /**
+     * @return the title
+     */
+    public String getTitle() {
+        return title;
+    }
+
+    /**
+     * @param title the title to set
+     */
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public Date getStartDate() {
@@ -220,12 +265,26 @@ public class Booking extends FormEntity {
         this.endTime = endTime;
     }
 
-    public String getContactor() {
-        return contactor;
+    public String getContacter() {
+        return contacter;
     }
 
-    public void setContactor(String contactor) {
-        this.contactor = contactor;
+    public void setContacter(String contacter) {
+        this.contacter = contacter;
+    }
+
+    /**
+     * @return the num
+     */
+    public int getNum() {
+        return num;
+    }
+
+    /**
+     * @param num the num to set
+     */
+    public void setNum(int num) {
+        this.num = num;
     }
 
     public String getRoom() {

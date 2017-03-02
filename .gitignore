@@ -221,12 +221,16 @@ pip-log.txt
 .mr.developer.cfg
 
 # Custom
+/nbproject/private
+/Hanbell-Admin/web/resources/prime*
+/Hanbell-Admin/web/resources/sass
+/Hanbell-Admin/web/resources/ulitma-layout
+/Hanbell-Admin/nbproject/private
 /CRM-ejb/nbproject/private
 /EAP-ejb/nbproject/private
 /EFGP-ejb/nbproject/private
 /EFNET-ejb/nbproject/private
 /ERP-ejb/nbproject/private
-/nbproject/private
-/Hanbell-Admin/web/resources/prime*
-/Hanbell-Admin/web/resources/sass
-/Hanbell-Admin/web/resources/ulitma-layout
+/Hanbell-JRS/nbproject/private
+/Hanbell-JWS/nbproject/private
+/Hanbell-RPT/nbproject/private

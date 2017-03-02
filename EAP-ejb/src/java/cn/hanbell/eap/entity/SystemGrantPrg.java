@@ -6,7 +6,6 @@
 package cn.hanbell.eap.entity;
 
 import com.lightshell.comm.SuperDetailEntity;
-import com.lightshell.comm.SuperEntity;
 import java.util.Date;
 import java.util.Objects;
 import javax.persistence.Basic;

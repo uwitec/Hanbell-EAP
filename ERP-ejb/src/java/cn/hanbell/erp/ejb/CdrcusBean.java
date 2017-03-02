@@ -282,9 +282,10 @@ public class CdrcusBean extends SuperEJBForERP<Cdrcus> {
             crmgg.setGg004(cdrcus.getCusds());
             crmgg.setGg008(cdrcus.getAreacode());
             crmgg.setGg009(cdrcus.getSacode());
-            crmgg.setGg010(cdrcus.getCuycode());
-            crmgg.setGg011(cdrcus.getCuskind());
-
+            //crmgg.setGg010(cdrcus.getCuycode());//不需要抛转2017/2/20
+            //crmgg.setGg011(cdrcus.getCuskind());
+            crmgg.setGg011(cdrcus.getSndcode());
+            crmgg.setGg013(cdrcus.getCuskind());
             crmgg.setGg017(BaseLib.formatDate("yyyyMMdd", cdrcus.getBegdate()));
             crmgg.setGg018(cdrcus.getBoss());
             crmgg.setGg024(cdrcus.getTel1());
@@ -300,10 +301,12 @@ public class CdrcusBean extends SuperEJBForERP<Cdrcus> {
             switch (cdrcus.getTax()) {
                 //外加税
                 case '1':
+                    crmgg.setGg089('A');
                     crmgg.setGg098('2');
                     crmgg.setGg109("S01");
                 //零税
                 case '2':
+                    crmgg.setGg089('A');
                     crmgg.setGg098('3');
                     crmgg.setGg109("S01");
                     break;
@@ -311,6 +314,7 @@ public class CdrcusBean extends SuperEJBForERP<Cdrcus> {
                 //case '3':
                 //内含
                 case '4':
+                    crmgg.setGg089('A');
                     crmgg.setGg098('1');
                     crmgg.setGg109("S02");
                 default:
@@ -320,20 +324,39 @@ public class CdrcusBean extends SuperEJBForERP<Cdrcus> {
             //ERP与CRM定义不同
             switch (cdrcus.getPaycode()) {
                 case '1':
-                    crmgg.setGg113('1');
+                    //crmgg.setGg113('1');
+                    crmgg.setGg091("1");
                     break;
                 case '2':
-                    crmgg.setGg113('3');
+                    //crmgg.setGg113('3');
+                    crmgg.setGg091("3");
                     break;
                 case '3':
-                    crmgg.setGg113('2');
+                    //crmgg.setGg113('2');
+                    crmgg.setGg091("2");
                     break;
                 case '4':
                 case '5':
-                    crmgg.setGg113('4');
+                    //crmgg.setGg113('4');
+                    crmgg.setGg091("4");
                     break;
                 default:
-                    crmgg.setGg113('1');
+                    //crmgg.setGg113('1');
+                    crmgg.setGg091("1");
+            }
+            //交易条件
+            switch (cdrcus.getTermcode()) {
+                case "C&F":
+                    crmgg.setGg112('3');
+                    break;
+                case "CIF":
+                    crmgg.setGg112('1');
+                    break;
+                case "FOB":
+                    crmgg.setGg112('2');
+                    break;
+                default:
+                    crmgg.setGg112('3');
             }
             //回写更多内容
         }

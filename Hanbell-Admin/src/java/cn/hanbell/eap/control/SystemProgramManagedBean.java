@@ -20,7 +20,7 @@ import javax.faces.bean.SessionScoped;
  *
  * @author kevindong
  */
-@ManagedBean(name="systemProgramManagedBean")
+@ManagedBean(name = "systemProgramManagedBean")
 @SessionScoped
 public class SystemProgramManagedBean extends SuperSingleBean<SystemProgram> {
 
@@ -33,16 +33,6 @@ public class SystemProgramManagedBean extends SuperSingleBean<SystemProgram> {
 
     public SystemProgramManagedBean() {
         super(SystemProgram.class);
-    }
-
-    @Override
-    protected void buildJsonObject() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    protected void buildJsonArray() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -64,20 +54,45 @@ public class SystemProgramManagedBean extends SuperSingleBean<SystemProgram> {
         this.superEJB = sysprgBean;
         setModel(new SystemProgramModel(sysprgBean));
         setSystemModuleList(sysmoduleBean.findAll());
+        super.init();
         if (currentEntity == null) {
             currentEntity = newEntity;
         }
-        super.init();
     }
 
     @Override
-    public void pull() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void query() {
+        this.model.getFilterFields().clear();
+        if (this.queryName != null && !"".equals(this.queryName)) {
+            this.model.getFilterFields().put("name", this.queryName);
+        }
+        if (this.queryFormId != null && !"".equals(this.queryFormId)) {
+            this.model.getFilterFields().put("api", this.queryFormId);
+        }
     }
 
     @Override
-    public void setToolBar() {
-
+    protected void setToolBar() {
+        if (currentEntity != null && currentEntity.getStatus() != null) {
+            switch (currentEntity.getStatus()) {
+                case "V":
+                    this.doEdit = false;
+                    this.doDel = false;
+                    this.doCfm = false;
+                    this.doUnCfm = true;
+                    break;
+                default:
+                    this.doEdit = true;
+                    this.doDel = true;
+                    this.doCfm = true;
+                    this.doUnCfm = false;
+            }
+        } else {
+            this.doEdit = false;
+            this.doDel = false;
+            this.doCfm = false;
+            this.doUnCfm = false;
+        }
     }
 
     /**

@@ -13,43 +13,47 @@
             <p:growl id="growl" showSummary="false" showDetail="true" autoUpdate="true"/>
             <p:toolbar id="toolbar" styleClass="topToolbar">
                 <f:facet name="left">
-                    <p:commandButton id="btnLoad" value="刷新" actionListener="#{systemUserManagedBean.init()}"  icon="ui-icon-sync"  update=":formList"/> 
+                    <p:commandButton id="btnLoad" value="刷新" actionListener="#{systemUserManagedBean.init()}"  icon="ui-icon-sync"  update=":formList"/>
                 </f:facet>
                 <f:facet name="right">
-                    <p:commandButton id="btnEdit" action="#{systemUserManagedBean.edit('systemuserEdit')}" icon="ui-icon-pencil" value="编辑" 
-                                     rendered="#{systemUserManagedBean.currentEntity.status!='V'}" /> 
-                    <p:commandButton id="btnDelete" actionListener="#{systemUserManagedBean.delete()}" icon="ui-icon-trash" value="删除" 
-                                     rendered="#{systemUserManagedBean.currentEntity.status!='V' }" update=":formList"/> 
-                    <p:commandButton id="btnVerify" actionListener="#{systemUserManagedBean.verify()}" icon="ui-icon-check" value="审核" 
-                                     rendered="#{systemUserManagedBean.currentEntity.status!='V'}"   update=":formList"/>
-                    <p:commandButton id="btnUnverify" actionListener="#{systemUserManagedBean.unverify()}" icon="ui-icon-lock-open" value="还原" 
-                                     rendered="#{systemUserManagedBean.currentEntity.status=='V'}"  update=":formList"/>
-                    <p:commandButton id="btnCreate" action="#{systemUserManagedBean.create('systemuserNew')}" icon="ui-icon-plus" value="新增"
-                                     /> 
+                    <p:splitButton id="btnOperate" value="操作" icon="ui-icon-menu">
+                        <p:menuitem id="btnEdit" action="#{systemUserManagedBean.edit('systemuserEdit')}" icon="ui-icon-pencil" value="编辑"
+                                    rendered="#{systemUserManagedBean.currentEntity.status!='V'}" />
+                        <p:menuitem id="btnDelete" actionListener="#{systemUserManagedBean.delete()}" icon="ui-icon-trash" value="删除"
+                                    rendered="#{systemUserManagedBean.currentEntity.status!='V' }" update=":formList">
+                            <p:confirm header="系统提示" message="删除吗?" icon="ui-icon-alert" />
+                        </p:menuitem>
+                        <p:menuitem id="btnVerify" actionListener="#{systemUserManagedBean.verify()}" icon="ui-icon-check" value="审核"
+                                    rendered="#{systemUserManagedBean.currentEntity.status!='V'}"   update=":formList"/>
+                        <p:menuitem id="btnUnverify" actionListener="#{systemUserManagedBean.unverify()}" icon="ui-icon-lock-open" value="还原"
+                                    rendered="#{systemUserManagedBean.currentEntity.status=='V'}"  update=":formList"/>
+                        <p:menuitem id="btnCreate" action="#{systemUserManagedBean.create('systemuserNew')}" icon="ui-icon-plus" value="新增"
+                                    process="@this"  />
+                    </p:splitButton>
                 </f:facet>
             </p:toolbar>
             <p:panel id="panelList">
-                <p:dataTable value="#{systemUserManagedBean.model}" var="item"  tableStyleClass="tableList" paginator="true" paginatorPosition="bottom" rows="15"  
-                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
-                             rowsPerPageTemplate="15,30,45"  lazy="true" 
+                <p:dataTable value="#{systemUserManagedBean.model}" var="item"  tableStyleClass="tableList" paginator="true" paginatorPosition="bottom" rows="15"
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="15,30,45"  lazy="true"
                              selectionMode="single" selection="#{systemUserManagedBean.currentEntity}" rowKey="#{item.id}" >
                     <f:facet name="header">
                         账户维护
                     </f:facet>
                     <p:ajax event="rowSelect"  update=":formList:toolbar" />
-                    <p:ajax event="rowUnselect" update=":formList:toolbar" /> 
+                    <p:ajax event="rowUnselect" update=":formList:toolbar" />
                     <p:column styleClass="Wid20">
                         <f:facet name="header">
                             <h:outputText value="Id"/>
                         </f:facet>
                         <h:outputText value="#{item.userid}"/>
-                    </p:column>  
+                    </p:column>
                     <p:column styleClass="Wid20">
                         <f:facet name="header">
                             <h:outputText value="姓名"/>
                         </f:facet>
                         <h:outputText value="#{item.username}"/>
-                    </p:column>                   
+                    </p:column>
                     <p:column styleClass="Wid30">
                         <f:facet name="header">
                             <h:outputText value="邮箱"/>
@@ -75,7 +79,14 @@
                     </f:facet>
                 </p:dataTable>
             </p:panel>
-        </h:form>                 
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+            </p:confirmDialog>
+            <p:blockUI id="blockUI" block="formList" trigger="btnUnverify">
+                <p:graphicImage name="images/ajaxloadingbar.gif" library="ultima-layout"/>
+            </p:blockUI>
+        </h:form>
 
     </ui:define>
 

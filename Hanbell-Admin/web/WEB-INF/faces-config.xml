@@ -244,6 +244,16 @@
             <to-view-id>/app/rs/bookingkind.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
+        <navigation-case>
+            <from-outcome>booking</from-outcome>
+            <to-view-id>/app/rs/booking.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>meetingroom</from-outcome>
+            <to-view-id>/app/rs/meetingroom.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
     </navigation-rule>
     <navigation-rule>
         <description>预约类别</description>
@@ -265,6 +275,25 @@
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
+        <description>预约登记</description>
+        <from-view-id>/app/rs/booking.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>bookingNew</from-outcome>
+            <to-view-id>/app/rs/bookingNew.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>bookingEdit</from-outcome>
+            <to-view-id>/app/rs/bookingEdit.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>bookingView</from-outcome>
+            <to-view-id>/app/rs/bookingView.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
         <description>模态开窗</description>
         <from-view-id>/*</from-view-id>
         <navigation-case>
@@ -275,6 +304,13 @@
         <navigation-case>
             <from-outcome>sysuserSelect</from-outcome>
             <to-view-id>/app/df/sysuserSelect.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>test</from-outcome>
+            <to-view-id>/app/rs/meetingroom.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
     </navigation-rule>

@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../WEB-INF/template.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">
+        <h:form id="formOne">
+            <p:growl id="growl"  showSummary="false" showDetail="true" autoUpdate="true" />
+            <p:toolbar id="toolbar" styleClass="topToolbar">
+                <f:facet name="left">
+                    <p:button id="btnReturn" value="返回" outcome="meetingroom" icon="ui-icon-restore"/>
+                </f:facet>
+                <f:facet name="right">
+                    <p:commandButton id="btnPrint" value="打印" action="#{meetingRoomManagedBean.print()}" icon="ui-icon-print"
+                                     rendered="#{meetingRoomManagedBean.doPrt}"/>
+                    <p:commandButton id="btnVerify" value="审核" action="#{meetingRoomManagedBean.verify()}" icon="ui-icon-check"
+                                     rendered="#{meetingRoomManagedBean.doCfm}" update="toolbar"/>
+                </f:facet>
+            </p:toolbar>
+            <p:panel id="panelHead">
+                <p:panelGrid id="plgHead" columns="4" columnClasses="Wid20,Wid30,Wid20,Wid30" styleClass="plgHead Wid100">
+                    <f:facet name="header">
+                        会议室－查看
+                    </f:facet>
+                    <h:outputText value="会议室编号"/>
+                    <h:outputText id="name" value="#{meetingRoomManagedBean.currentEntity.name}" title="name"/>
+                    <h:outputText value="名称" />
+                    <h:outputText id="description" value="#{meetingRoomManagedBean.currentEntity.description}" title="description"/>
+                    <h:outputText value="类别编号"/>
+                    <h:outputText id="bookingkind" value="#{meetingRoomManagedBean.currentEntity.kind}" title="Bookingkind" />
+                    <h:outputText value="排序" />
+                    <h:outputText id="sortid" value="#{meetingRoomManagedBean.currentEntity.sortid}" title="Sortid"/>
+                    <h:outputText value="座位数量"/>
+                    <h:outputText id="seats" value="#{meetingRoomManagedBean.currentEntity.seats}" title="Seats" />
+                    <h:outputText value="备注"/>
+                    <h:outputText id="remark" value="#{meetingRoomManagedBean.currentEntity.remark}" title="Remark" />
+                </p:panelGrid>
+            </p:panel>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

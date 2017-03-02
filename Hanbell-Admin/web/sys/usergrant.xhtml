@@ -25,16 +25,18 @@
                     <p:commandButton id="btnView" value="查看" action="#{userGrantManagedBean.view('usergrantView')}" icon="ui-icon-document"/>
                 </f:facet>
                 <f:facet name="right">
-                    <p:commandButton id="btnEdit" value="编辑" action="#{userGrantManagedBean.edit('usergrantEdit')}" icon="ui-icon-pencil"
-                                     rendered="#{userGrantManagedBean.doEdit}" />
-                    <p:commandButton id="btnDelete" value="删除" actionListener="#{userGrantManagedBean.delete()}" icon="ui-icon-trash"
-                                     rendered="#{userGrantManagedBean.doDel}" update=":formList">
-                        <p:confirm header="系统提示" message="删除吗?" icon="ui-icon-alert" />
-                    </p:commandButton>
-                    <p:commandButton id="btnUnverify" value="还原" actionListener="#{userGrantManagedBean.unverify()}" icon="ui-icon-lock-open"
-                                     rendered="#{userGrantManagedBean.doUnCfm}" update=":formList"/>
-                    <p:commandButton id="btnCreate" value="新增" action="#{userGrantManagedBean.create('usergrantNew')}" icon="ui-icon-plus"
-                                     rendered="false"/>
+                    <p:splitButton id="btnOperate" value="操作" icon="ui-icon-menu">
+                        <p:menuitem id="btnEdit" value="编辑" action="#{userGrantManagedBean.edit('usergrantEdit')}" icon="ui-icon-pencil"
+                                    rendered="#{userGrantManagedBean.doEdit}" />
+                        <p:menuitem id="btnDelete" value="删除" actionListener="#{userGrantManagedBean.delete()}" icon="ui-icon-trash"
+                                    rendered="#{userGrantManagedBean.doDel}" update=":formList">
+                            <p:confirm header="系统提示" message="删除吗?" icon="ui-icon-alert" />
+                        </p:menuitem>
+                        <p:menuitem id="btnUnverify" value="还原" actionListener="#{userGrantManagedBean.unverify()}" icon="ui-icon-lock-open"
+                                    rendered="#{userGrantManagedBean.doUnCfm}" update=":formList"/>
+                        <p:menuitem id="btnCreate" value="新增" action="#{userGrantManagedBean.create('usergrantNew')}" icon="ui-icon-plus"
+                                    process="@this"/>
+                    </p:splitButton>
                     <p:commandButton id="btnReset" value="重置" actionListener="#{userGrantManagedBean.reset()}"  icon="ui-icon-refresh"
                                      update=":formList"/>
                     <p:commandButton id="btnQuery" value="查询" actionListener="#{userGrantManagedBean.query()}"  icon="ui-icon-search"

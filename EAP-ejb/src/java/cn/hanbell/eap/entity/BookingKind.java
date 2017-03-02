@@ -11,9 +11,6 @@ import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -121,6 +118,14 @@ public class BookingKind extends SuperEntity {
     private String remark;
 
     public BookingKind() {
+        this.key1 = "";
+        this.key2 = "";
+        this.key3 = "";
+        this.key4 = "";
+        this.key5 = "";
+        this.key6 = "";
+        this.key7 = "";
+        this.key8 = "";
     }
 
     public String getKind() {
