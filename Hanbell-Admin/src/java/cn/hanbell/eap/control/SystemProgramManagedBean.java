@@ -6,8 +6,10 @@
 package cn.hanbell.eap.control;
 
 import cn.hanbell.eap.ejb.SystemModuleBean;
+import cn.hanbell.eap.ejb.SystemNameBean;
 import cn.hanbell.eap.ejb.SystemProgramBean;
 import cn.hanbell.eap.entity.SystemModule;
+import cn.hanbell.eap.entity.SystemName;
 import cn.hanbell.eap.entity.SystemProgram;
 import cn.hanbell.eap.lazy.SystemProgramModel;
 import cn.hanbell.eap.web.SuperSingleBean;
@@ -25,10 +27,13 @@ import javax.faces.bean.SessionScoped;
 public class SystemProgramManagedBean extends SuperSingleBean<SystemProgram> {
 
     @EJB
+    private SystemNameBean systemNameBean;
+    @EJB
     private SystemModuleBean sysmoduleBean;
     @EJB
     private SystemProgramBean sysprgBean;
 
+    private List<SystemName> systemNameList;
     private List<SystemModule> systemModuleList;
 
     public SystemProgramManagedBean() {
@@ -53,7 +58,8 @@ public class SystemProgramManagedBean extends SuperSingleBean<SystemProgram> {
     public void init() {
         this.superEJB = sysprgBean;
         setModel(new SystemProgramModel(sysprgBean));
-        setSystemModuleList(sysmoduleBean.findAll());
+        systemNameList = systemNameBean.findAll();
+        systemModuleList = sysmoduleBean.findAll();
         super.init();
         if (currentEntity == null) {
             currentEntity = newEntity;
@@ -96,17 +102,17 @@ public class SystemProgramManagedBean extends SuperSingleBean<SystemProgram> {
     }
 
     /**
+     * @return the systemNameList
+     */
+    public List<SystemName> getSystemNameList() {
+        return systemNameList;
+    }
+
+    /**
      * @return the systemModuleList
      */
     public List<SystemModule> getSystemModuleList() {
         return systemModuleList;
-    }
-
-    /**
-     * @param sysmoduleList the systemModuleList to set
-     */
-    public void setSystemModuleList(List<SystemModule> sysmoduleList) {
-        this.systemModuleList = sysmoduleList;
     }
 
 }

@@ -27,6 +27,17 @@ public class MeetingScheduleBean extends SuperEJBForEAP<MeetingSchedule> {
         super(MeetingSchedule.class);
     }
 
+    public MeetingSchedule findByBookingId(String value) {
+        Query query = this.getEntityManager().createNamedQuery("MeetingSchedule.findByBookingId");
+        query.setParameter("bookingid", value);
+        try {
+            Object o = query.getSingleResult();
+            return (MeetingSchedule) o;
+        } catch (Exception ex) {
+            return null;
+        }
+    }
+
     public List<MeetingSchedule> findByKindAndTime(String kind, Date startDate, Date startTime, Date endDate, Date endTime) {
         Query query = this.getEntityManager().createNamedQuery("MeetingSchedule.findByKindAndTime");
         query.setParameter("bookingkind", kind);

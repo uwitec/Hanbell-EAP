@@ -20,11 +20,14 @@
             </p:toolbar>
             <p:panel id="panelHead">
                 <p:panelGrid id="plgHead" columns="4" columnClasses="Widw20,Wid30,Wid20,Wid30" styleClass="plgHead Wid100">
-                     <f:facet name="header">
+                    <f:facet name="header">
                         预约安排－新增
                     </f:facet>
                     <p:outputLabel value="系统" for="sysname" />
-                    <p:inputText id="sysname" value="#{systemProgramManagedBean.newEntity.sysname}" title="sysname" required="true" requiredMessage="系统不能为空."/>
+                    <p:selectOneMenu id="sysname" value="#{systemProgramManagedBean.newEntity.sysname}" title="sysname" required="true" requiredMessage="系统不能为空.">
+                        <f:selectItem itemLabel="Select One" itemValue="" />
+                        <f:selectItems value="#{systemProgramManagedBean.systemNameList}" var="s" itemLabel="#{s.name}" itemValue="#{s.name}"/>
+                    </p:selectOneMenu>
                     <p:outputLabel value="模块" for="moduleid" />
                     <p:selectOneMenu id="moduleid" value="#{systemProgramManagedBean.newEntity.systemModule}" title="Moduleid"
                                      required="true" requiredMessage="所属模块不可空白" converter="systemModuleConverter">

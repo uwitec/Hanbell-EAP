@@ -8,7 +8,6 @@ package cn.hanbell.eap.web;
 import cn.hanbell.eap.control.UserManagedBean;
 import cn.hanbell.eap.ejb.SystemProgramBean;
 import cn.hanbell.eap.entity.SystemGrantPrg;
-import cn.hanbell.eap.entity.SystemProgram;
 import com.lightshell.comm.FormDetailEntity;
 import com.lightshell.comm.FormEntity;
 import com.lightshell.comm.FormMulti3ManagedBean;
@@ -65,11 +64,11 @@ public abstract class FormMulti3Bean<T extends FormEntity, D1 extends FormDetail
     @Override
     public void construct() {
         FacesContext fc = FacesContext.getCurrentInstance();
-        appDataPath = fc.getExternalContext().getInitParameter("cn.hanbell.eap.web.appdatapath");
-        appImgPath = fc.getExternalContext().getInitParameter("cn.hanbell.eap.web.appimgpath");
-        reportPath = fc.getExternalContext().getInitParameter("cn.hanbell.eap.web.reportpath");
+        appDataPath = fc.getExternalContext().getRealPath("/") + fc.getExternalContext().getInitParameter("cn.hanbell.eap.web.appdatapath");
+        appImgPath = fc.getExternalContext().getRealPath("/") + fc.getExternalContext().getInitParameter("cn.hanbell.eap.web.appimgpath");
+        reportPath = fc.getExternalContext().getRealPath("/") + fc.getExternalContext().getInitParameter("cn.hanbell.eap.web.reportpath");
         reportOutputFormat = fc.getExternalContext().getInitParameter("cn.hanbell.eap.web.reportoutputformat");
-        reportOutputPath = fc.getExternalContext().getInitParameter("cn.hanbell.eap.web.reportoutputpath");
+        reportOutputPath = fc.getExternalContext().getRealPath("/") + fc.getExternalContext().getInitParameter("cn.hanbell.eap.web.reportoutputpath");
         reportViewContext = fc.getExternalContext().getInitParameter("cn.hanbell.eap.web.reportviewcontext");
         int beginIndex = fc.getViewRoot().getViewId().lastIndexOf("/") + 1;
         int endIndex = fc.getViewRoot().getViewId().lastIndexOf(".");

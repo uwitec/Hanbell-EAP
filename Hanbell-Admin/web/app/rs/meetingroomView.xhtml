@@ -20,25 +20,89 @@
                                      rendered="#{meetingRoomManagedBean.doCfm}" update="toolbar"/>
                 </f:facet>
             </p:toolbar>
-            <p:panel id="panelHead">
-                <p:panelGrid id="plgHead" columns="4" columnClasses="Wid20,Wid30,Wid20,Wid30" styleClass="plgHead Wid100">
+            <p:panelGrid id="plgHead" columns="4" columnClasses="Wid20,Wid30,Wid20,Wid30" styleClass="plgHead Wid100">
+                <f:facet name="header">
+                    会议室－查看
+                </f:facet>
+                <h:outputText value="会议室编号"/>
+                <h:outputText id="name" value="#{meetingRoomManagedBean.currentEntity.name}" title="name"/>
+                <h:outputText value="名称" />
+                <h:outputText id="description" value="#{meetingRoomManagedBean.currentEntity.description}" title="description"/>
+                <h:outputText value="类别编号"/>
+                <h:outputText id="bookingkind" value="#{meetingRoomManagedBean.currentEntity.kind}" title="Bookingkind" />
+                <h:outputText value="排序" />
+                <h:outputText id="sortid" value="#{meetingRoomManagedBean.currentEntity.sortid}" title="Sortid"/>
+                <h:outputText value="座位数量"/>
+                <h:outputText id="seats" value="#{meetingRoomManagedBean.currentEntity.seats}" title="Seats" />
+                <h:outputText value="备注"/>
+                <h:outputText id="remark" value="#{meetingRoomManagedBean.currentEntity.remark}" title="Remark" />
+            </p:panelGrid>
+            <p:dataTable id="tableList" value="#{meetingRoomManagedBean.detailList}" var="item" styleClass="tableList Mtop10"
+                         selectionMode="single" selection="#{meetingRoomManagedBean.currentDetail}" rowKey="#{item.id}" >
+                <p:ajax event="rowSelect"  update="" oncomplete="" />
+                <p:ajax event="rowUnselect"  update="" oncomplete="" />
+                <f:facet name="header">
+                    预约列表
+                </f:facet>
+                <p:column styleClass="Wid20">
                     <f:facet name="header">
-                        会议室－查看
+                        <h:outputText value="编号"/>
                     </f:facet>
-                    <h:outputText value="会议室编号"/>
-                    <h:outputText id="name" value="#{meetingRoomManagedBean.currentEntity.name}" title="name"/>
-                    <h:outputText value="名称" />
-                    <h:outputText id="description" value="#{meetingRoomManagedBean.currentEntity.description}" title="description"/>
-                    <h:outputText value="类别编号"/>
-                    <h:outputText id="bookingkind" value="#{meetingRoomManagedBean.currentEntity.kind}" title="Bookingkind" />
-                    <h:outputText value="排序" />
-                    <h:outputText id="sortid" value="#{meetingRoomManagedBean.currentEntity.sortid}" title="Sortid"/>
-                    <h:outputText value="座位数量"/>
-                    <h:outputText id="seats" value="#{meetingRoomManagedBean.currentEntity.seats}" title="Seats" />
-                    <h:outputText value="备注"/>
-                    <h:outputText id="remark" value="#{meetingRoomManagedBean.currentEntity.remark}" title="Remark" />
-                </p:panelGrid>
-            </p:panel>
+                    <h:outputText value="#{item.bookingid}"/>
+                </p:column>
+                <p:column styleClass="Wid30">
+                    <f:facet name="header">
+                        <h:outputText value="说明"/>
+                    </f:facet>
+                    <h:outputText value="#{item.subject}"/>
+                </p:column>
+                <p:column  styleClass="Wid10">
+                    <f:facet name="header">
+                        <h:outputText value="开始日期"/>
+                    </f:facet>
+                    <h:outputText value="#{item.startDate}">
+                        <f:convertDateTime pattern="yyyy/MM/dd" />
+                    </h:outputText>
+                </p:column>
+                <p:column styleClass="Wid10">
+                    <f:facet name="header">
+                        <h:outputText value="开始时间"/>
+                    </f:facet>
+                    <h:outputText value="#{item.startTime}">
+                        <f:convertDateTime pattern="HH:mm" />
+                    </h:outputText>
+                </p:column>
+                <p:column styleClass="Wid10">
+                    <f:facet name="header">
+                        <h:outputText value="结束时间"/>
+                    </f:facet>
+                    <h:outputText value="#{item.endTime}">
+                        <f:convertDateTime pattern="HH:mm" />
+                    </h:outputText>
+                </p:column>
+                <p:column styleClass="Wid10">
+                    <f:facet name="header">
+                        <h:outputText value="分钟"/>
+                    </f:facet>
+                    <h:outputText value="#{item.minutes}"/>
+                </p:column>
+                <p:column styleClass="Wid10">
+                    <f:facet name="header">
+                        <h:outputText value="操作"/>
+                    </f:facet>
+                    <p:commandButton id="btnDeleteDetail" value="删除" actionListener="#{meetingRoomManagedBean.deleteDetail(item)}" 
+                                     process="@this" update="tableList">
+                        <p:confirm header="系统提示" message="删除吗?" icon="ui-icon-alert" />
+                    </p:commandButton>
+                </p:column>
+            </p:dataTable>
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+            </p:confirmDialog>
+            <p:blockUI id="blockUI" block="formOne" trigger="">
+                <p:graphicImage name="images/ajaxloadingbar.gif" library="ultima-layout"/>
+            </p:blockUI>
         </h:form>
     </ui:define>
 

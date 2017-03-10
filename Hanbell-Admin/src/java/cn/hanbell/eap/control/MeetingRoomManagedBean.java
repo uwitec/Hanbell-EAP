@@ -6,8 +6,11 @@
 package cn.hanbell.eap.control;
 
 import cn.hanbell.eap.ejb.MeetingRoomBean;
+import cn.hanbell.eap.ejb.MeetingScheduleBean;
 import cn.hanbell.eap.entity.MeetingRoom;
+import cn.hanbell.eap.entity.MeetingSchedule;
 import cn.hanbell.eap.lazy.MeetingRoomModel;
+import cn.hanbell.eap.web.SuperMultiBean;
 import cn.hanbell.eap.web.SuperSingleBean;
 import java.util.HashMap;
 import java.util.Map;
@@ -21,13 +24,27 @@ import javax.faces.bean.SessionScoped;
  */
 @ManagedBean(name = "meetingRoomManagedBean")
 @SessionScoped
-public class MeetingRoomManagedBean extends SuperSingleBean<MeetingRoom> {
+public class MeetingRoomManagedBean extends SuperMultiBean<MeetingRoom, MeetingSchedule> {
 
     @EJB
     private MeetingRoomBean meetingRoomBean;
 
+    @EJB
+    private MeetingScheduleBean meetingScheduleBean;
+
     public MeetingRoomManagedBean() {
-        super(MeetingRoom.class);
+        super(MeetingRoom.class, MeetingSchedule.class);
+    }
+
+    @Override
+    public void deleteDetail(MeetingSchedule entity) {
+        if (currentEntity != null && entity != null) {
+            this.detailEJB.delete(entity);
+            this.detailList = this.detailEJB.findByPId(currentEntity.getId());
+            this.showInfoMsg("Info", "删除成功");
+        } else {
+            this.showErrorMsg("Error", "没有可删除资料");
+        }
     }
 
     @Override
@@ -54,6 +71,7 @@ public class MeetingRoomManagedBean extends SuperSingleBean<MeetingRoom> {
     @Override
     public void init() {
         superEJB = this.meetingRoomBean;
+        detailEJB = this.meetingScheduleBean;
         setModel(new MeetingRoomModel(meetingRoomBean));
         model.getSortFields().put("status", "ASC");
         model.getSortFields().put("sortid", "ASC");

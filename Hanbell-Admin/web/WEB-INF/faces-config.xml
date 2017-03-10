@@ -256,40 +256,21 @@
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
-        <description>预约类别</description>
-        <from-view-id>/app/rs/bookingkind.xhtml</from-view-id>
+        <description>微信平台一级导航</description>
+        <from-view-id>/*</from-view-id>
         <navigation-case>
-            <from-outcome>bookingkindNew</from-outcome>
-            <to-view-id>/app/rs/bookingkindNew.xhtml</to-view-id>
+            <from-outcome>category</from-outcome>
+            <to-view-id>/app/wx/category.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
-            <from-outcome>bookingkindEdit</from-outcome>
-            <to-view-id>/app/rs/bookingkindEdit.xhtml</to-view-id>
+            <from-outcome>gallery</from-outcome>
+            <to-view-id>/app/wx/gallery.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
-            <from-outcome>bookingkindView</from-outcome>
-            <to-view-id>/app/rs/bookingkindView.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-    </navigation-rule>
-    <navigation-rule>
-        <description>预约登记</description>
-        <from-view-id>/app/rs/booking.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>bookingNew</from-outcome>
-            <to-view-id>/app/rs/bookingNew.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>bookingEdit</from-outcome>
-            <to-view-id>/app/rs/bookingEdit.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>bookingView</from-outcome>
-            <to-view-id>/app/rs/bookingView.xhtml</to-view-id>
+            <from-outcome>news</from-outcome>
+            <to-view-id>/app/wx/news.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
     </navigation-rule>
@@ -304,13 +285,6 @@
         <navigation-case>
             <from-outcome>sysuserSelect</from-outcome>
             <to-view-id>/app/df/sysuserSelect.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-    </navigation-rule>
-    <navigation-rule>
-        <navigation-case>
-            <from-outcome>test</from-outcome>
-            <to-view-id>/app/rs/meetingroom.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
     </navigation-rule>

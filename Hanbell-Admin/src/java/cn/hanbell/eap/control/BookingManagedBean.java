@@ -7,8 +7,10 @@ package cn.hanbell.eap.control;
 
 import cn.hanbell.eap.ejb.BookingBean;
 import cn.hanbell.eap.ejb.BookingDetailBean;
+import cn.hanbell.eap.ejb.MeetingScheduleBean;
 import cn.hanbell.eap.entity.Booking;
 import cn.hanbell.eap.entity.BookingDetail;
+import cn.hanbell.eap.entity.MeetingSchedule;
 import cn.hanbell.eap.lazy.BookingModel;
 import cn.hanbell.eap.web.FormMultiBean;
 import javax.ejb.EJB;
@@ -29,6 +31,9 @@ public class BookingManagedBean extends FormMultiBean<Booking, BookingDetail> {
     @EJB
     private BookingDetailBean bookingDetailBean;
 
+    @EJB
+    private MeetingScheduleBean meetingScheduleBean;
+
     private String queryKind;
 
     public BookingManagedBean() {
@@ -45,6 +50,17 @@ public class BookingManagedBean extends FormMultiBean<Booking, BookingDetail> {
     protected boolean doAfterPersist() throws Exception {
         this.detailList.clear();
         return super.doAfterPersist();
+    }
+
+    @Override
+    protected boolean doBeforeDelete(Booking entity) throws Exception {
+        if (entity != null) {
+            MeetingSchedule ms = meetingScheduleBean.findByBookingId(entity.getFormid());
+            if (ms != null) {
+                meetingScheduleBean.delete(ms);
+            }
+        }
+        return super.doBeforeDelete(entity);
     }
 
     @Override
