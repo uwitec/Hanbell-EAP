@@ -17,7 +17,7 @@ import javax.faces.bean.SessionScoped;
  *
  * @author C0160
  */
-@ManagedBean(name="systemNameManagedBean")
+@ManagedBean(name = "systemNameManagedBean")
 @SessionScoped
 public class SystemNameManagedBean extends SuperSingleBean<SystemName> {
 
@@ -42,6 +42,30 @@ public class SystemNameManagedBean extends SuperSingleBean<SystemName> {
         this.superEJB = systemNameBean;
         setModel(new SystemNameModel(systemNameBean));
         super.init();
+    }
+
+    @Override
+    protected void setToolBar() {
+        if (currentEntity != null && currentEntity.getStatus() != null) {
+            switch (currentEntity.getStatus()) {
+                case "V":
+                    this.doEdit = false;
+                    this.doDel = false;
+                    this.doCfm = false;
+                    this.doUnCfm = true;
+                    break;
+                default:
+                    this.doEdit = true;
+                    this.doDel = true;
+                    this.doCfm = true;
+                    this.doUnCfm = false;
+            }
+        } else {
+            this.doEdit = false;
+            this.doDel = false;
+            this.doCfm = false;
+            this.doUnCfm = false;
+        }
     }
 
 }

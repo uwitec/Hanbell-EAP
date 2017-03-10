@@ -9,6 +9,7 @@ import cn.hanbell.eap.comm.SuperEJBForEAP;
 import cn.hanbell.eap.entity.Booking;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
+import javax.inject.Named;
 
 /**
  *
@@ -16,6 +17,7 @@ import javax.ejb.LocalBean;
  */
 @Stateless
 @LocalBean
+@Named
 public class BookingBean extends SuperEJBForEAP<Booking> {
 
     public BookingBean() {

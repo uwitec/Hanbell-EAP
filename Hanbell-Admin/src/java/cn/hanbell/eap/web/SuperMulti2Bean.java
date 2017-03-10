@@ -61,11 +61,11 @@ public abstract class SuperMulti2Bean<T extends SuperEntity, D1 extends SuperDet
     @Override
     public void construct() {
         FacesContext fc = FacesContext.getCurrentInstance();
-        appDataPath = fc.getExternalContext().getInitParameter("cn.hanbell.eap.web.appdatapath");
-        appImgPath = fc.getExternalContext().getInitParameter("cn.hanbell.eap.web.appimgpath");
-        reportPath = fc.getExternalContext().getInitParameter("cn.hanbell.eap.web.reportpath");
+        appDataPath = fc.getExternalContext().getRealPath("/") + fc.getExternalContext().getInitParameter("cn.hanbell.eap.web.appdatapath");
+        appImgPath = fc.getExternalContext().getRealPath("/") + fc.getExternalContext().getInitParameter("cn.hanbell.eap.web.appimgpath");
+        reportPath = fc.getExternalContext().getRealPath("/") + fc.getExternalContext().getInitParameter("cn.hanbell.eap.web.reportpath");
         reportOutputFormat = fc.getExternalContext().getInitParameter("cn.hanbell.eap.web.reportoutputformat");
-        reportOutputPath = fc.getExternalContext().getInitParameter("cn.hanbell.eap.web.reportoutputpath");
+        reportOutputPath = fc.getExternalContext().getRealPath("/") + fc.getExternalContext().getInitParameter("cn.hanbell.eap.web.reportoutputpath");
         reportViewContext = fc.getExternalContext().getInitParameter("cn.hanbell.eap.web.reportviewcontext");
         int beginIndex = fc.getViewRoot().getViewId().lastIndexOf("/") + 1;
         int endIndex = fc.getViewRoot().getViewId().lastIndexOf(".");

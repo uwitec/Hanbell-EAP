@@ -17,7 +17,7 @@ import javax.faces.bean.SessionScoped;
  *
  * @author kevindong
  */
-@ManagedBean(name="systemModuleManagedBean")
+@ManagedBean(name = "systemModuleManagedBean")
 @SessionScoped
 public class SystemModuleManagedBean extends SuperSingleBean<SystemModule> {
 
@@ -45,6 +45,41 @@ public class SystemModuleManagedBean extends SuperSingleBean<SystemModule> {
             setCurrentEntity(getNewEntity());
         }
         super.init();
+    }
+
+    @Override
+    public void query() {
+        this.model.getFilterFields().clear();
+        if (this.queryName != null && !"".equals(this.queryName)) {
+            this.model.getFilterFields().put("name", this.queryName);
+        }
+        if (this.queryState != null && !"ALL".equals(this.queryState)) {
+            this.model.getFilterFields().put("status", this.queryState);
+        }
+    }
+
+    @Override
+    protected void setToolBar() {
+        if (currentEntity != null && currentEntity.getStatus() != null) {
+            switch (currentEntity.getStatus()) {
+                case "V":
+                    this.doEdit = false;
+                    this.doDel = false;
+                    this.doCfm = false;
+                    this.doUnCfm = true;
+                    break;
+                default:
+                    this.doEdit = true;
+                    this.doDel = true;
+                    this.doCfm = true;
+                    this.doUnCfm = false;
+            }
+        } else {
+            this.doEdit = false;
+            this.doDel = false;
+            this.doCfm = false;
+            this.doUnCfm = false;
+        }
     }
 
 }

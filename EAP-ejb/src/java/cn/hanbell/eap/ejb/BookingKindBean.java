@@ -9,6 +9,7 @@ import cn.hanbell.eap.comm.SuperEJBForEAP;
 import cn.hanbell.eap.entity.BookingKind;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
+import javax.persistence.Query;
 
 /**
  *
@@ -20,6 +21,17 @@ public class BookingKindBean extends SuperEJBForEAP<BookingKind> {
 
     public BookingKindBean() {
         super(BookingKind.class);
+    }
+
+    public BookingKind findByKind(String kind) {
+        Query query = this.getEntityManager().createNamedQuery("BookingKind.findByKind");
+        query.setParameter("kind", kind);
+        try {
+            Object o = query.getSingleResult();
+            return (BookingKind) o;
+        } catch (Exception ex) {
+            return null;
+        }
     }
 
 }

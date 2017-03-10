@@ -78,4 +78,21 @@ public class BookingKindManagedBean extends SuperMultiBean<BookingKind, BookingS
         super.init();
     }
 
+    @Override
+    public void query() {
+        this.model.getFilterFields().clear();
+        if (this.queryName != null && !"".equals(this.queryName)) {
+            this.model.getFilterFields().put("name", this.queryName);
+        }
+        if (this.queryState != null && !"ALL".equals(this.queryState)) {
+            this.model.getFilterFields().put("status", this.queryState);
+        }
+        if (this.queryDateBegin != null) {
+            this.model.getFilterFields().put("startDateBegin", this.queryDateBegin);
+        }
+        if (this.queryDateEnd != null) {
+            this.model.getFilterFields().put("endDateEnd", this.queryDateEnd);
+        }
+    }
+
 }

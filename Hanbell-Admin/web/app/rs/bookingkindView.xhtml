@@ -18,6 +18,8 @@
                                      rendered="#{bookingKindManagedBean.hasNext}" process="@this" update="formOne" />
                 </f:facet>
                 <f:facet name="right">
+                    <p:commandButton id="btnPrint" value="打印" action="#{bookingKindManagedBean.print()}" icon="ui-icon-print"
+                                     rendered="#{bookingKindManagedBean.doPrt}"/>
                     <p:commandButton id="btnVerify" value="审核" action="#{bookingKindManagedBean.verify()}" icon="ui-icon-check"
                                      rendered="#{bookingKindManagedBean.doCfm}" update="toolbar"/>
                 </f:facet>

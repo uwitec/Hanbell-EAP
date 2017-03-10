@@ -6,8 +6,10 @@
 package cn.hanbell.eap.control;
 
 import cn.hanbell.eap.ejb.SystemModuleBean;
+import cn.hanbell.eap.ejb.SystemNameBean;
 import cn.hanbell.eap.ejb.SystemProgramBean;
 import cn.hanbell.eap.entity.SystemModule;
+import cn.hanbell.eap.entity.SystemName;
 import cn.hanbell.eap.entity.SystemProgram;
 import cn.hanbell.eap.lazy.SystemProgramModel;
 import cn.hanbell.eap.web.SuperSingleBean;
@@ -20,29 +22,22 @@ import javax.faces.bean.SessionScoped;
  *
  * @author kevindong
  */
-@ManagedBean(name="systemProgramManagedBean")
+@ManagedBean(name = "systemProgramManagedBean")
 @SessionScoped
 public class SystemProgramManagedBean extends SuperSingleBean<SystemProgram> {
 
+    @EJB
+    private SystemNameBean systemNameBean;
     @EJB
     private SystemModuleBean sysmoduleBean;
     @EJB
     private SystemProgramBean sysprgBean;
 
+    private List<SystemName> systemNameList;
     private List<SystemModule> systemModuleList;
 
     public SystemProgramManagedBean() {
         super(SystemProgram.class);
-    }
-
-    @Override
-    protected void buildJsonObject() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    protected void buildJsonArray() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -63,21 +58,54 @@ public class SystemProgramManagedBean extends SuperSingleBean<SystemProgram> {
     public void init() {
         this.superEJB = sysprgBean;
         setModel(new SystemProgramModel(sysprgBean));
-        setSystemModuleList(sysmoduleBean.findAll());
+        systemNameList = systemNameBean.findAll();
+        systemModuleList = sysmoduleBean.findAll();
+        super.init();
         if (currentEntity == null) {
             currentEntity = newEntity;
         }
-        super.init();
     }
 
     @Override
-    public void pull() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void query() {
+        this.model.getFilterFields().clear();
+        if (this.queryName != null && !"".equals(this.queryName)) {
+            this.model.getFilterFields().put("name", this.queryName);
+        }
+        if (this.queryFormId != null && !"".equals(this.queryFormId)) {
+            this.model.getFilterFields().put("api", this.queryFormId);
+        }
     }
 
     @Override
-    public void setToolBar() {
+    protected void setToolBar() {
+        if (currentEntity != null && currentEntity.getStatus() != null) {
+            switch (currentEntity.getStatus()) {
+                case "V":
+                    this.doEdit = false;
+                    this.doDel = false;
+                    this.doCfm = false;
+                    this.doUnCfm = true;
+                    break;
+                default:
+                    this.doEdit = true;
+                    this.doDel = true;
+                    this.doCfm = true;
+                    this.doUnCfm = false;
+            }
+        } else {
+            this.doEdit = false;
+            this.doDel = false;
+            this.doCfm = false;
+            this.doUnCfm = false;
+        }
+    }
 
+    /**
+     * @return the systemNameList
+     */
+    public List<SystemName> getSystemNameList() {
+        return systemNameList;
     }
 
     /**
@@ -85,13 +113,6 @@ public class SystemProgramManagedBean extends SuperSingleBean<SystemProgram> {
      */
     public List<SystemModule> getSystemModuleList() {
         return systemModuleList;
-    }
-
-    /**
-     * @param sysmoduleList the systemModuleList to set
-     */
-    public void setSystemModuleList(List<SystemModule> sysmoduleList) {
-        this.systemModuleList = sysmoduleList;
     }
 
 }

@@ -1,12 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <context-param>
+        <param-name>cn.hanbell.wx.web.appdatapath</param-name>
+        <param-value>D:\Java\glassfish4\glassfish\domains\domain1\applications\Hanbell-WEI\app\data</param-value>
+    </context-param>
+    <context-param>
+        <param-name>cn.hanbell.wx.web.appimgpath</param-name>
+        <param-value>D:\Java\glassfish4\glassfish\domains\domain1\applications\Hanbell-WEI\app\img</param-value>
+    </context-param>
+    <context-param>
         <param-name>cn.hanbell.eap.web.appdatapath</param-name>
-        <param-value>resources//data</param-value>
+        <param-value>resources//app//data//</param-value>
     </context-param>
     <context-param>
         <param-name>cn.hanbell.eap.web.appimgpath</param-name>
-        <param-value>resources//upload//img</param-value>
+        <param-value>resources//app//img//</param-value>
     </context-param>
     <context-param>
         <param-name>cn.hanbell.eap.web.reportpath</param-name>
@@ -33,6 +41,10 @@
         <param-value>Production</param-value>
     </context-param>
     <context-param>
+        <param-name>javax.faces.DATETIMECONVERTER_DEFAULT_TIMEZONE_IS_SYSTEM_TIMEZONE</param-name>
+        <param-value>true</param-value>
+    </context-param>
+    <context-param>
         <param-name>primefaces.THEME</param-name>
         <param-value>ultima-blue</param-value>
     </context-param>
@@ -50,14 +62,15 @@
     <servlet>
         <servlet-name>Faces Servlet</servlet-name>
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
-        <url-pattern>*.jsf</url-pattern>
+        <url-pattern>*.xhtml</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
-        <url-pattern>*.xhtml</url-pattern>
+        <url-pattern>*.jsf</url-pattern>
     </servlet-mapping>
     <mime-mapping>
         <extension>ttf</extension>

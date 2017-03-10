@@ -28,6 +28,8 @@ public class ApplicationConfig extends Application {
      * out calling this method in getClasses().
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
+        resources.add(cn.hanbell.eap.jrs.BookingFacadeREST.class);
+        resources.add(cn.hanbell.eap.jrs.BookingKindFacadeREST.class);
         resources.add(cn.hanbell.erp.jrs.ArmhadFacadeREST.class);
         resources.add(cn.hanbell.erp.jrs.ArmhadSumFacadeREST.class);
         resources.add(cn.hanbell.erp.jrs.CdrcusFacadeREST.class);

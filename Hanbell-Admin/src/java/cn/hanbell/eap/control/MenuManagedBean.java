@@ -10,7 +10,6 @@ import cn.hanbell.eap.ejb.SystemGrantPrgBean;
 import cn.hanbell.eap.ejb.SystemRoleDetailBean;
 import cn.hanbell.eap.entity.SystemGrantModule;
 import cn.hanbell.eap.entity.SystemGrantPrg;
-import cn.hanbell.eap.entity.SystemProgram;
 import cn.hanbell.eap.entity.SystemRoleDetail;
 import java.io.Serializable;
 import java.util.ArrayList;

@@ -25,16 +25,18 @@
                     <p:commandButton id="btnView" value="查看" action="#{systemRoleManagedBean.view('systemroleView')}" icon="ui-icon-document"/>
                 </f:facet>
                 <f:facet name="right">
-                    <p:commandButton id="btnEdit" value="编辑" action="#{systemRoleManagedBean.edit('systemroleEdit')}" icon="ui-icon-pencil"
-                                     rendered="#{systemRoleManagedBean.doEdit}" />
-                    <p:commandButton id="btnDelete" value="删除" actionListener="#{systemRoleManagedBean.delete()}" icon="ui-icon-trash"
-                                     rendered="#{systemRoleManagedBean.doDel}" update=":formList">
-                        <p:confirm header="系统提示" message="删除吗?" icon="ui-icon-alert" />
-                    </p:commandButton>
-                    <p:commandButton id="btnUnverify" value="还原" actionListener="#{systemRoleManagedBean.unverify()}" icon="ui-icon-lock-open"
-                                     rendered="#{systemRoleManagedBean.doUnCfm}" update=":formList"/>
-                    <p:commandButton id="btnCreate" value="新增" action="#{systemRoleManagedBean.create('systemroleNew')}" icon="ui-icon-plus"
-                                     rendered="true"/>
+                    <p:splitButton id="btnOperate" value="操作" icon="ui-icon-menu">
+                        <p:menuitem id="btnEdit" value="编辑" action="#{systemRoleManagedBean.edit('systemroleEdit')}" icon="ui-icon-pencil"
+                                    rendered="#{systemRoleManagedBean.doEdit}" />
+                        <p:menuitem id="btnDelete" value="删除" actionListener="#{systemRoleManagedBean.delete()}" icon="ui-icon-trash"
+                                    rendered="#{systemRoleManagedBean.doDel}" update=":formList">
+                            <p:confirm header="系统提示" message="删除吗?" icon="ui-icon-alert" />
+                        </p:menuitem>
+                        <p:menuitem id="btnUnverify" value="还原" actionListener="#{systemRoleManagedBean.unverify()}" icon="ui-icon-lock-open"
+                                    rendered="#{systemRoleManagedBean.doUnCfm}" update=":formList"/>
+                        <p:menuitem id="btnCreate" value="新增" action="#{systemRoleManagedBean.create('systemroleNew')}" icon="ui-icon-plus"
+                                    rendered="true"/>
+                    </p:splitButton>
                     <p:commandButton id="btnReset" value="重置" actionListener="#{systemRoleManagedBean.reset()}"  icon="ui-icon-refresh"
                                      update=":formList"/>
                     <p:commandButton id="btnQuery" value="查询" actionListener="#{systemRoleManagedBean.query()}"  icon="ui-icon-search"

@@ -13,10 +13,10 @@
                 <f:facet name="header">
                     查询条件
                 </f:facet>
-                <h:outputLabel value="预约编号" for="formid" />
-                <p:inputText id="formid" value="#{bookingKindManagedBean.queryFormId}" title="编号" />
-                <h:outputLabel value="审核状态" for="state" />
-                <p:selectOneMenu id="state" value="#{bookingKindManagedBean.queryState}" title="状态" >
+                <h:outputLabel value="预约名称" for="queryName" />
+                <p:inputText id="queryName" value="#{bookingKindManagedBean.queryName}" title="名称" />
+                <h:outputLabel value="审核状态" for="queryState" />
+                <p:selectOneMenu id="queryState" value="#{bookingKindManagedBean.queryState}" title="状态" >
                     <f:selectItem itemLabel="全部" itemValue="ALL"/>
                     <f:selectItem itemLabel="未审核" itemValue="N"/>
                     <f:selectItem itemLabel="已审核" itemValue="V"/>
@@ -33,16 +33,18 @@
                     <p:commandButton id="btnView" value="查看" action="#{bookingKindManagedBean.view('bookingkindView')}" icon="ui-icon-document"/>
                 </f:facet>
                 <f:facet name="right">
-                    <p:commandButton id="btnEdit" value="编辑" action="#{bookingKindManagedBean.edit('bookingkindEdit')}" icon="ui-icon-pencil"
-                                     rendered="#{bookingKindManagedBean.doEdit}"/>
-                    <p:commandButton id="btnDelete" value="删除" actionListener="#{bookingKindManagedBean.delete()}" icon="ui-icon-trash"
-                                     rendered="#{bookingKindManagedBean.doDel}" update=":formList">
-                        <p:confirm header="系统提示" message="删除吗?" icon="ui-icon-alert" />
-                    </p:commandButton>
-                    <p:commandButton id="btnUnverify" value="取消" actionListener="#{bookingKindManagedBean.unverify()}" icon="ui-icon-lock-open"
-                                     rendered="#{bookingKindManagedBean.doUnCfm}"  update=":formList"/>
-                    <p:commandButton id="btnCreate" value="新增" action="#{bookingKindManagedBean.create('bookingkindNew')}" icon="ui-icon-plus"
-                                     rendered="#{bookingKindManagedBean.doAdd}"/>
+                    <p:splitButton id="btnOperate" value="操作" icon="ui-icon-menu">
+                        <p:menuitem id="btnEdit" value="编辑" action="#{bookingKindManagedBean.edit('bookingkindEdit')}" icon="ui-icon-pencil"
+                                    rendered="#{bookingKindManagedBean.doEdit}"/>
+                        <p:menuitem id="btnDelete" value="删除" actionListener="#{bookingKindManagedBean.delete()}" icon="ui-icon-trash"
+                                    rendered="#{bookingKindManagedBean.doDel}" update=":formList">
+                            <p:confirm header="系统提示" message="删除吗?" icon="ui-icon-alert" />
+                        </p:menuitem>
+                        <p:menuitem id="btnUnverify" value="取消" actionListener="#{bookingKindManagedBean.unverify()}" icon="ui-icon-lock-open"
+                                    rendered="#{bookingKindManagedBean.doUnCfm}"  update=":formList"/>
+                        <p:menuitem id="btnCreate" value="新增" action="#{bookingKindManagedBean.create('bookingkindNew')}" icon="ui-icon-plus"
+                                    rendered="#{bookingKindManagedBean.doAdd}" process="@this"/>
+                    </p:splitButton>
                     <p:commandButton id="btnReset" value="重置" actionListener="#{bookingKindManagedBean.reset()}" icon="ui-icon-refresh"
                                      update=":formList"/>
                     <p:commandButton id="btnQuery" value="查询" actionListener="#{bookingKindManagedBean.query()}" icon="ui-icon-search"
@@ -115,6 +117,9 @@
                 <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
                 <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
             </p:confirmDialog>
+            <p:blockUI id="blockUI" block="formList" trigger="btnUnverify">
+                <p:graphicImage name="images/ajaxloadingbar.gif" library="ultima-layout"/>
+            </p:blockUI>
         </h:form>
     </ui:define>
 
