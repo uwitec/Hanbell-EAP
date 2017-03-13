@@ -12,6 +12,7 @@ import cn.hanbell.erp.ejb.InvmasBean;
 import cn.hanbell.erp.ejb.PurhaskBean;
 import cn.hanbell.erp.ejb.PurvdrBean;
 import cn.hanbell.oa.ejb.HZCW028Bean;
+import cn.hanbell.oa.ejb.HZCW033Bean;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -49,6 +50,8 @@ public class SHBERPWebService {
     private PurhaskBean purhaskBean;
     @EJB
     private HZCW028Bean hzcw028Bean;
+    @EJB
+    private HZCW033Bean hzcw033Bean;
 
     @WebMethod(operationName = "hello")
     public String hello(@WebParam(name = "name") String txt) {
@@ -343,6 +346,36 @@ public class SHBERPWebService {
         Boolean ret = false;
         try {
             ret = hzcw028Bean.rollbackCRMPORMY(psn);
+        } catch (Exception ex) {
+            Logger.getLogger(SHBERPWebService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (ret) {
+            return "200";
+        } else {
+            return "404";
+        }
+    }
+
+    @WebMethod(operationName = "updateCRMPORMYByOAJZGHD")
+    public String updateCRMPORMYByOAJZGHD(@WebParam(name = "psn") String psn) {
+        Boolean ret = false;
+        try {
+            ret = hzcw033Bean.updateCRMPORMY(psn);
+        } catch (Exception ex) {
+            Logger.getLogger(SHBERPWebService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (ret) {
+            return "200";
+        } else {
+            return "404";
+        }
+    }
+
+    @WebMethod(operationName = "rollbackCRMPORMYByOAJZGHD")
+    public String rollbackCRMPORMYByOAJZGHD(@WebParam(name = "psn") String psn) {
+        Boolean ret = false;
+        try {
+            ret = hzcw033Bean.rollbackCRMPORMY(psn);
         } catch (Exception ex) {
             Logger.getLogger(SHBERPWebService.class.getName()).log(Level.SEVERE, null, ex);
         }

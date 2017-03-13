@@ -1006,5 +1006,9 @@ public class Invmas implements Serializable {
     public String toString() {
         return "cn.hanbell.erp.comm.Invmas[ itnbr=" + itnbr + " ]";
     }
+
+    public void setPocode(String string) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }
