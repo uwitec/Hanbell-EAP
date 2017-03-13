@@ -77,6 +77,20 @@ public class PurhaskBean extends SuperEJBForERP<Purhask> {
 
         try {
             HKCG007 q = hkcg007Bean.findByPSN(psn);
+            if (q == null) {
+                return false;
+            }
+            List<HKCG007purDetail> details = hkcg007purDetailBean.findByFSN(q.getFormSerialNumber());
+            for (HKCG007purDetail detail : details) {
+                if (!"9".equals(detail.getItnbr())) {
+                    invmasBean.setCompany(q.getFacno());
+                    Invmas m = invmasBean.findByItnbr(detail.getItnbr());
+                    if (m == null) {
+                        throw new NullPointerException();
+                    }
+                }
+            }
+
             facno = q.getFacno();
             //判断ERP中是否已经抛转
             this.setCompany(q.getFacno());
@@ -111,9 +125,9 @@ public class PurhaskBean extends SuperEJBForERP<Purhask> {
             } else {
                 p.setApplyno("N");
             }
+            persist(p);
 
             //表身明细
-            List<HKCG007purDetail> details = hkcg007purDetailBean.findByFSN(q.getFormSerialNumber());
             for (int i = 0; i < details.size(); i++) {
                 HKCG007purDetail detail = details.get(i);
                 Purdask pd = new Purdask();
@@ -136,9 +150,6 @@ public class PurhaskBean extends SuperEJBForERP<Purhask> {
                 if (!"9".equals(detail.getItnbr())) {
                     invmasBean.setCompany(q.getFacno());
                     Invmas m = invmasBean.findByItnbr(detail.getItnbr());
-                    if (m == null) {
-                        throw new NullPointerException();
-                    }
                     pd.setPurtrtype(m.getPurtrtype());                                       //品号验收类别
                     String purjudco = m.getJudco();
                     pd.setJudco(purjudco.substring(2, 3) + purjudco.substring(3, 4));
@@ -213,8 +224,6 @@ public class PurhaskBean extends SuperEJBForERP<Purhask> {
                 }
 
             }
-            persist(p);
-            getEntityManager().flush();
 
             return true;
         } catch (Exception ex) {
