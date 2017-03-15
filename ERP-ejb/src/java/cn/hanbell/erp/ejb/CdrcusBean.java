@@ -160,11 +160,14 @@ public class CdrcusBean extends SuperEJBForERP<Cdrcus> {
         cdrcus.setDecode(oa.getDecode().charAt(0));
         cdrcus.setCuskind(oa.getGg011());
         cdrcus.setDmcode(oa.getDmcode().charAt(0));
-        if (oa.getGg036().length() <= 40) {
+       if (oa.getGg036().length() <= 40) {
             cdrcus.setAddress1(oa.getGg036());
         } else if (oa.getGg036().length() > 40) {
-            cdrcus.setAddress1(oa.getGg036().substring(0, 40));
-            cdrcus.setAddress2(oa.getGg036().substring(40));
+            String str = oa.getGg036();
+            String str1 = oa.getGg036().substring(0, 40);
+            String[] split = str.split(str1);
+            cdrcus.setAddress1(str1);
+            cdrcus.setAddress2(split[1]);
         }
         cdrcus.setUniform(oa.getGg030());
         cdrcus.setBilnum(oa.getGg109());
