@@ -57,7 +57,7 @@ public class HZCW033Bean extends SuperEJBForEFGP<HZCW033> {
             pormyBean.getEntityManager().flush();
             return true;
         } catch (Exception ex) {
-            Logger.getLogger(HZCW028Bean.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(HZCW033Bean.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
 
@@ -95,7 +95,7 @@ public class HZCW033Bean extends SuperEJBForEFGP<HZCW033> {
             pormyBean.getEntityManager().flush();
             return true;
         } catch (Exception ex) {
-            Logger.getLogger(HZCW028Bean.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(HZCW033Bean.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
 

@@ -339,7 +339,7 @@ public class Invmas implements Serializable {
     private String cstmon;
 //    @JoinColumn(name = "itcls", referencedColumnName = "itcls")
 //    @ManyToOne
-     @Size(min = 1, max = 4)
+    @Size(min = 1, max = 4)
     @Column(name = "itcls")
     private String itcls;
 
@@ -1007,8 +1007,4 @@ public class Invmas implements Serializable {
         return "cn.hanbell.erp.comm.Invmas[ itnbr=" + itnbr + " ]";
     }
 
-    public void setPocode(String string) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
 }
