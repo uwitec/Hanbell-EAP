@@ -104,7 +104,7 @@ public class InvmasBean extends SuperEJBForERP<Invmas> {
                     m.setJudco("41111");
                     m.setRate2(BigDecimal.valueOf(Double.parseDouble(detail.getRate2())));       //设置换算率                  
                 }
-                m.setPocode("");
+                m.setPocode(' ');
                 m.setMorpcode(detail.getMorpcode());                            //设置自制采购码              
                 m.setGroup1(detail.getGroup1());                                //设置分类码（一） 
                 m.setGroup2(detail.getGroup2());                                //设置分类码（二） 
