@@ -11,26 +11,16 @@ import cn.hanbell.wei.ejb.NewsDetailBean;
 import cn.hanbell.wei.entity.News;
 import cn.hanbell.wei.entity.NewsDetail;
 import cn.hanbell.wei.lazy.NewsModel;
-import com.lightshell.comm.BaseLib;
-import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ejb.EJB;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObjectBuilder;
-import javax.json.JsonStructure;
-import javax.servlet.http.HttpServletResponse;
-
 import org.primefaces.event.FileUploadEvent;
-import org.primefaces.model.UploadedFile;
 
 /**
  *
