@@ -9,15 +9,11 @@ import cn.hanbell.eap.web.SuperSingleBean;
 import cn.hanbell.wei.ejb.CategoryBean;
 import cn.hanbell.wei.entity.Category;
 import cn.hanbell.wei.lazy.CategoryModel;
-import java.io.IOException;
 import javax.ejb.EJB;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.json.JsonArrayBuilder;
-import javax.servlet.http.HttpServletResponse;
-import org.primefaces.event.FileUploadEvent;
 
 /**
  *
