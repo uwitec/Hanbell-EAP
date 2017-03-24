@@ -18,28 +18,26 @@
                                      process="@this,plgHead" update="plgHead"/>
                 </f:facet>
             </p:toolbar>
-            <p:panel id="panelHead">
-                <p:panelGrid id="plgHead" columns="4" columnClasses="Wid20,Wid30,Wid20,Wid30" styleClass="plgHead Wid100">
-                    <f:facet name="header">
-                        会议室－新增
-                    </f:facet>
-                    <p:outputLabel value="会议室编号" for="name" />
-                    <p:inputText id="name" value="#{meetingRoomManagedBean.newEntity.name}" title="name"
-                                 required="true" requiredMessage="请输入会议室编号" disabled="#{meetingRoomManagedBean.currentPrgGrant.sysprg.noauto == !meetingRoomManagedBean.currentPrgGrant.sysprg.nochange}"/>
-                    <p:outputLabel value="名称" for="description" />
-                    <p:inputText id="description" value="#{meetingRoomManagedBean.newEntity.description}" title="description"/>
-                    <p:outputLabel value="类别编号" for="bookingkind" />
-                    <p:inputText id="bookingkind" value="#{meetingRoomManagedBean.newEntity.kind}" title="Bookingkind" />
-                    <p:outputLabel value="排序" for="sortid" />
-                    <p:inputText id="sortid" value="#{meetingRoomManagedBean.newEntity.sortid}" title="Sortid"
-                                 required="true" requiredMessage="请输入排序"/>
-                    <p:outputLabel value="座位数量" for="seats" />
-                    <p:inputText id="seats" value="#{meetingRoomManagedBean.newEntity.seats}" title="Seats" 
-                                 required="true" requiredMessage="请输入座位数量"/>
-                    <p:outputLabel value="备注" for="remark" />
-                    <p:inputText id="remark" value="#{meetingRoomManagedBean.newEntity.remark}" title="Remark" />
-                </p:panelGrid>
-            </p:panel>
+            <p:panelGrid id="plgHead" columns="4" columnClasses="Wid20,Wid30,Wid20,Wid30" styleClass="plgHead Wid100">
+                <f:facet name="header">
+                    会议室－新增
+                </f:facet>
+                <p:outputLabel value="会议室编号" for="name" />
+                <p:inputText id="name" value="#{meetingRoomManagedBean.newEntity.name}" title="name"
+                             required="true" requiredMessage="请输入会议室编号" disabled="#{meetingRoomManagedBean.currentPrgGrant.sysprg.noauto == !meetingRoomManagedBean.currentPrgGrant.sysprg.nochange}"/>
+                <p:outputLabel value="名称" for="description" />
+                <p:inputText id="description" value="#{meetingRoomManagedBean.newEntity.description}" title="description"/>
+                <p:outputLabel value="类别编号" for="bookingkind" />
+                <p:inputText id="bookingkind" value="#{meetingRoomManagedBean.newEntity.kind}" title="Bookingkind" />
+                <p:outputLabel value="排序" for="sortid" />
+                <p:inputText id="sortid" value="#{meetingRoomManagedBean.newEntity.sortid}" title="Sortid"
+                             required="true" requiredMessage="请输入排序"/>
+                <p:outputLabel value="座位数量" for="seats" />
+                <p:inputText id="seats" value="#{meetingRoomManagedBean.newEntity.seats}" title="Seats" 
+                             required="true" requiredMessage="请输入座位数量"/>
+                <p:outputLabel value="备注" for="remark" />
+                <p:inputText id="remark" value="#{meetingRoomManagedBean.newEntity.remark}" title="Remark" />
+            </p:panelGrid>
         </h:form>
     </ui:define>
 

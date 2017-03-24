@@ -32,9 +32,7 @@ public class GalleryDetail extends SuperDetailEntity {
     @Size(max = 100)
     @Column(name = "content")
     private String content;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 200)
+    @Size(max = 200)
     @Column(name = "imgfile")
     private String imgfile;
 
