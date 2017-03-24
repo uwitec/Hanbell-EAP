@@ -51,10 +51,10 @@
                     <p:inputText id="sortid" value="#{systemProgramManagedBean.currentEntity.sortid}" title="Sortid" />
                     <p:outputLabel value="审核" for="docfm" />
                     <p:inputSwitch id="docfm" value="#{systemProgramManagedBean.currentEntity.docfm}" required="true"/>
-                    <p:outputLabel value="备注" for="descript" />
-                    <p:inputText id="descript" value="#{systemProgramManagedBean.currentEntity.descript}" title="Descript" />
-                    <p:outputLabel value="还原审核" for="douncfm" />
+                    <p:outputLabel value="还原" for="douncfm" />
                     <p:inputSwitch id="douncfm" value="#{systemProgramManagedBean.currentEntity.douncfm}" required="true"/>
+                    <p:outputLabel value="特权" for="dopriv" />
+                    <p:inputSwitch id="dopriv" value="#{systemProgramManagedBean.currentEntity.dopriv}" required="true"/>
                     <p:outputLabel value="编号前缀" for="nolead" rendered="#{systemProgramManagedBean.currentEntity.noauto}" />
                     <p:inputText id="nolead" value="#{systemProgramManagedBean.currentEntity.nolead}" title="nolead"
                                  rendered="#{systemProgramManagedBean.currentEntity.noauto}" required="true" requiredMessage="编号前缀不可空白" validatorMessage="编号前缀最少一位最多四位">
@@ -88,6 +88,8 @@
                         <f:selectItem itemLabel="WORD" itemValue="word" />
                         <f:selectItem itemLabel="EXCEL" itemValue="xls" />
                     </p:selectOneMenu>
+                    <p:outputLabel value="备注" for="descript" />
+                    <p:inputText id="descript" value="#{systemProgramManagedBean.currentEntity.descript}" title="Descript" />
                 </p:panelGrid>
             </p:panel>
         </h:form>

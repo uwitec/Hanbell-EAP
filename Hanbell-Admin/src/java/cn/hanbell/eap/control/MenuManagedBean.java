@@ -94,12 +94,12 @@ public class MenuManagedBean implements Serializable {
             roleList = systemRoleDetailBean.findByUserId(userManagedBean.getCurrentUser().getId());
             for (SystemRoleDetail r : roleList) {
                 roleModuleGrantList = systemGrantModuleBean.findByRoleId(r.getPid());
-                if (userModuleGrantList.isEmpty()) {
+                if (moduleGrantList.isEmpty()) {
                     moduleGrantList.addAll(roleModuleGrantList);
                 } else {
                     for (SystemGrantModule m : roleModuleGrantList) {
                         flag = true;
-                        for (SystemGrantModule e : userModuleGrantList) {
+                        for (SystemGrantModule e : moduleGrantList) {
                             if (e.getSystemModule().getId().compareTo(m.getSystemModule().getId()) == 0) {
                                 flag = false;
                                 break;
@@ -111,12 +111,12 @@ public class MenuManagedBean implements Serializable {
                     }
                 }
                 rolePrgGrantList = systemGrantPrgBean.findByRoleId(r.getPid());
-                if (userPrgGrantList.isEmpty()) {
+                if (prgGrantList.isEmpty()) {
                     prgGrantList.addAll(rolePrgGrantList);
                 } else {
                     for (SystemGrantPrg p : rolePrgGrantList) {
                         flag = true;
-                        for (SystemGrantPrg e : userPrgGrantList) {
+                        for (SystemGrantPrg e : prgGrantList) {
                             if (e.getSysprg().getId().compareTo(p.getSysprg().getId()) == 0) {
                                 flag = false;
                                 break;
