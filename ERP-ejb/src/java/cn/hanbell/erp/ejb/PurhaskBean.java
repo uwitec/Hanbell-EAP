@@ -110,7 +110,8 @@ public class PurhaskBean extends SuperEJBForERP<Purhask> {
             p.setPrkind(q.getPrkind());
             p.setPrdate(q.getAppDate());
             p.setDepno(q.getDepno());
-            p.setSrcno(q.getProcessSerialNumber());
+            String srcString =q.getProcessSerialNumber().substring(4);
+            p.setSrcno(srcString);
             p.setBudgetcode(q.getBudgetcode());                                 //获得专案预算代号
             p.setHmark1(q.getHmark1());                                         //材料区分
             p.setHmark2(q.getCenterid());
