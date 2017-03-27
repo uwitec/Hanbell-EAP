@@ -21,7 +21,7 @@ import javax.persistence.PersistenceContext;
  * @author C0160
  * @param <T>
  */
-public abstract class SuperEJBForERP<T> extends SuperEJB<T> {
+public abstract class SuperEJBForERP<T extends Object> extends SuperEJB<T> {
 
     @EJB
     public MiscodeBean miscodeBean;
@@ -96,7 +96,7 @@ public abstract class SuperEJBForERP<T> extends SuperEJB<T> {
 
     //更新一笔资料,一个表头多个明细
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
-    public void update(T entity, HashMap<SuperEJBForERP, List<?>> detailAdded, HashMap<SuperEJBForERP, List<?>> detailEdited, HashMap<SuperEJBForERP, List<?>> detailDeleted) {
+    public void updateForERP(T entity, HashMap<SuperEJBForERP, List<?>> detailAdded, HashMap<SuperEJBForERP, List<?>> detailEdited, HashMap<SuperEJBForERP, List<?>> detailDeleted) {
         try {
             getEntityManager().persist(entity);
             if (detailEdited != null && !detailEdited.isEmpty()) {
