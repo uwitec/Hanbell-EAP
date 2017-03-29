@@ -76,20 +76,23 @@ public class TimerBean {
 
     @Schedule(second = "*/30", minute = "*", hour = "*", persistent = false)
     public void automaticTimer() {
-
+        boolean ret;
         //预约系统提前10分钟发送短信通知
         List<Booking> bookingList = bookingBean.findNeedMsgNotify(0, 0, 10);
         if (bookingList != null && !bookingList.isEmpty()) {
-            String[] contents = new String[3];
+            String[] contents = new String[4];
             for (Booking b : bookingList) {
                 contents[0] = b.getName();
-                contents[1] = BaseLib.formatDate("yyyy-MM-dd", b.getStartDate()) + " " + BaseLib.formatDate("HH:mm", b.getStartTime());
-                BaseLib.sendShortMessage("8aaf07085adadc12015aeae7d82003a4", b.getMobile(), "162371", contents);
-                b.setMsgNotified(b.getMsgNotified() - 1);
-                bookingBean.update(b);
+                contents[1] = b.getBookingKind().getName();
+                contents[2] = BaseLib.formatDate("yyyy-MM-dd", b.getStartDate()) + " " + BaseLib.formatDate("HH:mm", b.getStartTime());
+                contents[3] = b.getKey1();
+                ret = BaseLib.sendShortMessage("8aaf07085adadc12015aeae7d82003a4", b.getMobile(), "163049", contents);
+                if (ret) {
+                    b.setMsgNotified(b.getMsgNotified() - 1);
+                    bookingBean.update(b);
+                }
             }
         }
-
     }
 
 }
