@@ -85,7 +85,11 @@ public class TimerBean {
                 contents[0] = b.getName();
                 contents[1] = b.getBookingKind().getName();
                 contents[2] = BaseLib.formatDate("yyyy-MM-dd", b.getStartDate()) + " " + BaseLib.formatDate("HH:mm", b.getStartTime());
-                contents[3] = b.getKey1();
+                if (b.getBookingKind().getAddress() == null || "".equals(b.getBookingKind().getAddress())) {
+                    contents[3] = "约定地点";
+                } else {
+                    contents[3] = b.getBookingKind().getAddress();
+                }
                 ret = BaseLib.sendShortMessage("8aaf07085adadc12015aeae7d82003a4", b.getMobile(), "163049", contents);
                 if (ret) {
                     b.setMsgNotified(b.getMsgNotified() - 1);

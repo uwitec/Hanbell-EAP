@@ -103,4 +103,13 @@
             <property name="eclipselink.canonicalmodel.subpackage" value="sd"/>
         </properties>
     </persistence-unit>
+    <persistence-unit name="PU_hkerp" transaction-type="JTA">
+        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+        <jta-data-source>jdbc/hkerp</jta-data-source>
+        <shared-cache-mode>NONE</shared-cache-mode>
+        <validation-mode>NONE</validation-mode>
+        <properties>
+            <property name="eclipselink.canonicalmodel.subpackage" value="hk"/>
+        </properties>
+    </persistence-unit>
 </persistence>

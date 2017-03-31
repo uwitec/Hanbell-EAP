@@ -48,10 +48,14 @@
                 <h:outputText id="endTime" value="#{bookingKindManagedBean.currentEntity.endTime}" title="endTime">
                     <f:convertDateTime pattern="HH:mm" />
                 </h:outputText>
-                <p:outputLabel value="短信通知" for="msgNotify" />
+                <h:outputText value="短信通知"/>
                 <h:outputText id="msgNotify" value="#{bookingKindManagedBean.currentEntity.msgNotify}"/>
-                <p:outputLabel value="通知次数" for="msgNotified"/>
+                <h:outputText value="通知次数"/>
                 <h:outputText id="msgNotified" value="#{bookingKindManagedBean.currentEntity.msgNotified}"/>
+                <h:outputText value="地点"/>
+                <h:outputText id="address" value="#{bookingKindManagedBean.currentEntity.address}" title="address"/>
+                <h:outputText value="联系人"/>
+                <h:outputText id="contacter" value="#{bookingKindManagedBean.currentEntity.contacter}" title="contacter"/>
                 <h:outputText value="属性1"/>
                 <h:outputText id="key1" value="#{bookingKindManagedBean.currentEntity.key1}" title="key1" />
                 <h:outputText value="属性2"/>
