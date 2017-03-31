@@ -24,7 +24,7 @@ public class ProcessInstanceBean extends  SuperEJBForEFGP<ProcessInstance>{
     }
 
    public ProcessInstance findByOID(String oid) {
-        Query query = getEntityManager().createNamedQuery("ProcessInstance.findByOid");
+        Query query = getEntityManager().createNamedQuery("ProcessInstance.findByOID");
         query.setParameter("oid", oid);
         try {
             return (ProcessInstance) query.getSingleResult();

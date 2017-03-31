@@ -37,7 +37,7 @@ import org.apache.axis.client.Call;
 @DependsOn({"UsersBean", "FunctionsBean", "TitleBean"})
 public class WorkFlowBean extends SuperEJBForEFGP<FormInstance> implements Serializable {
 
-    //public final String hostAdd = "http://jrs.hanbell.com.cn";
+    //public final String hostAdd = "http://oa.hanbell.com.cn";
     public final String hostAdd = "http://192.168.1.73";
     public final String hostPort = "8086";
 

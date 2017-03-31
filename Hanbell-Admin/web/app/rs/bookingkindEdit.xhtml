@@ -54,6 +54,10 @@
                 <p:outputLabel value="通知次数" for="msgNotified"/>
                 <p:spinner id="msgNotified" value="#{bookingKindManagedBean.currentEntity.msgNotified}"
                            placeholder="分钟" required="true" requiredMessage="请输入通知次数"/>
+                <p:outputLabel value="地点" for="address" />
+                <p:inputText id="address" value="#{bookingKindManagedBean.currentEntity.address}" title="address"/>
+                <p:outputLabel value="联系人" for="contacter" />
+                <p:inputText id="contacter" value="#{bookingKindManagedBean.currentEntity.contacter}" title="contacter"/>
                 <p:outputLabel value="属性1" for="key1" />
                 <p:inputText id="key1" value="#{bookingKindManagedBean.currentEntity.key1}" title="key1" />
                 <p:outputLabel value="属性2" for="key2" />

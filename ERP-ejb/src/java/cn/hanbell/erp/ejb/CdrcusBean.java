@@ -526,7 +526,7 @@ public class CdrcusBean extends SuperEJBForERP<Cdrcus> {
 
         try {
             //更新ERP客户资料
-            update(cdrcus, detailAdded, null, null);
+            updateForERP(cdrcus, detailAdded, null, null);
             if (!"".equals(origman) && !"".equals(newman)) {
                 //更新ERP-armhad对应的负责业务
                 updateSalesManInArmhad(cdrcus.getCusno(), origman, newman);
