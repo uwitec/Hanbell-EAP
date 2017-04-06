@@ -51,10 +51,10 @@
                     <p:inputText id="sortid" value="#{systemProgramManagedBean.newEntity.sortid}" title="Sortid" />
                     <p:outputLabel value="审核" for="docfm" />
                     <p:inputSwitch id="docfm" value="#{systemProgramManagedBean.newEntity.docfm}" required="true"/>
-                    <p:outputLabel value="备注" for="descript" />
-                    <p:inputText id="descript" value="#{systemProgramManagedBean.newEntity.descript}" title="Descript"/>
-                    <p:outputLabel value="还原审核" for="douncfm" />
+                    <p:outputLabel value="还原" for="douncfm" />
                     <p:inputSwitch id="douncfm" value="#{systemProgramManagedBean.newEntity.douncfm}" required="true"/>
+                    <p:outputLabel value="特权" for="dopriv" />
+                    <p:inputSwitch id="dopriv" value="#{systemProgramManagedBean.newEntity.dopriv}" required="true"/>
                     <p:outputLabel value="编号前缀" for="nolead"
                                    rendered="#{systemProgramManagedBean.newEntity.noauto}" />
                     <p:inputText id="nolead" value="#{systemProgramManagedBean.newEntity.nolead}" title="nolead"
@@ -91,6 +91,8 @@
                         <f:selectItem itemLabel="WORD" itemValue="word" />
                         <f:selectItem itemLabel="EXCEL" itemValue="xls" />
                     </p:selectOneMenu>
+                    <p:outputLabel value="备注" for="descript" />
+                    <p:inputText id="descript" value="#{systemProgramManagedBean.newEntity.descript}" title="Descript"/>
                 </p:panelGrid>
             </p:panel>
         </h:form>

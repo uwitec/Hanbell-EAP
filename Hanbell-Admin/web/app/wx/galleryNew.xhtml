@@ -68,10 +68,23 @@
                     </p:toolbar>
                     <p:panelGrid id="plgDetail" styleClass="plgHead Wid100">
                         <p:row>
-                            <p:column styleClass="Wid20"><p:outputLabel value="图片" for="detailimgfile" /></p:column>
+                            <p:column styleClass="Wid20"><p:outputLabel value="资源连接" for="resource" /></p:column>
                             <p:column styleClass="Wid80">
-                                <p:inputText id="detailimgfile" value="#{galleryManagedBean.currentDetail.imgfile}" title="detailimgfile" 
-                                             required="true" requiredMessage="图片不能为空"/>
+                                <p:inputSwitch id="resource" value="#{galleryManagedBean.currentDetail.resource}">
+                                    <p:ajax update="subject"/>
+                                </p:inputSwitch>
+                            </p:column>  
+                        </p:row>
+                        <p:row>
+                            <p:column><p:outputLabel value="资源名称" for="subject" /></p:column>
+                            <p:column>
+                                <p:inputText id="subject" value="#{galleryManagedBean.currentDetail.subject}" disabled="#{!galleryManagedBean.currentDetail.resource}"/>
+                            </p:column>  
+                        </p:row>
+                        <p:row>
+                            <p:column><p:outputLabel value="图片" for="detailimgfile" /></p:column>
+                            <p:column>
+                                <p:inputText id="detailimgfile" value="#{galleryManagedBean.currentDetail.imgfile}" title="detailimgfile" />
                             </p:column>  
                         </p:row>
                         <p:row>
@@ -105,7 +118,7 @@
                         </p:column>
                     </p:dataTable>
                     <p:fileUpload id="fileUploadDetail" fileUploadListener="#{galleryManagedBean.handleFileUploadWhenDetailEdit}"  styleClass="fileUpload"
-                                  allowTypes="/(\.|\/)(gif|jpe?g|png)$/" sizeLimit="5000000" 
+                                  allowTypes="/(\.|\/)(gif|jpe?g|png|pdf|doc|docx|xls|xlsx)$/" sizeLimit="5000000" 
                                   label="选择" uploadLabel="上传" cancelLabel="取消" update="formOne:tabView:detailimgfile"/> 
                 </p:tab>
             </p:tabView>

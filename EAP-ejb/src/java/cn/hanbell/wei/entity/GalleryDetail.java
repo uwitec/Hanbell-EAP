@@ -29,16 +29,50 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "GalleryDetail.findByPId", query = "SELECT g FROM GalleryDetail g WHERE g.pid = :pid")})
 public class GalleryDetail extends SuperDetailEntity {
 
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "resource")
+    private boolean resource;
+    @Size(max = 45)
+    @Column(name = "subject")
+    private String subject;
     @Size(max = 100)
     @Column(name = "content")
     private String content;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 200)
+    @Size(max = 200)
     @Column(name = "imgfile")
     private String imgfile;
 
     public GalleryDetail() {
+        resource = false;
+    }
+
+    /**
+     * @return the resource
+     */
+    public boolean isResource() {
+        return resource;
+    }
+
+    /**
+     * @param resource the resource to set
+     */
+    public void setResource(boolean resource) {
+        this.resource = resource;
+    }
+
+    /**
+     * @return the subject
+     */
+    public String getSubject() {
+        return subject;
+    }
+
+    /**
+     * @param subject the subject to set
+     */
+    public void setSubject(String subject) {
+        this.subject = subject;
     }
 
     public String getContent() {

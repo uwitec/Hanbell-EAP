@@ -30,7 +30,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "ProcessInstance.findAll", query = "SELECT p FROM ProcessInstance p"),
-    @NamedQuery(name = "ProcessInstance.findByOid", query = "SELECT p FROM ProcessInstance p WHERE p.oid = :oid"),
+    @NamedQuery(name = "ProcessInstance.findByOID", query = "SELECT p FROM ProcessInstance p WHERE p.oid = :oid"),
     @NamedQuery(name = "ProcessInstance.findByObjectVersion", query = "SELECT p FROM ProcessInstance p WHERE p.objectVersion = :objectVersion"),
     @NamedQuery(name = "ProcessInstance.findByContextOID", query = "SELECT p FROM ProcessInstance p WHERE p.contextOID = :contextOID"),
     @NamedQuery(name = "ProcessInstance.findByCurrentState", query = "SELECT p FROM ProcessInstance p WHERE p.currentState = :currentState"),

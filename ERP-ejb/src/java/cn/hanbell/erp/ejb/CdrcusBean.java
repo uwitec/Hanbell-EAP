@@ -164,7 +164,9 @@ public class CdrcusBean extends SuperEJBForERP<Cdrcus> {
             cdrcus.setAddress1(oa.getGg036());
         } else if (oa.getGg036().length() > 40) {
             String str = oa.getGg036();
-            String str1 = oa.getGg036().substring(0, 40);
+            str = str.replace('(', '（');
+            str = str.replace(')', '）');
+            String str1 = str.substring(0, 40);
             String[] split = str.split(str1);
             cdrcus.setAddress1(str1);
             cdrcus.setAddress2(split[1]);
@@ -524,7 +526,7 @@ public class CdrcusBean extends SuperEJBForERP<Cdrcus> {
 
         try {
             //更新ERP客户资料
-            update(cdrcus, detailAdded, null, null);
+            updateForERP(cdrcus, detailAdded, null, null);
             if (!"".equals(origman) && !"".equals(newman)) {
                 //更新ERP-armhad对应的负责业务
                 updateSalesManInArmhad(cdrcus.getCusno(), origman, newman);
