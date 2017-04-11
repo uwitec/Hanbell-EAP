@@ -34,8 +34,7 @@
                 <p:inputText id="imgfile" value="#{newsManagedBean.newEntity.imgfile}" title="Imgfile"
                              placeholder="800*600px" required="true" requiredMessage="图片不能空白"/>
                 <p:outputLabel value="内容" for="content" />
-                <p:editor id="content" value="#{newsManagedBean.newEntity.content}"
-                          required="true" requiredMessage="内容不能空白"/>
+                <p:editor id="content" value="#{newsManagedBean.newEntity.content}"/>
             </p:panelGrid>
             <p:fileUpload id="fileUpload" fileUploadListener="#{newsManagedBean.handleFileUploadWhenNew}"  styleClass="fileUpload"
                           allowTypes="/(\.|\/)(gif|jpe?g|png)$/" sizeLimit="5000000" label="选择" uploadLabel="上传" cancelLabel="取消"
@@ -52,21 +51,20 @@
                                              process="@this" update="tableList,plgDetail"/>
                         </f:facet>
                         <f:facet name="right">
-                            <p:commandButton id="btnSaveDetail" widgetVar="btnSaveDetail" value="确定" actionListener="#{newsManagedBean.doConfirmDetail()}" icon="ui-icon-disk"
+                            <p:commandButton id="btnSaveDetail" widgetVar="btnSaveDetail" value="确定" actionListener="#{newsManagedBean.doConfirmDetail()}" icon="ui-icon-check"
                                              onsuccess="PF('btnAddDetail').enable();PF('btnDeleteDetail').disable();PF('btnSaveDetail').disable();"
                                              process="@this,plgDetail" update="tableList,plgDetail"/>
                         </f:facet>
                     </p:toolbar>
                     <p:panelGrid id="plgDetail" styleClass="plgHead Wid100">
                         <p:row>
-                            <p:column><p:outputLabel value="内容" for="detailcontent" /></p:column>
+                            <p:column><p:outputLabel value="文字内容" for="detailcontent" /></p:column>
                             <p:column>
-                                <p:editor id="detailcontent" value="#{newsManagedBean.currentDetail.content}"
-                                          required="true" requiredMessage="内容不能为空"/>
+                                <p:editor id="detailcontent" value="#{newsManagedBean.currentDetail.content}"/>
                             </p:column>
                         </p:row>
                         <p:row>
-                            <p:column styleClass="Wid20"><p:outputLabel value="展示图片" for="detailimgfile" /></p:column>
+                            <p:column styleClass="Wid20"><p:outputLabel value="图片内容" for="detailimgfile" /></p:column>
                             <p:column styleClass="Wid80">
                                 <p:inputText id="detailimgfile" value="#{newsManagedBean.currentDetail.imgfile}" title="detailimgfile" />
                             </p:column>
@@ -84,7 +82,7 @@
                         </p:column>
                         <p:column styleClass="Wid30">
                             <f:facet name="header">
-                                <h:outputText value="展示图片"/>
+                                <h:outputText value="图片内容"/>
                             </f:facet>
                             <h:outputText value="#{item.imgfile}"/>
                         </p:column>

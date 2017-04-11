@@ -61,7 +61,7 @@
                                              process="@this" update="tableList,tabView:plgDetail"/>  
                         </f:facet>
                         <f:facet name="right">                        
-                            <p:commandButton id="btnSaveDetail" widgetVar="btnSaveDetail" value="确定" actionListener="#{galleryManagedBean.doConfirmDetail()}" icon="ui-icon-disk"
+                            <p:commandButton id="btnSaveDetail" widgetVar="btnSaveDetail" value="确定" actionListener="#{galleryManagedBean.doConfirmDetail()}" icon="ui-icon-check"
                                              onsuccess="PF('btnAddDetail').enable();PF('btnDeleteDetail').disable();PF('btnSaveDetail').disable();" 
                                              process="@this,formOne:tabView:plgDetail" update="tableList,tabView:plgDetail"/>                                
                         </f:facet>
@@ -118,7 +118,7 @@
                         </p:column>
                     </p:dataTable>
                     <p:fileUpload id="fileUploadDetail" fileUploadListener="#{galleryManagedBean.handleFileUploadWhenDetailEdit}"  styleClass="fileUpload"
-                                  allowTypes="/(\.|\/)(gif|jpe?g|png|pdf|doc|docx|xls|xlsx)$/" sizeLimit="5000000" 
+                                  allowTypes="/(\.|\/)(gif|jpe?g|png|pdf|doc|docx|xls|xlsx)$/" sizeLimit="20000000" 
                                   label="选择" uploadLabel="上传" cancelLabel="取消" update="formOne:tabView:detailimgfile"/> 
                 </p:tab>
             </p:tabView>
