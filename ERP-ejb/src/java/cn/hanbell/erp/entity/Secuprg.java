@@ -10,6 +10,9 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -27,8 +30,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Secuprg.findAll", query = "SELECT s FROM Secuprg s"),
     @NamedQuery(name = "Secuprg.findByPrgno", query = "SELECT s FROM Secuprg s WHERE s.secuprgPK.prgno = :prgno"),
-    @NamedQuery(name = "Secuprg.findByUserno", query = "SELECT s FROM Secuprg s WHERE s.secuprgPK.userno = :userno"),
-     @NamedQuery(name = "Secuprg.findByPK", query = "SELECT s FROM Secuprg s WHERE s.secuprgPK.userno = :userno and s.secuprgPK.prgno = :prgno"),
+    @NamedQuery(name = "Secuprg.findByUserno", query = "SELECT s FROM Secuprg s WHERE s.secuprgPK.userno = :userno ORDER BY s.secuprgPK.prgno"),
+    @NamedQuery(name = "Secuprg.findByPK", query = "SELECT s FROM Secuprg s WHERE s.secuprgPK.userno = :userno and s.secuprgPK.prgno = :prgno"),
     @NamedQuery(name = "Secuprg.findByPadd", query = "SELECT s FROM Secuprg s WHERE s.padd = :padd"),
     @NamedQuery(name = "Secuprg.findByPdelete", query = "SELECT s FROM Secuprg s WHERE s.pdelete = :pdelete"),
     @NamedQuery(name = "Secuprg.findByPmodify", query = "SELECT s FROM Secuprg s WHERE s.pmodify = :pmodify"),
@@ -54,6 +57,12 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Secuprg.findByPuserno", query = "SELECT s FROM Secuprg s WHERE s.puserno = :puserno"),
     @NamedQuery(name = "Secuprg.findByGtype", query = "SELECT s FROM Secuprg s WHERE s.gtype = :gtype")})
 public class Secuprg implements Serializable {
+
+    @JoinColumns({
+        @JoinColumn(name = "prgno", referencedColumnName = "prgno", insertable = false, updatable = false)
+    })
+    @ManyToOne()
+    private Secprg secprg;
 
     private static final long serialVersionUID = 1L;
     @EmbeddedId
@@ -417,5 +426,19 @@ public class Secuprg implements Serializable {
     public String toString() {
         return "cn.hanbell.erp.entity.Secuprg[ secuprgPK=" + secuprgPK + " ]";
     }
-    
+
+    /**
+     * @return the secprg
+     */
+    public Secprg getSecprg() {
+        return secprg;
+    }
+
+    /**
+     * @param secprg the secprg to set
+     */
+    public void setSecprg(Secprg secprg) {
+        this.secprg = secprg;
+    }
+
 }
