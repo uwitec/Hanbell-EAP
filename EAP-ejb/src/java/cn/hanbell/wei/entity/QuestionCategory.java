@@ -21,16 +21,16 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author C0160
  */
 @Entity
-@Table(name = "category")
+@Table(name = "questioncategory")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Category.findAll", query = "SELECT c FROM Category c"),
-    @NamedQuery(name = "Category.findById", query = "SELECT c FROM Category c WHERE c.id = :id"),
-    @NamedQuery(name = "Category.findByName", query = "SELECT c FROM Category c WHERE c.name = :name"),
-    @NamedQuery(name = "Category.findByClassname", query = "SELECT c FROM Category c WHERE c.classname = :classname"),
-    @NamedQuery(name = "Category.findByItemcount", query = "SELECT c FROM Category c WHERE c.itemcount = :itemcount"),
-    @NamedQuery(name = "Category.findByStatus", query = "SELECT c FROM Category c WHERE c.status = :status")})
-public class Category extends SuperEntity {
+    @NamedQuery(name = "QuestionCategory.findAll", query = "SELECT q FROM QuestionCategory q"),
+    @NamedQuery(name = "QuestionCategory.findById", query = "SELECT q FROM QuestionCategory q WHERE q.id = :id"),
+    @NamedQuery(name = "QuestionCategory.findByName", query = "SELECT q FROM QuestionCategory q WHERE q.name = :name"),
+    @NamedQuery(name = "QuestionCategory.findByClassname", query = "SELECT q FROM QuestionCategory q WHERE q.classname = :classname"),
+    @NamedQuery(name = "QuestionCategory.findByItemcount", query = "SELECT q FROM QuestionCategory q WHERE q.itemcount = :itemcount"),
+    @NamedQuery(name = "QuestionCategory.findByStatus", query = "SELECT q FROM QuestionCategory q WHERE q.status = :status")})
+public class QuestionCategory extends SuperEntity {
 
     @Basic(optional = false)
     @NotNull
@@ -43,7 +43,17 @@ public class Category extends SuperEntity {
     @Column(name = "itemcount")
     private Integer itemcount;
 
-    public Category() {
+    public QuestionCategory() {
+    }
+
+    public QuestionCategory(Integer id) {
+        this.id = id;
+    }
+
+    public QuestionCategory(Integer id, String name, String status) {
+        this.id = id;
+        this.name = name;
+        this.status = status;
     }
 
     public String getName() {
@@ -80,10 +90,10 @@ public class Category extends SuperEntity {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Category)) {
+        if (!(object instanceof QuestionCategory)) {
             return false;
         }
-        Category other = (Category) object;
+        QuestionCategory other = (QuestionCategory) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -92,7 +102,7 @@ public class Category extends SuperEntity {
 
     @Override
     public String toString() {
-        return "cn.hanbell.eap.entity.Category[ id=" + id + " ]";
+        return "cn.hanbell.wei.entity.QuestionCategory[ id=" + id + " ]";
     }
 
 }

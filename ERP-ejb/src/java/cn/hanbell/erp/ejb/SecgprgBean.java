@@ -457,6 +457,10 @@ public class SecgprgBean extends SuperEJBForERP<Secgprg> {
                         //预设空密码登录时修改
                         secuserBean.persist(erpuser);
 
+                        //加入miscode类别9E中
+                        miscodeBean.setCompany(h.getFacno());
+                        miscodeBean.persistIfNotExist("9E", erpuser.getUserno(), erpuser.getUsername(), 'N');
+
                         misdeptBean.setCompany(h.getFacno());
                         Misdept dept = misdeptBean.findByDepno(h.getDept());
                         if (dept == null) {

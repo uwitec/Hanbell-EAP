@@ -6,9 +6,9 @@
 package cn.hanbell.wei.control;
 
 import cn.hanbell.eap.web.SuperSingleBean;
-import cn.hanbell.wei.ejb.CategoryBean;
-import cn.hanbell.wei.entity.Category;
-import cn.hanbell.wei.lazy.CategoryModel;
+import cn.hanbell.wei.ejb.QuestionCategoryBean;
+import cn.hanbell.wei.entity.QuestionCategory;
+import cn.hanbell.wei.lazy.QuestionCategoryModel;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -21,13 +21,13 @@ import javax.json.JsonArrayBuilder;
  */
 @ManagedBean
 @SessionScoped
-public class CategoryManagedBean extends SuperSingleBean<Category> {
+public class QuestionCategoryManagedBean extends SuperSingleBean<QuestionCategory> {
 
     @EJB
-    private CategoryBean categoryBean;
+    private QuestionCategoryBean categoryBean;
 
-    public CategoryManagedBean() {
-        super(Category.class);
+    public QuestionCategoryManagedBean() {
+        super(QuestionCategory.class);
     }
 
     @Override
@@ -48,14 +48,15 @@ public class CategoryManagedBean extends SuperSingleBean<Category> {
         setEntityList(categoryBean.findAll());
         if (this.entityList != null && !this.entityList.isEmpty()) {
             jab = categoryBean.createJsonArrayBuilder(this.entityList);
-            this.buildJsonFile(jab.build(), getAppDataPath(), "category.json");
+            this.buildJsonFile(jab.build(), getAppDataPath(), "questioncategory.json");
+            showInfoMsg("Info", "发布成功");
         }
     }
 
     @Override
     public void init() {
         this.superEJB = categoryBean;
-        setModel(new CategoryModel(categoryBean));
+        setModel(new QuestionCategoryModel(categoryBean));
         super.init();
     }
 

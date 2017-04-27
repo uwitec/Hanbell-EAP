@@ -237,6 +237,24 @@
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
+        <description>权限查询一级导航</description>
+        <from-view-id>/*</from-view-id>
+        <navigation-case>
+            <from-outcome>secusergrant</from-outcome>
+            <to-view-id>/app/erp/secusergrant.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <description>ERP权限查询</description>
+        <from-view-id>/app/erp/secusergrant.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>secusergrantView</from-outcome>
+            <to-view-id>/app/erp/secusergrantView.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
         <description>预约系统一级导航</description>
         <from-view-id>/*</from-view-id>
         <navigation-case>
@@ -259,8 +277,8 @@
         <description>微信平台一级导航</description>
         <from-view-id>/*</from-view-id>
         <navigation-case>
-            <from-outcome>category</from-outcome>
-            <to-view-id>/app/wx/category.xhtml</to-view-id>
+            <from-outcome>gallerycategory</from-outcome>
+            <to-view-id>/app/wx/gallerycategory.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
@@ -269,8 +287,28 @@
             <redirect/>
         </navigation-case>
         <navigation-case>
+            <from-outcome>maintenancecategory</from-outcome>
+            <to-view-id>/app/wx/maintenancecategory.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>maintenance</from-outcome>
+            <to-view-id>/app/wx/maintenance.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
             <from-outcome>news</from-outcome>
             <to-view-id>/app/wx/news.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>questioncategory</from-outcome>
+            <to-view-id>/app/wx/questioncategory.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>question</from-outcome>
+            <to-view-id>/app/wx/question.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
     </navigation-rule>

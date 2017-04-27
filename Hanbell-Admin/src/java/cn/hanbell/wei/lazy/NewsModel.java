@@ -25,6 +25,7 @@ public class NewsModel extends BaseLazyModel<News> {
     @Override
     public List<News> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
         this.sortFields.put("status", "ASC");
+        this.sortFields.put("ontop", "DESC");
         this.sortFields.put("id", "DESC");
         return super.load(first, pageSize, sortField, sortOrder, filters);
     }

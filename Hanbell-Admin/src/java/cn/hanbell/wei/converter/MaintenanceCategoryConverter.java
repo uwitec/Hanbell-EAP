@@ -5,8 +5,8 @@
  */
 package cn.hanbell.wei.converter;
 
-import cn.hanbell.wei.ejb.CategoryBean;
-import cn.hanbell.wei.entity.Category;
+import cn.hanbell.wei.ejb.MaintenanceCategoryBean;
+import cn.hanbell.wei.entity.MaintenanceCategory;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
@@ -19,11 +19,11 @@ import javax.faces.convert.FacesConverter;
  *
  * @author kevindong
  */
-@FacesConverter("categoryConverter")
-public class CategoryConverter implements Converter {
+@FacesConverter("maintenanceCategoryConverter")
+public class MaintenanceCategoryConverter implements Converter {
 
     @EJB
-    private CategoryBean categoryBean;
+    private MaintenanceCategoryBean categoryBean;
 
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
@@ -31,7 +31,7 @@ public class CategoryConverter implements Converter {
             return null;
         } else {
             try {
-                Category entity = categoryBean.findById(Integer.parseInt(value));
+                MaintenanceCategory entity = categoryBean.findById(Integer.parseInt(value));
                 if (entity != null) {
                     return entity;
                 } else {
@@ -48,7 +48,7 @@ public class CategoryConverter implements Converter {
         if (value == null || value.equals("")) {
             return "";
         } else {
-            return ((Category) value).getId().toString();
+            return ((MaintenanceCategory) value).getId().toString();
         }
     }
 

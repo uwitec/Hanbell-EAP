@@ -6,9 +6,12 @@
 package cn.hanbell.eap.control;
 
 import cn.hanbell.eap.ejb.SystemModuleBean;
+import cn.hanbell.eap.ejb.SystemNameBean;
 import cn.hanbell.eap.entity.SystemModule;
+import cn.hanbell.eap.entity.SystemName;
 import cn.hanbell.eap.lazy.SystemModuleModel;
 import cn.hanbell.eap.web.SuperSingleBean;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -22,11 +25,12 @@ import javax.faces.bean.SessionScoped;
 public class SystemModuleManagedBean extends SuperSingleBean<SystemModule> {
 
     @EJB
+    private SystemNameBean systemNameBean;
+    @EJB
     private SystemModuleBean sysmoduleBean;
 
-    /**
-     * Creates a new instance of SystemModuleManagedBean
-     */
+    private List<SystemName> systemNameList;
+
     public SystemModuleManagedBean() {
         super(SystemModule.class);
     }
@@ -41,10 +45,12 @@ public class SystemModuleManagedBean extends SuperSingleBean<SystemModule> {
     public void init() {
         this.superEJB = sysmoduleBean;
         setModel(new SystemModuleModel(sysmoduleBean));
-        if (currentEntity == null) {
-            setCurrentEntity(getNewEntity());
-        }
+        model.getSortFields().put("sortid", "ASC");
+        systemNameList = systemNameBean.findAll();
         super.init();
+        if (currentEntity == null) {
+            currentEntity = newEntity;
+        }
     }
 
     @Override
@@ -80,6 +86,20 @@ public class SystemModuleManagedBean extends SuperSingleBean<SystemModule> {
             this.doCfm = false;
             this.doUnCfm = false;
         }
+    }
+
+    /**
+     * @return the systemNameList
+     */
+    public List<SystemName> getSystemNameList() {
+        return systemNameList;
+    }
+
+    /**
+     * @param systemNameList the systemNameList to set
+     */
+    public void setSystemNameList(List<SystemName> systemNameList) {
+        this.systemNameList = systemNameList;
     }
 
 }

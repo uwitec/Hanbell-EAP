@@ -6,10 +6,10 @@
 package cn.hanbell.wei.control;
 
 import cn.hanbell.eap.web.SuperMultiBean;
-import cn.hanbell.wei.ejb.CategoryBean;
+import cn.hanbell.wei.ejb.GalleryCategoryBean;
 import cn.hanbell.wei.ejb.GalleryBean;
 import cn.hanbell.wei.ejb.GalleryDetailBean;
-import cn.hanbell.wei.entity.Category;
+import cn.hanbell.wei.entity.GalleryCategory;
 import cn.hanbell.wei.entity.Gallery;
 import cn.hanbell.wei.entity.GalleryDetail;
 import cn.hanbell.wei.lazy.GalleryModel;
@@ -34,13 +34,13 @@ import org.primefaces.event.FileUploadEvent;
 public class GalleryManagedBean extends SuperMultiBean<Gallery, GalleryDetail> {
 
     @EJB
-    private CategoryBean categoryBean;
+    private GalleryCategoryBean categoryBean;
     @EJB
     private GalleryBean galleryBean;
     @EJB
     private GalleryDetailBean galleryDetailBean;
 
-    protected List<Category> categoryList;
+    protected List<GalleryCategory> categoryList;
 
     public GalleryManagedBean() {
         super(Gallery.class, GalleryDetail.class);
@@ -67,7 +67,7 @@ public class GalleryManagedBean extends SuperMultiBean<Gallery, GalleryDetail> {
             categoryList = categoryBean.findAll();
         }
         //产生分类产品
-        for (Category category : categoryList) {
+        for (GalleryCategory category : categoryList) {
             setEntityList(null);
             setEntityList(galleryBean.findByCategoryId(category.getId()));
             if (!entityList.isEmpty()) {
@@ -178,14 +178,14 @@ public class GalleryManagedBean extends SuperMultiBean<Gallery, GalleryDetail> {
     /**
      * @return the categoryList
      */
-    public List<Category> getCategoryList() {
+    public List<GalleryCategory> getCategoryList() {
         return categoryList;
     }
 
     /**
      * @param categoryList the categoryList to set
      */
-    public void setCategoryList(List<Category> categoryList) {
+    public void setCategoryList(List<GalleryCategory> categoryList) {
         this.categoryList = categoryList;
     }
 

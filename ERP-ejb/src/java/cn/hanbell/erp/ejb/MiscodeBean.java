@@ -70,4 +70,24 @@ public class MiscodeBean extends SuperEJBForERP<Miscode> {
         }
     }
 
+    public int persistIfNotExist(String ckind, String code, String cdesc, Character mascreyn) {
+        //生成miscode资料
+        Miscode c;
+        c = findByPK(ckind, code);
+        if (c == null) {
+            c = new Miscode(ckind, code);
+            c.setCdesc(cdesc);
+            c.setStatus('Y');
+            c.setMascreyn(mascreyn);
+            c.setCusds(cdesc);
+            try {
+                persist(c);
+                return 1;
+            } catch (Exception ex) {
+                return -1;
+            }
+        }
+        return 0;
+    }
+
 }

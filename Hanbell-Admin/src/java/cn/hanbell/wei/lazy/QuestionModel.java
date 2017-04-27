@@ -5,7 +5,7 @@
  */
 package cn.hanbell.wei.lazy;
 
-import cn.hanbell.wei.entity.Category;
+import cn.hanbell.wei.entity.Question;
 import com.lightshell.comm.BaseLazyModel;
 import com.lightshell.comm.SuperEJB;
 import java.util.List;
@@ -16,14 +16,14 @@ import org.primefaces.model.SortOrder;
  *
  * @author kevindong
  */
-public class CategoryModel extends BaseLazyModel<Category> {
+public class QuestionModel extends BaseLazyModel<Question> {
 
-    public CategoryModel(SuperEJB superEJB) {
+    public QuestionModel(SuperEJB superEJB) {
         this.superEJB = superEJB;
     }
 
     @Override
-    public List<Category> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
+    public List<Question> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
         this.sortFields.put("status", "ASC");
         this.sortFields.put("id", "DESC");
         return super.load(first, pageSize, sortField, sortOrder, filters);

@@ -24,7 +24,7 @@
                 </f:facet>
                 <p:outputLabel value="分类" for="category" />
                 <p:selectOneMenu id="category" value="#{galleryManagedBean.currentEntity.category}"
-                                 required="true" requiredMessage="分类不能空白" converter="categoryConverter">
+                                 required="true" requiredMessage="分类不能空白" converter="galleryCategoryConverter">
                     <!-- TODO: update below reference to list of available items-->
                     <f:selectItem itemLabel="Select One" itemValue=""/>
                     <f:selectItems value="#{galleryManagedBean.categoryList}" var="c" itemLabel="#{c.name}" itemValue="#{c}"/>
@@ -73,16 +73,16 @@
                                 <p:inputSwitch id="resource" value="#{galleryManagedBean.currentDetail.resource}">
                                     <p:ajax update="subject"/>
                                 </p:inputSwitch>
-                            </p:column>  
+                            </p:column>
                         </p:row>
                         <p:row>
                             <p:column><p:outputLabel value="资源名称" for="subject" /></p:column>
                             <p:column>
                                 <p:inputText id="subject" value="#{galleryManagedBean.currentDetail.subject}" disabled="#{!galleryManagedBean.currentDetail.resource}"/>
-                            </p:column>  
+                            </p:column>
                         </p:row>
                         <p:row>
-                            <p:column styleClass="Wid20"><p:outputLabel value="产品" for="detailimgfile" /></p:column>
+                            <p:column styleClass="Wid20"><p:outputLabel value="产品图片" for="detailimgfile" /></p:column>
                             <p:column styleClass="Wid80">
                                 <p:inputText id="detailimgfile" value="#{galleryManagedBean.currentDetail.imgfile}" title="detailimgfile"/>
                             </p:column>
