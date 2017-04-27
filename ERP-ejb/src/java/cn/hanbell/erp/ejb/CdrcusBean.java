@@ -56,6 +56,8 @@ public class CdrcusBean extends SuperEJBForERP<Cdrcus> {
     @EJB
     private SyncNJBean syncNJBean;
     @EJB
+    private SyncCQBean syncCQBean;
+    @EJB
     private SyncSHBBean syncSHBBean;
 
     @EJB
@@ -132,6 +134,7 @@ public class CdrcusBean extends SuperEJBForERP<Cdrcus> {
             case "G":
             case "J":
             case "N":
+            case "C4":
                 facno = "C";
                 code = "S";
                 break;
@@ -160,7 +163,7 @@ public class CdrcusBean extends SuperEJBForERP<Cdrcus> {
         cdrcus.setDecode(oa.getDecode().charAt(0));
         cdrcus.setCuskind(oa.getGg011());
         cdrcus.setDmcode(oa.getDmcode().charAt(0));
-       if (oa.getGg036().length() <= 40) {
+        if (oa.getGg036().length() <= 40) {
             cdrcus.setAddress1(oa.getGg036());
         } else if (oa.getGg036().length() > 40) {
             String str = oa.getGg036();
@@ -396,6 +399,12 @@ public class CdrcusBean extends SuperEJBForERP<Cdrcus> {
                     syncNJBean.persist(cdrcus, detailAdded);
                     syncNJBean.getEntityManager().flush();
                     break;
+                case "C4":
+                    //同步重庆ERP
+                    resetFacno("C4");
+                    syncCQBean.persist(cdrcus, detailAdded);
+                    syncCQBean.getEntityManager().flush();
+                    break;
                 default:
             }
             return true;
@@ -499,6 +508,7 @@ public class CdrcusBean extends SuperEJBForERP<Cdrcus> {
                     case "G":
                     case "J":
                     case "N":
+                    case "C4":
                         //分公司发起,同步删除SHB_ERP中的负责业务信息
                         cdrcusmanBean.setCompany("C");
                         m = cdrcusmanBean.findByPK("C", oa.getCusno());
@@ -536,6 +546,7 @@ public class CdrcusBean extends SuperEJBForERP<Cdrcus> {
                 case "G":
                 case "J":
                 case "N":
+                case "C4":
                     //分公司发起,同步SHB_ERP
                     resetFacno("C");
                     syncSHBBean.update(cdrcus, detailAdded, null, null);

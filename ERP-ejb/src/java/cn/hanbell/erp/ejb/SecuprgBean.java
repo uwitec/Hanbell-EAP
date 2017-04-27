@@ -40,6 +40,10 @@ public class SecuprgBean extends SuperEJBForERP<Secuprg> {
 
     public Boolean initSECUPRG(String psn) {
 
+        SHBERPMIS226 h = sherpmis226Bean.findByPSN(psn);
+        if (h == null) {
+            throw new NullPointerException();
+        }
         String prgno;
         String userno;
         String hdn_jb1;
@@ -64,21 +68,20 @@ public class SecuprgBean extends SuperEJBForERP<Secuprg> {
         String hdn_other7;
         String hdn_other8;
         String hdn_other9;
-        SHBERPMIS226 h = sherpmis226Bean.findByPSN(psn);
-        if (h == null) {
-            throw new NullPointerException();
-        }
+
         List<SHBERPMIS226Detail> details = sherpmis226detailBean.findByFSN(h.getFormSerialNumber());
         this.setCompany(h.getFacno());
         try {
-
             //表身循环
             for (int i = 0; i < details.size(); i++) {
+
                 SHBERPMIS226Detail detail = details.get(i);
                 Secuprg u = new Secuprg();
                 prgno = detail.getJtcx();
                 userno = h.getApplyuser();
-                //Secuprg u = findByPK(prgno,userno);
+
+                Secuprg s = this.findByPK(prgno, userno);
+
                 SecuprgPK upk = new SecuprgPK();
                 upk.setPrgno(prgno);
                 upk.setUserno(userno);
@@ -110,122 +113,183 @@ public class SecuprgBean extends SuperEJBForERP<Secuprg> {
                     u.setPadd('N');
                 } else {
                     u.setPadd('Y');
+                    if (s != null) {
+                        s.setPadd('Y');
+                    }
                 }
                 if ("".equals(hdn_jb2)) {
                     u.setPdelete('N');
                 } else {
                     u.setPdelete('Y');
+                    if (s != null) {
+                        s.setPdelete('Y');
+                    }
                 }
                 if ("".equals(hdn_jb3)) {
                     u.setPmodify('N');
                 } else {
                     u.setPmodify('Y');
+                    if (s != null) {
+                        s.setPmodify('Y');
+                    }
                 }
                 if ("".equals(hdn_jb4)) {
                     u.setPquery('N');
                 } else {
                     u.setPquery('Y');
+                    if (s != null) {
+                        s.setPquery('Y');
+                    }
                 }
                 if ("".equals(hdn_jb5)) {
                     u.setPcommit('N');
                 } else {
                     u.setPcommit('Y');
+                    if (s != null) {
+                        s.setPcommit('Y');
+                    }
                 }
                 if ("".equals(hdn_jb6)) {
                     u.setPcancel('N');
                 } else {
                     u.setPcancel('Y');
+                    if (s != null) {
+                        s.setPcancel('Y');
+                    }
                 }
                 if ("".equals(hdn_jb7)) {
                     u.setPprint('N');
                 } else {
                     u.setPprint('Y');
+                    if (s != null) {
+                        s.setPprint('Y');
+                    }
                 }
                 if ("".equals(hdn_jb8)) {
                     u.setRunsig('N');
                 } else {
                     u.setRunsig('Y');
+                    if (s != null) {
+                        s.setRunsig('Y');
+                    }
                 }
                 if ("".equals(hdn_jb9)) {
                     u.setPrelation1('N');
                 } else {
                     u.setPrelation1('Y');
+                    if (s != null) {
+                        s.setPrelation1('Y');
+                    }
                 }
                 if ("".equals(hdn_jb10)) {
                     u.setPrelation2('N');
                 } else {
                     u.setPrelation2('Y');
+                    if (s != null) {
+                        s.setPrelation2('Y');
+                    }
                 }
                 if ("".equals(hdn_jb11)) {
                     u.setPrelation3('N');
                 } else {
                     u.setPrelation3('Y');
+                    if (s != null) {
+                        s.setPrelation3('Y');
+                    }
                 }
                 if ("".equals(hdn_jb12)) {
                     u.setPrelation4('N');
                 } else {
                     u.setPrelation4('Y');
+                    if (s != null) {
+                        s.setPrelation4('Y');
+                    }
                 }
                 if ("".equals(hdn_jb13)) {
                     u.setStepbystep('N');
                 } else {
                     u.setStepbystep('Y');
+                    if (s != null) {
+                        s.setStepbystep('Y');
+                    }
                 }
                 if ("".equals(hdn_other1)) {
                     u.setPother1('N');
                 } else {
-                    u.setPother1('N');
+                    u.setPother1('Y');
+                    if (s != null) {
+                        s.setPother1('Y');
+                    }
                 }
                 if ("".equals(hdn_other2)) {
                     u.setPother2('N');
                 } else {
-                    u.setPother2('N');
+                    u.setPother2('Y');
+                    if (s != null) {
+                        s.setPother2('Y');
+                    }
                 }
                 if ("".equals(hdn_other3)) {
                     u.setPother3('N');
                 } else {
-                    u.setPother3('N');
+                    u.setPother3('Y');
+                    if (s != null) {
+                        s.setPother3('Y');
+                    }
                 }
                 if ("".equals(hdn_other4)) {
                     u.setPother4('N');
                 } else {
-                    u.setPother4('N');
+                    u.setPother4('Y');
+                    if (s != null) {
+                        s.setPother4('Y');
+                    }
                 }
                 if ("".equals(hdn_other5)) {
                     u.setPother5('N');
                 } else {
-                    u.setPother5('N');
+                    u.setPother5('Y');
+                    if (s != null) {
+                        s.setPother5('Y');
+                    }
                 }
                 if ("".equals(hdn_other6)) {
                     u.setPother6('N');
                 } else {
-                    u.setPother6('N');
+                    u.setPother6('Y');
+                    if (s != null) {
+                        s.setPother6('Y');
+                    }
                 }
                 if ("".equals(hdn_other7)) {
                     u.setPother7('N');
                 } else {
-                    u.setPother7('N');
+                    u.setPother7('Y');
+                    if (s != null) {
+                        s.setPother7('Y');
+                    }
                 }
                 if ("".equals(hdn_other8)) {
                     u.setPother8('N');
                 } else {
-                    u.setPother8('N');
+                    u.setPother8('Y');
+                    if (s != null) {
+                        s.setPother8('Y');
+                    }
                 }
                 if ("".equals(hdn_other9)) {
                     u.setPother9('N');
                 } else {
-                    u.setPother9('N');
+                    u.setPother9('Y');
+                    if (s != null) {
+                        s.setPother9('Y');
+                    }
                 }
-                //this.setCompany(facno);
-                this.setCompany("C");
-                Secuprg s = this.findByPK(prgno, userno);
 
                 if (s == null) {
                     persist(u);
-                    System.out.println("3");
                 } else {
-                    update(u);
-                    System.out.println("4");
+                    update(s);
                 }
 
             }
@@ -246,6 +310,12 @@ public class SecuprgBean extends SuperEJBForERP<Secuprg> {
         } catch (Exception ex) {
             return null;
         }
+    }
+
+    public List<Secuprg> findByUserno(String value) {
+        Query query = getEntityManager().createNamedQuery("Secuprg.findByUserno");
+        query.setParameter("userno", value);
+        return query.getResultList();
     }
 
 }

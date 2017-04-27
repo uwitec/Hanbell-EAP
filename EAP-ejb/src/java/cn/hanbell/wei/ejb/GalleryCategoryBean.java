@@ -6,7 +6,7 @@
 package cn.hanbell.wei.ejb;
 
 import cn.hanbell.eap.comm.SuperEJBForEAP;
-import cn.hanbell.wei.entity.Category;
+import cn.hanbell.wei.entity.GalleryCategory;
 import javax.ejb.Stateless;
 import javax.json.Json;
 import javax.json.JsonObjectBuilder;
@@ -16,14 +16,14 @@ import javax.json.JsonObjectBuilder;
  * @author kevindong
  */
 @Stateless
-public class CategoryBean extends SuperEJBForEAP<Category> {
+public class GalleryCategoryBean extends SuperEJBForEAP<GalleryCategory> {
 
-    public CategoryBean() {
-        super(Category.class);
+    public GalleryCategoryBean() {
+        super(GalleryCategory.class);
     }
 
     @Override
-    public JsonObjectBuilder createJsonObjectBuilder(Category entity) {
+    public JsonObjectBuilder createJsonObjectBuilder(GalleryCategory entity) {
         JsonObjectBuilder job = Json.createObjectBuilder();
         if (entity != null) {
             job.add("id", entity.getId())
