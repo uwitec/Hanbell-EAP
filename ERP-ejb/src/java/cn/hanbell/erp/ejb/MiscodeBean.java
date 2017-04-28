@@ -36,6 +36,18 @@ public class MiscodeBean extends SuperEJBForERP<Miscode> {
         }
     }
 
+    public Miscode findByCkindAndCdesc(String ckind, String cdesc) {
+        Query q = this.getEntityManager().createNamedQuery("Miscode.findByCkindAndCdesc");
+        q.setParameter("ckind", ckind);
+        q.setParameter("cdesc", cdesc);
+        try {
+            Object o = q.getSingleResult();
+            return (Miscode) o;
+        } catch (Exception ex) {
+            return null;
+        }
+    }
+
     public Miscode findByPK(String ckind, String code) {
         Query q = this.getEntityManager().createNamedQuery("Miscode.findByPK");
         q.setParameter("ckind", ckind);

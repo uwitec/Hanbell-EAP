@@ -27,6 +27,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
@@ -409,6 +411,7 @@ public class CdrcusBean extends SuperEJBForERP<Cdrcus> {
             }
             return true;
         } catch (Exception ex) {
+            Logger.getLogger(CdrcusBean.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         } finally {
             resetObjects();
@@ -561,6 +564,7 @@ public class CdrcusBean extends SuperEJBForERP<Cdrcus> {
 
             return true;
         } catch (Exception ex) {
+            Logger.getLogger(CdrcusBean.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         } finally {
             resetObjects();
