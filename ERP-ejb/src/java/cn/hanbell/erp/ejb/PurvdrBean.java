@@ -18,6 +18,8 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
@@ -52,13 +54,13 @@ public class PurvdrBean extends SuperEJBForERP<Purvdr> {
     @EJB
     private SyncNJBean syncNJBean;
     @EJB
-    private SyncSHBBean syncSHBBean;
+    private SyncCQBean syncCQBean;
 
     public PurvdrBean() {
         super(Purvdr.class);
     }
-    
-        public Purvdr findByVdrno(String vdrno) {
+
+    public Purvdr findByVdrno(String vdrno) {
         Query query = getEntityManager().createNamedQuery("Purvdr.findByVdrno");
         query.setParameter("vdrno", vdrno);
         try {
@@ -86,6 +88,7 @@ public class PurvdrBean extends SuperEJBForERP<Purvdr> {
             case "G":
             case "J":
             case "N":
+            case "C4":
                 facno = "C";
                 code = "S";
                 break;
@@ -95,7 +98,8 @@ public class PurvdrBean extends SuperEJBForERP<Purvdr> {
         }
         Miscode m;
         this.miscodeBean.setCompany(facno);
-        m = miscodeBean.findByCdesc(oa.getTtbankna());
+        //m = miscodeBean.findByCdesc(oa.getTtbankna());
+        m = miscodeBean.findByCkindAndCdesc("NB", oa.getTtbankna());
         if (m == null) {
             m = new Miscode("NB", miscodeBean.getFormId("NB", "B", 4));
             m.setCdesc(oa.getTtbankna());
@@ -106,7 +110,6 @@ public class PurvdrBean extends SuperEJBForERP<Purvdr> {
         }
 
         setCompany(facno);
-
         erp.setVdrna(oa.getVdrna());
         if (oa.getVdrsta() != null && !oa.getVdrsta().equals("")) {
             erp.setVdrsta(oa.getVdrsta().charAt(0));
@@ -210,10 +213,17 @@ public class PurvdrBean extends SuperEJBForERP<Purvdr> {
                     syncNJBean.persist(erp, details);
                     syncNJBean.getEntityManager().flush();
                     break;
+                case "C4":
+                    //同步重庆ERP
+                    resetFacno("C4");
+                    syncCQBean.persist(erp, details);
+                    syncCQBean.getEntityManager().flush();
+                    break;
                 default:
             }
             return true;
         } catch (Exception ex) {
+            Logger.getLogger(PurvdrBean.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         } finally {
             resetObjects();
@@ -251,6 +261,7 @@ public class PurvdrBean extends SuperEJBForERP<Purvdr> {
             case "G":
             case "J":
             case "N":
+            case "C4":
                 facno = "C";
                 code = "S";
                 break;
@@ -269,7 +280,8 @@ public class PurvdrBean extends SuperEJBForERP<Purvdr> {
         if ("1".equals(oa.getCheckbox11())) {
             Miscode m;
             this.miscodeBean.setCompany(facno);
-            m = miscodeBean.findByCdesc(oa.getTtbankna());
+            //m = miscodeBean.findByCdesc(oa.getTtbankna());
+            m = miscodeBean.findByCkindAndCdesc("NB", oa.getTtbankna());
             if (m == null) {
                 m = new Miscode("NB", miscodeBean.getFormId("NB", "B", 4));
                 m.setCdesc(oa.getTtbankna());
@@ -333,10 +345,17 @@ public class PurvdrBean extends SuperEJBForERP<Purvdr> {
                     syncNJBean.update(erp, null);
                     syncNJBean.getEntityManager().flush();
                     break;
+                case "C4":
+                    //同步重庆ERP
+                    //resetFacno("C4");
+                    syncCQBean.update(erp, null);
+                    syncCQBean.getEntityManager().flush();
+                    break;
                 default:
             }
             return true;
         } catch (Exception ex) {
+            Logger.getLogger(PurvdrBean.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         } finally {
             resetObjects();
