@@ -32,5 +32,16 @@ public class ProcessInstanceBean extends  SuperEJBForEFGP<ProcessInstance>{
             return null;
         }
     }
+   
+   public ProcessInstance findBySerialNumber(String serialNumber){
+      Query query=getEntityManager().createNamedQuery("ProcessInstance.findBySerialNumber");
+      query.setParameter("serialNumber", serialNumber);
+      try{
+      return (ProcessInstance) query.getSingleResult();
+      }catch(Exception ex){
+      return null;
+      }
+   }
+   
     
 }
