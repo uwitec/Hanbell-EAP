@@ -30,10 +30,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "NewsDetail.findByPId", query = "SELECT n FROM NewsDetail n WHERE n.pid = :pid")})
 public class NewsDetail extends SuperDetailEntity {
 
-    @Basic(optional = false)
-    @NotNull
     @Lob
-    @Size(min = 1, max = 2147483647)
+    @Size(max = 2147483647)
     @Column(name = "content")
     private String content;
     @Size(max = 200)

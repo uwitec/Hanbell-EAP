@@ -41,6 +41,7 @@ public class SystemNameManagedBean extends SuperSingleBean<SystemName> {
     public void init() {
         this.superEJB = systemNameBean;
         setModel(new SystemNameModel(systemNameBean));
+        this.model.getSortFields().put("sortid", "ASC");
         super.init();
     }
 

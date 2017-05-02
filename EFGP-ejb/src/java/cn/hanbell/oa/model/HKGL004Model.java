@@ -76,8 +76,6 @@ public class HKGL004Model implements Serializable {
     @Column(name = "time1")
     private String time1;
 
-
-
     @Size(max = 255)
     @Column(name = "hdn_leatp")
     private String hdnLeatp;
@@ -88,7 +86,6 @@ public class HKGL004Model implements Serializable {
     @Size(max = 255)
     @Column(name = "hdn_dept")
     private String hdnDept;
-
 
     @Size(max = 255)
     @Column(name = "hdn_leauser")
@@ -110,7 +107,6 @@ public class HKGL004Model implements Serializable {
 
     public HKGL004Model() {
     }
-
 
     public String getLeauser() {
         return leauser;

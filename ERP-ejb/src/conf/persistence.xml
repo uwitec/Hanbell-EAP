@@ -15,6 +15,16 @@
       <property name="eclipselink.canonicalmodel.subpackage" value="shb"/>
     </properties>
   </persistence-unit>
+  <persistence-unit name="PU_cqerp" transaction-type="JTA">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <jta-data-source>jdbc/cqerp</jta-data-source>
+    <exclude-unlisted-classes>false</exclude-unlisted-classes>
+    <shared-cache-mode>NONE</shared-cache-mode>
+    <validation-mode>NONE</validation-mode>
+    <properties>
+      <property name="eclipselink.canonicalmodel.subpackage" value="cq"/>
+    </properties>
+  </persistence-unit>
   <persistence-unit name="PU_gzerp" transaction-type="JTA">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <jta-data-source>jdbc/gzerp</jta-data-source>
@@ -29,20 +39,6 @@
       <property name="eclipselink.canonicalmodel.subpackage" value="gz"/>
     </properties>
   </persistence-unit>
-  <persistence-unit name="PU_njerp" transaction-type="JTA">
-    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-    <jta-data-source>jdbc/njerp</jta-data-source>
-    <class>cn.hanbell.erp.entity.Invbal</class>
-    <class>cn.hanbell.erp.entity.Invwh</class>
-    <class>cn.hanbell.erp.entity.Apmsys</class>
-    <class>cn.hanbell.erp.entity.Apmrno</class>
-    <exclude-unlisted-classes>false</exclude-unlisted-classes>
-    <shared-cache-mode>NONE</shared-cache-mode>
-    <validation-mode>NONE</validation-mode>
-    <properties>
-      <property name="eclipselink.canonicalmodel.subpackage" value="nj"/>
-    </properties>
-  </persistence-unit>
   <persistence-unit name="PU_jnerp" transaction-type="JTA">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <jta-data-source>jdbc/jnerp</jta-data-source>
@@ -55,6 +51,20 @@
     <validation-mode>NONE</validation-mode>
     <properties>
       <property name="eclipselink.canonicalmodel.subpackage" value="jn"/>
+    </properties>
+  </persistence-unit>
+  <persistence-unit name="PU_njerp" transaction-type="JTA">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <jta-data-source>jdbc/njerp</jta-data-source>
+    <class>cn.hanbell.erp.entity.Invbal</class>
+    <class>cn.hanbell.erp.entity.Invwh</class>
+    <class>cn.hanbell.erp.entity.Apmsys</class>
+    <class>cn.hanbell.erp.entity.Apmrno</class>
+    <exclude-unlisted-classes>false</exclude-unlisted-classes>
+    <shared-cache-mode>NONE</shared-cache-mode>
+    <validation-mode>NONE</validation-mode>
+    <properties>
+      <property name="eclipselink.canonicalmodel.subpackage" value="nj"/>
     </properties>
   </persistence-unit>
   <persistence-unit name="PU_hansonerp" transaction-type="JTA">
@@ -91,6 +101,15 @@
     <validation-mode>NONE</validation-mode>
     <properties>
       <property name="eclipselink.canonicalmodel.subpackage" value="sd"/>
+    </properties>
+  </persistence-unit>
+  <persistence-unit name="PU_hkerp" transaction-type="JTA">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <jta-data-source>jdbc/hkerp</jta-data-source>
+    <shared-cache-mode>NONE</shared-cache-mode>
+    <validation-mode>NONE</validation-mode>
+    <properties>
+      <property name="eclipselink.canonicalmodel.subpackage" value="hk"/>
     </properties>
   </persistence-unit>
 </persistence>

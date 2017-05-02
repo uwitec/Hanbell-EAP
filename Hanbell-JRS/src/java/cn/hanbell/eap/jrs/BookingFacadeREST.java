@@ -164,7 +164,8 @@ public class BookingFacadeREST extends SuperRESTForEAP<Booking> {
             b.setContacter(entity.getContacter());
             b.setRemark(entity.getRemark());
             b.setRoom(r.getName());
-
+            b.setMsgNotify(bk.getMsgNotify());
+            b.setMsgNotified(bk.getMsgNotified());
             meetingScheduleBean.persist(s);
             bookingBean.persist(b);
             code = "200";
@@ -196,6 +197,8 @@ public class BookingFacadeREST extends SuperRESTForEAP<Booking> {
         b.setStartTime(bk.getStartTime());
         b.setEndDate(bk.getEndDate());
         b.setEndTime(bk.getEndTime());
+        b.setMsgNotify(bk.getMsgNotify());
+        b.setMsgNotified(bk.getMsgNotified());
         b.setCreator("EAP-JRS");
         b.setCredateToNow();
         b.setName(entity.getName());
@@ -268,6 +271,8 @@ public class BookingFacadeREST extends SuperRESTForEAP<Booking> {
         b.setStartTime(bk.getStartTime());
         b.setEndDate(bk.getEndDate());
         b.setEndTime(bk.getEndTime());
+        b.setMsgNotify(bk.getMsgNotify());
+        b.setMsgNotified(bk.getMsgNotified());
         b.setCreator("EAP-JRS");
         b.setCredateToNow();
         b.setName(entity.getName());

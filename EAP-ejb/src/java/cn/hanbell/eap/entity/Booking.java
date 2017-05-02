@@ -30,11 +30,18 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "booking")
 @XmlRootElement
 @NamedQueries({
+    @NamedQuery(name = "Booking.getRowCount", query = "SELECT COUNT(b) FROM Booking b"),
     @NamedQuery(name = "Booking.findAll", query = "SELECT b FROM Booking b"),
     @NamedQuery(name = "Booking.findById", query = "SELECT b FROM Booking b WHERE b.id = :id"),
     @NamedQuery(name = "Booking.findByFormid", query = "SELECT b FROM Booking b WHERE b.formid = :formid"),
-    @NamedQuery(name = "Booking.findByFormdate", query = "SELECT b FROM Booking b WHERE b.formdate = :formdate")})
+    @NamedQuery(name = "Booking.findByFormdate", query = "SELECT b FROM Booking b WHERE b.formdate = :formdate"),
+    @NamedQuery(name = "Booking.findNeedMsgNotify", query = "SELECT b FROM Booking b WHERE b.msgNotify=true AND b.msgNotified>0 AND b.startDate = :startdate AND b.startTime = :starttime ")})
 public class Booking extends FormEntity {
+
+    @Column(name = "msgNotify")
+    private Boolean msgNotify;
+    @Column(name = "msgNotified")
+    private Integer msgNotified;
 
     @Size(max = 45)
     @Column(name = "key1")
@@ -301,6 +308,34 @@ public class Booking extends FormEntity {
 
     public void setSeat(String seat) {
         this.seat = seat;
+    }
+
+    /**
+     * @return the msgNotify
+     */
+    public Boolean getMsgNotify() {
+        return msgNotify;
+    }
+
+    /**
+     * @param msgNotify the msgNotify to set
+     */
+    public void setMsgNotify(Boolean msgNotify) {
+        this.msgNotify = msgNotify;
+    }
+
+    /**
+     * @return the msgNotified
+     */
+    public Integer getMsgNotified() {
+        return msgNotified;
+    }
+
+    /**
+     * @param msgNotified the msgNotified to set
+     */
+    public void setMsgNotified(Integer msgNotified) {
+        this.msgNotified = msgNotified;
     }
 
     public String getRemark() {

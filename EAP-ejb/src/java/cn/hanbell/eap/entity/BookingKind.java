@@ -38,6 +38,11 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "BookingKind.findByStatus", query = "SELECT b FROM BookingKind b WHERE b.status = :status")})
 public class BookingKind extends SuperEntity {
 
+    @Column(name = "msgNotify")
+    private Boolean msgNotify;
+    @Column(name = "msgNotified")
+    private Integer msgNotified;
+
     @Size(max = 45)
     @Column(name = "key1")
     private String key1;
@@ -126,6 +131,8 @@ public class BookingKind extends SuperEntity {
         this.key6 = "";
         this.key7 = "";
         this.key8 = "";
+        this.msgNotify = false;
+        this.msgNotified = 0;
     }
 
     public String getKind() {
@@ -343,6 +350,22 @@ public class BookingKind extends SuperEntity {
 
     public void setKey8(String key8) {
         this.key8 = key8;
+    }
+
+    public Boolean getMsgNotify() {
+        return msgNotify;
+    }
+
+    public void setMsgNotify(Boolean msgNotify) {
+        this.msgNotify = msgNotify;
+    }
+
+    public Integer getMsgNotified() {
+        return msgNotified;
+    }
+
+    public void setMsgNotified(Integer msgNotified) {
+        this.msgNotified = msgNotified;
     }
 
 }

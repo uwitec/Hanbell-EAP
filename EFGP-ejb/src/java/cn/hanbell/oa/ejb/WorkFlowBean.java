@@ -37,7 +37,7 @@ import org.apache.axis.client.Call;
 @DependsOn({"UsersBean", "FunctionsBean", "TitleBean"})
 public class WorkFlowBean extends SuperEJBForEFGP<FormInstance> implements Serializable {
 
-    //public final String hostAdd = "http://jrs.hanbell.com.cn";
+    //public final String hostAdd = "http://oa.hanbell.com.cn";
     public final String hostAdd = "http://192.168.1.73";
     public final String hostPort = "8086";
 
@@ -66,7 +66,7 @@ public class WorkFlowBean extends SuperEJBForEFGP<FormInstance> implements Seria
         for (Field f : fields) {
             try {
                 f.setAccessible(true);
-                if ((f.getName().equals("creator") || f.getName().equals("emply") || f.getName().equals("employee") || f.getName().endsWith("user") || f.getName().endsWith("User")) && (!f.getName().startsWith("hdn"))) {
+                if ((f.getName().equals("creator") || f.getName().equals("empl") || f.getName().equals("emply") || f.getName().equals("employee") || f.getName().endsWith("user") || f.getName().endsWith("User")) && (!f.getName().startsWith("hdn"))) {
                     Users user = this.findUserByUserno(f.get(master).toString());
                     if (user == null) {
                         Logger.getLogger(this.getClass().getName()).log(Level.INFO, null, f.get(master).toString() + "用户不存在");

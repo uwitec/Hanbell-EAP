@@ -6,29 +6,23 @@
 package cn.hanbell.wei.control;
 
 import cn.hanbell.eap.web.SuperMultiBean;
-import cn.hanbell.wei.ejb.CategoryBean;
+import cn.hanbell.wei.ejb.GalleryCategoryBean;
 import cn.hanbell.wei.ejb.GalleryBean;
 import cn.hanbell.wei.ejb.GalleryDetailBean;
-import cn.hanbell.wei.entity.Category;
+import cn.hanbell.wei.entity.GalleryCategory;
 import cn.hanbell.wei.entity.Gallery;
 import cn.hanbell.wei.entity.GalleryDetail;
 import cn.hanbell.wei.lazy.GalleryModel;
-import com.lightshell.comm.BaseLib;
-import com.lightshell.comm.SuperSingleManagedBean;
-import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObjectBuilder;
-import javax.json.JsonStructure;
 import org.primefaces.event.FileUploadEvent;
 
 /**
@@ -38,20 +32,32 @@ import org.primefaces.event.FileUploadEvent;
 @ManagedBean
 @SessionScoped
 public class GalleryManagedBean extends SuperMultiBean<Gallery, GalleryDetail> {
-    
+
     @EJB
-    private CategoryBean categoryBean;
+    private GalleryCategoryBean categoryBean;
     @EJB
     private GalleryBean galleryBean;
     @EJB
     private GalleryDetailBean galleryDetailBean;
-    
-    protected List<Category> categoryList;
-    
+
+    protected List<GalleryCategory> categoryList;
+
     public GalleryManagedBean() {
         super(Gallery.class, GalleryDetail.class);
     }
-    
+
+    @Override
+    public String getAppImgPath() {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        return fc.getExternalContext().getInitParameter("cn.hanbell.wx.web.appimgpath");
+    }
+
+    @Override
+    public String getAppDataPath() {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        return fc.getExternalContext().getInitParameter("cn.hanbell.wx.web.appdatapath");
+    }
+
     @Override
     protected void buildJsonArray() {
         String name;
@@ -61,7 +67,7 @@ public class GalleryManagedBean extends SuperMultiBean<Gallery, GalleryDetail> {
             categoryList = categoryBean.findAll();
         }
         //产生分类产品
-        for (Category category : categoryList) {
+        for (GalleryCategory category : categoryList) {
             setEntityList(null);
             setEntityList(galleryBean.findByCategoryId(category.getId()));
             if (!entityList.isEmpty()) {
@@ -79,7 +85,7 @@ public class GalleryManagedBean extends SuperMultiBean<Gallery, GalleryDetail> {
         setEntityList(galleryBean.findByFilters(filters, 0, 8, sorts));
         if (this.entityList != null && !this.entityList.isEmpty()) {
             jab = galleryBean.createJsonArrayBuilder(this.entityList);
-            this.buildJsonFile(jab.build(), getAppDataPath(), "homeadv.json");
+            buildJsonFile(jab.build(), getAppDataPath(), "homeadv.json");
         }
         //产生最新产品(已审核)
         filters.clear();
@@ -89,7 +95,7 @@ public class GalleryManagedBean extends SuperMultiBean<Gallery, GalleryDetail> {
         setEntityList(galleryBean.findByFilters(filters, 0, 8, sorts));
         if (this.entityList != null && !this.entityList.isEmpty()) {
             jab = galleryBean.createJsonArrayBuilder(this.entityList);
-            this.buildJsonFile(jab.build(), getAppDataPath(), "gallerytop.json");
+            buildJsonFile(jab.build(), getAppDataPath(), "gallerytop.json");
         }
         //产生全部产品系列(已审核)
         filters.clear();
@@ -97,19 +103,19 @@ public class GalleryManagedBean extends SuperMultiBean<Gallery, GalleryDetail> {
         setEntityList(galleryBean.findByFilters(filters, sorts));
         if (this.entityList != null && !this.entityList.isEmpty()) {
             jab = galleryBean.createJsonArrayBuilder(this.entityList);
-            this.buildJsonFile(jab.build(), getAppDataPath(), "gallery.json");
+            buildJsonFile(jab.build(), getAppDataPath(), "gallery.json");
         }
         //产生单个产品系列信息(已审核)
         if (this.entityList != null && !this.entityList.isEmpty()) {
             for (Gallery entity : entityList) {
                 job = galleryBean.createJsonObjectBuilder(entity);
                 name = "gallery" + entity.getId().toString() + ".json";
-                this.buildJsonFile(job.build(), getAppDataPath(), name);
+                buildJsonFile(job.build(), getAppDataPath(), name);
             }
         }
         showInfoMsg("Info", "发布成功");
     }
-    
+
     @Override
     public void create() {
         super.create();
@@ -117,7 +123,7 @@ public class GalleryManagedBean extends SuperMultiBean<Gallery, GalleryDetail> {
         newEntity.setHomeadv(false);
         newEntity.setHits(0);
     }
-    
+
     @Override
     public void handleFileUploadWhenNew(FileUploadEvent event) {
         super.handleFileUploadWhenNew(event);
@@ -125,7 +131,7 @@ public class GalleryManagedBean extends SuperMultiBean<Gallery, GalleryDetail> {
             this.newEntity.setImgfile(fileName);
         }
     }
-    
+
     @Override
     public void handleFileUploadWhenEdit(FileUploadEvent event) {
         super.handleFileUploadWhenEdit(event);
@@ -133,14 +139,14 @@ public class GalleryManagedBean extends SuperMultiBean<Gallery, GalleryDetail> {
             this.currentEntity.setImgfile(fileName);
         }
     }
-    
+
     public void handleFileUploadWhenDetailEdit(FileUploadEvent event) {
         super.handleFileUploadWhenEdit(event);
         if (this.fileName != null && this.currentDetail != null) {
             this.currentDetail.setImgfile(fileName);
         }
     }
-    
+
     @Override
     public void init() {
         this.superEJB = galleryBean;
@@ -149,7 +155,7 @@ public class GalleryManagedBean extends SuperMultiBean<Gallery, GalleryDetail> {
         categoryList = categoryBean.findAll();
         super.init();
     }
-    
+
     @Override
     public void query() {
         if (this.model != null) {
@@ -172,15 +178,15 @@ public class GalleryManagedBean extends SuperMultiBean<Gallery, GalleryDetail> {
     /**
      * @return the categoryList
      */
-    public List<Category> getCategoryList() {
+    public List<GalleryCategory> getCategoryList() {
         return categoryList;
     }
 
     /**
      * @param categoryList the categoryList to set
      */
-    public void setCategoryList(List<Category> categoryList) {
+    public void setCategoryList(List<GalleryCategory> categoryList) {
         this.categoryList = categoryList;
     }
-    
+
 }

@@ -13,6 +13,8 @@ import cn.hanbell.eap.entity.BookingDetail;
 import cn.hanbell.eap.entity.MeetingSchedule;
 import cn.hanbell.eap.lazy.BookingModel;
 import cn.hanbell.eap.web.FormMultiBean;
+import com.lightshell.comm.BaseLib;
+import java.util.HashMap;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -93,6 +95,48 @@ public class BookingManagedBean extends FormMultiBean<Booking, BookingDetail> {
         }
         if (this.queryDateEnd != null) {
             this.model.getFilterFields().put("endDateEnd", this.queryDateEnd);
+        }
+    }
+
+    @Override
+    public void print() throws Exception {
+        if (getCurrentPrgGrant() != null && getCurrentPrgGrant().getDoprt()) {
+            HashMap<String, Object> reportParams = new HashMap<>();
+            reportParams.put("JNDIName", this.getCurrentPrgGrant().getSysprg().getRptjndi());
+            if (!this.model.getFilterFields().isEmpty()) {
+                reportParams.put("filterFields", BaseLib.convertMapToStringWithClass(this.model.getFilterFields()));
+            } else {
+                reportParams.put("filterFields", "");
+            }
+            if (!this.model.getSortFields().isEmpty()) {
+                reportParams.put("sortFields", BaseLib.convertMapToString(this.model.getSortFields()));
+            } else {
+                reportParams.put("sortFields", "");
+            }
+            //设置报表名称
+            String reportFormat;
+            if (this.getCurrentPrgGrant().getSysprg().getRptformat() != null) {
+                reportFormat = this.getCurrentPrgGrant().getSysprg().getRptformat();
+            } else {
+                reportFormat = reportOutputFormat;
+            }
+            this.fileName = this.getCurrentPrgGrant().getSysprg().getApi() + BaseLib.formatDate("yyyyMMddHHss", this.getDate()) + "." + reportFormat;
+            String reportName = reportPath + this.getCurrentPrgGrant().getSysprg().getRptdesign();
+            String outputName = reportOutputPath + this.fileName;
+            this.reportViewPath = reportViewContext + this.fileName;
+            try {
+                if (this.getCurrentPrgGrant().getSysprg().getRptclazz() != null) {
+                    reportClassLoader = Class.forName(this.getCurrentPrgGrant().getSysprg().getRptclazz()).getClassLoader();
+                }
+                //初始配置
+                this.reportInitAndConfig();
+                //生成报表
+                this.reportRunAndOutput(reportName, reportParams, outputName, reportFormat, null);
+                //预览报表
+                this.preview();
+            } catch (Exception ex) {
+                throw ex;
+            }
         }
     }
 

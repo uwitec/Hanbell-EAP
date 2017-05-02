@@ -11,26 +11,16 @@ import cn.hanbell.wei.ejb.NewsDetailBean;
 import cn.hanbell.wei.entity.News;
 import cn.hanbell.wei.entity.NewsDetail;
 import cn.hanbell.wei.lazy.NewsModel;
-import com.lightshell.comm.BaseLib;
-import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ejb.EJB;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObjectBuilder;
-import javax.json.JsonStructure;
-import javax.servlet.http.HttpServletResponse;
-
 import org.primefaces.event.FileUploadEvent;
-import org.primefaces.model.UploadedFile;
 
 /**
  *
@@ -70,6 +60,7 @@ public class NewsManagedBean extends SuperMultiBean<News, NewsDetail> {
         Map<String, String> sorts = new LinkedHashMap<>();
         filters.put("status", "V");
         filters.put("ontop", true);
+        sorts.put("ontop", "DESC");
         sorts.put("id", "DESC");
         //首页活动(4个)
         setEntityList(newsBean.findByFilters(filters, 0, 4, sorts));
@@ -84,7 +75,7 @@ public class NewsManagedBean extends SuperMultiBean<News, NewsDetail> {
             jab = newsBean.createJsonArrayBuilder(this.entityList);
             this.buildJsonFile(jab.build(), getAppDataPath(), "newstop.json");
         }
-        //所有活动
+        //所有活动(已审核)
         filters.clear();
         filters.put("status", "V");
         entityList.clear();
