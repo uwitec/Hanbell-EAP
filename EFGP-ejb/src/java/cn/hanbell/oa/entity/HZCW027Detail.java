@@ -56,6 +56,9 @@ public class HZCW027Detail implements Serializable {
     @Column(name = "bibi")
     private String bibi;
     @Size(max = 255)
+    @Column(name = "acctno")
+    private String acctno;
+    @Size(max = 255)
     @Column(name = "formSerialNumber")
     private String formSerialNumber;
 
@@ -120,6 +123,14 @@ public class HZCW027Detail implements Serializable {
 
     public void setBibi(String bibi) {
         this.bibi = bibi;
+    }
+
+    public String getAcctno() {
+        return acctno;
+    }
+
+    public void setAcctno(String acctno) {
+        this.acctno = acctno;
     }
 
     public String getFormSerialNumber() {
