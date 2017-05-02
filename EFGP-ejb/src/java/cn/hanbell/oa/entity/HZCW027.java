@@ -102,6 +102,9 @@ public class HZCW027 implements Serializable {
     @Column(name = "bttbankno")
     private String bttbankno;
     @Size(max = 255)
+    @Column(name = "acctno")
+    private String acctno;
+    @Size(max = 255)
     @Column(name = "pzzh")
     private String pzzh;
     @Size(max = 255)
@@ -305,6 +308,14 @@ public class HZCW027 implements Serializable {
 
     public void setBttbankno(String bttbankno) {
         this.bttbankno = bttbankno;
+    }
+
+    public String getAcctno() {
+        return acctno;
+    }
+
+    public void setAcctno(String acctno) {
+        this.acctno = acctno;
     }
 
     public String getPzzh() {
