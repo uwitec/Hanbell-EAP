@@ -349,6 +349,10 @@ public class InvmasBean extends SuperEJBForERP<Invmas> {
                 item = findByItnbr(d.getBjh());
                 if (item != null) {
                     item.setItdsc("#" + item.getItdsc());
+                    item.setStopyn("AAAAAAAAAAAAA");
+                    item.setNStopyn("N");
+                    item.setNEcnnewitnbr(d.getAjh());
+                    item.setNEcnno(h.getBgbh());
                     invmasList.add(item);
                 }
             }

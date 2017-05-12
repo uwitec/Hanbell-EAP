@@ -82,18 +82,18 @@ public class MenuManagedBean implements Serializable {
             appmenu.setIcon("menu");
             //将用户权限和角色权限合并后产生菜单,用户权限优先角色权限
             moduleGrantList.clear();
-            userModuleGrantList = systemGrantModuleBean.findByUserId(userManagedBean.getCurrentUser().getId());
+            userModuleGrantList = systemGrantModuleBean.findBySystemNameAndUserId("EAP", userManagedBean.getCurrentUser().getId());
             userModuleGrantList.forEach((m) -> {
                 moduleGrantList.add(m);
             });
             prgGrantList.clear();
-            userPrgGrantList = systemGrantPrgBean.findByUserId(userManagedBean.getCurrentUser().getId());
+            userPrgGrantList = systemGrantPrgBean.findBySystemNameAndUserId("EAP", userManagedBean.getCurrentUser().getId());
             userPrgGrantList.forEach((p) -> {
                 prgGrantList.add(p);
             });
             roleList = systemRoleDetailBean.findByUserId(userManagedBean.getCurrentUser().getId());
             for (SystemRoleDetail r : roleList) {
-                roleModuleGrantList = systemGrantModuleBean.findByRoleId(r.getPid());
+                roleModuleGrantList = systemGrantModuleBean.findBySystemNameAndRoleId("EAP", r.getPid());
                 if (moduleGrantList.isEmpty()) {
                     moduleGrantList.addAll(roleModuleGrantList);
                 } else {
@@ -110,7 +110,7 @@ public class MenuManagedBean implements Serializable {
                         }
                     }
                 }
-                rolePrgGrantList = systemGrantPrgBean.findByRoleId(r.getPid());
+                rolePrgGrantList = systemGrantPrgBean.findBySystemNameAndRoleId("EAP", r.getPid());
                 if (prgGrantList.isEmpty()) {
                     prgGrantList.addAll(rolePrgGrantList);
                 } else {
