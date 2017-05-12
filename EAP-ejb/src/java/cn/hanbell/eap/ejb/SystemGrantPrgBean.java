@@ -36,4 +36,18 @@ public class SystemGrantPrgBean extends SuperEJBForEAP<SystemGrantPrg> {
         return query.getResultList();
     }
 
+    public List<SystemGrantPrg> findBySystemNameAndUserId(String sysname, int id) {
+        Query query = this.getEntityManager().createNamedQuery("SystemGrantPrg.findBySystemNameAndUserId");
+        query.setParameter("sysname", sysname);
+        query.setParameter("userid", id);
+        return query.getResultList();
+    }
+
+    public List<SystemGrantPrg> findBySystemNameAndRoleId(String sysname, int id) {
+        Query query = this.getEntityManager().createNamedQuery("SystemGrantPrg.findBySystemNameAndRoleId");
+        query.setParameter("sysname", sysname);
+        query.setParameter("roleid", id);
+        return query.getResultList();
+    }
+
 }

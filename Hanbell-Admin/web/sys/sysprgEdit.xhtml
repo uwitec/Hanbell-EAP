@@ -27,6 +27,7 @@
                     <p:selectOneMenu id="sysname" value="#{systemProgramManagedBean.currentEntity.sysname}" title="sysname" required="true" requiredMessage="系统不能为空.">
                         <f:selectItem itemLabel="Select One" itemValue="" />
                         <f:selectItems value="#{systemProgramManagedBean.systemNameList}" var="s" itemLabel="#{s.name}" itemValue="#{s.name}"/>
+                        <p:ajax event="itemSelect" listener="#{systemProgramManagedBean.handleSystemNameChangedWhenEdit}" update="moduleid" />
                     </p:selectOneMenu>
                     <p:outputLabel value="模块" for="moduleid" />
                     <p:selectOneMenu id="moduleid" value="#{systemProgramManagedBean.currentEntity.systemModule}" title="Moduleid"

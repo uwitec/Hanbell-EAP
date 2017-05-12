@@ -17,13 +17,13 @@ import javax.persistence.Query;
  */
 @Stateless
 @LocalBean
-public class ProcessInstanceBean extends  SuperEJBForEFGP<ProcessInstance>{
+public class ProcessInstanceBean extends SuperEJBForEFGP<ProcessInstance> {
 
     public ProcessInstanceBean() {
         super(ProcessInstance.class);
     }
 
-   public ProcessInstance findByOID(String oid) {
+    public ProcessInstance findByOID(String oid) {
         Query query = getEntityManager().createNamedQuery("ProcessInstance.findByOID");
         query.setParameter("oid", oid);
         try {
@@ -32,16 +32,15 @@ public class ProcessInstanceBean extends  SuperEJBForEFGP<ProcessInstance>{
             return null;
         }
     }
-   
-   public ProcessInstance findBySerialNumber(String serialNumber){
-      Query query=getEntityManager().createNamedQuery("ProcessInstance.findBySerialNumber");
-      query.setParameter("serialNumber", serialNumber);
-      try{
-      return (ProcessInstance) query.getSingleResult();
-      }catch(Exception ex){
-      return null;
-      }
-   }
-   
-    
+
+    public ProcessInstance findBySerialNumber(String serialNumber) {
+        Query query = getEntityManager().createNamedQuery("ProcessInstance.findBySerialNumber");
+        query.setParameter("serialNumber", serialNumber);
+        try {
+            return (ProcessInstance) query.getSingleResult();
+        } catch (Exception ex) {
+            return null;
+        }
+    }
+
 }
