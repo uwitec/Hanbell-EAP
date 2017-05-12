@@ -237,6 +237,34 @@
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
+        <description>基础资料一级导航</description>
+        <from-view-id>/*</from-view-id>
+        <navigation-case>
+            <from-outcome>company</from-outcome>
+            <to-view-id>/app/bd/company.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <description>公司信息维护</description>
+        <from-view-id>/app/bd/company.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>companyNew</from-outcome>
+            <to-view-id>/app/bd/companyNew.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>companyEdit</from-outcome>
+            <to-view-id>/app/bd/companyEdit.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>companyView</from-outcome>
+            <to-view-id>/app/bd/companyView.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
         <description>权限查询一级导航</description>
         <from-view-id>/*</from-view-id>
         <navigation-case>
