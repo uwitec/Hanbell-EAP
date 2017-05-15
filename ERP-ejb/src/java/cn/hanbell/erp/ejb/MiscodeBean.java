@@ -36,6 +36,18 @@ public class MiscodeBean extends SuperEJBForERP<Miscode> {
         }
     }
 
+    public Miscode findByCkindAndCdesc(String ckind, String cdesc) {
+        Query q = this.getEntityManager().createNamedQuery("Miscode.findByCkindAndCdesc");
+        q.setParameter("ckind", ckind);
+        q.setParameter("cdesc", cdesc);
+        try {
+            Object o = q.getSingleResult();
+            return (Miscode) o;
+        } catch (Exception ex) {
+            return null;
+        }
+    }
+
     public Miscode findByPK(String ckind, String code) {
         Query q = this.getEntityManager().createNamedQuery("Miscode.findByPK");
         q.setParameter("ckind", ckind);
@@ -68,6 +80,26 @@ public class MiscodeBean extends SuperEJBForERP<Miscode> {
         } else {
             return "";
         }
+    }
+
+    public int persistIfNotExist(String ckind, String code, String cdesc, Character mascreyn) {
+        //生成miscode资料
+        Miscode c;
+        c = findByPK(ckind, code);
+        if (c == null) {
+            c = new Miscode(ckind, code);
+            c.setCdesc(cdesc);
+            c.setStatus('Y');
+            c.setMascreyn(mascreyn);
+            c.setCusds(cdesc);
+            try {
+                persist(c);
+                return 1;
+            } catch (Exception ex) {
+                return -1;
+            }
+        }
+        return 0;
     }
 
 }

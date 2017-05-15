@@ -10,6 +10,8 @@ import cn.hanbell.erp.entity.Invmas;
 import cn.hanbell.erp.entity.Miscode;
 import cn.hanbell.erp.entity.Purdask;
 import cn.hanbell.erp.entity.PurdaskPK;
+import cn.hanbell.erp.entity.Purdaskdsc;
+import cn.hanbell.erp.entity.PurdaskdscPK;
 import cn.hanbell.erp.entity.Purhask;
 import cn.hanbell.erp.entity.PurhaskPK;
 import cn.hanbell.erp.entity.Purqnam;
@@ -40,21 +42,23 @@ import javax.persistence.Query;
 public class PurhaskBean extends SuperEJBForERP<Purhask> {
 
     @EJB
-    PursysBean pursysBean;
+    private PursysBean pursysBean;
     @EJB
-    HKCG007Bean hkcg007Bean;
+    private HKCG007Bean hkcg007Bean;
     @EJB
-    HKCG007purDetailBean hkcg007purDetailBean;
+    private HKCG007purDetailBean hkcg007purDetailBean;
     @EJB
-    InvmasBean invmasBean;
+    private InvmasBean invmasBean;
     @EJB
-    PurvdrBean purvdrBean;
+    private PurvdrBean purvdrBean;
     @EJB
-    MiscodeBean miscodeBean;
+    private MiscodeBean miscodeBean;
     @EJB
-    PurdaskBean purdaskBean;
+    private PurdaskBean purdaskBean;
     @EJB
-    PurqnamBean purqnamBean;
+    private PurqnamBean purqnamBean;
+    @EJB
+    private PurdaskdscBean purdaskdscBean;
 
     public PurhaskBean() {
         super(Purhask.class);
@@ -80,6 +84,11 @@ public class PurhaskBean extends SuperEJBForERP<Purhask> {
             if (q == null) {
                 return false;
             }
+            //判断ERP中是否已经抛转
+            this.setCompany(q.getFacno());
+            if (this.findBySrcno(q.getProcessSerialNumber()) != null) {
+                return false;
+            }
             List<HKCG007purDetail> details = hkcg007purDetailBean.findByFSN(q.getFormSerialNumber());
             for (HKCG007purDetail detail : details) {
                 if (!"9".equals(detail.getItnbr())) {
@@ -92,11 +101,6 @@ public class PurhaskBean extends SuperEJBForERP<Purhask> {
             }
 
             facno = q.getFacno();
-            //判断ERP中是否已经抛转
-            this.setCompany(q.getFacno());
-            if (this.findBySrcno(q.getProcessSerialNumber()) != null) {
-                return true;
-            }
             prono = q.getProno();
             date = BaseLib.getDate("yyyy/MM/dd", BaseLib.formatDate("yyyy/MM/dd", BaseLib.getDate()));
             pursysBean.setCompany(facno);
@@ -110,7 +114,7 @@ public class PurhaskBean extends SuperEJBForERP<Purhask> {
             p.setPrkind(q.getPrkind());
             p.setPrdate(q.getAppDate());
             p.setDepno(q.getDepno());
-            String srcString =q.getProcessSerialNumber().substring(4);
+            String srcString = q.getProcessSerialNumber().substring(4);
             p.setSrcno(srcString);
             p.setBudgetcode(q.getBudgetcode());                                 //获得专案预算代号
             p.setHmark1(q.getHmark1());                                         //材料区分
@@ -222,6 +226,28 @@ public class PurhaskBean extends SuperEJBForERP<Purhask> {
                     purqnamBean.setCompany(facno);
                     purqnamBean.persist(purqnam);
 
+                }
+                //请购备注/用途
+                if (!"".equals(detail.getPurdaskdescs())) {
+                    Purdaskdsc purdaskdsc = new Purdaskdsc();
+                    PurdaskdscPK purdaskdscPK = new PurdaskdscPK();
+                    purdaskdscPK.setFacno(facno);
+                    purdaskdscPK.setPrno(prno);
+                    purdaskdscPK.setProno(prono);
+                    purdaskdscPK.setTrseq(pdk.getTrseq());
+                    purdaskdsc.setPurdaskdscPK(purdaskdscPK);
+                    purdaskdsc.setMark1(detail.getPurdaskdescs());
+                    purdaskdsc.setMark2("");
+                    purdaskdsc.setMark3("");
+                    purdaskdsc.setMark4("");
+                    purdaskdsc.setMark5("");
+                    purdaskdsc.setMark6("");
+                    purdaskdsc.setMark7("");
+                    purdaskdsc.setMark8("");
+                    purdaskdsc.setMark9("");
+                    purdaskdsc.setMarka("");
+                    purdaskdscBean.setCompany(facno);
+                    purdaskdscBean.persist(purdaskdsc);
                 }
 
             }

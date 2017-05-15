@@ -11,6 +11,7 @@ import cn.hanbell.erp.ejb.CdrcusBean;
 import cn.hanbell.erp.ejb.InvmasBean;
 import cn.hanbell.erp.ejb.PurhaskBean;
 import cn.hanbell.erp.ejb.PurvdrBean;
+import cn.hanbell.erp.ejb.SecgprgBean;
 import cn.hanbell.oa.ejb.HZCW028Bean;
 import cn.hanbell.oa.ejb.HZCW033Bean;
 import java.util.logging.Level;
@@ -52,6 +53,9 @@ public class SHBERPWebService {
     private HZCW028Bean hzcw028Bean;
     @EJB
     private HZCW033Bean hzcw033Bean;
+
+    @EJB
+    private SecgprgBean secgprgBean;
 
     @WebMethod(operationName = "hello")
     public String hello(@WebParam(name = "name") String txt) {
@@ -401,4 +405,18 @@ public class SHBERPWebService {
         }
     }
 
+    @WebMethod(operationName = "initSECGPRGByOAERPQXSQ")
+    public String initSECGPRGByOAERPQXSQ(@WebParam(name = "psn") String psn) {
+        Boolean ret = false;
+        try {
+            ret = secgprgBean.initSECGPRG(psn);
+        } catch (Exception ex) {
+            Logger.getLogger(SHBERPWebService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (ret) {
+            return "200";
+        } else {
+            return "404";
+        }
+    }
 }

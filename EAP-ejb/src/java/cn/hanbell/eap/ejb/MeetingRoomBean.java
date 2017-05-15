@@ -83,9 +83,6 @@ public class MeetingRoomBean extends SuperEJBForEAP<MeetingRoom> {
                     }
                 }
             }
-            if (!idleList.isEmpty()) {
-                break;
-            }
         }
         return idleList;
     }

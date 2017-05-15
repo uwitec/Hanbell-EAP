@@ -9,7 +9,6 @@ import com.lightshell.comm.SuperEntity;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -25,6 +24,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "news")
 @XmlRootElement
 @NamedQueries({
+    @NamedQuery(name = "News.getRowCount", query = "SELECT COUNT(n) FROM News n"),
     @NamedQuery(name = "News.findAll", query = "SELECT n FROM News n"),
     @NamedQuery(name = "News.findById", query = "SELECT n FROM News n WHERE n.id = :id"),
     @NamedQuery(name = "News.findByTitle", query = "SELECT n FROM News n WHERE n.title = :title"),
@@ -43,10 +43,7 @@ public class News extends SuperEntity {
     @Size(max = 100)
     @Column(name = "subtitle")
     private String subtitle;
-    @Basic(optional = false)
-    @NotNull
-    @Lob
-    @Size(min = 1, max = 2147483647)
+    @Size(max = 400)
     @Column(name = "content")
     private String content;
     @Basic(optional = false)

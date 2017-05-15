@@ -30,8 +30,6 @@ public class SystemProgramManagedBean extends SuperSingleBean<SystemProgram> {
     private SystemNameBean systemNameBean;
     @EJB
     private SystemModuleBean sysmoduleBean;
-    @EJB
-    private SystemProgramBean sysprgBean;
 
     private List<SystemName> systemNameList;
     private List<SystemModule> systemModuleList;

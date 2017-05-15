@@ -60,6 +60,7 @@ public class NewsManagedBean extends SuperMultiBean<News, NewsDetail> {
         Map<String, String> sorts = new LinkedHashMap<>();
         filters.put("status", "V");
         filters.put("ontop", true);
+        sorts.put("ontop", "DESC");
         sorts.put("id", "DESC");
         //首页活动(4个)
         setEntityList(newsBean.findByFilters(filters, 0, 4, sorts));
@@ -74,7 +75,7 @@ public class NewsManagedBean extends SuperMultiBean<News, NewsDetail> {
             jab = newsBean.createJsonArrayBuilder(this.entityList);
             this.buildJsonFile(jab.build(), getAppDataPath(), "newstop.json");
         }
-        //所有活动
+        //所有活动(已审核)
         filters.clear();
         filters.put("status", "V");
         entityList.clear();

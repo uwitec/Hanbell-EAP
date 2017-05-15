@@ -5,20 +5,15 @@
  */
 package cn.hanbell.wei.entity;
 
-import cn.hanbell.eap.entity.SystemUser;
 import com.lightshell.comm.SuperEntity;
-import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -34,13 +29,13 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Gallery.getRowCount", query = "SELECT COUNT(g) FROM Gallery g"),
     @NamedQuery(name = "Gallery.findAll", query = "SELECT g FROM Gallery g"),
     @NamedQuery(name = "Gallery.findById", query = "SELECT g FROM Gallery g WHERE g.id = :id"),
-    @NamedQuery(name = "Gallery.findByCategoryId", query = "SELECT g FROM Gallery g WHERE g.category.id = :categoryid"),
+    @NamedQuery(name = "Gallery.findByCategoryId", query = "SELECT g FROM Gallery g WHERE g.status='V' AND g.category.id = :categoryid ORDER BY g.ontop DESC,g.id DESC"),
     @NamedQuery(name = "Gallery.findByStatus", query = "SELECT g FROM Gallery g WHERE g.status = :status")})
 public class Gallery extends SuperEntity {
 
     @JoinColumn(name = "categoryid", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Category category;
+    private GalleryCategory category;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 10)
@@ -49,8 +44,7 @@ public class Gallery extends SuperEntity {
     @Size(max = 100)
     @Column(name = "subtitle")
     private String subtitle;
-    @Lob
-    @Size(max = 2147483647)
+    @Size(max = 400)
     @Column(name = "content")
     private String content;
     @Basic(optional = false)
@@ -75,11 +69,11 @@ public class Gallery extends SuperEntity {
         this.hits = 0;
     }
 
-    public Category getCategory() {
+    public GalleryCategory getCategory() {
         return category;
     }
 
-    public void setCategory(Category category) {
+    public void setCategory(GalleryCategory category) {
         this.category = category;
     }
 

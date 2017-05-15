@@ -61,7 +61,13 @@
                     <p:ajax event="rowUnselect" update=":formList:toolbar" />
                     <p:column styleClass="Wid20">
                         <f:facet name="header">
-                            <h:outputText value="名称"/>
+                            <h:outputText value="系统"/>
+                        </f:facet>
+                        <h:outputText value="#{item.sysname}"/>
+                    </p:column>
+                    <p:column styleClass="Wid20">
+                        <f:facet name="header">
+                            <h:outputText value="模块"/>
                         </f:facet>
                         <h:outputText value="#{item.name}"/>
                     </p:column>
@@ -71,7 +77,7 @@
                         </f:facet>
                         <h:outputText value="#{item.sortid}"/>
                     </p:column>
-                    <p:column styleClass="Wid60 Responsive">
+                    <p:column styleClass="Wid40 Responsive">
                         <f:facet name="header">
                             <h:outputText value="备注"/>
                         </f:facet>
