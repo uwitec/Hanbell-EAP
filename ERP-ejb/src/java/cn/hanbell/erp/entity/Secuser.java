@@ -30,6 +30,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "secuser")
 @XmlRootElement
 @NamedQueries({
+    @NamedQuery(name = "Secuser.getRowCount", query = "SELECT COUNT(s) FROM Secuser s"),
     @NamedQuery(name = "Secuser.findAll", query = "SELECT s FROM Secuser s"),
     @NamedQuery(name = "Secuser.findByUserno", query = "SELECT s FROM Secuser s WHERE s.userno = :userno"),
     @NamedQuery(name = "Secuser.findByUsername", query = "SELECT s FROM Secuser s WHERE s.username = :username"),

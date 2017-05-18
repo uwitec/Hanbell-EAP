@@ -34,6 +34,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "SystemGrantModule.findByUserId", query = "SELECT s FROM SystemGrantModule s WHERE s.systemUser.id = :userid ORDER BY s.systemModule.sortid "),
     @NamedQuery(name = "SystemGrantModule.findByRoleId", query = "SELECT s FROM SystemGrantModule s WHERE s.systemRole.id = :roleid ORDER BY s.systemModule.sortid "),
     @NamedQuery(name = "SystemGrantModule.findByModuleId", query = "SELECT s FROM SystemGrantModule s WHERE s.systemModule.id = :moduleid"),
+    @NamedQuery(name = "SystemGrantModule.findBySystemNameAndUserId", query = "SELECT s FROM SystemGrantModule s WHERE s.systemModule.sysname=:sysname AND s.systemUser.id = :userid ORDER BY s.systemModule.sortid "),
+    @NamedQuery(name = "SystemGrantModule.findBySystemNameAndRoleId", query = "SELECT s FROM SystemGrantModule s WHERE s.systemModule.sysname=:sysname AND s.systemRole.id = :roleid ORDER BY s.systemModule.sortid "),
     @NamedQuery(name = "SystemGrantModule.findByStatus", query = "SELECT s FROM SystemGrantModule s WHERE s.status = :status")})
 public class SystemGrantModule extends SuperEntity {
 

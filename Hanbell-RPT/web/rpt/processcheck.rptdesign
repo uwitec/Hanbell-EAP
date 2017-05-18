@@ -77,7 +77,7 @@
                 <structure>
                     <property name="position">7</property>
                     <property name="name">currentState</property>
-                    <property name="dataType">float</property>
+                    <property name="dataType">string</property>
                 </structure>
             </list-property>
             <list-property name="columnHints">
@@ -138,7 +138,7 @@
                     <structure>
                         <property name="position">7</property>
                         <property name="name">currentState</property>
-                        <property name="dataType">float</property>
+                        <property name="dataType">string</property>
                     </structure>
                 </list-property>
             </structure>
@@ -165,7 +165,20 @@ if (currentRow<6){
 		dataSetRow["workItemName"] = detail.get(currentRow).getWorkItemName();
 		dataSetRow["createdTime"] = detail.get(currentRow).getCreatedTime();
 		dataSetRow["completedTime"] = detail.get(currentRow).getCompletedTime();
-		dataSetRow["currentState"] = detail.get(currentRow).getCurrentState();
+		if(detail.get(currentRow).getCurrentState()==0){
+        dataSetRow["currentState"] = "未开始";
+        }else if(detail.get(currentRow).getCurrentState()==1){
+        dataSetRow["currentState"] = "进行中";
+        }else if(detail.get(currentRow).getCurrentState()==2){
+        dataSetRow["currentState"] = "已暂停";
+        }else if(detail.get(currentRow).getCurrentState()==3){
+        dataSetRow["currentState"] = "已完成";
+        }else if(detail.get(currentRow).getCurrentState()==4){
+        dataSetRow["currentState"] = "已撤销";
+        }else{
+        dataSetRow["currentState"] = "已中止";
+        }
+		
 		currentRow++;
 		return true;
 	}
@@ -334,7 +347,8 @@ return false;]]></method>
                     <property name="name">currentState</property>
                     <text-property name="displayName">currentState</text-property>
                     <expression name="expression" type="javascript">dataSetRow["currentState"]</expression>
-                    <property name="dataType">float</property>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
                 </structure>
             </list-property>
             <column id="965"/>
@@ -345,68 +359,96 @@ return false;]]></method>
             <header>
                 <row id="944">
                     <property name="borderBottomStyle">solid</property>
-                    <property name="borderBottomWidth">medium</property>
+                    <property name="borderBottomWidth">thin</property>
                     <property name="borderLeftStyle">solid</property>
-                    <property name="borderLeftWidth">medium</property>
+                    <property name="borderLeftWidth">thin</property>
                     <property name="borderRightStyle">solid</property>
-                    <property name="borderRightWidth">medium</property>
+                    <property name="borderRightWidth">thin</property>
                     <property name="borderTopStyle">solid</property>
-                    <property name="borderTopWidth">medium</property>
+                    <property name="borderTopWidth">thin</property>
                     <property name="height">0.2708333333333333in</property>
                     <cell id="945">
                         <property name="borderBottomStyle">solid</property>
-                        <property name="borderBottomWidth">medium</property>
+                        <property name="borderBottomWidth">thin</property>
                         <property name="borderLeftStyle">solid</property>
-                        <property name="borderLeftWidth">medium</property>
+                        <property name="borderLeftWidth">thin</property>
                         <property name="borderRightStyle">solid</property>
-                        <property name="borderRightWidth">medium</property>
+                        <property name="borderRightWidth">thin</property>
                         <property name="borderTopStyle">solid</property>
-                        <property name="borderTopWidth">medium</property>
+                        <property name="borderTopWidth">thin</property>
                         <label id="999">
+                            <property name="borderBottomStyle">none</property>
+                            <property name="borderLeftStyle">none</property>
+                            <property name="borderRightStyle">none</property>
+                            <property name="borderTopStyle">none</property>
                             <text-property name="text">处理者</text-property>
                         </label>
                     </cell>
                     <cell id="946">
                         <property name="borderBottomStyle">solid</property>
-                        <property name="borderBottomWidth">medium</property>
+                        <property name="borderBottomWidth">thin</property>
                         <property name="borderLeftStyle">solid</property>
-                        <property name="borderLeftWidth">medium</property>
+                        <property name="borderLeftWidth">thin</property>
                         <property name="borderRightStyle">solid</property>
-                        <property name="borderRightWidth">medium</property>
+                        <property name="borderRightWidth">thin</property>
                         <property name="borderTopStyle">solid</property>
-                        <property name="borderTopWidth">medium</property>
+                        <property name="borderTopWidth">thin</property>
                         <label id="1000">
+                            <property name="borderBottomStyle">none</property>
+                            <property name="borderLeftStyle">none</property>
+                            <property name="borderRightStyle">none</property>
+                            <property name="borderTopStyle">none</property>
                             <text-property name="text">关卡名称</text-property>
                         </label>
                     </cell>
                     <cell id="947">
                         <property name="borderBottomStyle">solid</property>
-                        <property name="borderBottomWidth">medium</property>
+                        <property name="borderBottomWidth">thin</property>
                         <property name="borderLeftStyle">solid</property>
-                        <property name="borderLeftWidth">medium</property>
+                        <property name="borderLeftWidth">thin</property>
                         <property name="borderRightStyle">solid</property>
-                        <property name="borderRightWidth">medium</property>
+                        <property name="borderRightWidth">thin</property>
                         <property name="borderTopStyle">solid</property>
-                        <property name="borderTopWidth">medium</property>
+                        <property name="borderTopWidth">thin</property>
                         <label id="1001">
+                            <property name="borderBottomStyle">none</property>
+                            <property name="borderLeftStyle">none</property>
+                            <property name="borderRightStyle">none</property>
+                            <property name="borderTopStyle">none</property>
                             <text-property name="text">建立时间</text-property>
                         </label>
                     </cell>
                     <cell id="948">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
                         <label id="1002">
+                            <property name="borderBottomStyle">none</property>
+                            <property name="borderLeftStyle">none</property>
+                            <property name="borderRightStyle">none</property>
+                            <property name="borderTopStyle">none</property>
                             <text-property name="text">签核时间</text-property>
                         </label>
                     </cell>
                     <cell id="949">
                         <property name="borderBottomStyle">solid</property>
-                        <property name="borderBottomWidth">medium</property>
+                        <property name="borderBottomWidth">thin</property>
                         <property name="borderLeftStyle">solid</property>
-                        <property name="borderLeftWidth">medium</property>
+                        <property name="borderLeftWidth">thin</property>
                         <property name="borderRightStyle">solid</property>
-                        <property name="borderRightWidth">medium</property>
+                        <property name="borderRightWidth">thin</property>
                         <property name="borderTopStyle">solid</property>
-                        <property name="borderTopWidth">medium</property>
+                        <property name="borderTopWidth">thin</property>
                         <label id="1003">
+                            <property name="borderBottomStyle">none</property>
+                            <property name="borderLeftStyle">none</property>
+                            <property name="borderRightStyle">none</property>
+                            <property name="borderTopStyle">none</property>
                             <text-property name="text">状态</text-property>
                         </label>
                     </cell>
@@ -415,74 +457,109 @@ return false;]]></method>
             <detail>
                 <row id="951">
                     <property name="borderBottomStyle">solid</property>
-                    <property name="borderBottomWidth">medium</property>
+                    <property name="borderBottomWidth">thin</property>
                     <property name="borderLeftStyle">solid</property>
-                    <property name="borderLeftWidth">medium</property>
+                    <property name="borderLeftWidth">thin</property>
                     <property name="borderRightStyle">solid</property>
-                    <property name="borderRightWidth">medium</property>
+                    <property name="borderRightWidth">thin</property>
                     <property name="borderTopStyle">solid</property>
-                    <property name="borderTopWidth">medium</property>
-                    <property name="height">0.53125in</property>
+                    <property name="borderTopWidth">thin</property>
+                    <property name="height">0.35in</property>
                     <cell id="952">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <property name="textAlign">center</property>
                         <data id="1004">
+                            <property name="borderBottomStyle">none</property>
+                            <property name="borderLeftStyle">none</property>
+                            <property name="borderRightStyle">none</property>
+                            <property name="borderTopStyle">none</property>
                             <property name="marginTop">5pt</property>
-                            <property name="paddingTop">5pt</property>
+                            <property name="paddingTop">1pt</property>
+                            <property name="textAlign">center</property>
                             <property name="resultSetColumn">username</property>
                         </data>
                     </cell>
                     <cell id="953">
                         <property name="borderBottomStyle">solid</property>
-                        <property name="borderBottomWidth">medium</property>
+                        <property name="borderBottomWidth">thin</property>
                         <property name="borderLeftStyle">solid</property>
-                        <property name="borderLeftWidth">medium</property>
+                        <property name="borderLeftWidth">thin</property>
                         <property name="borderRightStyle">solid</property>
-                        <property name="borderRightWidth">medium</property>
+                        <property name="borderRightWidth">thin</property>
                         <property name="borderTopStyle">solid</property>
-                        <property name="borderTopWidth">medium</property>
+                        <property name="borderTopWidth">thin</property>
+                        <property name="textAlign">center</property>
                         <data id="1005">
+                            <property name="borderBottomStyle">none</property>
+                            <property name="borderLeftStyle">none</property>
+                            <property name="borderRightStyle">none</property>
+                            <property name="borderTopStyle">none</property>
                             <property name="marginTop">5pt</property>
-                            <property name="paddingTop">5pt</property>
+                            <property name="paddingTop">1pt</property>
+                            <property name="textAlign">center</property>
                             <property name="resultSetColumn">workItemName</property>
                         </data>
                     </cell>
                     <cell id="954">
                         <property name="borderBottomStyle">solid</property>
-                        <property name="borderBottomWidth">medium</property>
+                        <property name="borderBottomWidth">thin</property>
                         <property name="borderLeftStyle">solid</property>
-                        <property name="borderLeftWidth">medium</property>
+                        <property name="borderLeftWidth">thin</property>
                         <property name="borderRightStyle">solid</property>
-                        <property name="borderRightWidth">medium</property>
+                        <property name="borderRightWidth">thin</property>
                         <property name="borderTopStyle">solid</property>
-                        <property name="borderTopWidth">medium</property>
+                        <property name="borderTopWidth">thin</property>
+                        <property name="textAlign">center</property>
                         <data id="1006">
+                            <property name="borderBottomStyle">none</property>
+                            <property name="borderLeftStyle">none</property>
+                            <property name="borderRightStyle">none</property>
+                            <property name="borderTopStyle">none</property>
                             <property name="marginTop">5pt</property>
-                            <property name="paddingTop">5pt</property>
+                            <property name="paddingTop">1pt</property>
                             <property name="resultSetColumn">createdTime</property>
                         </data>
                     </cell>
                     <cell id="955">
                         <property name="borderBottomStyle">solid</property>
-                        <property name="borderBottomWidth">medium</property>
+                        <property name="borderBottomWidth">thin</property>
                         <property name="borderLeftStyle">solid</property>
-                        <property name="borderLeftWidth">medium</property>
+                        <property name="borderLeftWidth">thin</property>
                         <property name="borderRightStyle">solid</property>
-                        <property name="borderRightWidth">medium</property>
+                        <property name="borderRightWidth">thin</property>
                         <property name="borderTopStyle">solid</property>
-                        <property name="borderTopWidth">medium</property>
+                        <property name="borderTopWidth">thin</property>
+                        <property name="textAlign">center</property>
                         <data id="1007">
+                            <property name="borderBottomStyle">none</property>
+                            <property name="borderLeftStyle">none</property>
+                            <property name="borderRightStyle">none</property>
+                            <property name="borderTopStyle">none</property>
                             <property name="marginTop">5pt</property>
-                            <property name="paddingTop">5pt</property>
+                            <property name="paddingTop">1pt</property>
                             <property name="resultSetColumn">completedTime</property>
-                        </data>
-                        <data id="1008">
-                            <property name="marginTop">5pt</property>
-                            <property name="paddingTop">5pt</property>
                         </data>
                     </cell>
                     <cell id="956">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <property name="textAlign">center</property>
                         <data id="1009">
                             <property name="marginTop">5pt</property>
-                            <property name="paddingTop">5pt</property>
+                            <property name="paddingTop">1pt</property>
                             <property name="resultSetColumn">currentState</property>
                         </data>
                     </cell>

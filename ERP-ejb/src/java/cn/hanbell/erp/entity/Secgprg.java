@@ -10,6 +10,9 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -30,6 +33,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Secgprg.findBySysno", query = "SELECT s FROM Secgprg s WHERE s.secgprgPK.sysno = :sysno"),
     @NamedQuery(name = "Secgprg.findByGroupno", query = "SELECT s FROM Secgprg s WHERE s.secgprgPK.groupno = :groupno"),
     @NamedQuery(name = "Secgprg.findByGtype", query = "SELECT s FROM Secgprg s WHERE s.secgprgPK.gtype = :gtype"),
+    @NamedQuery(name = "Secgprg.findByGroupnoAndGtype", query = "SELECT s FROM Secgprg s WHERE s.secgprgPK.groupno = :groupno AND s.secgprgPK.gtype = :gtype ORDER BY s.secgprgPK.prgno"),
     @NamedQuery(name = "Secgprg.findByPadd", query = "SELECT s FROM Secgprg s WHERE s.padd = :padd"),
     @NamedQuery(name = "Secgprg.findByPdelete", query = "SELECT s FROM Secgprg s WHERE s.pdelete = :pdelete"),
     @NamedQuery(name = "Secgprg.findByPmodify", query = "SELECT s FROM Secgprg s WHERE s.pmodify = :pmodify"),
@@ -53,6 +57,12 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Secgprg.findByStepbystep", query = "SELECT s FROM Secgprg s WHERE s.stepbystep = :stepbystep"),
     @NamedQuery(name = "Secgprg.findByRunsig", query = "SELECT s FROM Secgprg s WHERE s.runsig = :runsig")})
 public class Secgprg implements Serializable {
+
+    @JoinColumns({
+        @JoinColumn(name = "prgno", referencedColumnName = "prgno", insertable = false, updatable = false)
+    })
+    @ManyToOne()
+    private Secprg secprg;
 
     private static final long serialVersionUID = 1L;
     @EmbeddedId
@@ -391,5 +401,19 @@ public class Secgprg implements Serializable {
     public String toString() {
         return "cn.hanbell.erp.entity.Secgprg[ secgprgPK=" + secgprgPK + " ]";
     }
-    
+
+    /**
+     * @return the secprg
+     */
+    public Secprg getSecprg() {
+        return secprg;
+    }
+
+    /**
+     * @param secprg the secprg to set
+     */
+    public void setSecprg(Secprg secprg) {
+        this.secprg = secprg;
+    }
+
 }

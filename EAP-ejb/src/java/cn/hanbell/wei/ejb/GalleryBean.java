@@ -76,10 +76,4 @@ public class GalleryBean extends SuperEJBForEAP<Gallery> {
         return query.getResultList();
     }
 
-    public List<Gallery> findByFormid(String id) {
-        Query query = getEntityManager().createNamedQuery("Gallery.findByFormid");
-        query.setParameter("formid", id);
-        return query.getResultList();
-    }
-
 }

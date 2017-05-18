@@ -97,9 +97,9 @@ public class InvmasBean extends SuperEJBForERP<Invmas> {
             for (int i = 0; i < details.size(); i++) {
                 HZJS034Detail detail = details.get(i);
                 Invmas m = new Invmas();
-                m.setItnbr(detail.getItnbr());                                  // 设置件号
-                m.setItcls(detail.getItcls());                                  // 设置品号大类
-                m.setItclscode(detail.getItclscode().charAt(0));                // 设置品号归类
+                m.setItnbr(detail.getItnbr());                                  //设置件号
+                m.setItcls(detail.getItcls());                                  //设置品号大类
+                m.setItclscode(detail.getItclscode().charAt(0));                //设置品号归类
                 m.setItdsc(detail.getItdsc());                                  //设置中文品名
                 m.setSpdsc(detail.getSpdsc());                                  //设置中文规格
                 m.setEitdsc(detail.getEitdsc());                                //设置英文品名
@@ -108,7 +108,7 @@ public class InvmasBean extends SuperEJBForERP<Invmas> {
                 m.setUnmsr2(detail.getUnmsr2());                                //设置单位二
                 m.setUnmsr1e(detail.getUnmsr1e());                              //设置数量单位一（英文）
                 m.setFvco('F');                                                 //设置固定变动区分码
-                if ("".equals(detail.getUnmsr2())) {
+                if ("".equals(detail.getUnmsr2()) || "N".equals(detail.getIsDUnit())) {
                     m.setJudco("11111");                                        //设置数量单位控制码
                 } else {
                     m.setJudco("41111");
@@ -187,7 +187,6 @@ public class InvmasBean extends SuperEJBForERP<Invmas> {
                 }
 
             }
-
             return true;
         } catch (Exception ex) {
             Logger.getLogger(InvmasBean.class.getName()).log(Level.SEVERE, null, ex);
@@ -350,6 +349,10 @@ public class InvmasBean extends SuperEJBForERP<Invmas> {
                 item = findByItnbr(d.getBjh());
                 if (item != null) {
                     item.setItdsc("#" + item.getItdsc());
+                    item.setStopyn("AAAAAAAAAAAAA");
+                    item.setNStopyn("N");
+                    item.setNEcnnewitnbr(d.getAjh());
+                    item.setNEcnno(h.getBgbh());
                     invmasList.add(item);
                 }
             }

@@ -17,6 +17,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import org.primefaces.event.SelectEvent;
 
 /**
  *
@@ -30,8 +31,6 @@ public class SystemProgramManagedBean extends SuperSingleBean<SystemProgram> {
     private SystemNameBean systemNameBean;
     @EJB
     private SystemModuleBean sysmoduleBean;
-    @EJB
-    private SystemProgramBean sysprgBean;
 
     private List<SystemName> systemNameList;
     private List<SystemModule> systemModuleList;
@@ -52,6 +51,12 @@ public class SystemProgramManagedBean extends SuperSingleBean<SystemProgram> {
         newEntity.setDoprt(Boolean.FALSE);
         newEntity.setDocfm(true);
         newEntity.setDouncfm(true);
+    }
+
+    @Override
+    public String edit(String path) {
+        systemModuleList = sysmoduleBean.findAll();
+        return super.edit(path);
     }
 
     @Override
@@ -98,6 +103,24 @@ public class SystemProgramManagedBean extends SuperSingleBean<SystemProgram> {
             this.doDel = false;
             this.doCfm = false;
             this.doUnCfm = false;
+        }
+    }
+
+    public void handleSystemNameChangedWhenEdit(SelectEvent event) {
+        if (event.getObject() != null && currentEntity != null) {
+            Object item = event.getObject();
+            systemModuleList.clear();
+            systemModuleList = sysmoduleBean.findBySystemName(item.toString());
+            currentEntity.setSystemModule(null);
+        }
+    }
+
+    public void handleSystemNameChangedWhenNew(SelectEvent event) {
+        if (event.getObject() != null && newEntity != null) {
+            Object item = event.getObject();
+            systemModuleList.clear();
+            systemModuleList = sysmoduleBean.findBySystemName(item.toString());
+            newEntity.setSystemModule(null);
         }
     }
 

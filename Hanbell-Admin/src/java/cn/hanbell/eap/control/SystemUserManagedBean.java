@@ -12,7 +12,6 @@ import cn.hanbell.eap.entity.SystemUser;
 import cn.hanbell.eap.lazy.SystemUserModel;
 import cn.hanbell.eap.web.SuperSingleBean;
 import java.io.IOException;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -94,6 +93,7 @@ public class SystemUserManagedBean extends SuperSingleBean<SystemUser> {
     public void init() {
         setSuperEJB(systemUserBean);
         setModel(new SystemUserModel(systemUserBean));
+        model.getSortFields().put("userid", "ASC");
         try {
             graphicCode = new GraphicCode();
             graphicCode.build();

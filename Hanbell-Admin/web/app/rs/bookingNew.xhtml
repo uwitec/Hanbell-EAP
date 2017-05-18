@@ -14,7 +14,7 @@
                     <p:button id="btnReturn" value="返回" outcome="booking" icon="ui-icon-restore"/>
                 </f:facet>
                 <f:facet name="right">
-                    <p:commandButton id="btnSave" value="保存" action="#{bookingManagedBean.update()}" icon="ui-icon-save"
+                    <p:commandButton id="btnSave" value="保存" action="#{bookingManagedBean.persist()}" icon="ui-icon-save"
                                      process="@this,plgHead" update="plgHead"/>
                 </f:facet>
             </p:toolbar>

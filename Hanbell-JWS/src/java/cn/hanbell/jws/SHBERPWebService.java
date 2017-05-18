@@ -14,7 +14,6 @@ import cn.hanbell.erp.ejb.PurvdrBean;
 import cn.hanbell.erp.ejb.SecgprgBean;
 import cn.hanbell.oa.ejb.HZCW028Bean;
 import cn.hanbell.oa.ejb.HZCW033Bean;
-import cn.hanbell.oa.ejb.SHBERPMIS226Bean;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -405,12 +404,13 @@ public class SHBERPWebService {
             return "404";
         }
     }
+
     @WebMethod(operationName = "initSECGPRGByOAERPQXSQ")
     public String initSECGPRGByOAERPQXSQ(@WebParam(name = "psn") String psn) {
         Boolean ret = false;
         try {
-           ret = secgprgBean.initSECGPRG(psn);
-        }catch (Exception ex) {
+            ret = secgprgBean.initSECGPRG(psn);
+        } catch (Exception ex) {
             Logger.getLogger(SHBERPWebService.class.getName()).log(Level.SEVERE, null, ex);
         }
         if (ret) {
