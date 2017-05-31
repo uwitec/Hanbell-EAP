@@ -420,8 +420,8 @@ public class SHBERPWebService {
         }
     }
 
-    @WebMethod(operationName = "initINV310ByOAHKFW006INV310")
-    public String initINV310ByOAHKFW006INV310(@WebParam(name = "psn") String psn) {
+    @WebMethod(operationName = "createINV310ByOAHKFW006INV310")
+    public String createINV310ByOAHKFW006INV310(@WebParam(name = "psn") String psn) {
         Boolean ret = false;
         try {
             ret = invhadBean.initByOAHKFW006(psn);
@@ -435,8 +435,8 @@ public class SHBERPWebService {
         }
     }
     
-     @WebMethod(operationName = "initCDRN30ByOAHKFW006CDRN30")
-    public String initCDRN30ByOAHKFW006CDRN30(@WebParam(name = "psn") String psn) {
+     @WebMethod(operationName = "createCDRN30ByOAHKFW006CDRN30")
+    public String createCDRN30ByOAHKFW006CDRN30(@WebParam(name = "psn") String psn) {
         Boolean ret = false;
         try {
             ret = cdrbrhadBean.initByOAHKFW006(psn);

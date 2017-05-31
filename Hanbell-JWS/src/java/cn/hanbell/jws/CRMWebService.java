@@ -40,7 +40,7 @@ public class CRMWebService {
     }
 
     @WebMethod(operationName = "updateCRMREPTDByOAHKFW004Detail")
-    public String createHZFWDD05ByOAFSN(@WebParam(name = "psn") String psn) {
+    public String updateCRMREPTDByOAHKFW004Detail(@WebParam(name = "psn") String psn) {
         Boolean ret = false;
         try {
             ret = hzfw004DetailBean.updateReptdByOAHKFW004(psn);
