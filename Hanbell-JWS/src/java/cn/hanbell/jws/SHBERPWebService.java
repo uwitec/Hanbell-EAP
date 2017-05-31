@@ -7,7 +7,9 @@ package cn.hanbell.jws;
 
 import cn.hanbell.erp.ejb.ApmpayBean;
 import cn.hanbell.erp.ejb.BudgetDetailBean;
+import cn.hanbell.erp.ejb.CdrbrhadBean;
 import cn.hanbell.erp.ejb.CdrcusBean;
+import cn.hanbell.erp.ejb.InvhadBean;
 import cn.hanbell.erp.ejb.InvmasBean;
 import cn.hanbell.erp.ejb.PurhaskBean;
 import cn.hanbell.erp.ejb.PurvdrBean;
@@ -34,28 +36,26 @@ public class SHBERPWebService {
 
     @EJB
     private ApmpayBean apmpayBean;
-
     @EJB
     private CdrcusBean cdrcusBean;
-
     @EJB
     private PurvdrBean purvdrBean;
-
     @EJB
     private BudgetDetailBean budgetDetailBean;
-
     @EJB
     private InvmasBean invmasBean;
-
     @EJB
     private PurhaskBean purhaskBean;
     @EJB
     private HZCW028Bean hzcw028Bean;
     @EJB
     private HZCW033Bean hzcw033Bean;
-
     @EJB
     private SecgprgBean secgprgBean;
+    @EJB
+    private InvhadBean invhadBean;
+    @EJB
+    private CdrbrhadBean cdrbrhadBean;
 
     @WebMethod(operationName = "hello")
     public String hello(@WebParam(name = "name") String txt) {
@@ -410,6 +410,36 @@ public class SHBERPWebService {
         Boolean ret = false;
         try {
             ret = secgprgBean.initSECGPRG(psn);
+        } catch (Exception ex) {
+            Logger.getLogger(SHBERPWebService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (ret) {
+            return "200";
+        } else {
+            return "404";
+        }
+    }
+
+    @WebMethod(operationName = "createINV310ByOAHKFW006INV310")
+    public String createINV310ByOAHKFW006INV310(@WebParam(name = "psn") String psn) {
+        Boolean ret = false;
+        try {
+            ret = invhadBean.initByOAHKFW006(psn);
+        } catch (Exception ex) {
+            Logger.getLogger(SHBERPWebService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (ret) {
+            return "200";
+        } else {
+            return "404";
+        }
+    }
+    
+     @WebMethod(operationName = "createCDRN30ByOAHKFW006CDRN30")
+    public String createCDRN30ByOAHKFW006CDRN30(@WebParam(name = "psn") String psn) {
+        Boolean ret = false;
+        try {
+            ret = cdrbrhadBean.initByOAHKFW006(psn);
         } catch (Exception ex) {
             Logger.getLogger(SHBERPWebService.class.getName()).log(Level.SEVERE, null, ex);
         }
