@@ -428,33 +428,4 @@ public class SHBERPWebService {
         }
     }
 
-    @WebMethod(operationName = "initAmLYByOAZCSQD")
-    public String initAmLYByOAZCSQD(@WebParam(name = "psn") String psn) {
-        Boolean ret = false;
-        try {
-            ret = amTbAssetApplyHadBean.initByOAZCSQD(psn);
-        } catch (Exception ex) {
-            Logger.getLogger(SHBERPWebService.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        if (ret) {
-            return "200";
-        } else {
-            return "404";
-        }
-    }
-
-    @WebMethod(operationName = "createHKCG007ByHKCW002P")
-    public String createHKCG007ByHKCW002P(@WebParam(name = "psn") String psn) {
-         Boolean ret = false;
-        try {
-            ret = hkcg007Bean.initByHKCW002P(psn);
-        } catch (Exception ex) {
-            Logger.getLogger(SHBERPWebService.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        if (ret) {
-            return "200";
-        } else {
-            return "404";
-        }
-    }
 }
