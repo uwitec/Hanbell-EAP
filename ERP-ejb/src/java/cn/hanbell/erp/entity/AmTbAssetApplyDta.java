@@ -41,6 +41,10 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "AmTbAssetApplyDta.findByPreprice", query = "SELECT a FROM AmTbAssetApplyDta a WHERE a.preprice = :preprice")})
 public class AmTbAssetApplyDta implements Serializable {
 
+    @JoinColumn(name = "apply_had_sn", referencedColumnName = "apply_had_sn", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private AmTbAssetApplyHad amTbAssetApplyHad;
+
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected AmTbAssetApplyDtaPK amTbAssetApplyDtaPK;
@@ -80,9 +84,7 @@ public class AmTbAssetApplyDta implements Serializable {
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "preprice")
     private BigDecimal preprice;
-    @JoinColumn(name = "apply_had_sn", referencedColumnName = "apply_had_sn", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
-    private AmTbAssetApplyHad amTbAssetApplyHad;
+
 
     public AmTbAssetApplyDta() {
     }
@@ -134,7 +136,7 @@ public class AmTbAssetApplyDta implements Serializable {
     public void setTypeDtaDtaCode(String typeDtaDtaCode) {
         this.typeDtaDtaCode = typeDtaDtaCode;
     }
-    
+
     public String getPnCode() {
         return pnCode;
     }
@@ -207,14 +209,6 @@ public class AmTbAssetApplyDta implements Serializable {
         this.preprice = preprice;
     }
 
-    public AmTbAssetApplyHad getAmTbAssetApplyHad() {
-        return amTbAssetApplyHad;
-    }
-
-    public void setAmTbAssetApplyHad(AmTbAssetApplyHad amTbAssetApplyHad) {
-        this.amTbAssetApplyHad = amTbAssetApplyHad;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -239,5 +233,13 @@ public class AmTbAssetApplyDta implements Serializable {
     public String toString() {
         return "cn.hanbell.erp.entity.AmTbAssetApplyDta[ amTbAssetApplyDtaPK=" + amTbAssetApplyDtaPK + " ]";
     }
-    
+
+    public AmTbAssetApplyHad getAmTbAssetApplyHad() {
+        return amTbAssetApplyHad;
+    }
+
+    public void setAmTbAssetApplyHad(AmTbAssetApplyHad amTbAssetApplyHad) {
+        this.amTbAssetApplyHad = amTbAssetApplyHad;
+    }
+
 }

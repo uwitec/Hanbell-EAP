@@ -25,95 +25,100 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author C1368
  */
 @Entity
-@Table(name = "HK_CW002")
+@Table(name = "HK_CW002_P")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "HKCW002.findAll", query = "SELECT h FROM HKCW002 h"),
-    @NamedQuery(name = "HKCW002.findBySubyearbal", query = "SELECT h FROM HKCW002 h WHERE h.subyearbal = :subyearbal"),
-    @NamedQuery(name = "HKCW002.findByTextbox112", query = "SELECT h FROM HKCW002 h WHERE h.textbox112 = :textbox112"),
-    @NamedQuery(name = "HKCW002.findByUserman", query = "SELECT h FROM HKCW002 h WHERE h.userman = :userman"),
-    @NamedQuery(name = "HKCW002.findByTextArea80", query = "SELECT h FROM HKCW002 h WHERE h.textArea80 = :textArea80"),
-    @NamedQuery(name = "HKCW002.findByDate65", query = "SELECT h FROM HKCW002 h WHERE h.date65 = :date65"),
-    @NamedQuery(name = "HKCW002.findByTextbox114", query = "SELECT h FROM HKCW002 h WHERE h.textbox114 = :textbox114"),
-    @NamedQuery(name = "HKCW002.findByMidclasscodeTxt", query = "SELECT h FROM HKCW002 h WHERE h.midclasscodeTxt = :midclasscodeTxt"),
-    @NamedQuery(name = "HKCW002.findByTextbox111", query = "SELECT h FROM HKCW002 h WHERE h.textbox111 = :textbox111"),
-    @NamedQuery(name = "HKCW002.findByTextbox116", query = "SELECT h FROM HKCW002 h WHERE h.textbox116 = :textbox116"),
-    @NamedQuery(name = "HKCW002.findByDeptyearbal", query = "SELECT h FROM HKCW002 h WHERE h.deptyearbal = :deptyearbal"),
-    @NamedQuery(name = "HKCW002.findBySubperbal", query = "SELECT h FROM HKCW002 h WHERE h.subperbal = :subperbal"),
-    @NamedQuery(name = "HKCW002.findByBudgetacc", query = "SELECT h FROM HKCW002 h WHERE h.budgetacc = :budgetacc"),
-    @NamedQuery(name = "HKCW002.findByApplier", query = "SELECT h FROM HKCW002 h WHERE h.applier = :applier"),
-    @NamedQuery(name = "HKCW002.findBySerialNumber", query = "SELECT h FROM HKCW002 h WHERE h.serialNumber = :serialNumber"),
-    @NamedQuery(name = "HKCW002.findByDmark1", query = "SELECT h FROM HKCW002 h WHERE h.dmark1 = :dmark1"),
-    @NamedQuery(name = "HKCW002.findByDmark2", query = "SELECT h FROM HKCW002 h WHERE h.dmark2 = :dmark2"),
-    @NamedQuery(name = "HKCW002.findByQgnum", query = "SELECT h FROM HKCW002 h WHERE h.qgnum = :qgnum"),
-    @NamedQuery(name = "HKCW002.findByAppdate", query = "SELECT h FROM HKCW002 h WHERE h.appdate = :appdate"),
-    @NamedQuery(name = "HKCW002.findBySpdse", query = "SELECT h FROM HKCW002 h WHERE h.spdse = :spdse"),
-    @NamedQuery(name = "HKCW002.findByTextbox104", query = "SELECT h FROM HKCW002 h WHERE h.textbox104 = :textbox104"),
-    @NamedQuery(name = "HKCW002.findByTextbox103", query = "SELECT h FROM HKCW002 h WHERE h.textbox103 = :textbox103"),
-    @NamedQuery(name = "HKCW002.findByApplytype", query = "SELECT h FROM HKCW002 h WHERE h.applytype = :applytype"),
-    @NamedQuery(name = "HKCW002.findByAdscodeTxt", query = "SELECT h FROM HKCW002 h WHERE h.adscodeTxt = :adscodeTxt"),
-    @NamedQuery(name = "HKCW002.findByTextbox102", query = "SELECT h FROM HKCW002 h WHERE h.textbox102 = :textbox102"),
-    @NamedQuery(name = "HKCW002.findByTextbox101", query = "SELECT h FROM HKCW002 h WHERE h.textbox101 = :textbox101"),
-    @NamedQuery(name = "HKCW002.findByApplyunit", query = "SELECT h FROM HKCW002 h WHERE h.applyunit = :applyunit"),
-    @NamedQuery(name = "HKCW002.findByTextbox15", query = "SELECT h FROM HKCW002 h WHERE h.textbox15 = :textbox15"),
-    @NamedQuery(name = "HKCW002.findByDatetime1", query = "SELECT h FROM HKCW002 h WHERE h.datetime1 = :datetime1"),
-    @NamedQuery(name = "HKCW002.findByAdscode", query = "SELECT h FROM HKCW002 h WHERE h.adscode = :adscode"),
-    @NamedQuery(name = "HKCW002.findByTextbox10", query = "SELECT h FROM HKCW002 h WHERE h.textbox10 = :textbox10"),
-    @NamedQuery(name = "HKCW002.findByProperty", query = "SELECT h FROM HKCW002 h WHERE h.property = :property"),
-    @NamedQuery(name = "HKCW002.findByTextbox108", query = "SELECT h FROM HKCW002 h WHERE h.textbox108 = :textbox108"),
-    @NamedQuery(name = "HKCW002.findByTextbox106", query = "SELECT h FROM HKCW002 h WHERE h.textbox106 = :textbox106"),
-    @NamedQuery(name = "HKCW002.findByTextbox64", query = "SELECT h FROM HKCW002 h WHERE h.textbox64 = :textbox64"),
-    @NamedQuery(name = "HKCW002.findBySfjj", query = "SELECT h FROM HKCW002 h WHERE h.sfjj = :sfjj"),
-    @NamedQuery(name = "HKCW002.findByQtotaly", query = "SELECT h FROM HKCW002 h WHERE h.qtotaly = :qtotaly"),
-    @NamedQuery(name = "HKCW002.findByTextbox62", query = "SELECT h FROM HKCW002 h WHERE h.textbox62 = :textbox62"),
-    @NamedQuery(name = "HKCW002.findByTextbox63", query = "SELECT h FROM HKCW002 h WHERE h.textbox63 = :textbox63"),
-    @NamedQuery(name = "HKCW002.findByLynum", query = "SELECT h FROM HKCW002 h WHERE h.lynum = :lynum"),
-    @NamedQuery(name = "HKCW002.findByGuige", query = "SELECT h FROM HKCW002 h WHERE h.guige = :guige"),
-    @NamedQuery(name = "HKCW002.findByApplynum", query = "SELECT h FROM HKCW002 h WHERE h.applynum = :applynum"),
-    @NamedQuery(name = "HKCW002.findByTextbox0", query = "SELECT h FROM HKCW002 h WHERE h.textbox0 = :textbox0"),
-    @NamedQuery(name = "HKCW002.findByOid", query = "SELECT h FROM HKCW002 h WHERE h.oid = :oid"),
-    @NamedQuery(name = "HKCW002.findByTextbox4", query = "SELECT h FROM HKCW002 h WHERE h.textbox4 = :textbox4"),
-    @NamedQuery(name = "HKCW002.findByDeptperbal", query = "SELECT h FROM HKCW002 h WHERE h.deptperbal = :deptperbal"),
-    @NamedQuery(name = "HKCW002.findByTextbox3", query = "SELECT h FROM HKCW002 h WHERE h.textbox3 = :textbox3"),
-    @NamedQuery(name = "HKCW002.findByBudgetaccname", query = "SELECT h FROM HKCW002 h WHERE h.budgetaccname = :budgetaccname"),
-    @NamedQuery(name = "HKCW002.findByProtype", query = "SELECT h FROM HKCW002 h WHERE h.protype = :protype"),
-    @NamedQuery(name = "HKCW002.findByTextbox7", query = "SELECT h FROM HKCW002 h WHERE h.textbox7 = :textbox7"),
-    @NamedQuery(name = "HKCW002.findByBudgetdept", query = "SELECT h FROM HKCW002 h WHERE h.budgetdept = :budgetdept"),
-    @NamedQuery(name = "HKCW002.findByFacno", query = "SELECT h FROM HKCW002 h WHERE h.facno = :facno"),
-    @NamedQuery(name = "HKCW002.findBySmallclasscodeTxt", query = "SELECT h FROM HKCW002 h WHERE h.smallclasscodeTxt = :smallclasscodeTxt"),
-    @NamedQuery(name = "HKCW002.findByBigclasscodeTxt", query = "SELECT h FROM HKCW002 h WHERE h.bigclasscodeTxt = :bigclasscodeTxt"),
-    @NamedQuery(name = "HKCW002.findByCurrency", query = "SELECT h FROM HKCW002 h WHERE h.currency = :currency"),
-    @NamedQuery(name = "HKCW002.findByTextbox95", query = "SELECT h FROM HKCW002 h WHERE h.textbox95 = :textbox95"),
-    @NamedQuery(name = "HKCW002.findByTextbox93", query = "SELECT h FROM HKCW002 h WHERE h.textbox93 = :textbox93"),
-    @NamedQuery(name = "HKCW002.findByRate", query = "SELECT h FROM HKCW002 h WHERE h.rate = :rate"),
-    @NamedQuery(name = "HKCW002.findByTextbox94", query = "SELECT h FROM HKCW002 h WHERE h.textbox94 = :textbox94"),
-    @NamedQuery(name = "HKCW002.findByMidclasscode", query = "SELECT h FROM HKCW002 h WHERE h.midclasscode = :midclasscode"),
-    @NamedQuery(name = "HKCW002.findByDmark1name", query = "SELECT h FROM HKCW002 h WHERE h.dmark1name = :dmark1name"),
-    @NamedQuery(name = "HKCW002.findByPSN", query = "SELECT h FROM HKCW002 h WHERE h.processSerialNumber = :psn"),
-    @NamedQuery(name = "HKCW002.findByTextbox91", query = "SELECT h FROM HKCW002 h WHERE h.textbox91 = :textbox91"),
-    @NamedQuery(name = "HKCW002.findByTextbox56", query = "SELECT h FROM HKCW002 h WHERE h.textbox56 = :textbox56"),
-    @NamedQuery(name = "HKCW002.findByTextbox92", query = "SELECT h FROM HKCW002 h WHERE h.textbox92 = :textbox92"),
-    @NamedQuery(name = "HKCW002.findByTextbox55", query = "SELECT h FROM HKCW002 h WHERE h.textbox55 = :textbox55"),
-    @NamedQuery(name = "HKCW002.findByCproname", query = "SELECT h FROM HKCW002 h WHERE h.cproname = :cproname"),
-    @NamedQuery(name = "HKCW002.findByPnname", query = "SELECT h FROM HKCW002 h WHERE h.pnname = :pnname"),
-    @NamedQuery(name = "HKCW002.findByApamts", query = "SELECT h FROM HKCW002 h WHERE h.apamts = :apamts"),
-    @NamedQuery(name = "HKCW002.findBySqr", query = "SELECT h FROM HKCW002 h WHERE h.sqr = :sqr"),
-    @NamedQuery(name = "HKCW002.findByZddw", query = "SELECT h FROM HKCW002 h WHERE h.zddw = :zddw"),
-    @NamedQuery(name = "HKCW002.findBySmallclasscode", query = "SELECT h FROM HKCW002 h WHERE h.smallclasscode = :smallclasscode"),
-    @NamedQuery(name = "HKCW002.findByProattr", query = "SELECT h FROM HKCW002 h WHERE h.proattr = :proattr"),
-    @NamedQuery(name = "HKCW002.findByTextbox82", query = "SELECT h FROM HKCW002 h WHERE h.textbox82 = :textbox82"),
-    @NamedQuery(name = "HKCW002.findByDepno", query = "SELECT h FROM HKCW002 h WHERE h.depno = :depno"),
-    @NamedQuery(name = "HKCW002.findByTextbox84", query = "SELECT h FROM HKCW002 h WHERE h.textbox84 = :textbox84"),
-    @NamedQuery(name = "HKCW002.findByTextbox85", query = "SELECT h FROM HKCW002 h WHERE h.textbox85 = :textbox85"),
-    @NamedQuery(name = "HKCW002.findBySource", query = "SELECT h FROM HKCW002 h WHERE h.source = :source"),
-    @NamedQuery(name = "HKCW002.findByPremoney", query = "SELECT h FROM HKCW002 h WHERE h.premoney = :premoney"),
-    @NamedQuery(name = "HKCW002.findByDmark2name", query = "SELECT h FROM HKCW002 h WHERE h.dmark2name = :dmark2name"),
-    @NamedQuery(name = "HKCW002.findByQtotalrmb", query = "SELECT h FROM HKCW002 h WHERE h.qtotalrmb = :qtotalrmb"),
-    @NamedQuery(name = "HKCW002.findByPncode", query = "SELECT h FROM HKCW002 h WHERE h.pncode = :pncode"),
-    @NamedQuery(name = "HKCW002.findByBigclasscode", query = "SELECT h FROM HKCW002 h WHERE h.bigclasscode = :bigclasscode"),
-    @NamedQuery(name = "HKCW002.findByFSN", query = "SELECT h FROM HKCW002 h WHERE h.formSerialNumber = :fsn"),
-    @NamedQuery(name = "HKCW002.findByTextbox81", query = "SELECT h FROM HKCW002 h WHERE h.textbox81 = :textbox81")})
-public class HKCW002 implements Serializable {
+    @NamedQuery(name = "HKCW002P.findAll", query = "SELECT h FROM HKCW002P h"),
+    @NamedQuery(name = "HKCW002P.findBySubyearbal", query = "SELECT h FROM HKCW002P h WHERE h.subyearbal = :subyearbal"),
+    @NamedQuery(name = "HKCW002P.findByTextbox112", query = "SELECT h FROM HKCW002P h WHERE h.textbox112 = :textbox112"),
+    @NamedQuery(name = "HKCW002P.findByUserman", query = "SELECT h FROM HKCW002P h WHERE h.userman = :userman"),
+    @NamedQuery(name = "HKCW002P.findByTextArea80", query = "SELECT h FROM HKCW002P h WHERE h.textArea80 = :textArea80"),
+    @NamedQuery(name = "HKCW002P.findByDate65", query = "SELECT h FROM HKCW002P h WHERE h.date65 = :date65"),
+    @NamedQuery(name = "HKCW002P.findByTextbox114", query = "SELECT h FROM HKCW002P h WHERE h.textbox114 = :textbox114"),
+    @NamedQuery(name = "HKCW002P.findByMidclasscodeTxt", query = "SELECT h FROM HKCW002P h WHERE h.midclasscodeTxt = :midclasscodeTxt"),
+    @NamedQuery(name = "HKCW002P.findByTextbox111", query = "SELECT h FROM HKCW002P h WHERE h.textbox111 = :textbox111"),
+    @NamedQuery(name = "HKCW002P.findByTextbox116", query = "SELECT h FROM HKCW002P h WHERE h.textbox116 = :textbox116"),
+    @NamedQuery(name = "HKCW002P.findByDeptyearbal", query = "SELECT h FROM HKCW002P h WHERE h.deptyearbal = :deptyearbal"),
+    @NamedQuery(name = "HKCW002P.findBySubperbal", query = "SELECT h FROM HKCW002P h WHERE h.subperbal = :subperbal"),
+    @NamedQuery(name = "HKCW002P.findByBudgetacc", query = "SELECT h FROM HKCW002P h WHERE h.budgetacc = :budgetacc"),
+    @NamedQuery(name = "HKCW002P.findByIfturn", query = "SELECT h FROM HKCW002P h WHERE h.ifturn = :ifturn"),
+    @NamedQuery(name = "HKCW002P.findBySerialNumber", query = "SELECT h FROM HKCW002P h WHERE h.serialNumber = :serialNumber"),
+    @NamedQuery(name = "HKCW002P.findByDmark1", query = "SELECT h FROM HKCW002P h WHERE h.dmark1 = :dmark1"),
+    @NamedQuery(name = "HKCW002P.findByDmark2", query = "SELECT h FROM HKCW002P h WHERE h.dmark2 = :dmark2"),
+    @NamedQuery(name = "HKCW002P.findByQgnum", query = "SELECT h FROM HKCW002P h WHERE h.qgnum = :qgnum"),
+    @NamedQuery(name = "HKCW002P.findByAppdate", query = "SELECT h FROM HKCW002P h WHERE h.appdate = :appdate"),
+    @NamedQuery(name = "HKCW002P.findBySpdse", query = "SELECT h FROM HKCW002P h WHERE h.spdse = :spdse"),
+    @NamedQuery(name = "HKCW002P.findByTextbox104", query = "SELECT h FROM HKCW002P h WHERE h.textbox104 = :textbox104"),
+    @NamedQuery(name = "HKCW002P.findByTextbox103", query = "SELECT h FROM HKCW002P h WHERE h.textbox103 = :textbox103"),
+    @NamedQuery(name = "HKCW002P.findByApplytype", query = "SELECT h FROM HKCW002P h WHERE h.applytype = :applytype"),
+    @NamedQuery(name = "HKCW002P.findByAdscodeTxt", query = "SELECT h FROM HKCW002P h WHERE h.adscodeTxt = :adscodeTxt"),
+    @NamedQuery(name = "HKCW002P.findByTextbox102", query = "SELECT h FROM HKCW002P h WHERE h.textbox102 = :textbox102"),
+    @NamedQuery(name = "HKCW002P.findByTextbox101", query = "SELECT h FROM HKCW002P h WHERE h.textbox101 = :textbox101"),
+    @NamedQuery(name = "HKCW002P.findByApplyunit", query = "SELECT h FROM HKCW002P h WHERE h.applyunit = :applyunit"),
+    @NamedQuery(name = "HKCW002P.findByTextbox15", query = "SELECT h FROM HKCW002P h WHERE h.textbox15 = :textbox15"),
+    @NamedQuery(name = "HKCW002P.findByDatetime1", query = "SELECT h FROM HKCW002P h WHERE h.datetime1 = :datetime1"),
+    @NamedQuery(name = "HKCW002P.findByAdscode", query = "SELECT h FROM HKCW002P h WHERE h.adscode = :adscode"),
+    @NamedQuery(name = "HKCW002P.findByTextbox10", query = "SELECT h FROM HKCW002P h WHERE h.textbox10 = :textbox10"),
+    @NamedQuery(name = "HKCW002P.findByProperty", query = "SELECT h FROM HKCW002P h WHERE h.property = :property"),
+    @NamedQuery(name = "HKCW002P.findByTextbox108", query = "SELECT h FROM HKCW002P h WHERE h.textbox108 = :textbox108"),
+    @NamedQuery(name = "HKCW002P.findByQgd", query = "SELECT h FROM HKCW002P h WHERE h.qgd = :qgd"),
+    @NamedQuery(name = "HKCW002P.findByTextbox106", query = "SELECT h FROM HKCW002P h WHERE h.textbox106 = :textbox106"),
+    @NamedQuery(name = "HKCW002P.findByTextbox64", query = "SELECT h FROM HKCW002P h WHERE h.textbox64 = :textbox64"),
+    @NamedQuery(name = "HKCW002P.findByUsingDept", query = "SELECT h FROM HKCW002P h WHERE h.usingDept = :usingDept"),
+    @NamedQuery(name = "HKCW002P.findBySfjj", query = "SELECT h FROM HKCW002P h WHERE h.sfjj = :sfjj"),
+    @NamedQuery(name = "HKCW002P.findByQtotaly", query = "SELECT h FROM HKCW002P h WHERE h.qtotaly = :qtotaly"),
+    @NamedQuery(name = "HKCW002P.findByTextbox62", query = "SELECT h FROM HKCW002P h WHERE h.textbox62 = :textbox62"),
+    @NamedQuery(name = "HKCW002P.findByTextbox63", query = "SELECT h FROM HKCW002P h WHERE h.textbox63 = :textbox63"),
+    @NamedQuery(name = "HKCW002P.findByPrkind", query = "SELECT h FROM HKCW002P h WHERE h.prkind = :prkind"),
+    @NamedQuery(name = "HKCW002P.findByLynum", query = "SELECT h FROM HKCW002P h WHERE h.lynum = :lynum"),
+    @NamedQuery(name = "HKCW002P.findByGuige", query = "SELECT h FROM HKCW002P h WHERE h.guige = :guige"),
+    @NamedQuery(name = "HKCW002P.findByApplynum", query = "SELECT h FROM HKCW002P h WHERE h.applynum = :applynum"),
+    @NamedQuery(name = "HKCW002P.findByTextbox0", query = "SELECT h FROM HKCW002P h WHERE h.textbox0 = :textbox0"),
+    @NamedQuery(name = "HKCW002P.findByOid", query = "SELECT h FROM HKCW002P h WHERE h.oid = :oid"),
+    @NamedQuery(name = "HKCW002P.findByTextbox4", query = "SELECT h FROM HKCW002P h WHERE h.textbox4 = :textbox4"),
+    @NamedQuery(name = "HKCW002P.findByDeptperbal", query = "SELECT h FROM HKCW002P h WHERE h.deptperbal = :deptperbal"),
+    @NamedQuery(name = "HKCW002P.findByTextbox3", query = "SELECT h FROM HKCW002P h WHERE h.textbox3 = :textbox3"),
+    @NamedQuery(name = "HKCW002P.findByBudgetaccname", query = "SELECT h FROM HKCW002P h WHERE h.budgetaccname = :budgetaccname"),
+    @NamedQuery(name = "HKCW002P.findByProtype", query = "SELECT h FROM HKCW002P h WHERE h.protype = :protype"),
+    @NamedQuery(name = "HKCW002P.findByAddcode", query = "SELECT h FROM HKCW002P h WHERE h.addcode = :addcode"),
+    @NamedQuery(name = "HKCW002P.findByTextbox7", query = "SELECT h FROM HKCW002P h WHERE h.textbox7 = :textbox7"),
+    @NamedQuery(name = "HKCW002P.findByBudgetdept", query = "SELECT h FROM HKCW002P h WHERE h.budgetdept = :budgetdept"),
+    @NamedQuery(name = "HKCW002P.findByFacno", query = "SELECT h FROM HKCW002P h WHERE h.facno = :facno"),
+    @NamedQuery(name = "HKCW002P.findBySmallclasscodeTxt", query = "SELECT h FROM HKCW002P h WHERE h.smallclasscodeTxt = :smallclasscodeTxt"),
+    @NamedQuery(name = "HKCW002P.findByBigclasscodeTxt", query = "SELECT h FROM HKCW002P h WHERE h.bigclasscodeTxt = :bigclasscodeTxt"),
+    @NamedQuery(name = "HKCW002P.findByCurrency", query = "SELECT h FROM HKCW002P h WHERE h.currency = :currency"),
+    @NamedQuery(name = "HKCW002P.findByTextbox95", query = "SELECT h FROM HKCW002P h WHERE h.textbox95 = :textbox95"),
+    @NamedQuery(name = "HKCW002P.findByTextbox93", query = "SELECT h FROM HKCW002P h WHERE h.textbox93 = :textbox93"),
+    @NamedQuery(name = "HKCW002P.findByRate", query = "SELECT h FROM HKCW002P h WHERE h.rate = :rate"),
+    @NamedQuery(name = "HKCW002P.findByTextbox94", query = "SELECT h FROM HKCW002P h WHERE h.textbox94 = :textbox94"),
+    @NamedQuery(name = "HKCW002P.findByHmark1", query = "SELECT h FROM HKCW002P h WHERE h.hmark1 = :hmark1"),
+    @NamedQuery(name = "HKCW002P.findByMidclasscode", query = "SELECT h FROM HKCW002P h WHERE h.midclasscode = :midclasscode"),
+    @NamedQuery(name = "HKCW002P.findByDmark1name", query = "SELECT h FROM HKCW002P h WHERE h.dmark1name = :dmark1name"),
+    @NamedQuery(name = "HKCW002P.findByPSN", query = "SELECT h FROM HKCW002P h WHERE h.processSerialNumber = :psn"),
+    @NamedQuery(name = "HKCW002P.findByTextbox91", query = "SELECT h FROM HKCW002P h WHERE h.textbox91 = :textbox91"),
+    @NamedQuery(name = "HKCW002P.findByTextbox56", query = "SELECT h FROM HKCW002P h WHERE h.textbox56 = :textbox56"),
+    @NamedQuery(name = "HKCW002P.findByTextbox92", query = "SELECT h FROM HKCW002P h WHERE h.textbox92 = :textbox92"),
+    @NamedQuery(name = "HKCW002P.findByTextbox55", query = "SELECT h FROM HKCW002P h WHERE h.textbox55 = :textbox55"),
+    @NamedQuery(name = "HKCW002P.findByCproname", query = "SELECT h FROM HKCW002P h WHERE h.cproname = :cproname"),
+    @NamedQuery(name = "HKCW002P.findByPnname", query = "SELECT h FROM HKCW002P h WHERE h.pnname = :pnname"),
+    @NamedQuery(name = "HKCW002P.findByApamts", query = "SELECT h FROM HKCW002P h WHERE h.apamts = :apamts"),
+    @NamedQuery(name = "HKCW002P.findBySqr", query = "SELECT h FROM HKCW002P h WHERE h.sqr = :sqr"),
+    @NamedQuery(name = "HKCW002P.findByZddw", query = "SELECT h FROM HKCW002P h WHERE h.zddw = :zddw"),
+    @NamedQuery(name = "HKCW002P.findBySmallclasscode", query = "SELECT h FROM HKCW002P h WHERE h.smallclasscode = :smallclasscode"),
+    @NamedQuery(name = "HKCW002P.findByProattr", query = "SELECT h FROM HKCW002P h WHERE h.proattr = :proattr"),
+    @NamedQuery(name = "HKCW002P.findByTextbox82", query = "SELECT h FROM HKCW002P h WHERE h.textbox82 = :textbox82"),
+    @NamedQuery(name = "HKCW002P.findByApplyUser", query = "SELECT h FROM HKCW002P h WHERE h.applyUser = :applyUser"),
+    @NamedQuery(name = "HKCW002P.findByTextbox84", query = "SELECT h FROM HKCW002P h WHERE h.textbox84 = :textbox84"),
+    @NamedQuery(name = "HKCW002P.findByTextbox85", query = "SELECT h FROM HKCW002P h WHERE h.textbox85 = :textbox85"),
+    @NamedQuery(name = "HKCW002P.findBySource", query = "SELECT h FROM HKCW002P h WHERE h.source = :source"),
+    @NamedQuery(name = "HKCW002P.findByPremoney", query = "SELECT h FROM HKCW002P h WHERE h.premoney = :premoney"),
+    @NamedQuery(name = "HKCW002P.findByDmark2name", query = "SELECT h FROM HKCW002P h WHERE h.dmark2name = :dmark2name"),
+    @NamedQuery(name = "HKCW002P.findByQtotalrmb", query = "SELECT h FROM HKCW002P h WHERE h.qtotalrmb = :qtotalrmb"),
+    @NamedQuery(name = "HKCW002P.findByPncode", query = "SELECT h FROM HKCW002P h WHERE h.pncode = :pncode"),
+    @NamedQuery(name = "HKCW002P.findByBigclasscode", query = "SELECT h FROM HKCW002P h WHERE h.bigclasscode = :bigclasscode"),
+    @NamedQuery(name = "HKCW002P.findByFSN", query = "SELECT h FROM HKCW002P h WHERE h.formSerialNumber = :fsn"),
+    @NamedQuery(name = "HKCW002P.findByTextbox81", query = "SELECT h FROM HKCW002P h WHERE h.textbox81 = :textbox81")})
+public class HKCW002P implements Serializable {
 
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
@@ -151,8 +156,8 @@ public class HKCW002 implements Serializable {
     @Column(name = "budgetacc")
     private String budgetacc;
     @Size(max = 255)
-    @Column(name = "applier")
-    private String applier;
+    @Column(name = "ifturn")
+    private String ifturn;
     @Size(max = 255)
     @Column(name = "SerialNumber")
     private String serialNumber;
@@ -210,11 +215,17 @@ public class HKCW002 implements Serializable {
     @Column(name = "Textbox108")
     private String textbox108;
     @Size(max = 255)
+    @Column(name = "qgd")
+    private String qgd;
+    @Size(max = 255)
     @Column(name = "Textbox106")
     private String textbox106;
     @Size(max = 255)
     @Column(name = "Textbox64")
     private String textbox64;
+    @Size(max = 255)
+    @Column(name = "usingDept")
+    private String usingDept;
     @Size(max = 255)
     @Column(name = "sfjj")
     private String sfjj;
@@ -226,6 +237,9 @@ public class HKCW002 implements Serializable {
     @Size(max = 255)
     @Column(name = "Textbox63")
     private String textbox63;
+    @Size(max = 255)
+    @Column(name = "prkind")
+    private String prkind;
     @Column(name = "lynum")
     private Integer lynum;
     @Size(max = 255)
@@ -257,6 +271,9 @@ public class HKCW002 implements Serializable {
     @Column(name = "protype")
     private String protype;
     @Size(max = 255)
+    @Column(name = "addcode")
+    private String addcode;
+    @Size(max = 255)
     @Column(name = "Textbox7")
     private String textbox7;
     @Size(max = 255)
@@ -285,6 +302,9 @@ public class HKCW002 implements Serializable {
     @Size(max = 255)
     @Column(name = "Textbox94")
     private String textbox94;
+    @Size(max = 255)
+    @Column(name = "hmark1")
+    private String hmark1;
     @Size(max = 255)
     @Column(name = "midclasscode")
     private String midclasscode;
@@ -330,8 +350,8 @@ public class HKCW002 implements Serializable {
     @Column(name = "Textbox82")
     private String textbox82;
     @Size(max = 255)
-    @Column(name = "depno")
-    private String depno;
+    @Column(name = "applyUser")
+    private String applyUser;
     @Size(max = 255)
     @Column(name = "Textbox84")
     private String textbox84;
@@ -361,10 +381,10 @@ public class HKCW002 implements Serializable {
     @Column(name = "Textbox81")
     private String textbox81;
 
-    public HKCW002() {
+    public HKCW002P() {
     }
 
-    public HKCW002(String oid) {
+    public HKCW002P(String oid) {
         this.oid = oid;
     }
 
@@ -464,12 +484,12 @@ public class HKCW002 implements Serializable {
         this.budgetacc = budgetacc;
     }
 
-    public String getApplier() {
-        return applier;
+    public String getIfturn() {
+        return ifturn;
     }
 
-    public void setApplier(String applier) {
-        this.applier = applier;
+    public void setIfturn(String ifturn) {
+        this.ifturn = ifturn;
     }
 
     public String getSerialNumber() {
@@ -624,6 +644,14 @@ public class HKCW002 implements Serializable {
         this.textbox108 = textbox108;
     }
 
+    public String getQgd() {
+        return qgd;
+    }
+
+    public void setQgd(String qgd) {
+        this.qgd = qgd;
+    }
+
     public String getTextbox106() {
         return textbox106;
     }
@@ -638,6 +666,14 @@ public class HKCW002 implements Serializable {
 
     public void setTextbox64(String textbox64) {
         this.textbox64 = textbox64;
+    }
+
+    public String getUsingDept() {
+        return usingDept;
+    }
+
+    public void setUsingDept(String usingDept) {
+        this.usingDept = usingDept;
     }
 
     public String getSfjj() {
@@ -670,6 +706,14 @@ public class HKCW002 implements Serializable {
 
     public void setTextbox63(String textbox63) {
         this.textbox63 = textbox63;
+    }
+
+    public String getPrkind() {
+        return prkind;
+    }
+
+    public void setPrkind(String prkind) {
+        this.prkind = prkind;
     }
 
     public Integer getLynum() {
@@ -752,6 +796,14 @@ public class HKCW002 implements Serializable {
         this.protype = protype;
     }
 
+    public String getAddcode() {
+        return addcode;
+    }
+
+    public void setAddcode(String addcode) {
+        this.addcode = addcode;
+    }
+
     public String getTextbox7() {
         return textbox7;
     }
@@ -830,6 +882,14 @@ public class HKCW002 implements Serializable {
 
     public void setTextbox94(String textbox94) {
         this.textbox94 = textbox94;
+    }
+
+    public String getHmark1() {
+        return hmark1;
+    }
+
+    public void setHmark1(String hmark1) {
+        this.hmark1 = hmark1;
     }
 
     public String getMidclasscode() {
@@ -952,12 +1012,12 @@ public class HKCW002 implements Serializable {
         this.textbox82 = textbox82;
     }
 
-    public String getDepno() {
-        return depno;
+    public String getApplyUser() {
+        return applyUser;
     }
 
-    public void setDepno(String depno) {
-        this.depno = depno;
+    public void setApplyUser(String applyUser) {
+        this.applyUser = applyUser;
     }
 
     public String getTextbox84() {
@@ -1050,10 +1110,10 @@ public class HKCW002 implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof HKCW002)) {
+        if (!(object instanceof HKCW002P)) {
             return false;
         }
-        HKCW002 other = (HKCW002) object;
+        HKCW002P other = (HKCW002P) object;
         if ((this.oid == null && other.oid != null) || (this.oid != null && !this.oid.equals(other.oid))) {
             return false;
         }
@@ -1062,7 +1122,7 @@ public class HKCW002 implements Serializable {
 
     @Override
     public String toString() {
-        return "cn.hanbell.oa.entity.HKCW002[ oid=" + oid + " ]";
+        return "cn.hanbell.oa.entity.HKCW002P[ oid=" + oid + " ]";
     }
     
 }

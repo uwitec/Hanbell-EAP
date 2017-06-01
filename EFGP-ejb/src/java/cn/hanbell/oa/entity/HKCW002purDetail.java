@@ -50,7 +50,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "HKCW002purDetail.findByBigclasscode", query = "SELECT h FROM HKCW002purDetail h WHERE h.bigclasscode = :bigclasscode"),
     @NamedQuery(name = "HKCW002purDetail.findByApplynum", query = "SELECT h FROM HKCW002purDetail h WHERE h.applynum = :applynum"),
     @NamedQuery(name = "HKCW002purDetail.findByDatetime1Txt", query = "SELECT h FROM HKCW002purDetail h WHERE h.datetime1Txt = :datetime1Txt"),
-    @NamedQuery(name = "HKCW002purDetail.findByFormSerialNumber", query = "SELECT h FROM HKCW002purDetail h WHERE h.formSerialNumber = :formSerialNumber")})
+    @NamedQuery(name = "HKCW002purDetail.findByFSN", query = "SELECT h FROM HKCW002purDetail h WHERE h.formSerialNumber = :fsn")})
 public class HKCW002purDetail implements Serializable {
 
     private static final long serialVersionUID = 1L;

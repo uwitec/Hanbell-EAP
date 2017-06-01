@@ -6,23 +6,21 @@
 package cn.hanbell.erp.entity;
 
 import java.io.Serializable;
-import java.util.Collection;
+
 import java.util.Date;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -74,6 +72,9 @@ public class AmTbAssetApplyHad implements Serializable {
     @Size(max = 8)
     @Column(name = "create_people")
     private String createPeople;
+    @Size(max = 20)
+    @Column(name = "co_code")
+    private String cocode;
     @Size(max = 8)
     @Column(name = "reply_people")
     private String replyPeople;
@@ -112,8 +113,6 @@ public class AmTbAssetApplyHad implements Serializable {
     @Size(max = 20)
     @Column(name = "sheetno")
     private String sheetno;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "amTbAssetApplyHad")
-    private Collection<AmTbAssetApplyDta> amTbAssetApplyDtaCollection;
 
     public AmTbAssetApplyHad() {
     }
@@ -274,13 +273,12 @@ public class AmTbAssetApplyHad implements Serializable {
         this.sheetno = sheetno;
     }
 
-    @XmlTransient
-    public Collection<AmTbAssetApplyDta> getAmTbAssetApplyDtaCollection() {
-        return amTbAssetApplyDtaCollection;
+    public String getCocode() {
+        return cocode;
     }
 
-    public void setAmTbAssetApplyDtaCollection(Collection<AmTbAssetApplyDta> amTbAssetApplyDtaCollection) {
-        this.amTbAssetApplyDtaCollection = amTbAssetApplyDtaCollection;
+    public void setCocode(String cocode) {
+        this.cocode = cocode;
     }
 
     @Override
@@ -307,5 +305,5 @@ public class AmTbAssetApplyHad implements Serializable {
     public String toString() {
         return "cn.hanbell.erp.entity.AmTbAssetApplyHad[ applyHadSn=" + applyHadSn + " ]";
     }
-    
+
 }

@@ -9,10 +9,10 @@ import cn.hanbell.erp.comm.SuperEJBForERP;
 import cn.hanbell.erp.entity.AmTbAssetApplyDta;
 import cn.hanbell.erp.entity.AmTbAssetApplyDtaPK;
 import cn.hanbell.erp.entity.AmTbAssetApplyHad;
-import cn.hanbell.oa.ejb.HKCW002Bean;
-import cn.hanbell.oa.ejb.HKCW002purDetailBean;
-import cn.hanbell.oa.entity.HKCW002;
-import cn.hanbell.oa.entity.HKCW002purDetail;
+import cn.hanbell.oa.ejb.HKCW002PBean;
+import cn.hanbell.oa.ejb.HKCW002PpurDetailBean;
+import cn.hanbell.oa.entity.HKCW002P;
+import cn.hanbell.oa.entity.HKCW002PpurDetail;
 import cn.hanbell.util.BaseLib;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -33,10 +33,10 @@ import javax.persistence.Query;
 public class AmTbAssetApplyHadBean extends SuperEJBForERP<AmTbAssetApplyHad> {
     
     @EJB
-    private HKCW002Bean hkcw002Bean;
+    private HKCW002PBean hkcw002Bean;
     
     @EJB
-    private HKCW002purDetailBean hkcw002purDetailBean;
+    private HKCW002PpurDetailBean hkcw002purDetailBean;
     
     @EJB
     private AmTbAssetApplyDtaBean amTbAssetApplyDtaBean;
@@ -52,17 +52,13 @@ public class AmTbAssetApplyHadBean extends SuperEJBForERP<AmTbAssetApplyHad> {
     @EJB
     private SyncSHBBean syncSHBBean;
     
-    
-    
-    
     public AmTbAssetApplyHadBean() {
-            super(AmTbAssetApplyHad.class);
-        }
+        super(AmTbAssetApplyHad.class);
+    }
     
-    
-    public AmTbAssetApplyHad findBySheetno(String sheetno){
+    public AmTbAssetApplyHad findBySheetno(String sheetno) {
         Query query = getEntityManager().createNamedQuery("AmTbAssetApplyHad.findBySheetno");
-        query.setParameter("srcno", sheetno);
+        query.setParameter("sheetno", sheetno);
         try {
             return (AmTbAssetApplyHad) query.getSingleResult();
         } catch (Exception ex) {
@@ -70,66 +66,83 @@ public class AmTbAssetApplyHadBean extends SuperEJBForERP<AmTbAssetApplyHad> {
         }
     }
     
-    public Boolean initByOAZCSQD(String psn){
+    public Boolean initByOAZCSQD(String psn) {
         Date date;
-        String facno,newsn;
+        String facno, newsn;
         
-        try{
-        HKCW002 oa =hkcw002Bean.findByPSN(psn);
-        if (oa == null) {
-            throw new NullPointerException();
-        }
-        
-        //判断ERP中是否已经抛转
-            this.setCompany(oa.getFacno());
-            if (this.findBySheetno(oa.getProcessSerialNumber()) != null) {
+        try {
+            HKCW002P oa = hkcw002Bean.findByPSN(psn);
+            if (oa == null) {
+                throw new NullPointerException();
+            }
+
+            //判断ERP中是否已经抛转
+            facno = oa.getFacno();
+            this.setCompany(facno);
+            if (this.findBySheetno(oa.getSerialNumber()) != null) {
                 return false;
             }
             
-            List<HKCW002purDetail> details = hkcw002purDetailBean.findByFSN(oa.getFormSerialNumber());
-            for (HKCW002purDetail detail : details) {
+            List<HKCW002PpurDetail> details = hkcw002purDetailBean.findByFSN(oa.getFormSerialNumber());
+            for (HKCW002PpurDetail detail : details) {
                 
             }
-        AmTbAssetApplyHad p = new AmTbAssetApplyHad();
-        
-        //生成领用单AA单号
-        newsn = getFormId(BaseLib.getDate(), "AA"+ BaseLib.getDate().toString(), null, 5, "amTbAssetApplyHad", "apply_had_sn");
-        p.setApplyHadSn(newsn);
-        p.setDepno(oa.getDepno());
-        p.setApplyPeople(oa.getUserman());
-        p.setCreateTime(oa.getDatetime1());
-        p.setApplyState(0);
-        p.setCreatePeople(oa.getApplier());
-        p.setFormid("HKCW002");
-        p.setSheetno(oa.getSerialNumber());
-        persist(p);
-        
-        
-        //表身明细
+            AmTbAssetApplyHad p = new AmTbAssetApplyHad();
+
+            //生成领用单AA单号
+            newsn = getFormId(BaseLib.getDate(), "AA" + BaseLib.formatDate("yyyyMMdd", BaseLib.getDate()), null, 5, "am_tb_asset_apply_had", "apply_had_sn");
+
+            p.setApplyHadSn(newsn);
+            p.setDepno(oa.getUsingDept());
+            p.setApplyPeople(oa.getUserman());
+            p.setCreateTime(BaseLib.getDate());
+            p.setApplyState(0);
+            p.setCreatePeople(oa.getApplyUser());
+            p.setFormid("HKCW002P");
+            p.setSheetno(oa.getSerialNumber());
+            p.setCocode(facno);
+
+            persist(p);
+            getEntityManager().flush();
+
+            //表身明细
             for (int i = 0; i < details.size(); i++) {
-                HKCW002purDetail detail = details.get(i);
+                HKCW002PpurDetail detail = details.get(i);
                 AmTbAssetApplyDta pd = new AmTbAssetApplyDta();
                 AmTbAssetApplyDtaPK pdk = new AmTbAssetApplyDtaPK();
                 pdk.setTrsep((short) (i + 1));
                 pdk.setApplyHadSn(newsn);
                 pd.setAmTbAssetApplyDtaPK(pdk);
-                pd.setSpdsc(oa.getSpdse());
-                pd.setApplyNum(oa.getApplynum());
-                pd.setTypeDtaCode(oa.getMidclasscode());
-                pd.setTypeDtaDtaCode(oa.getSmallclasscode());
-                pd.setPnCode(oa.getPncode());
-                pd.setApplyNum(oa.getApplynum());
-                pd.setTypeHadCode(oa.getBigclasscode());
-                pd.setBudgetacc(oa.getBudgetacc());
-                pd.setDmark1(oa.getDmark1());
-                pd.setDmark2(oa.getDmark2());
-                if(oa.getPremoney()!=null && ! oa.getPremoney().equals("")){
-                pd.setPreprice(BigDecimal.valueOf(oa.getPremoney()));
+                
+                pd.setSpdsc(detail.getSpdse());
+                if (detail.getApplynum() != null && !detail.getApplynum().equals("")) {
+                    pd.setApplyNum(Integer.valueOf(detail.getApplynum()));
                 }
+                pd.setTypeDtaCode(detail.getMidclasscode());
+                pd.setTypeDtaDtaCode(detail.getSmallclasscode());
+                pd.setPnCode(detail.getPncode());
+                pd.setTypeHadCode(detail.getBigclasscode());
+                pd.setBudgetacc(detail.getBudgetacc());
+                pd.setDmark1(detail.getDmark1());
+                pd.setDmark2(detail.getDmark2());
+                pd.setSpdsc(detail.getSpdse());
+                if (!"".equals(detail.getApplynum())) {
+                    pd.setApplyNum(Integer.parseInt(detail.getApplynum()));
+                } else {
+                    pd.setApplyNum(0);                    
+                }
+                
+                pd.setTypeDtaCode(detail.getMidclasscode());
+                
+                if (detail.getPremoney() != null && !detail.getPremoney().equals("")) {
+                    pd.setPreprice(BigDecimal.valueOf(detail.getPremoney().charAt(0)));
+                }
+                amTbAssetApplyDtaBean.setCompany(facno);
                 amTbAssetApplyDtaBean.persist(pd);
                 
             }
-             return true;
+            oa.setIfturn("已抛转领用");
+            return true;
         } catch (Exception ex) {
             Logger.getLogger(AmTbAssetApplyHadBean.class.getName()).log(Level.SEVERE, null, ex);
             return false;
