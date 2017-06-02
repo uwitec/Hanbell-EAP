@@ -22,137 +22,37 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author C1368
+ * @author C0160
  */
 @Entity
 @Table(name = "HK_CW002")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "HKCW002.findAll", query = "SELECT h FROM HKCW002 h"),
-    @NamedQuery(name = "HKCW002.findBySubyearbal", query = "SELECT h FROM HKCW002 h WHERE h.subyearbal = :subyearbal"),
-    @NamedQuery(name = "HKCW002.findByTextbox112", query = "SELECT h FROM HKCW002 h WHERE h.textbox112 = :textbox112"),
-    @NamedQuery(name = "HKCW002.findByUserman", query = "SELECT h FROM HKCW002 h WHERE h.userman = :userman"),
-    @NamedQuery(name = "HKCW002.findByTextArea80", query = "SELECT h FROM HKCW002 h WHERE h.textArea80 = :textArea80"),
-    @NamedQuery(name = "HKCW002.findByDate65", query = "SELECT h FROM HKCW002 h WHERE h.date65 = :date65"),
-    @NamedQuery(name = "HKCW002.findByTextbox114", query = "SELECT h FROM HKCW002 h WHERE h.textbox114 = :textbox114"),
-    @NamedQuery(name = "HKCW002.findByMidclasscodeTxt", query = "SELECT h FROM HKCW002 h WHERE h.midclasscodeTxt = :midclasscodeTxt"),
-    @NamedQuery(name = "HKCW002.findByTextbox111", query = "SELECT h FROM HKCW002 h WHERE h.textbox111 = :textbox111"),
-    @NamedQuery(name = "HKCW002.findByTextbox116", query = "SELECT h FROM HKCW002 h WHERE h.textbox116 = :textbox116"),
-    @NamedQuery(name = "HKCW002.findByDeptyearbal", query = "SELECT h FROM HKCW002 h WHERE h.deptyearbal = :deptyearbal"),
-    @NamedQuery(name = "HKCW002.findBySubperbal", query = "SELECT h FROM HKCW002 h WHERE h.subperbal = :subperbal"),
-    @NamedQuery(name = "HKCW002.findByBudgetacc", query = "SELECT h FROM HKCW002 h WHERE h.budgetacc = :budgetacc"),
-    @NamedQuery(name = "HKCW002.findByApplier", query = "SELECT h FROM HKCW002 h WHERE h.applier = :applier"),
-    @NamedQuery(name = "HKCW002.findBySerialNumber", query = "SELECT h FROM HKCW002 h WHERE h.serialNumber = :serialNumber"),
-    @NamedQuery(name = "HKCW002.findByDmark1", query = "SELECT h FROM HKCW002 h WHERE h.dmark1 = :dmark1"),
-    @NamedQuery(name = "HKCW002.findByDmark2", query = "SELECT h FROM HKCW002 h WHERE h.dmark2 = :dmark2"),
-    @NamedQuery(name = "HKCW002.findByQgnum", query = "SELECT h FROM HKCW002 h WHERE h.qgnum = :qgnum"),
-    @NamedQuery(name = "HKCW002.findByAppdate", query = "SELECT h FROM HKCW002 h WHERE h.appdate = :appdate"),
-    @NamedQuery(name = "HKCW002.findBySpdse", query = "SELECT h FROM HKCW002 h WHERE h.spdse = :spdse"),
-    @NamedQuery(name = "HKCW002.findByTextbox104", query = "SELECT h FROM HKCW002 h WHERE h.textbox104 = :textbox104"),
-    @NamedQuery(name = "HKCW002.findByTextbox103", query = "SELECT h FROM HKCW002 h WHERE h.textbox103 = :textbox103"),
-    @NamedQuery(name = "HKCW002.findByApplytype", query = "SELECT h FROM HKCW002 h WHERE h.applytype = :applytype"),
-    @NamedQuery(name = "HKCW002.findByAdscodeTxt", query = "SELECT h FROM HKCW002 h WHERE h.adscodeTxt = :adscodeTxt"),
-    @NamedQuery(name = "HKCW002.findByTextbox102", query = "SELECT h FROM HKCW002 h WHERE h.textbox102 = :textbox102"),
-    @NamedQuery(name = "HKCW002.findByTextbox101", query = "SELECT h FROM HKCW002 h WHERE h.textbox101 = :textbox101"),
-    @NamedQuery(name = "HKCW002.findByApplyunit", query = "SELECT h FROM HKCW002 h WHERE h.applyunit = :applyunit"),
-    @NamedQuery(name = "HKCW002.findByTextbox15", query = "SELECT h FROM HKCW002 h WHERE h.textbox15 = :textbox15"),
-    @NamedQuery(name = "HKCW002.findByDatetime1", query = "SELECT h FROM HKCW002 h WHERE h.datetime1 = :datetime1"),
-    @NamedQuery(name = "HKCW002.findByAdscode", query = "SELECT h FROM HKCW002 h WHERE h.adscode = :adscode"),
-    @NamedQuery(name = "HKCW002.findByTextbox10", query = "SELECT h FROM HKCW002 h WHERE h.textbox10 = :textbox10"),
-    @NamedQuery(name = "HKCW002.findByProperty", query = "SELECT h FROM HKCW002 h WHERE h.property = :property"),
-    @NamedQuery(name = "HKCW002.findByTextbox108", query = "SELECT h FROM HKCW002 h WHERE h.textbox108 = :textbox108"),
-    @NamedQuery(name = "HKCW002.findByTextbox106", query = "SELECT h FROM HKCW002 h WHERE h.textbox106 = :textbox106"),
-    @NamedQuery(name = "HKCW002.findByTextbox64", query = "SELECT h FROM HKCW002 h WHERE h.textbox64 = :textbox64"),
-    @NamedQuery(name = "HKCW002.findBySfjj", query = "SELECT h FROM HKCW002 h WHERE h.sfjj = :sfjj"),
-    @NamedQuery(name = "HKCW002.findByQtotaly", query = "SELECT h FROM HKCW002 h WHERE h.qtotaly = :qtotaly"),
-    @NamedQuery(name = "HKCW002.findByTextbox62", query = "SELECT h FROM HKCW002 h WHERE h.textbox62 = :textbox62"),
-    @NamedQuery(name = "HKCW002.findByTextbox63", query = "SELECT h FROM HKCW002 h WHERE h.textbox63 = :textbox63"),
-    @NamedQuery(name = "HKCW002.findByLynum", query = "SELECT h FROM HKCW002 h WHERE h.lynum = :lynum"),
-    @NamedQuery(name = "HKCW002.findByGuige", query = "SELECT h FROM HKCW002 h WHERE h.guige = :guige"),
-    @NamedQuery(name = "HKCW002.findByApplynum", query = "SELECT h FROM HKCW002 h WHERE h.applynum = :applynum"),
-    @NamedQuery(name = "HKCW002.findByTextbox0", query = "SELECT h FROM HKCW002 h WHERE h.textbox0 = :textbox0"),
-    @NamedQuery(name = "HKCW002.findByOid", query = "SELECT h FROM HKCW002 h WHERE h.oid = :oid"),
-    @NamedQuery(name = "HKCW002.findByTextbox4", query = "SELECT h FROM HKCW002 h WHERE h.textbox4 = :textbox4"),
-    @NamedQuery(name = "HKCW002.findByDeptperbal", query = "SELECT h FROM HKCW002 h WHERE h.deptperbal = :deptperbal"),
-    @NamedQuery(name = "HKCW002.findByTextbox3", query = "SELECT h FROM HKCW002 h WHERE h.textbox3 = :textbox3"),
-    @NamedQuery(name = "HKCW002.findByBudgetaccname", query = "SELECT h FROM HKCW002 h WHERE h.budgetaccname = :budgetaccname"),
-    @NamedQuery(name = "HKCW002.findByProtype", query = "SELECT h FROM HKCW002 h WHERE h.protype = :protype"),
-    @NamedQuery(name = "HKCW002.findByTextbox7", query = "SELECT h FROM HKCW002 h WHERE h.textbox7 = :textbox7"),
-    @NamedQuery(name = "HKCW002.findByBudgetdept", query = "SELECT h FROM HKCW002 h WHERE h.budgetdept = :budgetdept"),
-    @NamedQuery(name = "HKCW002.findByFacno", query = "SELECT h FROM HKCW002 h WHERE h.facno = :facno"),
-    @NamedQuery(name = "HKCW002.findBySmallclasscodeTxt", query = "SELECT h FROM HKCW002 h WHERE h.smallclasscodeTxt = :smallclasscodeTxt"),
-    @NamedQuery(name = "HKCW002.findByBigclasscodeTxt", query = "SELECT h FROM HKCW002 h WHERE h.bigclasscodeTxt = :bigclasscodeTxt"),
-    @NamedQuery(name = "HKCW002.findByCurrency", query = "SELECT h FROM HKCW002 h WHERE h.currency = :currency"),
-    @NamedQuery(name = "HKCW002.findByTextbox95", query = "SELECT h FROM HKCW002 h WHERE h.textbox95 = :textbox95"),
-    @NamedQuery(name = "HKCW002.findByTextbox93", query = "SELECT h FROM HKCW002 h WHERE h.textbox93 = :textbox93"),
-    @NamedQuery(name = "HKCW002.findByRate", query = "SELECT h FROM HKCW002 h WHERE h.rate = :rate"),
-    @NamedQuery(name = "HKCW002.findByTextbox94", query = "SELECT h FROM HKCW002 h WHERE h.textbox94 = :textbox94"),
-    @NamedQuery(name = "HKCW002.findByMidclasscode", query = "SELECT h FROM HKCW002 h WHERE h.midclasscode = :midclasscode"),
-    @NamedQuery(name = "HKCW002.findByDmark1name", query = "SELECT h FROM HKCW002 h WHERE h.dmark1name = :dmark1name"),
+    @NamedQuery(name = "HKCW002.findByOID", query = "SELECT h FROM HKCW002 h WHERE h.oid = :oid"),
     @NamedQuery(name = "HKCW002.findByPSN", query = "SELECT h FROM HKCW002 h WHERE h.processSerialNumber = :psn"),
-    @NamedQuery(name = "HKCW002.findByTextbox91", query = "SELECT h FROM HKCW002 h WHERE h.textbox91 = :textbox91"),
-    @NamedQuery(name = "HKCW002.findByTextbox56", query = "SELECT h FROM HKCW002 h WHERE h.textbox56 = :textbox56"),
-    @NamedQuery(name = "HKCW002.findByTextbox92", query = "SELECT h FROM HKCW002 h WHERE h.textbox92 = :textbox92"),
-    @NamedQuery(name = "HKCW002.findByTextbox55", query = "SELECT h FROM HKCW002 h WHERE h.textbox55 = :textbox55"),
-    @NamedQuery(name = "HKCW002.findByCproname", query = "SELECT h FROM HKCW002 h WHERE h.cproname = :cproname"),
-    @NamedQuery(name = "HKCW002.findByPnname", query = "SELECT h FROM HKCW002 h WHERE h.pnname = :pnname"),
-    @NamedQuery(name = "HKCW002.findByApamts", query = "SELECT h FROM HKCW002 h WHERE h.apamts = :apamts"),
-    @NamedQuery(name = "HKCW002.findBySqr", query = "SELECT h FROM HKCW002 h WHERE h.sqr = :sqr"),
-    @NamedQuery(name = "HKCW002.findByZddw", query = "SELECT h FROM HKCW002 h WHERE h.zddw = :zddw"),
-    @NamedQuery(name = "HKCW002.findBySmallclasscode", query = "SELECT h FROM HKCW002 h WHERE h.smallclasscode = :smallclasscode"),
-    @NamedQuery(name = "HKCW002.findByProattr", query = "SELECT h FROM HKCW002 h WHERE h.proattr = :proattr"),
-    @NamedQuery(name = "HKCW002.findByTextbox82", query = "SELECT h FROM HKCW002 h WHERE h.textbox82 = :textbox82"),
-    @NamedQuery(name = "HKCW002.findByDepno", query = "SELECT h FROM HKCW002 h WHERE h.depno = :depno"),
-    @NamedQuery(name = "HKCW002.findByTextbox84", query = "SELECT h FROM HKCW002 h WHERE h.textbox84 = :textbox84"),
-    @NamedQuery(name = "HKCW002.findByTextbox85", query = "SELECT h FROM HKCW002 h WHERE h.textbox85 = :textbox85"),
-    @NamedQuery(name = "HKCW002.findBySource", query = "SELECT h FROM HKCW002 h WHERE h.source = :source"),
-    @NamedQuery(name = "HKCW002.findByPremoney", query = "SELECT h FROM HKCW002 h WHERE h.premoney = :premoney"),
-    @NamedQuery(name = "HKCW002.findByDmark2name", query = "SELECT h FROM HKCW002 h WHERE h.dmark2name = :dmark2name"),
-    @NamedQuery(name = "HKCW002.findByQtotalrmb", query = "SELECT h FROM HKCW002 h WHERE h.qtotalrmb = :qtotalrmb"),
-    @NamedQuery(name = "HKCW002.findByPncode", query = "SELECT h FROM HKCW002 h WHERE h.pncode = :pncode"),
-    @NamedQuery(name = "HKCW002.findByBigclasscode", query = "SELECT h FROM HKCW002 h WHERE h.bigclasscode = :bigclasscode"),
-    @NamedQuery(name = "HKCW002.findByFSN", query = "SELECT h FROM HKCW002 h WHERE h.formSerialNumber = :fsn"),
-    @NamedQuery(name = "HKCW002.findByTextbox81", query = "SELECT h FROM HKCW002 h WHERE h.textbox81 = :textbox81")})
+    @NamedQuery(name = "HKCW002.findByFSN", query = "SELECT h FROM HKCW002 h WHERE h.formSerialNumber = :fsn")})
 public class HKCW002 implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    @Size(max = 255)
+    @Column(name = "centerid")
+    private String centerid;
+    @Size(max = 255)
+    @Column(name = "applyDeptno")
+    private String applyDeptno;
+    @Size(max = 255)
+    @Column(name = "remark")
+    private String remark;
+    @Size(max = 255)
+    @Column(name = "used")
+    private String used;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "subyearbal")
-    private Double subyearbal;
-    @Size(max = 255)
-    @Column(name = "Textbox112")
-    private String textbox112;
-    @Size(max = 255)
-    @Column(name = "userman")
-    private String userman;
-    @Size(max = 255)
-    @Column(name = "TextArea80")
-    private String textArea80;
-    @Column(name = "Date65")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date date65;
-    @Size(max = 255)
-    @Column(name = "Textbox114")
-    private String textbox114;
-    @Size(max = 255)
-    @Column(name = "midclasscode_txt")
-    private String midclasscodeTxt;
-    @Size(max = 255)
-    @Column(name = "Textbox111")
-    private String textbox111;
-    @Size(max = 255)
-    @Column(name = "Textbox116")
-    private String textbox116;
     @Column(name = "deptyearbal")
     private Double deptyearbal;
-    @Column(name = "subperbal")
-    private Double subperbal;
     @Size(max = 255)
     @Column(name = "budgetacc")
     private String budgetacc;
-    @Size(max = 255)
-    @Column(name = "applier")
-    private String applier;
     @Size(max = 255)
     @Column(name = "SerialNumber")
     private String serialNumber;
@@ -162,80 +62,72 @@ public class HKCW002 implements Serializable {
     @Size(max = 255)
     @Column(name = "dmark2")
     private String dmark2;
-    @Column(name = "qgnum")
-    private Integer qgnum;
-    @Column(name = "appdate")
+    @Size(max = 255)
+    @Column(name = "emgyn")
+    private String emgyn;
+    @Size(max = 255)
+    @Column(name = "adviceBrand")
+    private String adviceBrand;
+    @Size(max = 255)
+    @Column(name = "formulateDept")
+    private String formulateDept;
+    @Column(name = "formdate")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date appdate;
-    @Size(max = 255)
-    @Column(name = "spdse")
-    private String spdse;
-    @Size(max = 255)
-    @Column(name = "Textbox104")
-    private String textbox104;
-    @Size(max = 255)
-    @Column(name = "Textbox103")
-    private String textbox103;
-    @Size(max = 255)
-    @Column(name = "applytype")
-    private String applytype;
-    @Size(max = 255)
-    @Column(name = "adscode_txt")
-    private String adscodeTxt;
-    @Size(max = 255)
-    @Column(name = "Textbox102")
-    private String textbox102;
-    @Size(max = 255)
-    @Column(name = "Textbox101")
-    private String textbox101;
-    @Size(max = 255)
-    @Column(name = "applyunit")
-    private String applyunit;
-    @Size(max = 255)
-    @Column(name = "Textbox15")
-    private String textbox15;
-    @Column(name = "datetime1")
+    private Date formdate;
+    @Column(name = "formulateDate")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date datetime1;
+    private Date formulateDate;
     @Size(max = 255)
-    @Column(name = "adscode")
-    private String adscode;
+    @Column(name = "origproject1")
+    private String origproject1;
     @Size(max = 255)
-    @Column(name = "Textbox10")
-    private String textbox10;
+    @Column(name = "origproject2")
+    private String origproject2;
+    @Size(max = 255)
+    @Column(name = "planqty")
+    private String planqty;
+    @Column(name = "qty")
+    private Integer qty;
     @Size(max = 255)
     @Column(name = "property")
     private String property;
     @Size(max = 255)
-    @Column(name = "Textbox108")
-    private String textbox108;
+    @Column(name = "origrate1")
+    private String origrate1;
     @Size(max = 255)
-    @Column(name = "Textbox106")
-    private String textbox106;
+    @Column(name = "newproject2")
+    private String newproject2;
     @Size(max = 255)
-    @Column(name = "Textbox64")
-    private String textbox64;
+    @Column(name = "origrate2")
+    private String origrate2;
     @Size(max = 255)
-    @Column(name = "sfjj")
-    private String sfjj;
-    @Column(name = "qtotaly")
-    private Double qtotaly;
+    @Column(name = "newproject1")
+    private String newproject1;
     @Size(max = 255)
-    @Column(name = "Textbox62")
-    private String textbox62;
+    @Column(name = "equipmentName")
+    private String equipmentName;
     @Size(max = 255)
-    @Column(name = "Textbox63")
-    private String textbox63;
-    @Column(name = "lynum")
-    private Integer lynum;
+    @Column(name = "category")
+    private String category;
+    @Column(name = "price")
+    private Double price;
+    @Column(name = "totalamts")
+    private Double totalamts;
     @Size(max = 255)
-    @Column(name = "guige")
-    private String guige;
-    @Column(name = "applynum")
-    private Integer applynum;
+    @Column(name = "itemspec")
+    private String itemspec;
     @Size(max = 255)
-    @Column(name = "Textbox0")
-    private String textbox0;
+    @Column(name = "prkind")
+    private String prkind;
+    @Size(max = 255)
+    @Column(name = "dmark1desc")
+    private String dmark1desc;
+    @Size(max = 255)
+    @Column(name = "conclusion")
+    private String conclusion;
+    @Size(max = 255)
+    @Column(name = "factor08")
+    private String factor08;
     @Id
     @Basic(optional = false)
     @NotNull
@@ -243,123 +135,147 @@ public class HKCW002 implements Serializable {
     @Column(name = "OID")
     private String oid;
     @Size(max = 255)
-    @Column(name = "Textbox4")
-    private String textbox4;
+    @Column(name = "factor07")
+    private String factor07;
+    @Size(max = 255)
+    @Column(name = "factor06")
+    private String factor06;
+    @Size(max = 255)
+    @Column(name = "factor05")
+    private String factor05;
+    @Size(max = 255)
+    @Column(name = "factor04")
+    private String factor04;
+    @Size(max = 255)
+    @Column(name = "factor03")
+    private String factor03;
+    @Size(max = 255)
+    @Column(name = "origqty2")
+    private String origqty2;
+    @Size(max = 255)
+    @Column(name = "factor02")
+    private String factor02;
+    @Size(max = 255)
+    @Column(name = "equipmentName2")
+    private String equipmentName2;
+    @Size(max = 255)
+    @Column(name = "origqty1")
+    private String origqty1;
+    @Size(max = 255)
+    @Column(name = "factor01")
+    private String factor01;
     @Column(name = "deptperbal")
     private Double deptperbal;
-    @Size(max = 255)
-    @Column(name = "Textbox3")
-    private String textbox3;
     @Size(max = 255)
     @Column(name = "budgetaccname")
     private String budgetaccname;
     @Size(max = 255)
+    @Column(name = "attribute")
+    private String attribute;
+    @Size(max = 255)
+    @Column(name = "purchase")
+    private String purchase;
+    @Size(max = 255)
     @Column(name = "protype")
     private String protype;
     @Size(max = 255)
-    @Column(name = "Textbox7")
-    private String textbox7;
+    @Column(name = "addcode")
+    private String addcode;
     @Size(max = 255)
-    @Column(name = "budgetdept")
-    private String budgetdept;
+    @Column(name = "HKCG007")
+    private String hkcg007;
+    @Column(name = "accyearbal")
+    private Double accyearbal;
     @Size(max = 255)
     @Column(name = "facno")
     private String facno;
     @Size(max = 255)
-    @Column(name = "smallclasscode_txt")
-    private String smallclasscodeTxt;
-    @Size(max = 255)
-    @Column(name = "bigclasscode_txt")
-    private String bigclasscodeTxt;
+    @Column(name = "factor09")
+    private String factor09;
     @Size(max = 255)
     @Column(name = "currency")
     private String currency;
     @Size(max = 255)
-    @Column(name = "Textbox95")
-    private String textbox95;
+    @Column(name = "newrate2")
+    private String newrate2;
     @Size(max = 255)
-    @Column(name = "Textbox93")
-    private String textbox93;
+    @Column(name = "dmark2desc")
+    private String dmark2desc;
+    @Column(name = "totalamt")
+    private Double totalamt;
     @Column(name = "rate")
     private Double rate;
     @Size(max = 255)
-    @Column(name = "Textbox94")
-    private String textbox94;
+    @Column(name = "newrate1")
+    private String newrate1;
     @Size(max = 255)
-    @Column(name = "midclasscode")
-    private String midclasscode;
+    @Column(name = "hmark1")
+    private String hmark1;
+    @Column(name = "accperbal")
+    private Double accperbal;
     @Size(max = 255)
-    @Column(name = "dmark1name")
-    private String dmark1name;
+    @Column(name = "requireUserno")
+    private String requireUserno;
+    @Column(name = "disqty")
+    private Integer disqty;
     @Size(max = 255)
     @Column(name = "processSerialNumber")
     private String processSerialNumber;
     @Size(max = 255)
-    @Column(name = "Textbox91")
-    private String textbox91;
+    @Column(name = "requireDeptno")
+    private String requireDeptno;
+    @Column(name = "amts")
+    private Double amts;
     @Size(max = 255)
-    @Column(name = "Textbox56")
-    private String textbox56;
+    @Column(name = "itemdesc")
+    private String itemdesc;
     @Size(max = 255)
-    @Column(name = "Textbox92")
-    private String textbox92;
+    @Column(name = "formulateUser")
+    private String formulateUser;
     @Size(max = 255)
-    @Column(name = "Textbox55")
-    private String textbox55;
+    @Column(name = "factor12")
+    private String factor12;
     @Size(max = 255)
-    @Column(name = "cproname")
-    private String cproname;
+    @Column(name = "vendor")
+    private String vendor;
     @Size(max = 255)
-    @Column(name = "pnname")
-    private String pnname;
-    @Column(name = "apamts")
-    private Double apamts;
+    @Column(name = "categoryDesc")
+    private String categoryDesc;
     @Size(max = 255)
-    @Column(name = "sqr")
-    private String sqr;
+    @Column(name = "newqty1")
+    private String newqty1;
     @Size(max = 255)
-    @Column(name = "zddw")
-    private String zddw;
-    @Size(max = 255)
-    @Column(name = "smallclasscode")
-    private String smallclasscode;
-    @Size(max = 255)
-    @Column(name = "proattr")
-    private String proattr;
-    @Size(max = 255)
-    @Column(name = "Textbox82")
-    private String textbox82;
-    @Size(max = 255)
-    @Column(name = "depno")
-    private String depno;
-    @Size(max = 255)
-    @Column(name = "Textbox84")
-    private String textbox84;
-    @Size(max = 255)
-    @Column(name = "Textbox85")
-    private String textbox85;
+    @Column(name = "unit")
+    private String unit;
     @Size(max = 255)
     @Column(name = "source")
     private String source;
-    @Column(name = "premoney")
-    private Double premoney;
+    @Column(name = "purqty")
+    private Integer purqty;
     @Size(max = 255)
-    @Column(name = "dmark2name")
-    private String dmark2name;
-    @Column(name = "qtotalrmb")
-    private Double qtotalrmb;
+    @Column(name = "equipmentSpec")
+    private String equipmentSpec;
+    @Column(name = "rqtdate")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date rqtdate;
     @Size(max = 255)
-    @Column(name = "pncode")
-    private String pncode;
+    @Column(name = "newqty2")
+    private String newqty2;
     @Size(max = 255)
-    @Column(name = "bigclasscode")
-    private String bigclasscode;
+    @Column(name = "itemno")
+    private String itemno;
+    @Size(max = 255)
+    @Column(name = "factor10")
+    private String factor10;
+    @Size(max = 255)
+    @Column(name = "factor11")
+    private String factor11;
+    @Size(max = 255)
+    @Column(name = "applyUserno")
+    private String applyUserno;
     @Size(max = 255)
     @Column(name = "formSerialNumber")
     private String formSerialNumber;
-    @Size(max = 255)
-    @Column(name = "Textbox81")
-    private String textbox81;
 
     public HKCW002() {
     }
@@ -368,76 +284,36 @@ public class HKCW002 implements Serializable {
         this.oid = oid;
     }
 
-    public Double getSubyearbal() {
-        return subyearbal;
+    public String getCenterid() {
+        return centerid;
     }
 
-    public void setSubyearbal(Double subyearbal) {
-        this.subyearbal = subyearbal;
+    public void setCenterid(String centerid) {
+        this.centerid = centerid;
     }
 
-    public String getTextbox112() {
-        return textbox112;
+    public String getApplyDeptno() {
+        return applyDeptno;
     }
 
-    public void setTextbox112(String textbox112) {
-        this.textbox112 = textbox112;
+    public void setApplyDeptno(String applyDeptno) {
+        this.applyDeptno = applyDeptno;
     }
 
-    public String getUserman() {
-        return userman;
+    public String getRemark() {
+        return remark;
     }
 
-    public void setUserman(String userman) {
-        this.userman = userman;
+    public void setRemark(String remark) {
+        this.remark = remark;
     }
 
-    public String getTextArea80() {
-        return textArea80;
+    public String getUsed() {
+        return used;
     }
 
-    public void setTextArea80(String textArea80) {
-        this.textArea80 = textArea80;
-    }
-
-    public Date getDate65() {
-        return date65;
-    }
-
-    public void setDate65(Date date65) {
-        this.date65 = date65;
-    }
-
-    public String getTextbox114() {
-        return textbox114;
-    }
-
-    public void setTextbox114(String textbox114) {
-        this.textbox114 = textbox114;
-    }
-
-    public String getMidclasscodeTxt() {
-        return midclasscodeTxt;
-    }
-
-    public void setMidclasscodeTxt(String midclasscodeTxt) {
-        this.midclasscodeTxt = midclasscodeTxt;
-    }
-
-    public String getTextbox111() {
-        return textbox111;
-    }
-
-    public void setTextbox111(String textbox111) {
-        this.textbox111 = textbox111;
-    }
-
-    public String getTextbox116() {
-        return textbox116;
-    }
-
-    public void setTextbox116(String textbox116) {
-        this.textbox116 = textbox116;
+    public void setUsed(String used) {
+        this.used = used;
     }
 
     public Double getDeptyearbal() {
@@ -448,28 +324,12 @@ public class HKCW002 implements Serializable {
         this.deptyearbal = deptyearbal;
     }
 
-    public Double getSubperbal() {
-        return subperbal;
-    }
-
-    public void setSubperbal(Double subperbal) {
-        this.subperbal = subperbal;
-    }
-
     public String getBudgetacc() {
         return budgetacc;
     }
 
     public void setBudgetacc(String budgetacc) {
         this.budgetacc = budgetacc;
-    }
-
-    public String getApplier() {
-        return applier;
-    }
-
-    public void setApplier(String applier) {
-        this.applier = applier;
     }
 
     public String getSerialNumber() {
@@ -496,116 +356,76 @@ public class HKCW002 implements Serializable {
         this.dmark2 = dmark2;
     }
 
-    public Integer getQgnum() {
-        return qgnum;
+    public String getEmgyn() {
+        return emgyn;
     }
 
-    public void setQgnum(Integer qgnum) {
-        this.qgnum = qgnum;
+    public void setEmgyn(String emgyn) {
+        this.emgyn = emgyn;
     }
 
-    public Date getAppdate() {
-        return appdate;
+    public String getAdviceBrand() {
+        return adviceBrand;
     }
 
-    public void setAppdate(Date appdate) {
-        this.appdate = appdate;
+    public void setAdviceBrand(String adviceBrand) {
+        this.adviceBrand = adviceBrand;
     }
 
-    public String getSpdse() {
-        return spdse;
+    public String getFormulateDept() {
+        return formulateDept;
     }
 
-    public void setSpdse(String spdse) {
-        this.spdse = spdse;
+    public void setFormulateDept(String formulateDept) {
+        this.formulateDept = formulateDept;
     }
 
-    public String getTextbox104() {
-        return textbox104;
+    public Date getFormdate() {
+        return formdate;
     }
 
-    public void setTextbox104(String textbox104) {
-        this.textbox104 = textbox104;
+    public void setFormdate(Date formdate) {
+        this.formdate = formdate;
     }
 
-    public String getTextbox103() {
-        return textbox103;
+    public Date getFormulateDate() {
+        return formulateDate;
     }
 
-    public void setTextbox103(String textbox103) {
-        this.textbox103 = textbox103;
+    public void setFormulateDate(Date formulateDate) {
+        this.formulateDate = formulateDate;
     }
 
-    public String getApplytype() {
-        return applytype;
+    public String getOrigproject1() {
+        return origproject1;
     }
 
-    public void setApplytype(String applytype) {
-        this.applytype = applytype;
+    public void setOrigproject1(String origproject1) {
+        this.origproject1 = origproject1;
     }
 
-    public String getAdscodeTxt() {
-        return adscodeTxt;
+    public String getOrigproject2() {
+        return origproject2;
     }
 
-    public void setAdscodeTxt(String adscodeTxt) {
-        this.adscodeTxt = adscodeTxt;
+    public void setOrigproject2(String origproject2) {
+        this.origproject2 = origproject2;
     }
 
-    public String getTextbox102() {
-        return textbox102;
+    public String getPlanqty() {
+        return planqty;
     }
 
-    public void setTextbox102(String textbox102) {
-        this.textbox102 = textbox102;
+    public void setPlanqty(String planqty) {
+        this.planqty = planqty;
     }
 
-    public String getTextbox101() {
-        return textbox101;
+    public Integer getQty() {
+        return qty;
     }
 
-    public void setTextbox101(String textbox101) {
-        this.textbox101 = textbox101;
-    }
-
-    public String getApplyunit() {
-        return applyunit;
-    }
-
-    public void setApplyunit(String applyunit) {
-        this.applyunit = applyunit;
-    }
-
-    public String getTextbox15() {
-        return textbox15;
-    }
-
-    public void setTextbox15(String textbox15) {
-        this.textbox15 = textbox15;
-    }
-
-    public Date getDatetime1() {
-        return datetime1;
-    }
-
-    public void setDatetime1(Date datetime1) {
-        this.datetime1 = datetime1;
-    }
-
-    public String getAdscode() {
-        return adscode;
-    }
-
-    public void setAdscode(String adscode) {
-        this.adscode = adscode;
-    }
-
-    public String getTextbox10() {
-        return textbox10;
-    }
-
-    public void setTextbox10(String textbox10) {
-        this.textbox10 = textbox10;
+    public void setQty(Integer qty) {
+        this.qty = qty;
     }
 
     public String getProperty() {
@@ -616,92 +436,108 @@ public class HKCW002 implements Serializable {
         this.property = property;
     }
 
-    public String getTextbox108() {
-        return textbox108;
+    public String getOrigrate1() {
+        return origrate1;
     }
 
-    public void setTextbox108(String textbox108) {
-        this.textbox108 = textbox108;
+    public void setOrigrate1(String origrate1) {
+        this.origrate1 = origrate1;
     }
 
-    public String getTextbox106() {
-        return textbox106;
+    public String getNewproject2() {
+        return newproject2;
     }
 
-    public void setTextbox106(String textbox106) {
-        this.textbox106 = textbox106;
+    public void setNewproject2(String newproject2) {
+        this.newproject2 = newproject2;
     }
 
-    public String getTextbox64() {
-        return textbox64;
+    public String getOrigrate2() {
+        return origrate2;
     }
 
-    public void setTextbox64(String textbox64) {
-        this.textbox64 = textbox64;
+    public void setOrigrate2(String origrate2) {
+        this.origrate2 = origrate2;
     }
 
-    public String getSfjj() {
-        return sfjj;
+    public String getNewproject1() {
+        return newproject1;
     }
 
-    public void setSfjj(String sfjj) {
-        this.sfjj = sfjj;
+    public void setNewproject1(String newproject1) {
+        this.newproject1 = newproject1;
     }
 
-    public Double getQtotaly() {
-        return qtotaly;
+    public String getEquipmentName() {
+        return equipmentName;
     }
 
-    public void setQtotaly(Double qtotaly) {
-        this.qtotaly = qtotaly;
+    public void setEquipmentName(String equipmentName) {
+        this.equipmentName = equipmentName;
     }
 
-    public String getTextbox62() {
-        return textbox62;
+    public String getCategory() {
+        return category;
     }
 
-    public void setTextbox62(String textbox62) {
-        this.textbox62 = textbox62;
+    public void setCategory(String category) {
+        this.category = category;
     }
 
-    public String getTextbox63() {
-        return textbox63;
+    public Double getPrice() {
+        return price;
     }
 
-    public void setTextbox63(String textbox63) {
-        this.textbox63 = textbox63;
+    public void setPrice(Double price) {
+        this.price = price;
     }
 
-    public Integer getLynum() {
-        return lynum;
+    public Double getTotalamts() {
+        return totalamts;
     }
 
-    public void setLynum(Integer lynum) {
-        this.lynum = lynum;
+    public void setTotalamts(Double totalamts) {
+        this.totalamts = totalamts;
     }
 
-    public String getGuige() {
-        return guige;
+    public String getItemspec() {
+        return itemspec;
     }
 
-    public void setGuige(String guige) {
-        this.guige = guige;
+    public void setItemspec(String itemspec) {
+        this.itemspec = itemspec;
     }
 
-    public Integer getApplynum() {
-        return applynum;
+    public String getPrkind() {
+        return prkind;
     }
 
-    public void setApplynum(Integer applynum) {
-        this.applynum = applynum;
+    public void setPrkind(String prkind) {
+        this.prkind = prkind;
     }
 
-    public String getTextbox0() {
-        return textbox0;
+    public String getDmark1desc() {
+        return dmark1desc;
     }
 
-    public void setTextbox0(String textbox0) {
-        this.textbox0 = textbox0;
+    public void setDmark1desc(String dmark1desc) {
+        this.dmark1desc = dmark1desc;
+    }
+
+    public String getConclusion() {
+        return conclusion;
+    }
+
+    public void setConclusion(String conclusion) {
+        this.conclusion = conclusion;
+    }
+
+    public String getFactor08() {
+        return factor08;
+    }
+
+    public void setFactor08(String factor08) {
+        this.factor08 = factor08;
     }
 
     public String getOid() {
@@ -712,12 +548,84 @@ public class HKCW002 implements Serializable {
         this.oid = oid;
     }
 
-    public String getTextbox4() {
-        return textbox4;
+    public String getFactor07() {
+        return factor07;
     }
 
-    public void setTextbox4(String textbox4) {
-        this.textbox4 = textbox4;
+    public void setFactor07(String factor07) {
+        this.factor07 = factor07;
+    }
+
+    public String getFactor06() {
+        return factor06;
+    }
+
+    public void setFactor06(String factor06) {
+        this.factor06 = factor06;
+    }
+
+    public String getFactor05() {
+        return factor05;
+    }
+
+    public void setFactor05(String factor05) {
+        this.factor05 = factor05;
+    }
+
+    public String getFactor04() {
+        return factor04;
+    }
+
+    public void setFactor04(String factor04) {
+        this.factor04 = factor04;
+    }
+
+    public String getFactor03() {
+        return factor03;
+    }
+
+    public void setFactor03(String factor03) {
+        this.factor03 = factor03;
+    }
+
+    public String getOrigqty2() {
+        return origqty2;
+    }
+
+    public void setOrigqty2(String origqty2) {
+        this.origqty2 = origqty2;
+    }
+
+    public String getFactor02() {
+        return factor02;
+    }
+
+    public void setFactor02(String factor02) {
+        this.factor02 = factor02;
+    }
+
+    public String getEquipmentName2() {
+        return equipmentName2;
+    }
+
+    public void setEquipmentName2(String equipmentName2) {
+        this.equipmentName2 = equipmentName2;
+    }
+
+    public String getOrigqty1() {
+        return origqty1;
+    }
+
+    public void setOrigqty1(String origqty1) {
+        this.origqty1 = origqty1;
+    }
+
+    public String getFactor01() {
+        return factor01;
+    }
+
+    public void setFactor01(String factor01) {
+        this.factor01 = factor01;
     }
 
     public Double getDeptperbal() {
@@ -728,20 +636,28 @@ public class HKCW002 implements Serializable {
         this.deptperbal = deptperbal;
     }
 
-    public String getTextbox3() {
-        return textbox3;
-    }
-
-    public void setTextbox3(String textbox3) {
-        this.textbox3 = textbox3;
-    }
-
     public String getBudgetaccname() {
         return budgetaccname;
     }
 
     public void setBudgetaccname(String budgetaccname) {
         this.budgetaccname = budgetaccname;
+    }
+
+    public String getAttribute() {
+        return attribute;
+    }
+
+    public void setAttribute(String attribute) {
+        this.attribute = attribute;
+    }
+
+    public String getPurchase() {
+        return purchase;
+    }
+
+    public void setPurchase(String purchase) {
+        this.purchase = purchase;
     }
 
     public String getProtype() {
@@ -752,20 +668,28 @@ public class HKCW002 implements Serializable {
         this.protype = protype;
     }
 
-    public String getTextbox7() {
-        return textbox7;
+    public String getAddcode() {
+        return addcode;
     }
 
-    public void setTextbox7(String textbox7) {
-        this.textbox7 = textbox7;
+    public void setAddcode(String addcode) {
+        this.addcode = addcode;
     }
 
-    public String getBudgetdept() {
-        return budgetdept;
+    public String getHkcg007() {
+        return hkcg007;
     }
 
-    public void setBudgetdept(String budgetdept) {
-        this.budgetdept = budgetdept;
+    public void setHkcg007(String hkcg007) {
+        this.hkcg007 = hkcg007;
+    }
+
+    public Double getAccyearbal() {
+        return accyearbal;
+    }
+
+    public void setAccyearbal(Double accyearbal) {
+        this.accyearbal = accyearbal;
     }
 
     public String getFacno() {
@@ -776,20 +700,12 @@ public class HKCW002 implements Serializable {
         this.facno = facno;
     }
 
-    public String getSmallclasscodeTxt() {
-        return smallclasscodeTxt;
+    public String getFactor09() {
+        return factor09;
     }
 
-    public void setSmallclasscodeTxt(String smallclasscodeTxt) {
-        this.smallclasscodeTxt = smallclasscodeTxt;
-    }
-
-    public String getBigclasscodeTxt() {
-        return bigclasscodeTxt;
-    }
-
-    public void setBigclasscodeTxt(String bigclasscodeTxt) {
-        this.bigclasscodeTxt = bigclasscodeTxt;
+    public void setFactor09(String factor09) {
+        this.factor09 = factor09;
     }
 
     public String getCurrency() {
@@ -800,20 +716,28 @@ public class HKCW002 implements Serializable {
         this.currency = currency;
     }
 
-    public String getTextbox95() {
-        return textbox95;
+    public String getNewrate2() {
+        return newrate2;
     }
 
-    public void setTextbox95(String textbox95) {
-        this.textbox95 = textbox95;
+    public void setNewrate2(String newrate2) {
+        this.newrate2 = newrate2;
     }
 
-    public String getTextbox93() {
-        return textbox93;
+    public String getDmark2desc() {
+        return dmark2desc;
     }
 
-    public void setTextbox93(String textbox93) {
-        this.textbox93 = textbox93;
+    public void setDmark2desc(String dmark2desc) {
+        this.dmark2desc = dmark2desc;
+    }
+
+    public Double getTotalamt() {
+        return totalamt;
+    }
+
+    public void setTotalamt(Double totalamt) {
+        this.totalamt = totalamt;
     }
 
     public Double getRate() {
@@ -824,28 +748,44 @@ public class HKCW002 implements Serializable {
         this.rate = rate;
     }
 
-    public String getTextbox94() {
-        return textbox94;
+    public String getNewrate1() {
+        return newrate1;
     }
 
-    public void setTextbox94(String textbox94) {
-        this.textbox94 = textbox94;
+    public void setNewrate1(String newrate1) {
+        this.newrate1 = newrate1;
     }
 
-    public String getMidclasscode() {
-        return midclasscode;
+    public String getHmark1() {
+        return hmark1;
     }
 
-    public void setMidclasscode(String midclasscode) {
-        this.midclasscode = midclasscode;
+    public void setHmark1(String hmark1) {
+        this.hmark1 = hmark1;
     }
 
-    public String getDmark1name() {
-        return dmark1name;
+    public Double getAccperbal() {
+        return accperbal;
     }
 
-    public void setDmark1name(String dmark1name) {
-        this.dmark1name = dmark1name;
+    public void setAccperbal(Double accperbal) {
+        this.accperbal = accperbal;
+    }
+
+    public String getRequireUserno() {
+        return requireUserno;
+    }
+
+    public void setRequireUserno(String requireUserno) {
+        this.requireUserno = requireUserno;
+    }
+
+    public Integer getDisqty() {
+        return disqty;
+    }
+
+    public void setDisqty(Integer disqty) {
+        this.disqty = disqty;
     }
 
     public String getProcessSerialNumber() {
@@ -856,124 +796,76 @@ public class HKCW002 implements Serializable {
         this.processSerialNumber = processSerialNumber;
     }
 
-    public String getTextbox91() {
-        return textbox91;
+    public String getRequireDeptno() {
+        return requireDeptno;
     }
 
-    public void setTextbox91(String textbox91) {
-        this.textbox91 = textbox91;
+    public void setRequireDeptno(String requireDeptno) {
+        this.requireDeptno = requireDeptno;
     }
 
-    public String getTextbox56() {
-        return textbox56;
+    public Double getAmts() {
+        return amts;
     }
 
-    public void setTextbox56(String textbox56) {
-        this.textbox56 = textbox56;
+    public void setAmts(Double amts) {
+        this.amts = amts;
     }
 
-    public String getTextbox92() {
-        return textbox92;
+    public String getItemdesc() {
+        return itemdesc;
     }
 
-    public void setTextbox92(String textbox92) {
-        this.textbox92 = textbox92;
+    public void setItemdesc(String itemdesc) {
+        this.itemdesc = itemdesc;
     }
 
-    public String getTextbox55() {
-        return textbox55;
+    public String getFormulateUser() {
+        return formulateUser;
     }
 
-    public void setTextbox55(String textbox55) {
-        this.textbox55 = textbox55;
+    public void setFormulateUser(String formulateUser) {
+        this.formulateUser = formulateUser;
     }
 
-    public String getCproname() {
-        return cproname;
+    public String getFactor12() {
+        return factor12;
     }
 
-    public void setCproname(String cproname) {
-        this.cproname = cproname;
+    public void setFactor12(String factor12) {
+        this.factor12 = factor12;
     }
 
-    public String getPnname() {
-        return pnname;
+    public String getVendor() {
+        return vendor;
     }
 
-    public void setPnname(String pnname) {
-        this.pnname = pnname;
+    public void setVendor(String vendor) {
+        this.vendor = vendor;
     }
 
-    public Double getApamts() {
-        return apamts;
+    public String getCategoryDesc() {
+        return categoryDesc;
     }
 
-    public void setApamts(Double apamts) {
-        this.apamts = apamts;
+    public void setCategoryDesc(String categoryDesc) {
+        this.categoryDesc = categoryDesc;
     }
 
-    public String getSqr() {
-        return sqr;
+    public String getNewqty1() {
+        return newqty1;
     }
 
-    public void setSqr(String sqr) {
-        this.sqr = sqr;
+    public void setNewqty1(String newqty1) {
+        this.newqty1 = newqty1;
     }
 
-    public String getZddw() {
-        return zddw;
+    public String getUnit() {
+        return unit;
     }
 
-    public void setZddw(String zddw) {
-        this.zddw = zddw;
-    }
-
-    public String getSmallclasscode() {
-        return smallclasscode;
-    }
-
-    public void setSmallclasscode(String smallclasscode) {
-        this.smallclasscode = smallclasscode;
-    }
-
-    public String getProattr() {
-        return proattr;
-    }
-
-    public void setProattr(String proattr) {
-        this.proattr = proattr;
-    }
-
-    public String getTextbox82() {
-        return textbox82;
-    }
-
-    public void setTextbox82(String textbox82) {
-        this.textbox82 = textbox82;
-    }
-
-    public String getDepno() {
-        return depno;
-    }
-
-    public void setDepno(String depno) {
-        this.depno = depno;
-    }
-
-    public String getTextbox84() {
-        return textbox84;
-    }
-
-    public void setTextbox84(String textbox84) {
-        this.textbox84 = textbox84;
-    }
-
-    public String getTextbox85() {
-        return textbox85;
-    }
-
-    public void setTextbox85(String textbox85) {
-        this.textbox85 = textbox85;
+    public void setUnit(String unit) {
+        this.unit = unit;
     }
 
     public String getSource() {
@@ -984,44 +876,68 @@ public class HKCW002 implements Serializable {
         this.source = source;
     }
 
-    public Double getPremoney() {
-        return premoney;
+    public Integer getPurqty() {
+        return purqty;
     }
 
-    public void setPremoney(Double premoney) {
-        this.premoney = premoney;
+    public void setPurqty(Integer purqty) {
+        this.purqty = purqty;
     }
 
-    public String getDmark2name() {
-        return dmark2name;
+    public String getEquipmentSpec() {
+        return equipmentSpec;
     }
 
-    public void setDmark2name(String dmark2name) {
-        this.dmark2name = dmark2name;
+    public void setEquipmentSpec(String equipmentSpec) {
+        this.equipmentSpec = equipmentSpec;
     }
 
-    public Double getQtotalrmb() {
-        return qtotalrmb;
+    public Date getRqtdate() {
+        return rqtdate;
     }
 
-    public void setQtotalrmb(Double qtotalrmb) {
-        this.qtotalrmb = qtotalrmb;
+    public void setRqtdate(Date rqtdate) {
+        this.rqtdate = rqtdate;
     }
 
-    public String getPncode() {
-        return pncode;
+    public String getNewqty2() {
+        return newqty2;
     }
 
-    public void setPncode(String pncode) {
-        this.pncode = pncode;
+    public void setNewqty2(String newqty2) {
+        this.newqty2 = newqty2;
     }
 
-    public String getBigclasscode() {
-        return bigclasscode;
+    public String getItemno() {
+        return itemno;
     }
 
-    public void setBigclasscode(String bigclasscode) {
-        this.bigclasscode = bigclasscode;
+    public void setItemno(String itemno) {
+        this.itemno = itemno;
+    }
+
+    public String getFactor10() {
+        return factor10;
+    }
+
+    public void setFactor10(String factor10) {
+        this.factor10 = factor10;
+    }
+
+    public String getFactor11() {
+        return factor11;
+    }
+
+    public void setFactor11(String factor11) {
+        this.factor11 = factor11;
+    }
+
+    public String getApplyUserno() {
+        return applyUserno;
+    }
+
+    public void setApplyUserno(String applyUserno) {
+        this.applyUserno = applyUserno;
     }
 
     public String getFormSerialNumber() {
@@ -1030,14 +946,6 @@ public class HKCW002 implements Serializable {
 
     public void setFormSerialNumber(String formSerialNumber) {
         this.formSerialNumber = formSerialNumber;
-    }
-
-    public String getTextbox81() {
-        return textbox81;
-    }
-
-    public void setTextbox81(String textbox81) {
-        this.textbox81 = textbox81;
     }
 
     @Override
