@@ -28,10 +28,6 @@
   <persistence-unit name="PU_gzerp" transaction-type="JTA">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <jta-data-source>jdbc/gzerp</jta-data-source>
-    <class>cn.hanbell.erp.entity.Invbal</class>
-    <class>cn.hanbell.erp.entity.Invwh</class>
-    <class>cn.hanbell.erp.entity.Apmsys</class>
-    <class>cn.hanbell.erp.entity.Apmrno</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <shared-cache-mode>NONE</shared-cache-mode>
     <validation-mode>NONE</validation-mode>
@@ -42,10 +38,6 @@
   <persistence-unit name="PU_jnerp" transaction-type="JTA">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <jta-data-source>jdbc/jnerp</jta-data-source>
-    <class>cn.hanbell.erp.entity.Invbal</class>
-    <class>cn.hanbell.erp.entity.Invwh</class>
-    <class>cn.hanbell.erp.entity.Apmsys</class>
-    <class>cn.hanbell.erp.entity.Apmrno</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <shared-cache-mode>NONE</shared-cache-mode>
     <validation-mode>NONE</validation-mode>
@@ -56,10 +48,6 @@
   <persistence-unit name="PU_njerp" transaction-type="JTA">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <jta-data-source>jdbc/njerp</jta-data-source>
-    <class>cn.hanbell.erp.entity.Invbal</class>
-    <class>cn.hanbell.erp.entity.Invwh</class>
-    <class>cn.hanbell.erp.entity.Apmsys</class>
-    <class>cn.hanbell.erp.entity.Apmrno</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <shared-cache-mode>NONE</shared-cache-mode>
     <validation-mode>NONE</validation-mode>

@@ -38,6 +38,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "SystemGrantPrg.findByKind", query = "SELECT s FROM SystemGrantPrg s WHERE s.kind = :kind"),
     @NamedQuery(name = "SystemGrantPrg.findByUserId", query = "SELECT s FROM SystemGrantPrg s WHERE s.kind='U' AND s.systemUser.id = :userid ORDER BY s.sysprg.systemModule.sortid,s.sysprg.sortid"),
     @NamedQuery(name = "SystemGrantPrg.findByRoleId", query = "SELECT s FROM SystemGrantPrg s WHERE s.kind='R' AND s.systemRole.id = :roleid ORDER BY s.sysprg.systemModule.sortid,s.sysprg.sortid"),
+    @NamedQuery(name = "SystemGrantPrg.findBySystemNameAndUserId", query = "SELECT s FROM SystemGrantPrg s WHERE s.kind='U' AND s.sysprg.sysname=:sysname AND s.systemUser.id = :userid ORDER BY s.sysprg.systemModule.sortid,s.sysprg.sortid "),
+    @NamedQuery(name = "SystemGrantPrg.findBySystemNameAndRoleId", query = "SELECT s FROM SystemGrantPrg s WHERE s.kind='R' AND s.sysprg.sysname=:sysname AND s.systemRole.id = :roleid ORDER BY s.sysprg.systemModule.sortid,s.sysprg.sortid "),
     @NamedQuery(name = "SystemGrantPrg.findByStatus", query = "SELECT s FROM SystemGrantPrg s WHERE s.status = :status")})
 public class SystemGrantPrg extends SuperDetailEntity {
 

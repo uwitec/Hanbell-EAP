@@ -237,6 +237,58 @@
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
+        <description>基础资料一级导航</description>
+        <from-view-id>/*</from-view-id>
+        <navigation-case>
+            <from-outcome>company</from-outcome>
+            <to-view-id>/app/bd/company.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>department</from-outcome>
+            <to-view-id>/app/bd/department.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <description>公司信息维护</description>
+        <from-view-id>/app/bd/company.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>companyNew</from-outcome>
+            <to-view-id>/app/bd/companyNew.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>companyEdit</from-outcome>
+            <to-view-id>/app/bd/companyEdit.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>companyView</from-outcome>
+            <to-view-id>/app/bd/companyView.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <description>部门信息维护</description>
+        <from-view-id>/app/bd/department.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>departmentNew</from-outcome>
+            <to-view-id>/app/bd/departmentNew.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>departmentEdit</from-outcome>
+            <to-view-id>/app/bd/departmentEdit.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>departmentView</from-outcome>
+            <to-view-id>/app/bd/departmentView.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
         <description>权限查询一级导航</description>
         <from-view-id>/*</from-view-id>
         <navigation-case>
@@ -315,6 +367,11 @@
     <navigation-rule>
         <description>模态开窗</description>
         <from-view-id>/*</from-view-id>
+        <navigation-case>
+            <from-outcome>departmentSelect</from-outcome>
+            <to-view-id>/app/df/departmentSelect.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
         <navigation-case>
             <from-outcome>sysprgSelect</from-outcome>
             <to-view-id>/app/df/sysprgSelect.xhtml</to-view-id>

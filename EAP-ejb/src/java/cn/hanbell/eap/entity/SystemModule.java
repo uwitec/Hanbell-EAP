@@ -25,10 +25,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "SystemModule.getRowCount", query = "SELECT COUNT(s) FROM SystemModule s"),
-    @NamedQuery(name = "SystemModule.findAll", query = "SELECT s FROM SystemModule s"),
+    @NamedQuery(name = "SystemModule.findAll", query = "SELECT s FROM SystemModule s ORDER BY s.sortid"),
     @NamedQuery(name = "SystemModule.findById", query = "SELECT s FROM SystemModule s WHERE s.id = :id"),
     @NamedQuery(name = "SystemModule.findByName", query = "SELECT s FROM SystemModule s WHERE s.name = :name"),
-    @NamedQuery(name = "SystemModule.findBySysname", query = "SELECT s FROM SystemModule s WHERE s.sysname = :sysname"),
+    @NamedQuery(name = "SystemModule.findBySysname", query = "SELECT s FROM SystemModule s WHERE s.sysname = :sysname ORDER BY s.sortid"),
     @NamedQuery(name = "SystemModule.findByStatus", query = "SELECT s FROM SystemModule s WHERE s.status = :status")})
 public class SystemModule extends SuperEntity {
 

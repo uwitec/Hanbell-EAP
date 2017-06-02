@@ -33,13 +33,27 @@ public class SystemGrantModuleBean extends SuperEJBForEAP<SystemGrantModule> {
     }
 
     public List<SystemGrantModule> findByUserId(int id) {
-        Query query = getEntityManager().createNamedQuery("SystemGrantModule.findByUserId");
+        Query query = this.getEntityManager().createNamedQuery("SystemGrantModule.findByUserId");
         query.setParameter("userid", id);
         return query.getResultList();
     }
 
     public List<SystemGrantModule> findByRoleId(int id) {
         Query query = this.getEntityManager().createNamedQuery("SystemGrantModule.findByRoleId");
+        query.setParameter("roleid", id);
+        return query.getResultList();
+    }
+
+    public List<SystemGrantModule> findBySystemNameAndUserId(String sysname, int id) {
+        Query query = this.getEntityManager().createNamedQuery("SystemGrantModule.findBySystemNameAndUserId");
+        query.setParameter("sysname", sysname);
+        query.setParameter("userid", id);
+        return query.getResultList();
+    }
+
+    public List<SystemGrantModule> findBySystemNameAndRoleId(String sysname, int id) {
+        Query query = this.getEntityManager().createNamedQuery("SystemGrantModule.findBySystemNameAndRoleId");
+        query.setParameter("sysname", sysname);
         query.setParameter("roleid", id);
         return query.getResultList();
     }
