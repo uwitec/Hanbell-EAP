@@ -1,6 +1,5 @@
 package cn.hanbell.jws;
 
-import cn.hanbell.erp.ejb.InvmasBean;
 import cn.hanbell.oa.ejb.HKFW004DetailBean;
 import cn.hanbell.oa.ejb.HKFW006Bean;
 import cn.hanbell.oa.ejb.HZJS034DetailBean;
@@ -71,6 +70,21 @@ public class CRMWebService {
 
     @WebMethod(operationName = "updateREPTDByOAHKFW006")
     public String updateREPTDByOAHKFW006(@WebParam(name = "psn") String psn) {
+        Boolean ret = false;
+        try {
+            ret = hkfw006Bean.updateReptdByOAHKFW006(psn);
+        } catch (Exception ex) {
+            Logger.getLogger(CRMWebService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (ret) {
+            return "200";
+        } else {
+            return "404";
+        }
+    }
+
+    @WebMethod(operationName = "updateCRMREPTDByOAHKFW006")
+    public String updateCRMREPTDByOAHKFW006(@WebParam(name = "psn") String psn) {
         Boolean ret = false;
         try {
             ret = hkfw006Bean.updateReptdByOAHKFW006(psn);

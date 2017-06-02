@@ -6,20 +6,19 @@
 package cn.hanbell.oa.ejb;
 
 import cn.hanbell.oa.comm.SuperEJBForEFGP;
-import cn.hanbell.oa.entity.OrganizationUnit;
+import cn.hanbell.oa.entity.HKCW002PpurDetail;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 
 /**
  *
- * @author C0160
+ * @author C1368
  */
 @Stateless
 @LocalBean
-public class OrganizationUnitBean extends SuperEJBForEFGP<OrganizationUnit> {
+public class HKCW002PpurDetailBean extends  SuperEJBForEFGP<HKCW002PpurDetail>{
 
-    public OrganizationUnitBean() {
-        super(OrganizationUnit.class);
-    }
-
+    public HKCW002PpurDetailBean(){
+       super(HKCW002PpurDetail.class);
+   }
 }

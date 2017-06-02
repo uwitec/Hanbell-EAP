@@ -7,6 +7,13 @@
     <service name="EFNETWebService">
       <implementation-class>cn.hanbell.jws.EFNETWebService</implementation-class>
     </service>
+    <service name="CRMWebService">
+      <implementation-class>cn.hanbell.jws.CRMWebService</implementation-class>
+    </service>
+    <service name="EAPWebService">
+      <implementation-class>cn.hanbell.jws.EAPWebService</implementation-class>
+    </service>
   </services>
-  <clients/>
+  <clients>
+  </clients>
 </jax-ws>
