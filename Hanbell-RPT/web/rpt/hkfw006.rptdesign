@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
-    <property name="createdBy">Eclipse BIRT 设计器 V4.5.0.v201506092134 构建 &lt;@建立@></property>
+    <property name="createdBy">Eclipse BIRT Designer Version 4.5.0.v201506092134 Build &lt;@BUILD@></property>
     <property name="units">in</property>
     <property name="iconFile">/templates/blank_report.gif</property>
     <property name="layoutPreference">fixed layout</property>
@@ -51,207 +51,162 @@
                 </structure>
                 <structure>
                     <property name="position">2</property>
-                    <property name="name">type</property>
-                    <property name="dataType">string</property>
-                </structure>
-                <structure>
-                    <property name="position">3</property>
                     <property name="name">applyuser</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
-                    <property name="position">4</property>
+                    <property name="position">3</property>
                     <property name="name">applydept</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
-                    <property name="position">5</property>
-                    <property name="name">applytel</property>
-                    <property name="dataType">string</property>
-                </structure>
-                <structure>
-                    <property name="position">6</property>
-                    <property name="name">applyarea</property>
-                    <property name="dataType">string</property>
-                </structure>
-                <structure>
-                    <property name="position">7</property>
-                    <property name="name">requireuser</property>
-                    <property name="dataType">string</property>
-                </structure>
-                <structure>
-                    <property name="position">8</property>
-                    <property name="name">requiredept</property>
-                    <property name="dataType">string</property>
-                </structure>
-                <structure>
-                    <property name="position">9</property>
-                    <property name="name">requirearea</property>
-                    <property name="dataType">string</property>
-                </structure>
-                <structure>
-                    <property name="position">10</property>
-                    <property name="name">requiretel</property>
-                    <property name="dataType">string</property>
-                </structure>
-                <structure>
-                    <property name="position">11</property>
+                    <property name="position">4</property>
                     <property name="name">supportuser</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
-                    <property name="position">12</property>
+                    <property name="position">5</property>
                     <property name="name">supportdept</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
-                    <property name="position">13</property>
-                    <property name="name">supportarea</property>
-                    <property name="dataType">string</property>
-                </structure>
-                <structure>
-                    <property name="position">14</property>
-                    <property name="name">supporttel</property>
-                    <property name="dataType">string</property>
-                </structure>
-                <structure>
-                    <property name="position">15</property>
-                    <property name="name">sftype</property>
-                    <property name="dataType">string</property>
-                </structure>
-                <structure>
-                    <property name="position">16</property>
-                    <property name="name">mftype</property>
-                    <property name="dataType">string</property>
-                </structure>
-                <structure>
-                    <property name="position">17</property>
-                    <property name="name">ordertype</property>
-                    <property name="dataType">string</property>
-                </structure>
-                <structure>
-                    <property name="position">18</property>
-                    <property name="name">orderno</property>
-                    <property name="dataType">string</property>
-                </structure>
-                <structure>
-                    <property name="position">19</property>
+                    <property name="position">6</property>
                     <property name="name">fwno</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
-                    <property name="position">20</property>
+                    <property name="position">7</property>
                     <property name="name">kfno</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
-                    <property name="position">21</property>
+                    <property name="position">8</property>
                     <property name="name">cusna</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
-                    <property name="position">22</property>
+                    <property name="position">9</property>
                     <property name="name">cusno</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
-                    <property name="position">23</property>
-                    <property name="name">ysstyle</property>
-                    <property name="dataType">string</property>
-                </structure>
-                <structure>
-                    <property name="position">24</property>
-                    <property name="name">yfjs</property>
-                    <property name="dataType">string</property>
-                </structure>
-                <structure>
-                    <property name="position">25</property>
-                    <property name="name">packstyle</property>
-                    <property name="dataType">string</property>
-                </structure>
-                <structure>
-                    <property name="position">26</property>
-                    <property name="name">shaddress</property>
-                    <property name="dataType">string</property>
-                </structure>
-                <structure>
-                    <property name="position">27</property>
-                    <property name="name">shcontact</property>
-                    <property name="dataType">string</property>
-                </structure>
-                <structure>
-                    <property name="position">28</property>
-                    <property name="name">tel1</property>
-                    <property name="dataType">string</property>
-                </structure>
-                <structure>
-                    <property name="position">29</property>
-                    <property name="name">tel2</property>
-                    <property name="dataType">string</property>
-                </structure>
-                <structure>
-                    <property name="position">30</property>
+                    <property name="position">10</property>
                     <property name="name">shpno</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
-                    <property name="position">31</property>
-                    <property name="name">lendno</property>
+                    <property name="position">11</property>
+                    <property name="name">remark</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
-                    <property name="position">32</property>
-                    <property name="name">returnno</property>
+                    <property name="position">12</property>
+                    <property name="name">SerialNumber</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
-                    <property name="position">33</property>
+                    <property name="position">13</property>
+                    <property name="name">facno</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">14</property>
+                    <property name="name">cptype</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">15</property>
+                    <property name="name">returndate</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">16</property>
+                    <property name="name">returntype</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">17</property>
+                    <property name="name">cctype</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">18</property>
                     <property name="name">cdrno</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
-                    <property name="position">34</property>
-                    <property name="name">itnbr</property>
+                    <property name="position">19</property>
+                    <property name="name">zbpzno</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
-                    <property name="position">35</property>
-                    <property name="name">model</property>
+                    <property name="position">20</property>
+                    <property name="name">fgspzno</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
-                    <property name="position">36</property>
-                    <property name="name">itdsc</property>
+                    <property name="position">21</property>
+                    <property name="name">yf</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
-                    <property name="position">37</property>
-                    <property name="name">qty</property>
+                    <property name="position">22</property>
+                    <property name="name">dzf</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
-                    <property name="position">38</property>
-                    <property name="name">createno</property>
+                    <property name="position">23</property>
+                    <property name="name">recitnbr</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
-                    <property name="position">39</property>
-                    <property name="name">mfreason</property>
+                    <property name="position">24</property>
+                    <property name="name">recitdsc</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
-                    <property name="position">40</property>
-                    <property name="name">mark</property>
+                    <property name="position">25</property>
+                    <property name="name">recqty</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
-                    <property name="position">41</property>
-                    <property name="name">requiredate</property>
-                    <property name="dataType">date</property>
+                    <property name="position">26</property>
+                    <property name="name">unit</property>
+                    <property name="dataType">string</property>
                 </structure>
                 <structure>
-                    <property name="position">42</property>
-                    <property name="name">SerialNumber</property>
+                    <property name="position">27</property>
+                    <property name="name">retitnbr</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">28</property>
+                    <property name="name">retitdsc</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">29</property>
+                    <property name="name">retqty</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">30</property>
+                    <property name="name">yyjb</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">31</property>
+                    <property name="name">dhno</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">32</property>
+                    <property name="name">tklx</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">33</property>
+                    <property name="name">yymark</property>
                     <property name="dataType">string</property>
                 </structure>
             </list-property>
@@ -260,55 +215,16 @@
                     <property name="columnName">createdate</property>
                 </structure>
                 <structure>
-                    <property name="columnName">type</property>
-                </structure>
-                <structure>
                     <property name="columnName">applyuser</property>
                 </structure>
                 <structure>
                     <property name="columnName">applydept</property>
                 </structure>
                 <structure>
-                    <property name="columnName">applytel</property>
-                </structure>
-                <structure>
-                    <property name="columnName">applyarea</property>
-                </structure>
-                <structure>
-                    <property name="columnName">requireuser</property>
-                </structure>
-                <structure>
-                    <property name="columnName">requiredept</property>
-                </structure>
-                <structure>
-                    <property name="columnName">requirearea</property>
-                </structure>
-                <structure>
-                    <property name="columnName">requiretel</property>
-                </structure>
-                <structure>
                     <property name="columnName">supportuser</property>
                 </structure>
                 <structure>
                     <property name="columnName">supportdept</property>
-                </structure>
-                <structure>
-                    <property name="columnName">supportarea</property>
-                </structure>
-                <structure>
-                    <property name="columnName">supporttel</property>
-                </structure>
-                <structure>
-                    <property name="columnName">sftype</property>
-                </structure>
-                <structure>
-                    <property name="columnName">mftype</property>
-                </structure>
-                <structure>
-                    <property name="columnName">ordertype</property>
-                </structure>
-                <structure>
-                    <property name="columnName">orderno</property>
                 </structure>
                 <structure>
                     <property name="columnName">fwno</property>
@@ -323,64 +239,76 @@
                     <property name="columnName">cusno</property>
                 </structure>
                 <structure>
-                    <property name="columnName">ysstyle</property>
-                </structure>
-                <structure>
-                    <property name="columnName">yfjs</property>
-                </structure>
-                <structure>
-                    <property name="columnName">packstyle</property>
-                </structure>
-                <structure>
-                    <property name="columnName">shaddress</property>
-                </structure>
-                <structure>
-                    <property name="columnName">shcontact</property>
-                </structure>
-                <structure>
-                    <property name="columnName">tel1</property>
-                </structure>
-                <structure>
-                    <property name="columnName">tel2</property>
-                </structure>
-                <structure>
                     <property name="columnName">shpno</property>
                 </structure>
                 <structure>
-                    <property name="columnName">lendno</property>
+                    <property name="columnName">remark</property>
                 </structure>
                 <structure>
-                    <property name="columnName">returnno</property>
+                    <property name="columnName">SerialNumber</property>
+                </structure>
+                <structure>
+                    <property name="columnName">facno</property>
+                </structure>
+                <structure>
+                    <property name="columnName">cptype</property>
+                </structure>
+                <structure>
+                    <property name="columnName">returndate</property>
+                </structure>
+                <structure>
+                    <property name="columnName">returntype</property>
+                </structure>
+                <structure>
+                    <property name="columnName">cctype</property>
                 </structure>
                 <structure>
                     <property name="columnName">cdrno</property>
                 </structure>
                 <structure>
-                    <property name="columnName">itnbr</property>
+                    <property name="columnName">zbpzno</property>
                 </structure>
                 <structure>
-                    <property name="columnName">model</property>
+                    <property name="columnName">fgspzno</property>
                 </structure>
                 <structure>
-                    <property name="columnName">itdsc</property>
+                    <property name="columnName">yf</property>
                 </structure>
                 <structure>
-                    <property name="columnName">qty</property>
+                    <property name="columnName">dzf</property>
                 </structure>
                 <structure>
-                    <property name="columnName">createno</property>
+                    <property name="columnName">recitnbr</property>
                 </structure>
                 <structure>
-                    <property name="columnName">mfreason</property>
+                    <property name="columnName">recitdsc</property>
                 </structure>
                 <structure>
-                    <property name="columnName">mark</property>
+                    <property name="columnName">recqty</property>
                 </structure>
                 <structure>
-                    <property name="columnName">requiredate</property>
+                    <property name="columnName">unit</property>
                 </structure>
                 <structure>
-                    <property name="columnName">SerialNumber</property>
+                    <property name="columnName">retitnbr</property>
+                </structure>
+                <structure>
+                    <property name="columnName">retitdsc</property>
+                </structure>
+                <structure>
+                    <property name="columnName">retqty</property>
+                </structure>
+                <structure>
+                    <property name="columnName">yyjb</property>
+                </structure>
+                <structure>
+                    <property name="columnName">dhno</property>
+                </structure>
+                <structure>
+                    <property name="columnName">tklx</property>
+                </structure>
+                <structure>
+                    <property name="columnName">yymark</property>
                 </structure>
             </list-property>
             <structure name="cachedMetaData">
@@ -392,207 +320,162 @@
                     </structure>
                     <structure>
                         <property name="position">2</property>
-                        <property name="name">type</property>
-                        <property name="dataType">string</property>
-                    </structure>
-                    <structure>
-                        <property name="position">3</property>
                         <property name="name">applyuser</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">4</property>
+                        <property name="position">3</property>
                         <property name="name">applydept</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">5</property>
-                        <property name="name">applytel</property>
-                        <property name="dataType">string</property>
-                    </structure>
-                    <structure>
-                        <property name="position">6</property>
-                        <property name="name">applyarea</property>
-                        <property name="dataType">string</property>
-                    </structure>
-                    <structure>
-                        <property name="position">7</property>
-                        <property name="name">requireuser</property>
-                        <property name="dataType">string</property>
-                    </structure>
-                    <structure>
-                        <property name="position">8</property>
-                        <property name="name">requiredept</property>
-                        <property name="dataType">string</property>
-                    </structure>
-                    <structure>
-                        <property name="position">9</property>
-                        <property name="name">requirearea</property>
-                        <property name="dataType">string</property>
-                    </structure>
-                    <structure>
-                        <property name="position">10</property>
-                        <property name="name">requiretel</property>
-                        <property name="dataType">string</property>
-                    </structure>
-                    <structure>
-                        <property name="position">11</property>
+                        <property name="position">4</property>
                         <property name="name">supportuser</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">12</property>
+                        <property name="position">5</property>
                         <property name="name">supportdept</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">13</property>
-                        <property name="name">supportarea</property>
-                        <property name="dataType">string</property>
-                    </structure>
-                    <structure>
-                        <property name="position">14</property>
-                        <property name="name">supporttel</property>
-                        <property name="dataType">string</property>
-                    </structure>
-                    <structure>
-                        <property name="position">15</property>
-                        <property name="name">sftype</property>
-                        <property name="dataType">string</property>
-                    </structure>
-                    <structure>
-                        <property name="position">16</property>
-                        <property name="name">mftype</property>
-                        <property name="dataType">string</property>
-                    </structure>
-                    <structure>
-                        <property name="position">17</property>
-                        <property name="name">ordertype</property>
-                        <property name="dataType">string</property>
-                    </structure>
-                    <structure>
-                        <property name="position">18</property>
-                        <property name="name">orderno</property>
-                        <property name="dataType">string</property>
-                    </structure>
-                    <structure>
-                        <property name="position">19</property>
+                        <property name="position">6</property>
                         <property name="name">fwno</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">20</property>
+                        <property name="position">7</property>
                         <property name="name">kfno</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">21</property>
+                        <property name="position">8</property>
                         <property name="name">cusna</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">22</property>
+                        <property name="position">9</property>
                         <property name="name">cusno</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">23</property>
-                        <property name="name">ysstyle</property>
-                        <property name="dataType">string</property>
-                    </structure>
-                    <structure>
-                        <property name="position">24</property>
-                        <property name="name">yfjs</property>
-                        <property name="dataType">string</property>
-                    </structure>
-                    <structure>
-                        <property name="position">25</property>
-                        <property name="name">packstyle</property>
-                        <property name="dataType">string</property>
-                    </structure>
-                    <structure>
-                        <property name="position">26</property>
-                        <property name="name">shaddress</property>
-                        <property name="dataType">string</property>
-                    </structure>
-                    <structure>
-                        <property name="position">27</property>
-                        <property name="name">shcontact</property>
-                        <property name="dataType">string</property>
-                    </structure>
-                    <structure>
-                        <property name="position">28</property>
-                        <property name="name">tel1</property>
-                        <property name="dataType">string</property>
-                    </structure>
-                    <structure>
-                        <property name="position">29</property>
-                        <property name="name">tel2</property>
-                        <property name="dataType">string</property>
-                    </structure>
-                    <structure>
-                        <property name="position">30</property>
+                        <property name="position">10</property>
                         <property name="name">shpno</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">31</property>
-                        <property name="name">lendno</property>
+                        <property name="position">11</property>
+                        <property name="name">remark</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">32</property>
-                        <property name="name">returnno</property>
+                        <property name="position">12</property>
+                        <property name="name">SerialNumber</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">33</property>
+                        <property name="position">13</property>
+                        <property name="name">facno</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">14</property>
+                        <property name="name">cptype</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">15</property>
+                        <property name="name">returndate</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">16</property>
+                        <property name="name">returntype</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">17</property>
+                        <property name="name">cctype</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">18</property>
                         <property name="name">cdrno</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">34</property>
-                        <property name="name">itnbr</property>
+                        <property name="position">19</property>
+                        <property name="name">zbpzno</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">35</property>
-                        <property name="name">model</property>
+                        <property name="position">20</property>
+                        <property name="name">fgspzno</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">36</property>
-                        <property name="name">itdsc</property>
+                        <property name="position">21</property>
+                        <property name="name">yf</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">37</property>
-                        <property name="name">qty</property>
+                        <property name="position">22</property>
+                        <property name="name">dzf</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">38</property>
-                        <property name="name">createno</property>
+                        <property name="position">23</property>
+                        <property name="name">recitnbr</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">39</property>
-                        <property name="name">mfreason</property>
+                        <property name="position">24</property>
+                        <property name="name">recitdsc</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">40</property>
-                        <property name="name">mark</property>
+                        <property name="position">25</property>
+                        <property name="name">recqty</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">41</property>
-                        <property name="name">requiredate</property>
-                        <property name="dataType">date</property>
+                        <property name="position">26</property>
+                        <property name="name">unit</property>
+                        <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">42</property>
-                        <property name="name">SerialNumber</property>
+                        <property name="position">27</property>
+                        <property name="name">retitnbr</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">28</property>
+                        <property name="name">retitdsc</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">29</property>
+                        <property name="name">retqty</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">30</property>
+                        <property name="name">yyjb</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">31</property>
+                        <property name="name">dhno</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">32</property>
+                        <property name="name">tklx</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">33</property>
+                        <property name="name">yymark</property>
                         <property name="dataType">string</property>
                     </structure>
                 </list-property>
@@ -601,7 +484,7 @@
             <method name="open"><![CDATA[
 importPackage(Packages.cn.hanbell.efgp.rpt);
 
-ejbClient = new HKFW005Report();
+ejbClient = new HKFW006Report();
 ejbClient.setEJB(params["JNDIName"]);
 
 
@@ -614,271 +497,55 @@ if(master!=null){
 
 
 currentRow = 0;]]></method>
-            <method name="fetch"><![CDATA[if (currentRow == 0 &amp;&amp; detail.size() == 0) {
+            <method name="fetch"><![CDATA[if (currentRow==0) {
+ //dataSetRow["SerialNumber"] = master.getProcessSerialNumber();
+ dataSetRow["createdate"] = "20170601";
+	/*
     dataSetRow["createdate"] = master.getCreatedate();
-    if (master.getType() == "4") {
-        dataSetRow["type"] = "提货";
-    } else if (master.getType() == "1") {
-        dataSetRow["type"] = "零件支援";
-    } else if (master.getType() == "2") {
-        dataSetRow["type"] = "整机支援";
-    } else if (master.getType() == "3") {
-        dataSetRow["type"] = "维修支援";
-    } else {
-        dataSetRow["type"] = master.getType();
-    }
+    dataSetRow["SerialNumber"] = master.getProcessSerialNumber();
+    dataSetRow["facno"] = master.getHdfacno();
+    dataSetRow["cptype"] = master.getHdcptype();
 
     dataSetRow["applyuser"] = master.getApplyUser().getUserName();
     dataSetRow["applydept"] = master.getApplyDept().getOrganizationUnitName();
-    dataSetRow["applyarea"] = master.getApplyarea();
-    dataSetRow["applytel"] = master.getApplytel();
-    if (master.getRequireUser() != null) {
-        dataSetRow["requireuser"] = master.getRequireUser().getUserName();
-    }
-    if (master.getRequireDept() != null) {
-        dataSetRow["requiredept"] = master.getRequireDept().getOrganizationUnitName();
-    }
-    dataSetRow["requirearea"] = master.getRequirearea();
-    dataSetRow["requiretel"] = master.getRequiretel();
     dataSetRow["supportuser"] = master.getSupportUser().getUserName();
     dataSetRow["supportdept"] = master.getSupportDept().getOrganizationUnitName();
-    dataSetRow["supportarea"] = master.getSupportarea();
-    dataSetRow["supporttel"] = master.getSupporttel();
-    dataSetRow["sftype"] = master.getSftype();
-    dataSetRow["mftype"] = master.getMftype();
+    dataSetRow["cusno"] = master.getCusno();
+    dataSetRow["cusna"] = master.getCusna();
+    dataSetRow["returndate"] = master.getReturndate();
+    dataSetRow["createdate"] = master.getCreatedate();
 
-    if (master.getOrdertype() == "1") {
-        dataSetRow["ordertype"] = "一般订单";
-    } else if (master.getOrdertype() == "2") {
-        dataSetRow["ordertype"] = "补货订单";
-    } else if (master.getOrdertype() == "3") {
-        dataSetRow["ordertype"] = "月物料订单";
-    } else if (master.getOrdertype() == "4") {
-        dataSetRow["ordertype"] = "维修订单";
-    } else if (master.getOrdertype() == "5") {
-        dataSetRow["ordertype"] = "整机订单";
-    } else if (master.getOrdertype() == "6") {
-        dataSetRow["ordertype"] = "月物料调拨";
-    } else if (master.getOrdertype() == "7") {
-        dataSetRow["ordertype"] = "其他";
-    } else {
-        dataSetRow["ordertype"] = master.getOrdertype();
+    if (master.getCctype() == "1") {
+        dataSetRow["cctype"] = "客户财产";
+    } else if (master.getCctype() == "2") {
+        dataSetRow["cctype"] = "汉钟财产";
+    } else if (master.getCctype() == "3") {
+        dataSetRow["cctype"] = "柯茂财产";
     }
-
-
-    dataSetRow["orderno"] = master.getOrderno();
-
-    if (master.getMfreason() == "1") {
-        dataSetRow["mfreason"] = "客诉";
-    } else if (master.getMfreason() == "2") {
-        dataSetRow["mfreason"] = "不修归还";
-    } else if (master.getMfreason() == "3") {
-        dataSetRow["mfreason"] = "办事处备货";
-    } else if (master.getMfreason() == "4") {
-        dataSetRow["mfreason"] = "其他";
-    } else {
-        dataSetRow["mfreason"] = master.getMfreason();
-    }
-
+    dataSetRow["returntype"] = master.getHdreturntype();
+    dataSetRow["cdrno"] = master.getCdrno();
     dataSetRow["fwno"] = master.getFwno();
     dataSetRow["kfno"] = master.getKfno();
-
-    dataSetRow["mark"] = master.getMark();
-
-    dataSetRow["cusna"] = master.getCusna();
-    dataSetRow["cusno"] = master.getCusno();
-    dataSetRow["requiredate"] = master.getRequiredate();
-
-    if (master.getYsstyle() == "1") {
-        dataSetRow["ysstyle"] = "快递";
-    } else if (master.getYsstyle() == "2") {
-        dataSetRow["ysstyle"] = "服务部货运";
-    } else if (master.getYsstyle() == "3") {
-        dataSetRow["ysstyle"] = "资材部货运";
-    } else if (master.getYsstyle() == "4") {
-        dataSetRow["ysstyle"] = "自提";
-    } else if (master.getYsstyle() == "5") {
-        dataSetRow["ysstyle"] = "专车";
-    } else {
-        dataSetRow["ysstyle"] = master.getYsstyle();
-    }
-
-    if (master.getYfjs() == "1") {
-        dataSetRow["yfjs"] = "汉钟付款";
-    } else if (master.getYfjs() == "2") {
-        dataSetRow["yfjs"] = "到付";
-    } else if (master.getYfjs() == "3") {
-        dataSetRow["yfjs"] = "自提";
-    } else {
-        dataSetRow["yfjs"] = master.getYfjs();
-    }
+    dataSetRow["remark"] = master.getMark();
 
 
-    if (master.getPackstyle() == "1") {
-        dataSetRow["packstyle"] = "普通全木箱";
-    } else if (master.getPackstyle() == "2") {
-        dataSetRow["packstyle"] = "底板";
-    } else if (master.getPackstyle() == "3") {
-        dataSetRow["packstyle"] = "纸箱";
-    } else if (master.getPackstyle() == "4") {
-        dataSetRow["packstyle"] = "无包装";
-    } else if (master.getPackstyle() == "5") {
-        dataSetRow["packstyle"] = "出口全木箱";
-    } else {
-        dataSetRow["packstyle"] = master.getPackstyle();
-    }
+    dataSetRow["zbpzno"] = master.getZbpzno();
+    dataSetRow["fgspzno"] = master.getFgspzno();
 
+    dataSetRow["yf"] = master.getYf();
 
-    dataSetRow["shaddress"] = master.getShaddress();
-    dataSetRow["shcontact"] = master.getShcontact();
-    dataSetRow["tel1"] = master.getTel1();
-    dataSetRow["tel2"] = master.getTel2();
-    dataSetRow["shpno"] = master.getShpno();
-    dataSetRow["lendno"] = master.getLendno();
-    dataSetRow["returnno"] = master.getReturnno();
-    dataSetRow["SerialNumber"] = master.getSerialNumber();
-    currentRow++;
-    return true;
-} else {
-
-    if (currentRow < detail.size()) {
-
-        dataSetRow["createdate"] = master.getCreatedate();
-        if (master.getType() == "4") {
-            dataSetRow["type"] = "提货";
-        } else if (master.getType() == "1") {
-            dataSetRow["type"] = "零件支援";
-        } else if (master.getType() == "2") {
-            dataSetRow["type"] = "整机支援";
-        } else if (master.getType() == "3") {
-            dataSetRow["type"] = "维修支援";
-        } else {
-            dataSetRow["type"] = master.getType();
-        }
-
-        dataSetRow["applyuser"] = master.getApplyUser().getUserName();
-        dataSetRow["applydept"] = master.getApplyDept().getOrganizationUnitName();
-        dataSetRow["applyarea"] = master.getApplyarea();
-        dataSetRow["applytel"] = master.getApplytel();
-        if (master.getRequireUser() != null) {
-            dataSetRow["requireuser"] = master.getRequireUser().getUserName();
-        }
-        if (master.getRequireDept() != null) {
-            dataSetRow["requiredept"] = master.getRequireDept().getOrganizationUnitName();
-        }
-
-        dataSetRow["requirearea"] = master.getRequirearea();
-        dataSetRow["requiretel"] = master.getRequiretel();
-        dataSetRow["supportuser"] = master.getSupportUser().getUserName();
-        dataSetRow["supportdept"] = master.getSupportDept().getOrganizationUnitName();
-        dataSetRow["supportarea"] = master.getSupportarea();
-        dataSetRow["supporttel"] = master.getSupporttel();
-        dataSetRow["sftype"] = master.getSftype();
-        dataSetRow["mftype"] = master.getMftype();
-
-        if (master.getOrdertype() == "1") {
-            dataSetRow["ordertype"] = "一般订单";
-        } else if (master.getOrdertype() == "2") {
-            dataSetRow["ordertype"] = "补货订单";
-        } else if (master.getOrdertype() == "3") {
-            dataSetRow["ordertype"] = "月物料订单";
-        } else if (master.getOrdertype() == "4") {
-            dataSetRow["ordertype"] = "维修订单";
-        } else if (master.getOrdertype() == "5") {
-            dataSetRow["ordertype"] = "整机订单";
-        } else if (master.getOrdertype() == "6") {
-            dataSetRow["ordertype"] = "月物料调拨";
-        } else if (master.getOrdertype() == "7") {
-            dataSetRow["ordertype"] = "其他";
-        } else {
-            dataSetRow["ordertype"] = master.getOrdertype();
-        }
-
-
-        dataSetRow["orderno"] = master.getOrderno();
-
-        if (master.getMfreason() == "1") {
-            dataSetRow["mfreason"] = "客诉";
-        } else if (master.getMfreason() == "2") {
-            dataSetRow["mfreason"] = "不修归还";
-        } else if (master.getMfreason() == "3") {
-            dataSetRow["mfreason"] = "办事处备货";
-        } else if (master.getMfreason() == "4") {
-            dataSetRow["mfreason"] = "其他";
-        } else {
-            dataSetRow["mfreason"] = master.getMfreason();
-        }
-
-        dataSetRow["fwno"] = master.getFwno();
-        dataSetRow["kfno"] = master.getKfno();
-
-        dataSetRow["mark"] = master.getMark();
-
-        dataSetRow["cusna"] = master.getCusna();
-        dataSetRow["cusno"] = master.getCusno();
-        dataSetRow["requiredate"] = master.getRequiredate();
-
-        if (master.getYsstyle() == "1") {
-            dataSetRow["ysstyle"] = "快递";
-        } else if (master.getYsstyle() == "2") {
-            dataSetRow["ysstyle"] = "服务部货运";
-        } else if (master.getYsstyle() == "3") {
-            dataSetRow["ysstyle"] = "资材部货运";
-        } else if (master.getYsstyle() == "4") {
-            dataSetRow["ysstyle"] = "自提";
-        } else if (master.getYsstyle() == "5") {
-            dataSetRow["ysstyle"] = "专车";
-        } else {
-            dataSetRow["ysstyle"] = master.getYsstyle();
-        }
-
-        if (master.getYfjs() == "1") {
-            dataSetRow["yfjs"] = "汉钟付款";
-        } else if (master.getYfjs() == "2") {
-            dataSetRow["yfjs"] = "到付";
-        } else if (master.getYfjs() == "3") {
-            dataSetRow["yfjs"] = "自提";
-        } else {
-            dataSetRow["yfjs"] = master.getYfjs();
-        }
-
-
-        if (master.getPackstyle() == "1") {
-            dataSetRow["packstyle"] = "普通全木箱";
-        } else if (master.getPackstyle() == "2") {
-            dataSetRow["packstyle"] = "底板";
-        } else if (master.getPackstyle() == "3") {
-            dataSetRow["packstyle"] = "纸箱";
-        } else if (master.getPackstyle() == "4") {
-            dataSetRow["packstyle"] = "无包装";
-        } else if (master.getPackstyle() == "5") {
-            dataSetRow["packstyle"] = "出口全木箱";
-        } else {
-            dataSetRow["packstyle"] = master.getPackstyle();
-        }
-
-
-        dataSetRow["shaddress"] = master.getShaddress();
-        dataSetRow["shcontact"] = master.getShcontact();
-        dataSetRow["tel1"] = master.getTel1();
-        dataSetRow["tel2"] = master.getTel2();
-        dataSetRow["shpno"] = master.getShpno();
-        dataSetRow["lendno"] = master.getLendno();
-        dataSetRow["returnno"] = master.getReturnno();
-
-
-        dataSetRow["cdrno"] = detail.get(currentRow).getCdrno();
-        dataSetRow["itnbr"] = detail.get(currentRow).getItnbr();
-        dataSetRow["model"] = detail.get(currentRow).getModel();
-        dataSetRow["itdsc"] = detail.get(currentRow).getItdsc();
-        dataSetRow["qty"] = detail.get(currentRow).getQty();
-        dataSetRow["createno"] = detail.get(currentRow).getCreateno();
-        dataSetRow["SerialNumber"] = master.getSerialNumber();
-        currentRow++
-        return true;
-    }
-
-    return false;
+    dataSetRow["dzf"] = master.getDzf();
+    */
+    //currentRow++;
+   // return true;
+   return false ;
+}else{
+    if(currentRow<detail.size()){
+dataSetRow["createdate"] = "20170603";
+currentRow++;
+ return true;
+ }
+  return false;
 }
 ]]></method>
             <method name="close"><![CDATA[ejbClient = null;]]></method>
@@ -1202,6 +869,132 @@ currentRow = 0;]]></method>
                     <expression name="expression" type="javascript">dataSetRow["SerialNumber"]</expression>
                     <property name="dataType">string</property>
                 </structure>
+                <structure>
+                    <property name="name">remark</property>
+                    <text-property name="displayName">remark</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["remark"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">facno</property>
+                    <text-property name="displayName">facno</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["facno"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">cptype</property>
+                    <text-property name="displayName">cptype</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["cptype"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">returndate</property>
+                    <text-property name="displayName">returndate</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["returndate"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">returntype</property>
+                    <text-property name="displayName">returntype</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["returntype"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">cctype</property>
+                    <text-property name="displayName">cctype</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["cctype"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">zbpzno</property>
+                    <text-property name="displayName">zbpzno</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["zbpzno"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">fgspzno</property>
+                    <text-property name="displayName">fgspzno</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["fgspzno"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">yf</property>
+                    <text-property name="displayName">yf</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["yf"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">dzf</property>
+                    <text-property name="displayName">dzf</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["dzf"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">recitnbr</property>
+                    <text-property name="displayName">recitnbr</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["recitnbr"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">recitdsc</property>
+                    <text-property name="displayName">recitdsc</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["recitdsc"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">recqty</property>
+                    <text-property name="displayName">recqty</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["recqty"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">unit</property>
+                    <text-property name="displayName">unit</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["unit"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">retitnbr</property>
+                    <text-property name="displayName">retitnbr</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["retitnbr"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">retitdsc</property>
+                    <text-property name="displayName">retitdsc</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["retitdsc"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">retqty</property>
+                    <text-property name="displayName">retqty</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["retqty"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">yyjb</property>
+                    <text-property name="displayName">yyjb</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["yyjb"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">dhno</property>
+                    <text-property name="displayName">dhno</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["dhno"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">tklx</property>
+                    <text-property name="displayName">tklx</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["tklx"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">yymark</property>
+                    <text-property name="displayName">yymark</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["yymark"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
             </list-property>
             <column id="228">
                 <property name="width">1in</property>
@@ -1314,7 +1107,8 @@ currentRow = 0;]]></method>
                                 <property name="name">createdate</property>
                                 <text-property name="displayName">createdate</text-property>
                                 <expression name="expression" type="javascript">dataSetRow["createdate"]</expression>
-                                <property name="dataType">date</property>
+                                <property name="dataType">string</property>
+                                <property name="allowExport">true</property>
                             </structure>
                         </list-property>
                         <property name="resultSetColumn">createdate</property>
@@ -1370,7 +1164,7 @@ currentRow = 0;]]></method>
             <property name="borderRightStyle">solid</property>
             <property name="borderRightWidth">thin</property>
             <property name="height">1.59375in</property>
-            <property name="width">7.7in</property>
+            <property name="width">7.697916666666667in</property>
             <property name="dataSet">dataDetail</property>
             <list-property name="boundDataColumns">
                 <structure>
@@ -1601,6 +1395,66 @@ currentRow = 0;]]></method>
                     <expression name="expression" type="javascript">dataSetRow["createno"]</expression>
                     <property name="dataType">string</property>
                 </structure>
+                <structure>
+                    <property name="name">facno</property>
+                    <text-property name="displayName">facno</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["facno"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">cptype</property>
+                    <text-property name="displayName">cptype</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["cptype"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">returndate</property>
+                    <text-property name="displayName">returndate</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["returndate"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">returntype</property>
+                    <text-property name="displayName">returntype</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["returntype"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">cctype</property>
+                    <text-property name="displayName">cctype</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["cctype"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">remark</property>
+                    <text-property name="displayName">remark</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["remark"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">yf</property>
+                    <text-property name="displayName">yf</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["yf"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">zbpzno</property>
+                    <text-property name="displayName">zbpzno</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["zbpzno"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">fgspzno</property>
+                    <text-property name="displayName">fgspzno</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["fgspzno"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">dzf</property>
+                    <text-property name="displayName">dzf</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["dzf"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
             </list-property>
             <column id="729">
                 <property name="width">0.6770833333333334in</property>
@@ -1624,20 +1478,22 @@ currentRow = 0;]]></method>
                 <property name="width">0.71875in</property>
             </column>
             <column id="732">
-                <property name="width">0.1875in</property>
+                <property name="width">0.28125in</property>
             </column>
             <column id="734">
-                <property name="width">0.8958333333333334in</property>
+                <property name="width">0.8125in</property>
             </column>
             <column id="826">
-                <property name="width">0.78125in</property>
+                <property name="width">1in</property>
             </column>
             <column id="998">
-                <property name="width">0.6354166666666666in</property>
+                <property name="width">0.40625in</property>
             </column>
-            <column id="834"/>
+            <column id="834">
+                <property name="width">0.3645833333333333in</property>
+            </column>
             <column id="830">
-                <property name="width">0.625in</property>
+                <property name="width">0.5208333333333334in</property>
             </column>
             <column id="736">
                 <property name="width">0.65625in</property>
@@ -1652,7 +1508,7 @@ currentRow = 0;]]></method>
                 <property name="borderTopStyle">none</property>
                 <property name="height">0.3229166666666667in</property>
                 <cell id="738">
-                    <property name="colSpan">14</property>
+                    <property name="colSpan">4</property>
                     <property name="rowSpan">1</property>
                     <property name="borderBottomColor">#000000</property>
                     <property name="borderBottomStyle">solid</property>
@@ -1666,10 +1522,70 @@ currentRow = 0;]]></method>
                     <property name="borderTopColor">#000000</property>
                     <property name="borderTopStyle">solid</property>
                     <property name="borderTopWidth">1px</property>
-                    <data id="1178">
-                        <property name="marginLeft">250pt</property>
-                        <property name="marginRight">230pt</property>
-                        <property name="resultSetColumn">type</property>
+                    <property name="textAlign">center</property>
+                    <label id="1321">
+                        <property name="textAlign">center</property>
+                        <text-property name="text">公司别</text-property>
+                    </label>
+                </cell>
+                <cell id="1311">
+                    <property name="colSpan">4</property>
+                    <property name="rowSpan">1</property>
+                    <property name="borderBottomColor">#000000</property>
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">1px</property>
+                    <property name="borderLeftColor">#000000</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">1px</property>
+                    <property name="borderRightColor">#000000</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">1px</property>
+                    <property name="borderTopColor">#000000</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">1px</property>
+                    <data id="1451">
+                        <property name="textAlign">center</property>
+                        <property name="resultSetColumn">facno</property>
+                    </data>
+                </cell>
+                <cell id="1315">
+                    <property name="colSpan">2</property>
+                    <property name="rowSpan">1</property>
+                    <property name="borderBottomColor">#000000</property>
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">1px</property>
+                    <property name="borderLeftColor">#000000</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">1px</property>
+                    <property name="borderRightColor">#000000</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">1px</property>
+                    <property name="borderTopColor">#000000</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">1px</property>
+                    <property name="textAlign">center</property>
+                    <label id="1322">
+                        <property name="textAlign">center</property>
+                        <text-property name="text">产品别</text-property>
+                    </label>
+                </cell>
+                <cell id="1317">
+                    <property name="colSpan">4</property>
+                    <property name="rowSpan">1</property>
+                    <property name="borderBottomColor">#000000</property>
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">1px</property>
+                    <property name="borderLeftColor">#000000</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">1px</property>
+                    <property name="borderRightColor">#000000</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">1px</property>
+                    <property name="borderTopColor">#000000</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">1px</property>
+                    <data id="1452">
+                        <property name="resultSetColumn">cptype</property>
                     </data>
                 </cell>
             </row>
@@ -1775,7 +1691,7 @@ currentRow = 0;]]></method>
                     <property name="borderTopWidth">1px</property>
                     <text id="1002">
                         <property name="contentType">auto</property>
-                        <text-property name="content"><![CDATA[申请人区域]]></text-property>
+                        <text-property name="content"><![CDATA[配合人]]></text-property>
                     </text>
                 </cell>
                 <cell id="824">
@@ -1793,8 +1709,8 @@ currentRow = 0;]]></method>
                     <property name="borderTopColor">#000000</property>
                     <property name="borderTopStyle">solid</property>
                     <property name="borderTopWidth">1px</property>
-                    <data id="1181">
-                        <property name="resultSetColumn">applyarea</property>
+                    <data id="1446">
+                        <property name="resultSetColumn">supportuser</property>
                     </data>
                 </cell>
                 <cell id="995">
@@ -1814,7 +1730,7 @@ currentRow = 0;]]></method>
                     <property name="borderTopWidth">1px</property>
                     <text id="1006">
                         <property name="contentType">auto</property>
-                        <text-property name="content"><![CDATA[申请人手机号]]></text-property>
+                        <text-property name="content"><![CDATA[配合部门]]></text-property>
                     </text>
                 </cell>
                 <cell id="828">
@@ -1832,8 +1748,8 @@ currentRow = 0;]]></method>
                     <property name="borderTopColor">#000000</property>
                     <property name="borderTopStyle">solid</property>
                     <property name="borderTopWidth">1px</property>
-                    <data id="1182">
-                        <property name="resultSetColumn">applytel</property>
+                    <data id="1445">
+                        <property name="resultSetColumn">supportdept</property>
                     </data>
                 </cell>
             </row>
@@ -1868,7 +1784,7 @@ currentRow = 0;]]></method>
                     <property name="borderTopWidth">1px</property>
                     <text id="992">
                         <property name="contentType">auto</property>
-                        <text-property name="content"><![CDATA[需求人]]></text-property>
+                        <text-property name="content"><![CDATA[客户编号]]></text-property>
                     </text>
                 </cell>
                 <cell id="872">
@@ -1886,8 +1802,8 @@ currentRow = 0;]]></method>
                     <property name="borderTopColor">#000000</property>
                     <property name="borderTopStyle">solid</property>
                     <property name="borderTopWidth">1px</property>
-                    <data id="1266">
-                        <property name="resultSetColumn">requireuser</property>
+                    <data id="1447">
+                        <property name="resultSetColumn">cusno</property>
                     </data>
                 </cell>
                 <cell id="966">
@@ -1907,7 +1823,7 @@ currentRow = 0;]]></method>
                     <property name="borderTopWidth">1px</property>
                     <text id="1000">
                         <property name="contentType">auto</property>
-                        <text-property name="content"><![CDATA[需求人部门]]></text-property>
+                        <text-property name="content"><![CDATA[客户名称]]></text-property>
                     </text>
                 </cell>
                 <cell id="968">
@@ -1925,8 +1841,8 @@ currentRow = 0;]]></method>
                     <property name="borderTopColor">#000000</property>
                     <property name="borderTopStyle">solid</property>
                     <property name="borderTopWidth">1px</property>
-                    <data id="1267">
-                        <property name="resultSetColumn">requiredept</property>
+                    <data id="1448">
+                        <property name="resultSetColumn">cusna</property>
                     </data>
                 </cell>
                 <cell id="970">
@@ -1944,7 +1860,7 @@ currentRow = 0;]]></method>
                     <property name="borderTopWidth">1px</property>
                     <text id="1003">
                         <property name="contentType">auto</property>
-                        <text-property name="content"><![CDATA[需求人区域]]></text-property>
+                        <text-property name="content"><![CDATA[退货日期]]></text-property>
                     </text>
                 </cell>
                 <cell id="825">
@@ -1962,8 +1878,8 @@ currentRow = 0;]]></method>
                     <property name="borderTopColor">#000000</property>
                     <property name="borderTopStyle">solid</property>
                     <property name="borderTopWidth">1px</property>
-                    <data id="1185">
-                        <property name="resultSetColumn">requirearea</property>
+                    <data id="1453">
+                        <property name="resultSetColumn">returndate</property>
                     </data>
                 </cell>
                 <cell id="996">
@@ -1983,7 +1899,7 @@ currentRow = 0;]]></method>
                     <property name="borderTopWidth">1px</property>
                     <text id="1007">
                         <property name="contentType">auto</property>
-                        <text-property name="content"><![CDATA[需求人手机号]]></text-property>
+                        <text-property name="content"><![CDATA[填单日期]]></text-property>
                     </text>
                 </cell>
                 <cell id="829">
@@ -2001,8 +1917,8 @@ currentRow = 0;]]></method>
                     <property name="borderTopColor">#000000</property>
                     <property name="borderTopStyle">solid</property>
                     <property name="borderTopWidth">1px</property>
-                    <data id="1186">
-                        <property name="resultSetColumn">requiretel</property>
+                    <data id="1454">
+                        <property name="resultSetColumn">createdate</property>
                     </data>
                 </cell>
             </row>
@@ -2035,9 +1951,10 @@ currentRow = 0;]]></method>
                     <property name="borderTopColor">#000000</property>
                     <property name="borderTopStyle">solid</property>
                     <property name="borderTopWidth">1px</property>
+                    <property name="paddingTop">5pt</property>
                     <text id="993">
                         <property name="contentType">auto</property>
-                        <text-property name="content"><![CDATA[配合人]]></text-property>
+                        <text-property name="content"><![CDATA[退货性质]]></text-property>
                     </text>
                 </cell>
                 <cell id="981">
@@ -2055,8 +1972,8 @@ currentRow = 0;]]></method>
                     <property name="borderTopColor">#000000</property>
                     <property name="borderTopStyle">solid</property>
                     <property name="borderTopWidth">1px</property>
-                    <data id="1268">
-                        <property name="resultSetColumn">supportuser</property>
+                    <data id="1456">
+                        <property name="resultSetColumn">cctype</property>
                     </data>
                 </cell>
                 <cell id="983">
@@ -2074,10 +1991,9 @@ currentRow = 0;]]></method>
                     <property name="borderTopColor">#000000</property>
                     <property name="borderTopStyle">solid</property>
                     <property name="borderTopWidth">1px</property>
-                    <text id="1001">
-                        <property name="contentType">auto</property>
-                        <text-property name="content"><![CDATA[配合人部门]]></text-property>
-                    </text>
+                    <data id="1455">
+                        <property name="resultSetColumn">returntype</property>
+                    </data>
                 </cell>
                 <cell id="985">
                     <property name="colSpan">2</property>
@@ -2094,8 +2010,8 @@ currentRow = 0;]]></method>
                     <property name="borderTopColor">#000000</property>
                     <property name="borderTopStyle">solid</property>
                     <property name="borderTopWidth">1px</property>
-                    <data id="1269">
-                        <property name="resultSetColumn">supportdept</property>
+                    <data id="1457">
+                        <property name="resultSetColumn">cdrno</property>
                     </data>
                 </cell>
                 <cell id="987">
@@ -2113,7 +2029,7 @@ currentRow = 0;]]></method>
                     <property name="borderTopWidth">1px</property>
                     <text id="1004">
                         <property name="contentType">auto</property>
-                        <text-property name="content"><![CDATA[配合人区域]]></text-property>
+                        <text-property name="content"><![CDATA[服务单号]]></text-property>
                     </text>
                 </cell>
                 <cell id="988">
@@ -2129,8 +2045,8 @@ currentRow = 0;]]></method>
                     <property name="borderTopColor">#000000</property>
                     <property name="borderTopStyle">solid</property>
                     <property name="borderTopWidth">1px</property>
-                    <data id="1189">
-                        <property name="resultSetColumn">supportarea</property>
+                    <data id="1449">
+                        <property name="resultSetColumn">fwno</property>
                     </data>
                 </cell>
                 <cell id="997">
@@ -2150,7 +2066,7 @@ currentRow = 0;]]></method>
                     <property name="borderTopWidth">1px</property>
                     <text id="1008">
                         <property name="contentType">auto</property>
-                        <text-property name="content"><![CDATA[配合人手机号]]></text-property>
+                        <text-property name="content"><![CDATA[客服单号]]></text-property>
                     </text>
                 </cell>
                 <cell id="990">
@@ -2168,1211 +2084,237 @@ currentRow = 0;]]></method>
                     <property name="borderTopColor">#000000</property>
                     <property name="borderTopStyle">solid</property>
                     <property name="borderTopWidth">1px</property>
-                    <data id="1190">
-                        <property name="resultSetColumn">supporttel</property>
-                    </data>
-                </cell>
-            </row>
-        </grid>
-        <grid id="892">
-            <property name="borderBottomColor">#000000</property>
-            <property name="borderBottomStyle">solid</property>
-            <property name="borderBottomWidth">thin</property>
-            <property name="borderLeftColor">#000000</property>
-            <property name="borderLeftStyle">solid</property>
-            <property name="borderLeftWidth">thin</property>
-            <property name="borderRightColor">#000000</property>
-            <property name="borderRightStyle">solid</property>
-            <property name="borderRightWidth">thin</property>
-            <property name="borderTopColor">#000000</property>
-            <property name="borderTopStyle">solid</property>
-            <property name="borderTopWidth">thin</property>
-            <property name="height">1.1770833333333333in</property>
-            <property name="width">7.7in</property>
-            <property name="dataSet">dataDetail</property>
-            <list-property name="boundDataColumns">
-                <structure>
-                    <property name="name">sftype</property>
-                    <text-property name="displayName">sftype</text-property>
-                    <expression name="expression" type="javascript">dataSetRow["sftype"]</expression>
-                    <property name="dataType">string</property>
-                </structure>
-                <structure>
-                    <property name="name">mftype</property>
-                    <text-property name="displayName">mftype</text-property>
-                    <expression name="expression" type="javascript">dataSetRow["mftype"]</expression>
-                    <property name="dataType">string</property>
-                </structure>
-                <structure>
-                    <property name="name">ordertype</property>
-                    <text-property name="displayName">ordertype</text-property>
-                    <expression name="expression" type="javascript">dataSetRow["ordertype"]</expression>
-                    <property name="dataType">string</property>
-                </structure>
-                <structure>
-                    <property name="name">orderno</property>
-                    <text-property name="displayName">orderno</text-property>
-                    <expression name="expression" type="javascript">dataSetRow["orderno"]</expression>
-                    <property name="dataType">string</property>
-                </structure>
-                <structure>
-                    <property name="name">mfreason</property>
-                    <text-property name="displayName">mfreason</text-property>
-                    <expression name="expression" type="javascript">dataSetRow["mfreason"]</expression>
-                    <property name="dataType">string</property>
-                </structure>
-                <structure>
-                    <property name="name">fwno</property>
-                    <text-property name="displayName">fwno</text-property>
-                    <expression name="expression" type="javascript">dataSetRow["fwno"]</expression>
-                    <property name="dataType">string</property>
-                </structure>
-                <structure>
-                    <property name="name">kfno</property>
-                    <text-property name="displayName">kfno</text-property>
-                    <expression name="expression" type="javascript">dataSetRow["kfno"]</expression>
-                    <property name="dataType">string</property>
-                </structure>
-                <structure>
-                    <property name="name">mark</property>
-                    <text-property name="displayName">mark</text-property>
-                    <expression name="expression" type="javascript">dataSetRow["mark"]</expression>
-                    <property name="dataType">string</property>
-                </structure>
-            </list-property>
-            <column id="893">
-                <property name="width">0.8645833333333334in</property>
-            </column>
-            <column id="894">
-                <property name="width">0.7395833333333334in</property>
-            </column>
-            <column id="895">
-                <property name="width">0.4895833333333333in</property>
-            </column>
-            <column id="1215">
-                <property name="width">0.9479166666666666in</property>
-            </column>
-            <column id="896">
-                <property name="width">0.4270833333333333in</property>
-            </column>
-            <column id="902">
-                <property name="width">0.8333333333333334in</property>
-            </column>
-            <column id="1226">
-                <property name="width">0.40625in</property>
-            </column>
-            <column id="1222">
-                <property name="width">1.2604166666666667in</property>
-            </column>
-            <column id="903"/>
-            <column id="904">
-                <property name="width">1.2916666666666667in</property>
-            </column>
-            <row id="905">
-                <property name="height">0.4270833333333333in</property>
-                <cell id="906">
-                    <property name="colSpan">1</property>
-                    <property name="rowSpan">1</property>
-                    <property name="borderBottomColor">#000000</property>
-                    <property name="borderBottomStyle">solid</property>
-                    <property name="borderBottomWidth">thin</property>
-                    <property name="borderLeftColor">#000000</property>
-                    <property name="borderLeftStyle">solid</property>
-                    <property name="borderLeftWidth">thin</property>
-                    <property name="borderRightColor">#000000</property>
-                    <property name="borderRightStyle">solid</property>
-                    <property name="borderRightWidth">thin</property>
-                    <property name="borderTopColor">#000000</property>
-                    <property name="borderTopStyle">solid</property>
-                    <property name="borderTopWidth">thin</property>
-                    <text id="1198">
-                        <property name="contentType">auto</property>
-                        <text-property name="content"><![CDATA[收费类]]></text-property>
-                    </text>
-                </cell>
-                <cell id="1193">
-                    <property name="colSpan">3</property>
-                    <property name="rowSpan">1</property>
-                    <property name="borderBottomColor">#000000</property>
-                    <property name="borderBottomStyle">solid</property>
-                    <property name="borderBottomWidth">thin</property>
-                    <property name="borderLeftColor">#000000</property>
-                    <property name="borderLeftStyle">solid</property>
-                    <property name="borderLeftWidth">thin</property>
-                    <property name="borderRightColor">#000000</property>
-                    <property name="borderRightStyle">solid</property>
-                    <property name="borderRightWidth">thin</property>
-                    <property name="borderTopColor">#000000</property>
-                    <property name="borderTopStyle">solid</property>
-                    <property name="borderTopWidth">thin</property>
-                    <data id="1256">
-                        <property name="dataSet">dataDetail</property>
-                        <list-property name="boundDataColumns">
-                            <structure>
-                                <property name="name">sftype</property>
-                                <text-property name="displayName">sftype</text-property>
-                                <expression name="expression" type="javascript">dataSetRow["sftype"]</expression>
-                                <property name="dataType">string</property>
-                            </structure>
-                        </list-property>
-                        <property name="resultSetColumn">sftype</property>
-                    </data>
-                </cell>
-                <cell id="909">
-                    <property name="colSpan">1</property>
-                    <property name="rowSpan">1</property>
-                    <property name="borderBottomColor">#000000</property>
-                    <property name="borderBottomStyle">solid</property>
-                    <property name="borderBottomWidth">thin</property>
-                    <property name="borderLeftColor">#000000</property>
-                    <property name="borderLeftStyle">solid</property>
-                    <property name="borderLeftWidth">thin</property>
-                    <property name="borderRightColor">#000000</property>
-                    <property name="borderRightStyle">solid</property>
-                    <property name="borderRightWidth">thin</property>
-                    <property name="borderTopColor">#000000</property>
-                    <property name="borderTopStyle">solid</property>
-                    <property name="borderTopWidth">thin</property>
-                    <text id="1199">
-                        <property name="contentType">auto</property>
-                        <text-property name="content"><![CDATA[免费类]]></text-property>
-                    </text>
-                </cell>
-                <cell id="1195">
-                    <property name="colSpan">5</property>
-                    <property name="rowSpan">1</property>
-                    <property name="borderBottomColor">#000000</property>
-                    <property name="borderBottomStyle">solid</property>
-                    <property name="borderBottomWidth">thin</property>
-                    <property name="borderLeftColor">#000000</property>
-                    <property name="borderLeftStyle">solid</property>
-                    <property name="borderLeftWidth">thin</property>
-                    <property name="borderRightColor">#000000</property>
-                    <property name="borderRightStyle">solid</property>
-                    <property name="borderRightWidth">thin</property>
-                    <property name="borderTopColor">#000000</property>
-                    <property name="borderTopStyle">solid</property>
-                    <property name="borderTopWidth">thin</property>
-                    <data id="1257">
-                        <property name="dataSet">dataDetail</property>
-                        <list-property name="boundDataColumns">
-                            <structure>
-                                <property name="name">mftype</property>
-                                <text-property name="displayName">mftype</text-property>
-                                <expression name="expression" type="javascript">dataSetRow["mftype"]</expression>
-                                <property name="dataType">string</property>
-                            </structure>
-                        </list-property>
-                        <property name="resultSetColumn">mftype</property>
-                    </data>
-                </cell>
-            </row>
-            <row id="1202">
-                <property name="borderTopStyle">solid</property>
-                <property name="borderTopWidth">thin</property>
-                <property name="height">0.4166666666666667in</property>
-                <cell id="1203">
-                    <property name="borderBottomColor">#000000</property>
-                    <property name="borderBottomStyle">solid</property>
-                    <property name="borderBottomWidth">thin</property>
-                    <property name="borderLeftColor">#000000</property>
-                    <property name="borderLeftStyle">solid</property>
-                    <property name="borderLeftWidth">thin</property>
-                    <property name="borderRightColor">#000000</property>
-                    <property name="borderRightStyle">solid</property>
-                    <property name="borderRightWidth">thin</property>
-                    <property name="borderTopColor">#000000</property>
-                    <property name="borderTopStyle">solid</property>
-                    <property name="borderTopWidth">thin</property>
-                    <text id="1210">
-                        <property name="contentType">auto</property>
-                        <text-property name="content"><![CDATA[订单种类]]></text-property>
-                    </text>
-                </cell>
-                <cell id="1204">
-                    <property name="borderBottomColor">#000000</property>
-                    <property name="borderBottomStyle">solid</property>
-                    <property name="borderBottomWidth">thin</property>
-                    <property name="borderLeftColor">#000000</property>
-                    <property name="borderLeftStyle">solid</property>
-                    <property name="borderLeftWidth">thin</property>
-                    <property name="borderRightColor">#000000</property>
-                    <property name="borderRightStyle">solid</property>
-                    <property name="borderRightWidth">thin</property>
-                    <property name="borderTopColor">#000000</property>
-                    <property name="borderTopStyle">solid</property>
-                    <property name="borderTopWidth">thin</property>
-                    <data id="1270">
-                        <property name="resultSetColumn">ordertype</property>
-                    </data>
-                </cell>
-                <cell id="1205">
-                    <property name="borderBottomColor">#000000</property>
-                    <property name="borderBottomStyle">solid</property>
-                    <property name="borderBottomWidth">thin</property>
-                    <property name="borderLeftColor">#000000</property>
-                    <property name="borderLeftStyle">solid</property>
-                    <property name="borderLeftWidth">thin</property>
-                    <property name="borderRightColor">#000000</property>
-                    <property name="borderRightStyle">solid</property>
-                    <property name="borderRightWidth">thin</property>
-                    <property name="borderTopColor">#000000</property>
-                    <property name="borderTopStyle">solid</property>
-                    <property name="borderTopWidth">thin</property>
-                    <text id="1216">
-                        <property name="contentType">auto</property>
-                        <text-property name="content"><![CDATA[订单号]]></text-property>
-                    </text>
-                </cell>
-                <cell id="1213">
-                    <property name="borderBottomColor">#000000</property>
-                    <property name="borderBottomStyle">solid</property>
-                    <property name="borderBottomWidth">thin</property>
-                    <property name="borderLeftColor">#000000</property>
-                    <property name="borderLeftStyle">solid</property>
-                    <property name="borderLeftWidth">thin</property>
-                    <property name="borderRightColor">#000000</property>
-                    <property name="borderRightStyle">solid</property>
-                    <property name="borderRightWidth">thin</property>
-                    <property name="borderTopColor">#000000</property>
-                    <property name="borderTopStyle">solid</property>
-                    <property name="borderTopWidth">thin</property>
-                    <data id="1271">
-                        <property name="resultSetColumn">orderno</property>
-                    </data>
-                </cell>
-                <cell id="1206">
-                    <property name="borderBottomColor">#000000</property>
-                    <property name="borderBottomStyle">solid</property>
-                    <property name="borderBottomWidth">thin</property>
-                    <property name="borderLeftColor">#000000</property>
-                    <property name="borderLeftStyle">solid</property>
-                    <property name="borderLeftWidth">thin</property>
-                    <property name="borderRightColor">#000000</property>
-                    <property name="borderRightStyle">solid</property>
-                    <property name="borderRightWidth">thin</property>
-                    <property name="borderTopColor">#000000</property>
-                    <property name="borderTopStyle">solid</property>
-                    <property name="borderTopWidth">thin</property>
-                    <text id="1218">
-                        <property name="contentType">auto</property>
-                        <text-property name="content"><![CDATA[免费原因]]></text-property>
-                    </text>
-                </cell>
-                <cell id="1207">
-                    <property name="borderBottomColor">#000000</property>
-                    <property name="borderBottomStyle">solid</property>
-                    <property name="borderBottomWidth">thin</property>
-                    <property name="borderLeftColor">#000000</property>
-                    <property name="borderLeftStyle">solid</property>
-                    <property name="borderLeftWidth">thin</property>
-                    <property name="borderRightColor">#000000</property>
-                    <property name="borderRightStyle">solid</property>
-                    <property name="borderRightWidth">thin</property>
-                    <property name="borderTopColor">#000000</property>
-                    <property name="borderTopStyle">solid</property>
-                    <property name="borderTopWidth">thin</property>
-                    <data id="1272">
-                        <property name="resultSetColumn">mfreason</property>
-                    </data>
-                </cell>
-                <cell id="1224">
-                    <property name="borderBottomColor">#000000</property>
-                    <property name="borderBottomStyle">solid</property>
-                    <property name="borderBottomWidth">thin</property>
-                    <property name="borderLeftColor">#000000</property>
-                    <property name="borderLeftStyle">solid</property>
-                    <property name="borderLeftWidth">thin</property>
-                    <property name="borderRightColor">#000000</property>
-                    <property name="borderRightStyle">solid</property>
-                    <property name="borderRightWidth">thin</property>
-                    <property name="borderTopColor">#000000</property>
-                    <property name="borderTopStyle">solid</property>
-                    <property name="borderTopWidth">thin</property>
-                    <text id="1228">
-                        <property name="contentType">auto</property>
-                        <text-property name="content"><![CDATA[服务单号]]></text-property>
-                    </text>
-                </cell>
-                <cell id="1220">
-                    <property name="borderBottomColor">#000000</property>
-                    <property name="borderBottomStyle">solid</property>
-                    <property name="borderBottomWidth">thin</property>
-                    <property name="borderLeftColor">#000000</property>
-                    <property name="borderLeftStyle">solid</property>
-                    <property name="borderLeftWidth">thin</property>
-                    <property name="borderRightColor">#000000</property>
-                    <property name="borderRightStyle">solid</property>
-                    <property name="borderRightWidth">thin</property>
-                    <property name="borderTopColor">#000000</property>
-                    <property name="borderTopStyle">solid</property>
-                    <property name="borderTopWidth">thin</property>
-                    <data id="1273">
-                        <property name="resultSetColumn">fwno</property>
-                    </data>
-                </cell>
-                <cell id="1208">
-                    <property name="borderBottomColor">#000000</property>
-                    <property name="borderBottomStyle">solid</property>
-                    <property name="borderBottomWidth">thin</property>
-                    <property name="borderLeftColor">#000000</property>
-                    <property name="borderLeftStyle">solid</property>
-                    <property name="borderLeftWidth">thin</property>
-                    <property name="borderRightColor">#000000</property>
-                    <property name="borderRightStyle">solid</property>
-                    <property name="borderRightWidth">thin</property>
-                    <property name="borderTopColor">#000000</property>
-                    <property name="borderTopStyle">solid</property>
-                    <property name="borderTopWidth">thin</property>
-                    <text id="1230">
-                        <property name="contentType">auto</property>
-                        <text-property name="content"><![CDATA[客服单号]]></text-property>
-                    </text>
-                </cell>
-                <cell id="1209">
-                    <property name="borderBottomColor">#000000</property>
-                    <property name="borderBottomStyle">solid</property>
-                    <property name="borderBottomWidth">thin</property>
-                    <property name="borderLeftColor">#000000</property>
-                    <property name="borderLeftStyle">solid</property>
-                    <property name="borderLeftWidth">thin</property>
-                    <property name="borderRightColor">#000000</property>
-                    <property name="borderRightStyle">solid</property>
-                    <property name="borderRightWidth">thin</property>
-                    <property name="borderTopColor">#000000</property>
-                    <property name="borderTopStyle">solid</property>
-                    <property name="borderTopWidth">thin</property>
-                    <data id="1274">
+                    <data id="1450">
                         <property name="resultSetColumn">kfno</property>
                     </data>
                 </cell>
             </row>
-            <row id="918">
+            <row id="1338">
+                <property name="borderBottomColor">#000000</property>
+                <property name="borderBottomStyle">solid</property>
+                <property name="borderBottomWidth">thin</property>
+                <property name="borderLeftColor">#000000</property>
+                <property name="borderLeftStyle">solid</property>
+                <property name="borderLeftWidth">thin</property>
+                <property name="borderRightColor">#000000</property>
+                <property name="borderRightStyle">solid</property>
+                <property name="borderRightWidth">thin</property>
+                <property name="borderTopColor">#000000</property>
                 <property name="borderTopStyle">solid</property>
                 <property name="borderTopWidth">thin</property>
-                <property name="height">0.3333333333333333in</property>
-                <cell id="1011">
-                    <property name="borderBottomColor">#000000</property>
-                    <property name="borderBottomStyle">solid</property>
-                    <property name="borderBottomWidth">thin</property>
-                    <property name="borderLeftColor">#000000</property>
-                    <property name="borderLeftStyle">solid</property>
-                    <property name="borderLeftWidth">thin</property>
-                    <property name="borderRightColor">#000000</property>
-                    <property name="borderRightStyle">solid</property>
-                    <property name="borderRightWidth">thin</property>
-                    <property name="borderTopColor">#000000</property>
-                    <property name="borderTopStyle">solid</property>
-                    <property name="borderTopWidth">thin</property>
-                    <text id="1014">
-                        <property name="contentType">auto</property>
-                        <text-property name="content"><![CDATA[备注：]]></text-property>
-                    </text>
-                </cell>
-                <cell id="921">
-                    <property name="colSpan">9</property>
+                <property name="height">0.4270833333333333in</property>
+                <cell id="1339">
+                    <property name="colSpan">2</property>
                     <property name="rowSpan">1</property>
                     <property name="borderBottomColor">#000000</property>
                     <property name="borderBottomStyle">solid</property>
-                    <property name="borderBottomWidth">thin</property>
+                    <property name="borderBottomWidth">1px</property>
                     <property name="borderLeftColor">#000000</property>
                     <property name="borderLeftStyle">solid</property>
-                    <property name="borderLeftWidth">thin</property>
+                    <property name="borderLeftWidth">1px</property>
                     <property name="borderRightColor">#000000</property>
                     <property name="borderRightStyle">solid</property>
-                    <property name="borderRightWidth">thin</property>
+                    <property name="borderRightWidth">1px</property>
                     <property name="borderTopColor">#000000</property>
                     <property name="borderTopStyle">solid</property>
-                    <property name="borderTopWidth">thin</property>
-                    <data id="1275">
-                        <property name="resultSetColumn">mark</property>
+                    <property name="borderTopWidth">1px</property>
+                    <property name="paddingTop">7pt</property>
+                    <property name="textAlign">center</property>
+                    <property name="verticalAlign">middle</property>
+                    <label id="1353">
+                        <property name="paddingTop">1pt</property>
+                        <text-property name="text">备注</text-property>
+                    </label>
+                </cell>
+                <cell id="1341">
+                    <property name="colSpan">12</property>
+                    <property name="rowSpan">1</property>
+                    <property name="borderBottomColor">#000000</property>
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">1px</property>
+                    <property name="borderLeftColor">#000000</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">1px</property>
+                    <property name="borderRightColor">#000000</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">1px</property>
+                    <property name="borderTopColor">#000000</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">1px</property>
+                    <data id="1458">
+                        <property name="resultSetColumn">remark</property>
+                    </data>
+                </cell>
+            </row>
+            <row id="1354">
+                <property name="borderBottomColor">#000000</property>
+                <property name="borderBottomStyle">solid</property>
+                <property name="borderBottomWidth">thin</property>
+                <property name="borderLeftColor">#000000</property>
+                <property name="borderLeftStyle">solid</property>
+                <property name="borderLeftWidth">thin</property>
+                <property name="borderRightColor">#000000</property>
+                <property name="borderRightStyle">solid</property>
+                <property name="borderRightWidth">thin</property>
+                <property name="borderTopColor">#000000</property>
+                <property name="borderTopStyle">solid</property>
+                <property name="borderTopWidth">thin</property>
+                <property name="height">0.4270833333333333in</property>
+                <cell id="1355">
+                    <property name="colSpan">2</property>
+                    <property name="rowSpan">1</property>
+                    <property name="borderBottomColor">#000000</property>
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">1px</property>
+                    <property name="borderLeftColor">#000000</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">1px</property>
+                    <property name="borderRightColor">#000000</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">1px</property>
+                    <property name="borderTopColor">#000000</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">1px</property>
+                    <property name="paddingTop">2pt</property>
+                    <property name="textAlign">center</property>
+                    <property name="verticalAlign">middle</property>
+                    <label id="1370">
+                        <property name="paddingTop">0pt</property>
+                        <text-property name="text">总部抛转单号</text-property>
+                    </label>
+                </cell>
+                <cell id="1357">
+                    <property name="colSpan">2</property>
+                    <property name="rowSpan">1</property>
+                    <property name="borderBottomColor">#000000</property>
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">1px</property>
+                    <property name="borderLeftColor">#000000</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">1px</property>
+                    <property name="borderRightColor">#000000</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">1px</property>
+                    <property name="borderTopColor">#000000</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">1px</property>
+                    <data id="1460">
+                        <property name="resultSetColumn">zbpzno</property>
+                    </data>
+                </cell>
+                <cell id="1359">
+                    <property name="colSpan">2</property>
+                    <property name="rowSpan">1</property>
+                    <property name="borderBottomColor">#000000</property>
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">1px</property>
+                    <property name="borderLeftColor">#000000</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">1px</property>
+                    <property name="borderRightColor">#000000</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">1px</property>
+                    <property name="borderTopColor">#000000</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">1px</property>
+                    <label id="1371">
+                        <text-property name="text">分公司抛转单号</text-property>
+                    </label>
+                </cell>
+                <cell id="1361">
+                    <property name="colSpan">2</property>
+                    <property name="rowSpan">1</property>
+                    <property name="borderBottomColor">#000000</property>
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">1px</property>
+                    <property name="borderLeftColor">#000000</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">1px</property>
+                    <property name="borderRightColor">#000000</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">1px</property>
+                    <property name="borderTopColor">#000000</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">1px</property>
+                    <data id="1461">
+                        <property name="resultSetColumn">fgspzno</property>
+                    </data>
+                </cell>
+                <cell id="1363">
+                    <property name="borderBottomColor">#000000</property>
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">1px</property>
+                    <property name="borderLeftColor">#000000</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">1px</property>
+                    <property name="borderRightColor">#000000</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">1px</property>
+                    <property name="borderTopColor">#000000</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">1px</property>
+                    <label id="1372">
+                        <text-property name="text">运费</text-property>
+                    </label>
+                </cell>
+                <cell id="1364">
+                    <property name="borderBottomColor">#000000</property>
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">1px</property>
+                    <property name="borderLeftColor">#000000</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">1px</property>
+                    <property name="borderRightColor">#000000</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">1px</property>
+                    <property name="borderTopColor">#000000</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">1px</property>
+                    <data id="1459">
+                        <property name="resultSetColumn">yf</property>
+                    </data>
+                </cell>
+                <cell id="1365">
+                    <property name="colSpan">2</property>
+                    <property name="rowSpan">1</property>
+                    <property name="borderBottomColor">#000000</property>
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">1px</property>
+                    <property name="borderLeftColor">#000000</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">1px</property>
+                    <property name="borderRightColor">#000000</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">1px</property>
+                    <property name="borderTopColor">#000000</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">1px</property>
+                    <label id="1373">
+                        <text-property name="text">吊装费</text-property>
+                    </label>
+                </cell>
+                <cell id="1367">
+                    <property name="colSpan">2</property>
+                    <property name="rowSpan">1</property>
+                    <property name="borderBottomColor">#000000</property>
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">1px</property>
+                    <property name="borderLeftColor">#000000</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">1px</property>
+                    <property name="borderRightColor">#000000</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">1px</property>
+                    <property name="borderTopColor">#000000</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">1px</property>
+                    <data id="1462">
+                        <property name="resultSetColumn">dzf</property>
                     </data>
                 </cell>
             </row>
         </grid>
-        <grid id="1015">
-            <property name="height">2.5in</property>
-            <property name="width">7.7in</property>
-            <column id="1016">
-                <property name="width">1.2708333333333333in</property>
-            </column>
-            <column id="1017">
-                <property name="width">1.3125in</property>
-            </column>
-            <column id="1018">
-                <property name="width">1.2916666666666667in</property>
-            </column>
-            <column id="1019">
-                <property name="width">1.1875in</property>
-            </column>
-            <column id="1020">
-                <property name="width">1.3958333333333333in</property>
-            </column>
-            <column id="1021"/>
-            <row id="1022">
-                <property name="height">0.3541666666666667in</property>
-                <cell id="1023">
-                    <property name="colSpan">6</property>
-                    <property name="rowSpan">1</property>
-                    <property name="borderBottomColor">#000000</property>
-                    <property name="borderBottomStyle">solid</property>
-                    <property name="borderBottomWidth">thin</property>
-                    <property name="borderLeftColor">#000000</property>
-                    <property name="borderLeftStyle">solid</property>
-                    <property name="borderLeftWidth">thin</property>
-                    <property name="borderRightColor">#000000</property>
-                    <property name="borderRightStyle">solid</property>
-                    <property name="borderRightWidth">thin</property>
-                    <property name="borderTopColor">#000000</property>
-                    <property name="borderTopStyle">solid</property>
-                    <property name="borderTopWidth">thin</property>
-                    <text id="1078">
-                        <property name="marginLeft">250pt</property>
-                        <property name="marginRight">230pt</property>
-                        <property name="contentType">auto</property>
-                        <text-property name="content"><![CDATA[出货要求]]></text-property>
-                    </text>
-                </cell>
-            </row>
-            <row id="1029">
-                <property name="height">0.33in</property>
-                <cell id="1030">
-                    <property name="borderBottomColor">#000000</property>
-                    <property name="borderBottomStyle">solid</property>
-                    <property name="borderBottomWidth">thin</property>
-                    <property name="borderLeftColor">#000000</property>
-                    <property name="borderLeftStyle">solid</property>
-                    <property name="borderLeftWidth">thin</property>
-                    <property name="borderRightColor">#000000</property>
-                    <property name="borderRightStyle">solid</property>
-                    <property name="borderRightWidth">thin</property>
-                    <property name="borderTopColor">#000000</property>
-                    <property name="borderTopStyle">solid</property>
-                    <property name="borderTopWidth">thin</property>
-                    <text id="1079">
-                        <property name="contentType">auto</property>
-                        <text-property name="content"><![CDATA[客户名称]]></text-property>
-                    </text>
-                </cell>
-                <cell id="1031">
-                    <property name="borderBottomColor">#000000</property>
-                    <property name="borderBottomStyle">solid</property>
-                    <property name="borderBottomWidth">thin</property>
-                    <property name="borderLeftColor">#000000</property>
-                    <property name="borderLeftStyle">solid</property>
-                    <property name="borderLeftWidth">thin</property>
-                    <property name="borderRightColor">#000000</property>
-                    <property name="borderRightStyle">solid</property>
-                    <property name="borderRightWidth">thin</property>
-                    <property name="borderTopColor">#000000</property>
-                    <property name="borderTopStyle">solid</property>
-                    <property name="borderTopWidth">thin</property>
-                    <data id="1233">
-                        <property name="dataSet">dataDetail</property>
-                        <list-property name="boundDataColumns">
-                            <structure>
-                                <property name="name">cusna</property>
-                                <text-property name="displayName">cusna</text-property>
-                                <expression name="expression" type="javascript">dataSetRow["cusna"]</expression>
-                                <property name="dataType">string</property>
-                            </structure>
-                        </list-property>
-                        <property name="resultSetColumn">cusna</property>
-                    </data>
-                </cell>
-                <cell id="1032">
-                    <property name="borderBottomColor">#000000</property>
-                    <property name="borderBottomStyle">solid</property>
-                    <property name="borderBottomWidth">thin</property>
-                    <property name="borderLeftColor">#000000</property>
-                    <property name="borderLeftStyle">solid</property>
-                    <property name="borderLeftWidth">thin</property>
-                    <property name="borderRightColor">#000000</property>
-                    <property name="borderRightStyle">solid</property>
-                    <property name="borderRightWidth">thin</property>
-                    <property name="borderTopColor">#000000</property>
-                    <property name="borderTopStyle">solid</property>
-                    <property name="borderTopWidth">thin</property>
-                    <text id="1080">
-                        <property name="contentType">auto</property>
-                        <text-property name="content"><![CDATA[客户代号]]></text-property>
-                    </text>
-                </cell>
-                <cell id="1033">
-                    <property name="borderBottomColor">#000000</property>
-                    <property name="borderBottomStyle">solid</property>
-                    <property name="borderBottomWidth">thin</property>
-                    <property name="borderLeftColor">#000000</property>
-                    <property name="borderLeftStyle">solid</property>
-                    <property name="borderLeftWidth">thin</property>
-                    <property name="borderRightColor">#000000</property>
-                    <property name="borderRightStyle">solid</property>
-                    <property name="borderRightWidth">thin</property>
-                    <property name="borderTopColor">#000000</property>
-                    <property name="borderTopStyle">solid</property>
-                    <property name="borderTopWidth">thin</property>
-                    <data id="1234">
-                        <property name="dataSet">dataDetail</property>
-                        <list-property name="boundDataColumns">
-                            <structure>
-                                <property name="name">cusno</property>
-                                <text-property name="displayName">cusno</text-property>
-                                <expression name="expression" type="javascript">dataSetRow["cusno"]</expression>
-                                <property name="dataType">string</property>
-                            </structure>
-                        </list-property>
-                        <property name="resultSetColumn">cusno</property>
-                    </data>
-                </cell>
-                <cell id="1034">
-                    <property name="borderBottomColor">#000000</property>
-                    <property name="borderBottomStyle">solid</property>
-                    <property name="borderBottomWidth">thin</property>
-                    <property name="borderLeftColor">#000000</property>
-                    <property name="borderLeftStyle">solid</property>
-                    <property name="borderLeftWidth">thin</property>
-                    <property name="borderRightColor">#000000</property>
-                    <property name="borderRightStyle">solid</property>
-                    <property name="borderRightWidth">thin</property>
-                    <property name="borderTopColor">#000000</property>
-                    <property name="borderTopStyle">solid</property>
-                    <property name="borderTopWidth">thin</property>
-                    <text id="1081">
-                        <property name="contentType">auto</property>
-                        <text-property name="content"><![CDATA[需求出货日期]]></text-property>
-                    </text>
-                </cell>
-                <cell id="1035">
-                    <property name="borderBottomColor">#000000</property>
-                    <property name="borderBottomStyle">solid</property>
-                    <property name="borderBottomWidth">thin</property>
-                    <property name="borderLeftColor">#000000</property>
-                    <property name="borderLeftStyle">solid</property>
-                    <property name="borderLeftWidth">thin</property>
-                    <property name="borderRightColor">#000000</property>
-                    <property name="borderRightStyle">solid</property>
-                    <property name="borderRightWidth">thin</property>
-                    <property name="borderTopColor">#000000</property>
-                    <property name="borderTopStyle">solid</property>
-                    <property name="borderTopWidth">thin</property>
-                    <data id="1276">
-                        <property name="dataSet">dataDetail</property>
-                        <list-property name="boundDataColumns">
-                            <structure>
-                                <property name="name">requiredate</property>
-                                <text-property name="displayName">requiredate</text-property>
-                                <expression name="expression" type="javascript">dataSetRow["requiredate"]</expression>
-                                <property name="dataType">date</property>
-                            </structure>
-                        </list-property>
-                        <property name="resultSetColumn">requiredate</property>
-                    </data>
-                </cell>
-            </row>
-            <row id="1036">
-                <property name="height">0.33in</property>
-                <cell id="1037">
-                    <property name="borderBottomColor">#000000</property>
-                    <property name="borderBottomStyle">solid</property>
-                    <property name="borderBottomWidth">thin</property>
-                    <property name="borderLeftColor">#000000</property>
-                    <property name="borderLeftStyle">solid</property>
-                    <property name="borderLeftWidth">thin</property>
-                    <property name="borderRightColor">#000000</property>
-                    <property name="borderRightStyle">solid</property>
-                    <property name="borderRightWidth">thin</property>
-                    <property name="borderTopColor">#000000</property>
-                    <property name="borderTopStyle">solid</property>
-                    <property name="borderTopWidth">thin</property>
-                    <text id="1082">
-                        <property name="contentType">auto</property>
-                        <text-property name="content"><![CDATA[运输方式]]></text-property>
-                    </text>
-                </cell>
-                <cell id="1038">
-                    <property name="colSpan">5</property>
-                    <property name="rowSpan">1</property>
-                    <property name="borderBottomColor">#000000</property>
-                    <property name="borderBottomStyle">solid</property>
-                    <property name="borderBottomWidth">thin</property>
-                    <property name="borderLeftColor">#000000</property>
-                    <property name="borderLeftStyle">solid</property>
-                    <property name="borderLeftWidth">thin</property>
-                    <property name="borderRightColor">#000000</property>
-                    <property name="borderRightStyle">solid</property>
-                    <property name="borderRightWidth">thin</property>
-                    <property name="borderTopColor">#000000</property>
-                    <property name="borderTopStyle">solid</property>
-                    <property name="borderTopWidth">thin</property>
-                    <data id="1277">
-                        <property name="dataSet">dataDetail</property>
-                        <list-property name="boundDataColumns">
-                            <structure>
-                                <property name="name">ysstyle</property>
-                                <text-property name="displayName">ysstyle</text-property>
-                                <expression name="expression" type="javascript">dataSetRow["ysstyle"]</expression>
-                                <property name="dataType">string</property>
-                            </structure>
-                        </list-property>
-                        <property name="resultSetColumn">ysstyle</property>
-                    </data>
-                </cell>
-            </row>
-            <row id="1043">
-                <property name="height">0.33in</property>
-                <cell id="1044">
-                    <property name="borderBottomColor">#000000</property>
-                    <property name="borderBottomStyle">solid</property>
-                    <property name="borderBottomWidth">thin</property>
-                    <property name="borderLeftColor">#000000</property>
-                    <property name="borderLeftStyle">solid</property>
-                    <property name="borderLeftWidth">thin</property>
-                    <property name="borderRightColor">#000000</property>
-                    <property name="borderRightStyle">solid</property>
-                    <property name="borderRightWidth">thin</property>
-                    <property name="borderTopColor">#000000</property>
-                    <property name="borderTopStyle">solid</property>
-                    <property name="borderTopWidth">thin</property>
-                    <text id="1083">
-                        <property name="contentType">auto</property>
-                        <text-property name="content"><![CDATA[运费结算]]></text-property>
-                    </text>
-                </cell>
-                <cell id="1045">
-                    <property name="colSpan">5</property>
-                    <property name="rowSpan">1</property>
-                    <property name="borderBottomColor">#000000</property>
-                    <property name="borderBottomStyle">solid</property>
-                    <property name="borderBottomWidth">thin</property>
-                    <property name="borderLeftColor">#000000</property>
-                    <property name="borderLeftStyle">solid</property>
-                    <property name="borderLeftWidth">thin</property>
-                    <property name="borderRightColor">#000000</property>
-                    <property name="borderRightStyle">solid</property>
-                    <property name="borderRightWidth">thin</property>
-                    <property name="borderTopColor">#000000</property>
-                    <property name="borderTopStyle">solid</property>
-                    <property name="borderTopWidth">thin</property>
-                    <data id="1278">
-                        <property name="dataSet">dataDetail</property>
-                        <list-property name="boundDataColumns">
-                            <structure>
-                                <property name="name">yfjs</property>
-                                <text-property name="displayName">yfjs</text-property>
-                                <expression name="expression" type="javascript">dataSetRow["yfjs"]</expression>
-                                <property name="dataType">string</property>
-                            </structure>
-                        </list-property>
-                        <property name="resultSetColumn">yfjs</property>
-                    </data>
-                </cell>
-            </row>
-            <row id="1050">
-                <property name="height">0.33in</property>
-                <cell id="1051">
-                    <property name="borderBottomColor">#000000</property>
-                    <property name="borderBottomStyle">solid</property>
-                    <property name="borderBottomWidth">thin</property>
-                    <property name="borderLeftColor">#000000</property>
-                    <property name="borderLeftStyle">solid</property>
-                    <property name="borderLeftWidth">thin</property>
-                    <property name="borderRightColor">#000000</property>
-                    <property name="borderRightStyle">solid</property>
-                    <property name="borderRightWidth">thin</property>
-                    <property name="borderTopColor">#000000</property>
-                    <property name="borderTopStyle">solid</property>
-                    <property name="borderTopWidth">thin</property>
-                    <text id="1084">
-                        <property name="contentType">auto</property>
-                        <text-property name="content"><![CDATA[包装方式]]></text-property>
-                    </text>
-                </cell>
-                <cell id="1052">
-                    <property name="colSpan">5</property>
-                    <property name="rowSpan">1</property>
-                    <property name="borderBottomColor">#000000</property>
-                    <property name="borderBottomStyle">solid</property>
-                    <property name="borderBottomWidth">thin</property>
-                    <property name="borderLeftColor">#000000</property>
-                    <property name="borderLeftStyle">solid</property>
-                    <property name="borderLeftWidth">thin</property>
-                    <property name="borderRightColor">#000000</property>
-                    <property name="borderRightStyle">solid</property>
-                    <property name="borderRightWidth">thin</property>
-                    <property name="borderTopColor">#000000</property>
-                    <property name="borderTopStyle">solid</property>
-                    <property name="borderTopWidth">thin</property>
-                    <data id="1279">
-                        <property name="dataSet">dataDetail</property>
-                        <list-property name="boundDataColumns">
-                            <structure>
-                                <property name="name">packstyle</property>
-                                <text-property name="displayName">packstyle</text-property>
-                                <expression name="expression" type="javascript">dataSetRow["packstyle"]</expression>
-                                <property name="dataType">string</property>
-                            </structure>
-                        </list-property>
-                        <property name="resultSetColumn">packstyle</property>
-                    </data>
-                </cell>
-            </row>
-            <row id="1057">
-                <property name="height">0.33in</property>
-                <cell id="1058">
-                    <property name="borderBottomColor">#000000</property>
-                    <property name="borderBottomStyle">solid</property>
-                    <property name="borderBottomWidth">thin</property>
-                    <property name="borderLeftColor">#000000</property>
-                    <property name="borderLeftStyle">solid</property>
-                    <property name="borderLeftWidth">thin</property>
-                    <property name="borderRightColor">#000000</property>
-                    <property name="borderRightStyle">solid</property>
-                    <property name="borderRightWidth">thin</property>
-                    <property name="borderTopColor">#000000</property>
-                    <property name="borderTopStyle">solid</property>
-                    <property name="borderTopWidth">thin</property>
-                    <text id="1085">
-                        <property name="contentType">auto</property>
-                        <text-property name="content"><![CDATA[送货地址]]></text-property>
-                    </text>
-                </cell>
-                <cell id="1059">
-                    <property name="colSpan">5</property>
-                    <property name="rowSpan">1</property>
-                    <property name="borderBottomColor">#000000</property>
-                    <property name="borderBottomStyle">solid</property>
-                    <property name="borderBottomWidth">thin</property>
-                    <property name="borderLeftColor">#000000</property>
-                    <property name="borderLeftStyle">solid</property>
-                    <property name="borderLeftWidth">thin</property>
-                    <property name="borderRightColor">#000000</property>
-                    <property name="borderRightStyle">solid</property>
-                    <property name="borderRightWidth">thin</property>
-                    <property name="borderTopColor">#000000</property>
-                    <property name="borderTopStyle">solid</property>
-                    <property name="borderTopWidth">thin</property>
-                    <data id="1280">
-                        <property name="dataSet">dataDetail</property>
-                        <list-property name="boundDataColumns">
-                            <structure>
-                                <property name="name">shaddress</property>
-                                <text-property name="displayName">shaddress</text-property>
-                                <expression name="expression" type="javascript">dataSetRow["shaddress"]</expression>
-                                <property name="dataType">string</property>
-                            </structure>
-                        </list-property>
-                        <property name="resultSetColumn">shaddress</property>
-                    </data>
-                </cell>
-            </row>
-            <row id="1064">
-                <property name="height">0.33in</property>
-                <cell id="1065">
-                    <property name="borderBottomColor">#000000</property>
-                    <property name="borderBottomStyle">solid</property>
-                    <property name="borderBottomWidth">thin</property>
-                    <property name="borderLeftColor">#000000</property>
-                    <property name="borderLeftStyle">solid</property>
-                    <property name="borderLeftWidth">thin</property>
-                    <property name="borderRightColor">#000000</property>
-                    <property name="borderRightStyle">solid</property>
-                    <property name="borderRightWidth">thin</property>
-                    <property name="borderTopColor">#000000</property>
-                    <property name="borderTopStyle">solid</property>
-                    <property name="borderTopWidth">thin</property>
-                    <text id="1086">
-                        <property name="contentType">auto</property>
-                        <text-property name="content"><![CDATA[联系人]]></text-property>
-                    </text>
-                </cell>
-                <cell id="1066">
-                    <property name="borderBottomColor">#000000</property>
-                    <property name="borderBottomStyle">solid</property>
-                    <property name="borderBottomWidth">thin</property>
-                    <property name="borderLeftColor">#000000</property>
-                    <property name="borderLeftStyle">solid</property>
-                    <property name="borderLeftWidth">thin</property>
-                    <property name="borderRightColor">#000000</property>
-                    <property name="borderRightStyle">solid</property>
-                    <property name="borderRightWidth">thin</property>
-                    <property name="borderTopColor">#000000</property>
-                    <property name="borderTopStyle">solid</property>
-                    <property name="borderTopWidth">thin</property>
-                    <data id="1240">
-                        <property name="dataSet">dataDetail</property>
-                        <list-property name="boundDataColumns">
-                            <structure>
-                                <property name="name">shcontact</property>
-                                <text-property name="displayName">shcontact</text-property>
-                                <expression name="expression" type="javascript">dataSetRow["shcontact"]</expression>
-                                <property name="dataType">string</property>
-                            </structure>
-                        </list-property>
-                        <property name="resultSetColumn">shcontact</property>
-                    </data>
-                </cell>
-                <cell id="1067">
-                    <property name="borderBottomColor">#000000</property>
-                    <property name="borderBottomStyle">solid</property>
-                    <property name="borderBottomWidth">thin</property>
-                    <property name="borderLeftColor">#000000</property>
-                    <property name="borderLeftStyle">solid</property>
-                    <property name="borderLeftWidth">thin</property>
-                    <property name="borderRightColor">#000000</property>
-                    <property name="borderRightStyle">solid</property>
-                    <property name="borderRightWidth">thin</property>
-                    <property name="borderTopColor">#000000</property>
-                    <property name="borderTopStyle">solid</property>
-                    <property name="borderTopWidth">thin</property>
-                    <text id="1112">
-                        <property name="contentType">auto</property>
-                        <text-property name="content"><![CDATA[手机号码]]></text-property>
-                    </text>
-                </cell>
-                <cell id="1068">
-                    <property name="borderBottomColor">#000000</property>
-                    <property name="borderBottomStyle">solid</property>
-                    <property name="borderBottomWidth">thin</property>
-                    <property name="borderLeftColor">#000000</property>
-                    <property name="borderLeftStyle">solid</property>
-                    <property name="borderLeftWidth">thin</property>
-                    <property name="borderRightColor">#000000</property>
-                    <property name="borderRightStyle">solid</property>
-                    <property name="borderRightWidth">thin</property>
-                    <property name="borderTopColor">#000000</property>
-                    <property name="borderTopStyle">solid</property>
-                    <property name="borderTopWidth">thin</property>
-                    <data id="1241">
-                        <property name="dataSet">dataDetail</property>
-                        <list-property name="boundDataColumns">
-                            <structure>
-                                <property name="name">tel1</property>
-                                <text-property name="displayName">tel1</text-property>
-                                <expression name="expression" type="javascript">dataSetRow["tel1"]</expression>
-                                <property name="dataType">string</property>
-                            </structure>
-                        </list-property>
-                        <property name="resultSetColumn">tel1</property>
-                    </data>
-                </cell>
-                <cell id="1069">
-                    <property name="borderBottomColor">#000000</property>
-                    <property name="borderBottomStyle">solid</property>
-                    <property name="borderBottomWidth">thin</property>
-                    <property name="borderLeftColor">#000000</property>
-                    <property name="borderLeftStyle">solid</property>
-                    <property name="borderLeftWidth">thin</property>
-                    <property name="borderRightColor">#000000</property>
-                    <property name="borderRightStyle">solid</property>
-                    <property name="borderRightWidth">thin</property>
-                    <property name="borderTopColor">#000000</property>
-                    <property name="borderTopStyle">solid</property>
-                    <property name="borderTopWidth">thin</property>
-                    <text id="1113">
-                        <property name="contentType">auto</property>
-                        <text-property name="content"><![CDATA[固定电话]]></text-property>
-                    </text>
-                </cell>
-                <cell id="1070">
-                    <property name="borderBottomColor">#000000</property>
-                    <property name="borderBottomStyle">solid</property>
-                    <property name="borderBottomWidth">thin</property>
-                    <property name="borderLeftColor">#000000</property>
-                    <property name="borderLeftStyle">solid</property>
-                    <property name="borderLeftWidth">thin</property>
-                    <property name="borderRightColor">#000000</property>
-                    <property name="borderRightStyle">solid</property>
-                    <property name="borderRightWidth">thin</property>
-                    <property name="borderTopColor">#000000</property>
-                    <property name="borderTopStyle">solid</property>
-                    <property name="borderTopWidth">thin</property>
-                    <data id="1242">
-                        <property name="dataSet">dataDetail</property>
-                        <list-property name="boundDataColumns">
-                            <structure>
-                                <property name="name">tel2</property>
-                                <text-property name="displayName">tel2</text-property>
-                                <expression name="expression" type="javascript">dataSetRow["tel2"]</expression>
-                                <property name="dataType">string</property>
-                            </structure>
-                        </list-property>
-                        <property name="resultSetColumn">tel2</property>
-                    </data>
-                </cell>
-            </row>
-            <row id="1095">
-                <property name="height">0.33in</property>
-                <cell id="1096">
-                    <property name="borderBottomColor">#000000</property>
-                    <property name="borderBottomStyle">solid</property>
-                    <property name="borderBottomWidth">thin</property>
-                    <property name="borderLeftColor">#000000</property>
-                    <property name="borderLeftStyle">solid</property>
-                    <property name="borderLeftWidth">thin</property>
-                    <property name="borderRightColor">#000000</property>
-                    <property name="borderRightStyle">solid</property>
-                    <property name="borderRightWidth">thin</property>
-                    <property name="borderTopColor">#000000</property>
-                    <property name="borderTopStyle">solid</property>
-                    <property name="borderTopWidth">thin</property>
-                    <text id="1103">
-                        <property name="contentType">auto</property>
-                        <text-property name="content"><![CDATA[出货单号]]></text-property>
-                    </text>
-                </cell>
-                <cell id="1097">
-                    <property name="borderBottomColor">#000000</property>
-                    <property name="borderBottomStyle">solid</property>
-                    <property name="borderBottomWidth">thin</property>
-                    <property name="borderLeftColor">#000000</property>
-                    <property name="borderLeftStyle">solid</property>
-                    <property name="borderLeftWidth">thin</property>
-                    <property name="borderRightColor">#000000</property>
-                    <property name="borderRightStyle">solid</property>
-                    <property name="borderRightWidth">thin</property>
-                    <property name="borderTopColor">#000000</property>
-                    <property name="borderTopStyle">solid</property>
-                    <property name="borderTopWidth">thin</property>
-                    <data id="1243">
-                        <property name="dataSet">dataDetail</property>
-                        <list-property name="boundDataColumns">
-                            <structure>
-                                <property name="name">shpno</property>
-                                <text-property name="displayName">shpno</text-property>
-                                <expression name="expression" type="javascript">dataSetRow["shpno"]</expression>
-                                <property name="dataType">string</property>
-                            </structure>
-                        </list-property>
-                        <property name="resultSetColumn">shpno</property>
-                    </data>
-                </cell>
-                <cell id="1098">
-                    <property name="borderBottomColor">#000000</property>
-                    <property name="borderBottomStyle">solid</property>
-                    <property name="borderBottomWidth">thin</property>
-                    <property name="borderLeftColor">#000000</property>
-                    <property name="borderLeftStyle">solid</property>
-                    <property name="borderLeftWidth">thin</property>
-                    <property name="borderRightColor">#000000</property>
-                    <property name="borderRightStyle">solid</property>
-                    <property name="borderRightWidth">thin</property>
-                    <property name="borderTopColor">#000000</property>
-                    <property name="borderTopStyle">solid</property>
-                    <property name="borderTopWidth">thin</property>
-                    <text id="1114">
-                        <property name="contentType">auto</property>
-                        <text-property name="content"><![CDATA[借出单号]]></text-property>
-                    </text>
-                </cell>
-                <cell id="1099">
-                    <property name="borderBottomColor">#000000</property>
-                    <property name="borderBottomStyle">solid</property>
-                    <property name="borderBottomWidth">thin</property>
-                    <property name="borderLeftColor">#000000</property>
-                    <property name="borderLeftStyle">solid</property>
-                    <property name="borderLeftWidth">thin</property>
-                    <property name="borderRightColor">#000000</property>
-                    <property name="borderRightStyle">solid</property>
-                    <property name="borderRightWidth">thin</property>
-                    <property name="borderTopColor">#000000</property>
-                    <property name="borderTopStyle">solid</property>
-                    <property name="borderTopWidth">thin</property>
-                    <data id="1244">
-                        <property name="dataSet">dataDetail</property>
-                        <list-property name="boundDataColumns">
-                            <structure>
-                                <property name="name">lendno</property>
-                                <text-property name="displayName">lendno</text-property>
-                                <expression name="expression" type="javascript">dataSetRow["lendno"]</expression>
-                                <property name="dataType">string</property>
-                            </structure>
-                        </list-property>
-                        <property name="resultSetColumn">lendno</property>
-                    </data>
-                </cell>
-                <cell id="1100">
-                    <property name="borderBottomColor">#000000</property>
-                    <property name="borderBottomStyle">solid</property>
-                    <property name="borderBottomWidth">thin</property>
-                    <property name="borderLeftColor">#000000</property>
-                    <property name="borderLeftStyle">solid</property>
-                    <property name="borderLeftWidth">thin</property>
-                    <property name="borderRightColor">#000000</property>
-                    <property name="borderRightStyle">solid</property>
-                    <property name="borderRightWidth">thin</property>
-                    <property name="borderTopColor">#000000</property>
-                    <property name="borderTopStyle">solid</property>
-                    <property name="borderTopWidth">thin</property>
-                    <text id="1115">
-                        <property name="contentType">auto</property>
-                        <text-property name="content"><![CDATA[借入归还单号]]></text-property>
-                    </text>
-                </cell>
-                <cell id="1101">
-                    <property name="borderBottomColor">#000000</property>
-                    <property name="borderBottomStyle">solid</property>
-                    <property name="borderBottomWidth">thin</property>
-                    <property name="borderLeftColor">#000000</property>
-                    <property name="borderLeftStyle">solid</property>
-                    <property name="borderLeftWidth">thin</property>
-                    <property name="borderRightColor">#000000</property>
-                    <property name="borderRightStyle">solid</property>
-                    <property name="borderRightWidth">thin</property>
-                    <property name="borderTopColor">#000000</property>
-                    <property name="borderTopStyle">solid</property>
-                    <property name="borderTopWidth">thin</property>
-                    <data id="1245">
-                        <property name="dataSet">dataDetail</property>
-                        <list-property name="boundDataColumns">
-                            <structure>
-                                <property name="name">returnno</property>
-                                <text-property name="displayName">returnno</text-property>
-                                <expression name="expression" type="javascript">dataSetRow["returnno"]</expression>
-                                <property name="dataType">string</property>
-                            </structure>
-                        </list-property>
-                        <property name="resultSetColumn">returnno</property>
-                    </data>
-                </cell>
-            </row>
-            <row id="1104">
-                <property name="height">0.33in</property>
-                <cell id="1105">
-                    <property name="borderBottomColor">#000000</property>
-                    <property name="borderBottomStyle">solid</property>
-                    <property name="borderBottomWidth">thin</property>
-                    <property name="borderLeftColor">#000000</property>
-                    <property name="borderLeftStyle">solid</property>
-                    <property name="borderLeftWidth">thin</property>
-                    <property name="borderRightColor">#000000</property>
-                    <property name="borderRightStyle">solid</property>
-                    <property name="borderRightWidth">thin</property>
-                    <property name="borderTopColor">#000000</property>
-                    <property name="borderTopStyle">solid</property>
-                    <property name="borderTopWidth">thin</property>
-                    <text id="1111">
-                        <property name="contentType">auto</property>
-                        <text-property name="content"><![CDATA[核准]]></text-property>
-                    </text>
-                </cell>
-                <cell id="1106">
-                    <property name="borderBottomColor">#000000</property>
-                    <property name="borderBottomStyle">solid</property>
-                    <property name="borderBottomWidth">thin</property>
-                    <property name="borderLeftColor">#000000</property>
-                    <property name="borderLeftStyle">solid</property>
-                    <property name="borderLeftWidth">thin</property>
-                    <property name="borderRightColor">#000000</property>
-                    <property name="borderRightStyle">solid</property>
-                    <property name="borderRightWidth">thin</property>
-                    <property name="borderTopColor">#000000</property>
-                    <property name="borderTopStyle">solid</property>
-                    <property name="borderTopWidth">thin</property>
-                </cell>
-                <cell id="1107">
-                    <property name="borderBottomColor">#000000</property>
-                    <property name="borderBottomStyle">solid</property>
-                    <property name="borderBottomWidth">thin</property>
-                    <property name="borderLeftColor">#000000</property>
-                    <property name="borderLeftStyle">solid</property>
-                    <property name="borderLeftWidth">thin</property>
-                    <property name="borderRightColor">#000000</property>
-                    <property name="borderRightStyle">solid</property>
-                    <property name="borderRightWidth">thin</property>
-                    <property name="borderTopColor">#000000</property>
-                    <property name="borderTopStyle">solid</property>
-                    <property name="borderTopWidth">thin</property>
-                    <text id="1116">
-                        <property name="contentType">auto</property>
-                        <text-property name="content"><![CDATA[审核人]]></text-property>
-                    </text>
-                </cell>
-                <cell id="1108">
-                    <property name="borderBottomColor">#000000</property>
-                    <property name="borderBottomStyle">solid</property>
-                    <property name="borderBottomWidth">thin</property>
-                    <property name="borderLeftColor">#000000</property>
-                    <property name="borderLeftStyle">solid</property>
-                    <property name="borderLeftWidth">thin</property>
-                    <property name="borderRightColor">#000000</property>
-                    <property name="borderRightStyle">solid</property>
-                    <property name="borderRightWidth">thin</property>
-                    <property name="borderTopColor">#000000</property>
-                    <property name="borderTopStyle">solid</property>
-                    <property name="borderTopWidth">thin</property>
-                </cell>
-                <cell id="1109">
-                    <property name="borderBottomColor">#000000</property>
-                    <property name="borderBottomStyle">solid</property>
-                    <property name="borderBottomWidth">thin</property>
-                    <property name="borderLeftColor">#000000</property>
-                    <property name="borderLeftStyle">solid</property>
-                    <property name="borderLeftWidth">thin</property>
-                    <property name="borderRightColor">#000000</property>
-                    <property name="borderRightStyle">solid</property>
-                    <property name="borderRightWidth">thin</property>
-                    <property name="borderTopColor">#000000</property>
-                    <property name="borderTopStyle">solid</property>
-                    <property name="borderTopWidth">thin</property>
-                    <text id="1117">
-                        <property name="contentType">auto</property>
-                        <text-property name="content"><![CDATA[申请人]]></text-property>
-                    </text>
-                </cell>
-                <cell id="1110">
-                    <property name="borderBottomColor">#000000</property>
-                    <property name="borderBottomStyle">solid</property>
-                    <property name="borderBottomWidth">thin</property>
-                    <property name="borderLeftColor">#000000</property>
-                    <property name="borderLeftStyle">solid</property>
-                    <property name="borderLeftWidth">thin</property>
-                    <property name="borderRightColor">#000000</property>
-                    <property name="borderRightStyle">solid</property>
-                    <property name="borderRightWidth">thin</property>
-                    <property name="borderTopColor">#000000</property>
-                    <property name="borderTopStyle">solid</property>
-                    <property name="borderTopWidth">thin</property>
-                    <data id="1281">
-                        <property name="dataSet">dataDetail</property>
-                        <list-property name="boundDataColumns">
-                            <structure>
-                                <property name="name">applyuser</property>
-                                <text-property name="displayName">applyuser</text-property>
-                                <expression name="expression" type="javascript">dataSetRow["applyuser"]</expression>
-                                <property name="dataType">string</property>
-                            </structure>
-                        </list-property>
-                        <property name="resultSetColumn">applyuser</property>
-                    </data>
-                </cell>
-            </row>
-            <row id="1161">
-                <property name="height">0.33in</property>
-                <cell id="1162">
-                    <property name="colSpan">6</property>
-                    <property name="rowSpan">1</property>
-                    <property name="borderBottomColor">#000000</property>
-                    <property name="borderBottomStyle">solid</property>
-                    <property name="borderBottomWidth">thin</property>
-                    <property name="borderLeftColor">#000000</property>
-                    <property name="borderLeftStyle">solid</property>
-                    <property name="borderLeftWidth">thin</property>
-                    <property name="borderRightColor">#000000</property>
-                    <property name="borderRightStyle">solid</property>
-                    <property name="borderRightWidth">thin</property>
-                    <property name="borderTopColor">#000000</property>
-                    <property name="borderTopStyle">solid</property>
-                    <property name="borderTopWidth">thin</property>
-                    <text id="1168">
-                        <property name="marginLeft">250pt</property>
-                        <property name="marginRight">230pt</property>
-                        <property name="contentType">auto</property>
-                        <text-property name="content"><![CDATA[出货内容]]></text-property>
-                    </text>
-                </cell>
-            </row>
-        </grid>
-        <table id="1133">
+        <table id="1381">
             <property name="borderBottomStyle">solid</property>
             <property name="borderBottomWidth">thin</property>
             <property name="borderLeftStyle">solid</property>
@@ -3381,284 +2323,224 @@ currentRow = 0;]]></method>
             <property name="borderRightWidth">thin</property>
             <property name="borderTopStyle">solid</property>
             <property name="borderTopWidth">thin</property>
-            <property name="width">7.7in</property>
+            <property name="width">7.697916666666667in</property>
             <property name="dataSet">dataDetail</property>
             <list-property name="boundDataColumns">
                 <structure>
-                    <property name="name">cusno</property>
-                    <text-property name="displayName">cusno</text-property>
-                    <expression name="expression" type="javascript">dataSetRow["cusno"]</expression>
+                    <property name="name">recitnbr</property>
+                    <text-property name="displayName">recitnbr</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["recitnbr"]</expression>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
-                    <property name="name">itnbr</property>
-                    <text-property name="displayName">itnbr</text-property>
-                    <expression name="expression" type="javascript">dataSetRow["itnbr"]</expression>
+                    <property name="name">recitdsc</property>
+                    <text-property name="displayName">recitdsc</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["recitdsc"]</expression>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
-                    <property name="name">itdsc</property>
-                    <text-property name="displayName">itdsc</text-property>
-                    <expression name="expression" type="javascript">dataSetRow["itdsc"]</expression>
+                    <property name="name">yyjb</property>
+                    <text-property name="displayName">yyjb</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["yyjb"]</expression>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
-                    <property name="name">cdrno</property>
-                    <text-property name="displayName">cdrno</text-property>
-                    <expression name="expression" type="javascript">dataSetRow["cdrno"]</expression>
+                    <property name="name">yymark</property>
+                    <text-property name="displayName">yymark</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["yymark"]</expression>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
-                    <property name="name">model</property>
-                    <text-property name="displayName">model</text-property>
-                    <expression name="expression" type="javascript">dataSetRow["model"]</expression>
+                    <property name="name">unit</property>
+                    <text-property name="displayName">unit</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["unit"]</expression>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
-                    <property name="name">qty</property>
-                    <text-property name="displayName">qty</text-property>
-                    <expression name="expression" type="javascript">dataSetRow["qty"]</expression>
+                    <property name="name">retqty</property>
+                    <text-property name="displayName">retqty</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["retqty"]</expression>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
-                    <property name="name">createno</property>
-                    <text-property name="displayName">createno</text-property>
-                    <expression name="expression" type="javascript">dataSetRow["createno"]</expression>
+                    <property name="name">retitdsc</property>
+                    <text-property name="displayName">retitdsc</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["retitdsc"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">retitnbr</property>
+                    <text-property name="displayName">retitnbr</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["retitnbr"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">recqty</property>
+                    <text-property name="displayName">recqty</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["recqty"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">dhno</property>
+                    <text-property name="displayName">dhno</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["dhno"]</expression>
                     <property name="dataType">string</property>
                 </structure>
             </list-property>
-            <column id="1155">
-                <property name="width">1.5520833333333333in</property>
+            <column id="1421">
+                <property name="width">0.5729166666666666in</property>
             </column>
-            <column id="1156">
-                <property name="width">1.375in</property>
+            <column id="1422">
+                <property name="width">0.4895833333333333in</property>
             </column>
-            <column id="1157">
-                <property name="width">1.2604166666666667in</property>
+            <column id="1423">
+                <property name="width">0.4166666666666667in</property>
             </column>
-            <column id="1158">
-                <property name="width">1.8020833333333333in</property>
+            <column id="1424">
+                <property name="width">0.4895833333333333in</property>
             </column>
-            <column id="1159"/>
-            <column id="1160">
-                <property name="width">1.1666666666666667in</property>
+            <column id="1425">
+                <property name="width">0.8229166666666666in</property>
+            </column>
+            <column id="1426">
+                <property name="width">1.15625in</property>
+            </column>
+            <column id="1427">
+                <property name="width">0.5in</property>
+            </column>
+            <column id="1428">
+                <property name="width">0.8541666666666666in</property>
+            </column>
+            <column id="1429">
+                <property name="width">0.5104166666666666in</property>
+            </column>
+            <column id="1430">
+                <property name="width">0.6458333333333334in</property>
+            </column>
+            <column id="1431">
+                <property name="width">0.5in</property>
+            </column>
+            <column id="1432">
+                <property name="width">0.7395833333333334in</property>
             </column>
             <header>
-                <row id="1134">
-                    <property name="height">0.3in</property>
-                    <cell id="1135">
-                        <property name="borderBottomColor">#000000</property>
-                        <property name="borderBottomStyle">solid</property>
-                        <property name="borderBottomWidth">thin</property>
-                        <property name="borderLeftColor">#000000</property>
-                        <property name="borderLeftStyle">solid</property>
-                        <property name="borderLeftWidth">thin</property>
-                        <property name="borderRightColor">#000000</property>
-                        <property name="borderRightStyle">solid</property>
-                        <property name="borderRightWidth">thin</property>
-                        <property name="borderTopColor">#000000</property>
-                        <property name="borderTopStyle">solid</property>
-                        <property name="borderTopWidth">thin</property>
-                        <text id="1169">
-                            <property name="contentType">auto</property>
-                            <text-property name="content"><![CDATA[客诉单号/订单号]]></text-property>
-                        </text>
+                <row id="1382">
+                    <property name="height">0.4in</property>
+                    <cell id="1383">
+                        <label id="1433">
+                            <text-property name="text">领料品号</text-property>
+                        </label>
                     </cell>
-                    <cell id="1136">
-                        <property name="borderBottomColor">#000000</property>
-                        <property name="borderBottomStyle">solid</property>
-                        <property name="borderBottomWidth">thin</property>
-                        <property name="borderLeftColor">#000000</property>
-                        <property name="borderLeftStyle">solid</property>
-                        <property name="borderLeftWidth">thin</property>
-                        <property name="borderRightColor">#000000</property>
-                        <property name="borderRightStyle">solid</property>
-                        <property name="borderRightWidth">thin</property>
-                        <property name="borderTopColor">#000000</property>
-                        <property name="borderTopStyle">solid</property>
-                        <property name="borderTopWidth">thin</property>
-                        <text id="1170">
-                            <property name="contentType">auto</property>
-                            <text-property name="content"><![CDATA[件号]]></text-property>
-                        </text>
+                    <cell id="1384">
+                        <label id="1434">
+                            <text-property name="text">领料品名</text-property>
+                        </label>
                     </cell>
-                    <cell id="1137">
-                        <property name="borderBottomColor">#000000</property>
-                        <property name="borderBottomStyle">solid</property>
-                        <property name="borderBottomWidth">thin</property>
-                        <property name="borderLeftColor">#000000</property>
-                        <property name="borderLeftStyle">solid</property>
-                        <property name="borderLeftWidth">thin</property>
-                        <property name="borderRightColor">#000000</property>
-                        <property name="borderRightStyle">solid</property>
-                        <property name="borderRightWidth">thin</property>
-                        <property name="borderTopColor">#000000</property>
-                        <property name="borderTopStyle">solid</property>
-                        <property name="borderTopWidth">thin</property>
-                        <text id="1171">
-                            <property name="contentType">auto</property>
-                            <text-property name="content"><![CDATA[机型]]></text-property>
-                        </text>
+                    <cell id="1385">
+                        <label id="1435">
+                            <text-property name="text">领料数量</text-property>
+                        </label>
                     </cell>
-                    <cell id="1138">
-                        <property name="borderBottomColor">#000000</property>
-                        <property name="borderBottomStyle">solid</property>
-                        <property name="borderBottomWidth">thin</property>
-                        <property name="borderLeftColor">#000000</property>
-                        <property name="borderLeftStyle">solid</property>
-                        <property name="borderLeftWidth">thin</property>
-                        <property name="borderRightColor">#000000</property>
-                        <property name="borderRightStyle">solid</property>
-                        <property name="borderRightWidth">thin</property>
-                        <property name="borderTopColor">#000000</property>
-                        <property name="borderTopStyle">solid</property>
-                        <property name="borderTopWidth">thin</property>
-                        <text id="1172">
-                            <property name="contentType">auto</property>
-                            <text-property name="content"><![CDATA[品名]]></text-property>
-                        </text>
+                    <cell id="1386">
+                        <label id="1436">
+                            <text-property name="text">单位</text-property>
+                        </label>
                     </cell>
-                    <cell id="1139">
-                        <property name="borderBottomColor">#000000</property>
-                        <property name="borderBottomStyle">solid</property>
-                        <property name="borderBottomWidth">thin</property>
-                        <property name="borderLeftColor">#000000</property>
-                        <property name="borderLeftStyle">solid</property>
-                        <property name="borderLeftWidth">thin</property>
-                        <property name="borderRightColor">#000000</property>
-                        <property name="borderRightStyle">solid</property>
-                        <property name="borderRightWidth">thin</property>
-                        <property name="borderTopColor">#000000</property>
-                        <property name="borderTopStyle">solid</property>
-                        <property name="borderTopWidth">thin</property>
-                        <text id="1173">
-                            <property name="contentType">auto</property>
-                            <text-property name="content"><![CDATA[数量]]></text-property>
-                        </text>
+                    <cell id="1387">
+                        <label id="1437">
+                            <text-property name="text">退料品号</text-property>
+                        </label>
                     </cell>
-                    <cell id="1140">
-                        <property name="borderBottomColor">#000000</property>
-                        <property name="borderBottomStyle">solid</property>
-                        <property name="borderBottomWidth">thin</property>
-                        <property name="borderLeftColor">#000000</property>
-                        <property name="borderLeftStyle">solid</property>
-                        <property name="borderLeftWidth">thin</property>
-                        <property name="borderRightColor">#000000</property>
-                        <property name="borderRightStyle">solid</property>
-                        <property name="borderRightWidth">thin</property>
-                        <property name="borderTopColor">#000000</property>
-                        <property name="borderTopStyle">solid</property>
-                        <property name="borderTopWidth">thin</property>
-                        <text id="1174">
-                            <property name="contentType">auto</property>
-                            <text-property name="content"><![CDATA[制造号码]]></text-property>
-                        </text>
+                    <cell id="1388">
+                        <label id="1438">
+                            <text-property name="text">退料品名</text-property>
+                        </label>
+                    </cell>
+                    <cell id="1389">
+                        <label id="1439">
+                            <text-property name="text">退料数量</text-property>
+                        </label>
+                    </cell>
+                    <cell id="1390">
+                        <label id="1440">
+                            <text-property name="text">出货单号</text-property>
+                        </label>
+                    </cell>
+                    <cell id="1391">
+                        <label id="1441">
+                            <text-property name="text">原因鉴别</text-property>
+                        </label>
+                    </cell>
+                    <cell id="1392">
+                        <label id="1442">
+                            <text-property name="text">单号</text-property>
+                        </label>
+                    </cell>
+                    <cell id="1393">
+                        <label id="1443">
+                            <text-property name="text">退库类型</text-property>
+                        </label>
+                    </cell>
+                    <cell id="1394">
+                        <label id="1444">
+                            <text-property name="text">原因备注</text-property>
+                        </label>
                     </cell>
                 </row>
             </header>
             <detail>
-                <row id="1141">
-                    <property name="height">0.3in</property>
-                    <cell id="1142">
-                        <property name="borderBottomColor">#000000</property>
-                        <property name="borderBottomStyle">solid</property>
-                        <property name="borderBottomWidth">thin</property>
-                        <property name="borderLeftColor">#000000</property>
-                        <property name="borderLeftStyle">solid</property>
-                        <property name="borderLeftWidth">thin</property>
-                        <property name="borderRightColor">#000000</property>
-                        <property name="borderRightStyle">solid</property>
-                        <property name="borderRightWidth">thin</property>
-                        <property name="borderTopColor">#000000</property>
-                        <property name="borderTopStyle">solid</property>
-                        <property name="borderTopWidth">thin</property>
-                        <data id="1262">
-                            <property name="resultSetColumn">cdrno</property>
+                <row id="1395">
+                    <property name="height">0.6875in</property>
+                    <cell id="1396">
+                        <data id="1463">
+                            <property name="resultSetColumn">recitnbr</property>
                         </data>
                     </cell>
-                    <cell id="1143">
-                        <property name="borderBottomColor">#000000</property>
-                        <property name="borderBottomStyle">solid</property>
-                        <property name="borderBottomWidth">thin</property>
-                        <property name="borderLeftColor">#000000</property>
-                        <property name="borderLeftStyle">solid</property>
-                        <property name="borderLeftWidth">thin</property>
-                        <property name="borderRightColor">#000000</property>
-                        <property name="borderRightStyle">solid</property>
-                        <property name="borderRightWidth">thin</property>
-                        <property name="borderTopColor">#000000</property>
-                        <property name="borderTopStyle">solid</property>
-                        <property name="borderTopWidth">thin</property>
-                        <data id="1260">
-                            <property name="resultSetColumn">itnbr</property>
+                    <cell id="1397">
+                        <data id="1464">
+                            <property name="resultSetColumn">recitdsc</property>
                         </data>
                     </cell>
-                    <cell id="1144">
-                        <property name="borderBottomColor">#000000</property>
-                        <property name="borderBottomStyle">solid</property>
-                        <property name="borderBottomWidth">thin</property>
-                        <property name="borderLeftColor">#000000</property>
-                        <property name="borderLeftStyle">solid</property>
-                        <property name="borderLeftWidth">thin</property>
-                        <property name="borderRightColor">#000000</property>
-                        <property name="borderRightStyle">solid</property>
-                        <property name="borderRightWidth">thin</property>
-                        <property name="borderTopColor">#000000</property>
-                        <property name="borderTopStyle">solid</property>
-                        <property name="borderTopWidth">thin</property>
-                        <data id="1263">
-                            <property name="resultSetColumn">model</property>
+                    <cell id="1398">
+                        <data id="1471">
+                            <property name="resultSetColumn">recqty</property>
                         </data>
                     </cell>
-                    <cell id="1145">
-                        <property name="borderBottomColor">#000000</property>
-                        <property name="borderBottomStyle">solid</property>
-                        <property name="borderBottomWidth">thin</property>
-                        <property name="borderLeftColor">#000000</property>
-                        <property name="borderLeftStyle">solid</property>
-                        <property name="borderLeftWidth">thin</property>
-                        <property name="borderRightColor">#000000</property>
-                        <property name="borderRightStyle">solid</property>
-                        <property name="borderRightWidth">thin</property>
-                        <property name="borderTopColor">#000000</property>
-                        <property name="borderTopStyle">solid</property>
-                        <property name="borderTopWidth">thin</property>
-                        <data id="1261">
-                            <property name="resultSetColumn">itdsc</property>
+                    <cell id="1399">
+                        <data id="1467">
+                            <property name="resultSetColumn">unit</property>
                         </data>
                     </cell>
-                    <cell id="1146">
-                        <property name="borderBottomColor">#000000</property>
-                        <property name="borderBottomStyle">solid</property>
-                        <property name="borderBottomWidth">thin</property>
-                        <property name="borderLeftColor">#000000</property>
-                        <property name="borderLeftStyle">solid</property>
-                        <property name="borderLeftWidth">thin</property>
-                        <property name="borderRightColor">#000000</property>
-                        <property name="borderRightStyle">solid</property>
-                        <property name="borderRightWidth">thin</property>
-                        <property name="borderTopColor">#000000</property>
-                        <property name="borderTopStyle">solid</property>
-                        <property name="borderTopWidth">thin</property>
-                        <data id="1264">
-                            <property name="resultSetColumn">qty</property>
+                    <cell id="1400">
+                        <data id="1470">
+                            <property name="resultSetColumn">retitnbr</property>
                         </data>
                     </cell>
-                    <cell id="1147">
-                        <property name="borderBottomColor">#000000</property>
-                        <property name="borderBottomStyle">solid</property>
-                        <property name="borderBottomWidth">thin</property>
-                        <property name="borderLeftColor">#000000</property>
-                        <property name="borderLeftStyle">solid</property>
-                        <property name="borderLeftWidth">thin</property>
-                        <property name="borderRightColor">#000000</property>
-                        <property name="borderRightStyle">solid</property>
-                        <property name="borderRightWidth">thin</property>
-                        <property name="borderTopColor">#000000</property>
-                        <property name="borderTopStyle">solid</property>
-                        <property name="borderTopWidth">thin</property>
-                        <data id="1265">
-                            <property name="resultSetColumn">createno</property>
+                    <cell id="1401">
+                        <data id="1469">
+                            <property name="resultSetColumn">retitdsc</property>
+                        </data>
+                    </cell>
+                    <cell id="1402">
+                        <data id="1468">
+                            <property name="resultSetColumn">retqty</property>
+                        </data>
+                    </cell>
+                    <cell id="1403"/>
+                    <cell id="1404">
+                        <data id="1465">
+                            <property name="resultSetColumn">yyjb</property>
+                        </data>
+                    </cell>
+                    <cell id="1405">
+                        <data id="1472">
+                            <property name="resultSetColumn">dhno</property>
+                        </data>
+                    </cell>
+                    <cell id="1406"/>
+                    <cell id="1407">
+                        <data id="1466">
+                            <property name="resultSetColumn">yymark</property>
                         </data>
                     </cell>
                 </row>
