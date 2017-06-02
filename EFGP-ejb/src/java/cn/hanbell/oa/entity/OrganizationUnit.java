@@ -10,6 +10,8 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -29,7 +31,6 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "OrganizationUnit.findByOID", query = "SELECT o FROM OrganizationUnit o WHERE o.oid = :oid"),
     @NamedQuery(name = "OrganizationUnit.findById", query = "SELECT o FROM OrganizationUnit o WHERE o.id = :id"),
     @NamedQuery(name = "OrganizationUnit.findByOrganizationUnitName", query = "SELECT o FROM OrganizationUnit o WHERE o.organizationUnitName = :organizationUnitName"),
-    @NamedQuery(name = "OrganizationUnit.findByManagerOID", query = "SELECT o FROM OrganizationUnit o WHERE o.managerOID = :managerOID"),
     @NamedQuery(name = "OrganizationUnit.findBySuperUnitOID", query = "SELECT o FROM OrganizationUnit o WHERE o.superUnitOID = :superUnitOID"),
     @NamedQuery(name = "OrganizationUnit.findByObjectVersion", query = "SELECT o FROM OrganizationUnit o WHERE o.objectVersion = :objectVersion"),
     @NamedQuery(name = "OrganizationUnit.findByOrganizationUnitType", query = "SELECT o FROM OrganizationUnit o WHERE o.organizationUnitType = :organizationUnitType"),
@@ -55,9 +56,11 @@ public class OrganizationUnit implements Serializable {
     @Size(min = 1, max = 100)
     @Column(name = "organizationUnitName")
     private String organizationUnitName;
-    @Size(max = 32)
-    @Column(name = "managerOID")
-    private String managerOID;
+
+    @JoinColumn(name = "managerOID", referencedColumnName = "OID")
+    @ManyToOne
+    private Users manager;
+
     @Size(max = 32)
     @Column(name = "superUnitOID")
     private String superUnitOID;
@@ -123,12 +126,12 @@ public class OrganizationUnit implements Serializable {
         this.organizationUnitName = organizationUnitName;
     }
 
-    public String getManagerOID() {
-        return managerOID;
+    public Users getManager() {
+        return manager;
     }
 
-    public void setManagerOID(String managerOID) {
-        this.managerOID = managerOID;
+    public void setManager(Users manager) {
+        this.manager = manager;
     }
 
     public String getSuperUnitOID() {
@@ -203,5 +206,5 @@ public class OrganizationUnit implements Serializable {
     public String toString() {
         return "com.hanbell.oa.entity.OrganizationUnit[ oid=" + oid + " ]";
     }
-    
+
 }

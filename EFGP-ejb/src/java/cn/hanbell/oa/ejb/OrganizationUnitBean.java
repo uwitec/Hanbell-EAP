@@ -21,5 +21,5 @@ public class OrganizationUnitBean extends SuperEJBForEFGP<OrganizationUnit> {
     public OrganizationUnitBean() {
         super(OrganizationUnit.class);
     }
-    
+
 }
