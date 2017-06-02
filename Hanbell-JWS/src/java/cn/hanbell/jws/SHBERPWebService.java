@@ -428,6 +428,21 @@ public class SHBERPWebService {
         }
     }
 
+    @WebMethod(operationName = "createSECGPRGByOAERPQXSQ")
+    public String createSECGPRGByOAERPQXSQ(@WebParam(name = "psn") String psn) {
+        Boolean ret = false;
+        try {
+            ret = secgprgBean.initSECGPRG(psn);
+        } catch (Exception ex) {
+            Logger.getLogger(SHBERPWebService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (ret) {
+            return "200";
+        } else {
+            return "404";
+        }
+    }
+
     @WebMethod(operationName = "createINV310ByOAHKFW006INV310")
     public String createINV310ByOAHKFW006INV310(@WebParam(name = "psn") String psn) {
         Boolean ret = false;
@@ -460,6 +475,21 @@ public class SHBERPWebService {
 
     @WebMethod(operationName = "initAmLYByOAZCSQD")
     public String initAmLYByOAZCSQD(@WebParam(name = "psn") String psn) {
+        Boolean ret = false;
+        try {
+            ret = amTbAssetApplyHadBean.initByOAZCSQD(psn);
+        } catch (Exception ex) {
+            Logger.getLogger(SHBERPWebService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (ret) {
+            return "200";
+        } else {
+            return "404";
+        }
+    }
+
+    @WebMethod(operationName = "createAMLYByOAZCSQD")
+    public String createAMLYByOAZCSQD(@WebParam(name = "psn") String psn) {
         Boolean ret = false;
         try {
             ret = amTbAssetApplyHadBean.initByOAZCSQD(psn);

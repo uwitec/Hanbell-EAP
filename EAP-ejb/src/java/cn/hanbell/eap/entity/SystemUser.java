@@ -27,7 +27,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "systemuser")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "SystemUser.findAll", query = "SELECT s FROM SystemUser s"),
+    @NamedQuery(name = "SystemUser.getRowCount", query = "SELECT COUNT(s) FROM SystemUser s"),
+    @NamedQuery(name = "SystemUser.findAll", query = "SELECT s FROM SystemUser s ORDER BY s.userid"),
     @NamedQuery(name = "SystemUser.findById", query = "SELECT s FROM SystemUser s WHERE s.id = :id"),
     @NamedQuery(name = "SystemUser.findByUserId", query = "SELECT s FROM SystemUser s WHERE s.userid = :userid"),
     @NamedQuery(name = "SystemUser.findByUsername", query = "SELECT s FROM SystemUser s WHERE s.username = :username"),
