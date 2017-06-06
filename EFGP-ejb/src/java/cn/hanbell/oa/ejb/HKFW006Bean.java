@@ -32,6 +32,8 @@ public class HKFW006Bean extends SuperEJBForEFGP<HKFW006> {
     @EJB
     private REPTDBean reptdBean;
 
+    private List<HKFW006Detail> detailList;
+
     public HKFW006Bean() {
         super(HKFW006.class);
     }
@@ -73,4 +75,22 @@ public class HKFW006Bean extends SuperEJBForEFGP<HKFW006> {
         }
     }
 
+    @Override
+    public void setDetail(Object value) {
+        this.detailList = hkfw006DetailBean.findByFSN(value); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    /**
+     * @return the detailList
+     */
+    public List<HKFW006Detail> getDetailList() {
+        return detailList;
+    }
+
+    /**
+     * @param detailList the detailList to set
+     */
+    public void setDetailList(List<HKFW006Detail> detailList) {
+        this.detailList = detailList;
+    }
 }
