@@ -11,6 +11,8 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -88,6 +90,24 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "HKFW006.findByHdyyjb", query = "SELECT h FROM HKFW006 h WHERE h.hdyyjb = :hdyyjb")})
 public class HKFW006 implements Serializable {
 
+    @JoinColumn(name = "applyuser", referencedColumnName = "id", insertable = false, updatable = false)
+    @ManyToOne(optional = true)
+    private Users applyUser;
+    @JoinColumn(name = "applydept", referencedColumnName = "id", insertable = false, updatable = false)
+    @ManyToOne(optional = true)
+    private OrganizationUnit applyDept;
+    @JoinColumn(name = "supportuser", referencedColumnName = "id", insertable = false, updatable = false)
+    @ManyToOne(optional = true)
+    private Users supportUser;
+    @JoinColumn(name = "supportdept", referencedColumnName = "id", insertable = false, updatable = false)
+    @ManyToOne(optional = true)
+    private OrganizationUnit supportDept;
+    @Size(max = 255)
+    @Column(name = "hdcptype")
+    private String hdcptype;
+    @Size(max = 255)
+    @Column(name = "hdfacno")
+    private String hdfacno;
     @Size(max = 255)
     @Column(name = "hdTC001")
     private String hdTC001;
@@ -815,6 +835,54 @@ public class HKFW006 implements Serializable {
 
     public void setHdTD003(String hdTD003) {
         this.hdTD003 = hdTD003;
+    }
+
+    public String getHdcptype() {
+        return hdcptype;
+    }
+
+    public void setHdcptype(String hdcptype) {
+        this.hdcptype = hdcptype;
+    }
+
+    public String getHdfacno() {
+        return hdfacno;
+    }
+
+    public void setHdfacno(String hdfacno) {
+        this.hdfacno = hdfacno;
+    }
+
+    public Users getApplyUser() {
+        return applyUser;
+    }
+
+    public void setApplyUser(Users applyUser) {
+        this.applyUser = applyUser;
+    }
+
+    public OrganizationUnit getApplyDept() {
+        return applyDept;
+    }
+
+    public void setApplyDept(OrganizationUnit applyDept) {
+        this.applyDept = applyDept;
+    }
+
+    public Users getSupportUser() {
+        return supportUser;
+    }
+
+    public void setSupportUser(Users supportUser) {
+        this.supportUser = supportUser;
+    }
+
+    public OrganizationUnit getSupportDept() {
+        return supportDept;
+    }
+
+    public void setSupportDept(OrganizationUnit supportDept) {
+        this.supportDept = supportDept;
     }
 
 }
