@@ -7,6 +7,10 @@ package cn.hanbell.oa.ejb;
 
 import cn.hanbell.oa.comm.SuperEJBForEFGP;
 import cn.hanbell.oa.entity.HZJS034;
+import cn.hanbell.oa.entity.HZJS034Detail;
+import java.util.ArrayList;
+import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 
@@ -16,10 +20,26 @@ import javax.ejb.LocalBean;
  */
 @Stateless
 @LocalBean
-public class HZJS034Bean extends SuperEJBForEFGP<HZJS034>{
+public class HZJS034Bean extends SuperEJBForEFGP<HZJS034> {
 
-    public HZJS034Bean(){
+    @EJB
+    private HZJS034DetailBean hzjs034DetailBean;
+    private List<HZJS034Detail> detailList;
+
+    public HZJS034Bean() {
         super(HZJS034.class);
     }
+
+    public void setDetail(String fsn) {
+        detailList = hzjs034DetailBean.findByFSN(fsn);
+        if (detailList == null) {
+            detailList = new ArrayList<>();
+        }
+    }
+
+    public List<HZJS034Detail> getDetailList() {
+        return detailList;
+    }
+    
     
 }
