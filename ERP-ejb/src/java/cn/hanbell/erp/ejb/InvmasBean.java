@@ -234,9 +234,10 @@ public class InvmasBean extends SuperEJBForERP<Invmas> {
                 m.setIndate(BaseLib.getDate());
                 m.setUserno(h.getApplyuser());
                 this.getEntityManager().detach(m);
-                setCompany(h.getFacno2());
+                invclsBean.setCompany(h.getFacno2());
                 Invcls c = invclsBean.findByItcls(detail.getItcls());
                 m.setItclscode(c.getItclscode());
+                setCompany(h.getFacno2());
                 persist(m);
                 this.getEntityManager().flush();
             }
