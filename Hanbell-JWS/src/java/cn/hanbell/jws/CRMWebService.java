@@ -98,19 +98,4 @@ public class CRMWebService {
         }
     }
 
-    @WebMethod(operationName = "createCRMWARMBByOAJHSQD")
-    public String createCRMWARMBByOAJHSQD(@WebParam(name = "psn") String psn) {
-        Boolean ret = false;
-        try {
-            ret = hzjs034DetailBean.createCRMWARMBByOAJHSQD(psn);
-        } catch (Exception ex) {
-            Logger.getLogger(CRMWebService.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        if (ret) {
-            return "200";
-        } else {
-            return "404";
-        }
-    }
-
 }

@@ -26,40 +26,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "HKCG007purDetail.findAll", query = "SELECT h FROM HKCG007purDetail h"),
-    @NamedQuery(name = "HKCG007purDetail.findByOid", query = "SELECT h FROM HKCG007purDetail h WHERE h.oid = :oid"),
-    @NamedQuery(name = "HKCG007purDetail.findByRqtdateTxt", query = "SELECT h FROM HKCG007purDetail h WHERE h.rqtdateTxt = :rqtdateTxt"),
-    @NamedQuery(name = "HKCG007purDetail.findByBudgetaccname", query = "SELECT h FROM HKCG007purDetail h WHERE h.budgetaccname = :budgetaccname"),
-    @NamedQuery(name = "HKCG007purDetail.findByCtaxamts", query = "SELECT h FROM HKCG007purDetail h WHERE h.ctaxamts = :ctaxamts"),
-    @NamedQuery(name = "HKCG007purDetail.findByAppunit", query = "SELECT h FROM HKCG007purDetail h WHERE h.appunit = :appunit"),
-    @NamedQuery(name = "HKCG007purDetail.findByBudgetacc", query = "SELECT h FROM HKCG007purDetail h WHERE h.budgetacc = :budgetacc"),
-    @NamedQuery(name = "HKCG007purDetail.findByTaxrate", query = "SELECT h FROM HKCG007purDetail h WHERE h.taxrate = :taxrate"),
-    @NamedQuery(name = "HKCG007purDetail.findBySpdsc", query = "SELECT h FROM HKCG007purDetail h WHERE h.spdsc = :spdsc"),
-    @NamedQuery(name = "HKCG007purDetail.findByAccPeriod", query = "SELECT h FROM HKCG007purDetail h WHERE h.accPeriod = :accPeriod"),
-    @NamedQuery(name = "HKCG007purDetail.findByDmark1", query = "SELECT h FROM HKCG007purDetail h WHERE h.dmark1 = :dmark1"),
-    @NamedQuery(name = "HKCG007purDetail.findByDmark2", query = "SELECT h FROM HKCG007purDetail h WHERE h.dmark2 = :dmark2"),
-    @NamedQuery(name = "HKCG007purDetail.findByAccYear", query = "SELECT h FROM HKCG007purDetail h WHERE h.accYear = :accYear"),
-    @NamedQuery(name = "HKCG007purDetail.findByEmgyn", query = "SELECT h FROM HKCG007purDetail h WHERE h.emgyn = :emgyn"),
-    @NamedQuery(name = "HKCG007purDetail.findByDmark1name", query = "SELECT h FROM HKCG007purDetail h WHERE h.dmark1name = :dmark1name"),
-    @NamedQuery(name = "HKCG007purDetail.findByBuyer", query = "SELECT h FROM HKCG007purDetail h WHERE h.buyer = :buyer"),
-    @NamedQuery(name = "HKCG007purDetail.findByAskdateTxt", query = "SELECT h FROM HKCG007purDetail h WHERE h.askdateTxt = :askdateTxt"),
-    @NamedQuery(name = "HKCG007purDetail.findByItnbr", query = "SELECT h FROM HKCG007purDetail h WHERE h.itnbr = :itnbr"),
-    @NamedQuery(name = "HKCG007purDetail.findByApamts", query = "SELECT h FROM HKCG007purDetail h WHERE h.apamts = :apamts"),
-    @NamedQuery(name = "HKCG007purDetail.findByCtramts", query = "SELECT h FROM HKCG007purDetail h WHERE h.ctramts = :ctramts"),
-    @NamedQuery(name = "HKCG007purDetail.findByCtotamts", query = "SELECT h FROM HKCG007purDetail h WHERE h.ctotamts = :ctotamts"),
-    @NamedQuery(name = "HKCG007purDetail.findByPosrccode", query = "SELECT h FROM HKCG007purDetail h WHERE h.posrccode = :posrccode"),
-    @NamedQuery(name = "HKCG007purDetail.findByItdsc", query = "SELECT h FROM HKCG007purDetail h WHERE h.itdsc = :itdsc"),
-    @NamedQuery(name = "HKCG007purDetail.findByPrqy1", query = "SELECT h FROM HKCG007purDetail h WHERE h.prqy1 = :prqy1"),
-    @NamedQuery(name = "HKCG007purDetail.findByTax", query = "SELECT h FROM HKCG007purDetail h WHERE h.tax = :tax"),
-    @NamedQuery(name = "HKCG007purDetail.findByUnpris", query = "SELECT h FROM HKCG007purDetail h WHERE h.unpris = :unpris"),
-    @NamedQuery(name = "HKCG007purDetail.findBySeq", query = "SELECT h FROM HKCG007purDetail h WHERE h.seq = :seq"),
-    @NamedQuery(name = "HKCG007purDetail.findByDmark2name", query = "SELECT h FROM HKCG007purDetail h WHERE h.dmark2name = :dmark2name"),
-    @NamedQuery(name = "HKCG007purDetail.findByPurdaskdescs", query = "SELECT h FROM HKCG007purDetail h WHERE h.purdaskdescs = :purdaskdescs"),
-    @NamedQuery(name = "HKCG007purDetail.findByVdrno", query = "SELECT h FROM HKCG007purDetail h WHERE h.vdrno = :vdrno"),
-    @NamedQuery(name = "HKCG007purDetail.findByQtotamts", query = "SELECT h FROM HKCG007purDetail h WHERE h.qtotamts = :qtotamts"),
-    @NamedQuery(name = "HKCG007purDetail.findByFSN", query = "SELECT h FROM HKCG007purDetail h WHERE h.formSerialNumber = :fsn"),
-    @NamedQuery(name = "HKCG007purDetail.findByAddcode", query = "SELECT h FROM HKCG007purDetail h WHERE h.addcode = :addcode"),
-    @NamedQuery(name = "HKCG007purDetail.findByVdrna", query = "SELECT h FROM HKCG007purDetail h WHERE h.vdrna = :vdrna"),
-    @NamedQuery(name = "HKCG007purDetail.findByBuyername", query = "SELECT h FROM HKCG007purDetail h WHERE h.buyername = :buyername")})
+    @NamedQuery(name = "HKCG007purDetail.findByOID", query = "SELECT h FROM HKCG007purDetail h WHERE h.oid = :oid"),
+    @NamedQuery(name = "HKCG007purDetail.findByFSN", query = "SELECT h FROM HKCG007purDetail h WHERE h.formSerialNumber = :fsn")})
 public class HKCG007purDetail implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -472,5 +440,5 @@ public class HKCG007purDetail implements Serializable {
     public String toString() {
         return "cn.hanbell.oa.entity.HKCG007purDetail[ oid=" + oid + " ]";
     }
-    
+
 }
