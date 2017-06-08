@@ -159,10 +159,14 @@ public class SERI12Bean extends SuperEJBForEFGP<SERI12> {
         serbqBean.update(BQ);
 
         List<SERI12grid1SERI12> detail1 = seri12grid1seri12Bean.findByFSN(h.getFormSerialNumber());
-        for (int i = 0; i < detail1.size(); i++) {
+        for (int i = 1; (i-1) < detail1.size(); i++) {
             SERBR BR;
-            String a;
-            a = i + "";
+            String a = "0001";
+            if (i< 10){
+            a = "000" + i;
+            }else{
+              a = "00" + i;  
+            }
             BR = serbrBean.findByPK(BQ001, a);
             BR.setBr007(BQ035);
             serbrBean.update(BR);

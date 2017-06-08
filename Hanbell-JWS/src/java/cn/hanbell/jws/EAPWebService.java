@@ -72,7 +72,7 @@ public class EAPWebService {
 
     @EJB
     private WARMBBean warmbBean;
-    
+
     @EJB
     private SERI12Bean seri12Bean;
 
@@ -128,8 +128,8 @@ public class EAPWebService {
                 m.setMb050("Y");                                                //设置需核销
                 invclswahBean.setCompany(h.getFacno());
                 Invclswah invclswah = invclswahBean.findByInvclswahPK(h.getFacno(), "1", detail.getItcls());
-                if(invclswah != null){
-                      m.setMb011(invclswah.getDefwah());
+                if (invclswah != null) {
+                    m.setMb011(invclswah.getDefwah());
                 }
                 m.setMb033(detail.getItnbr());
                 m.setMb057(BaseLib.formatDate("yyyyMMdd", BaseLib.getDate()));  //设置生效日期日期
@@ -264,8 +264,9 @@ public class EAPWebService {
             return "404";
         }
     }
-    @WebMethod(operationName = "upadteCRMSERBQByOASERI12")
-    public String upadteCRMSERBQByOASERI12(@WebParam(name = "psn") String psn) {
+
+    @WebMethod(operationName = "updateCRMSERBQByOASERI12")
+    public String updateCRMSERBQByOASERI12(@WebParam(name = "psn") String psn) {
         Boolean ret = false;
         try {
             ret = seri12Bean.updateSerbq(psn);

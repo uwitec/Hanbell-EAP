@@ -29,7 +29,8 @@ public class SERBRBean extends SuperEJBForCRM<SERBR> {
         pk.setBr001(Br001);
         pk.setBr002(Br002);
         Query query = getEntityManager().createNamedQuery("SERBR.findByPK");
-        query.setParameter("SERBRPK", pk);
+        query.setParameter("br001", Br001);
+        query.setParameter("br002", Br002);
         try {
             Object o = query.getSingleResult();
             return (SERBR) o;

@@ -32,6 +32,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "SERBR.findByModifier", query = "SELECT s FROM SERBR s WHERE s.modifier = :modifier"),
     @NamedQuery(name = "SERBR.findByModiDate", query = "SELECT s FROM SERBR s WHERE s.modiDate = :modiDate"),
     @NamedQuery(name = "SERBR.findByFlag", query = "SELECT s FROM SERBR s WHERE s.flag = :flag"),
+    @NamedQuery(name = "SERBR.findByPK", query = "SELECT s FROM SERBR s WHERE s.sERBRPK.br001 = :br001 and s.sERBRPK.br002 = :br002"),
     @NamedQuery(name = "SERBR.findByBr001", query = "SELECT s FROM SERBR s WHERE s.sERBRPK.br001 = :br001"),
     @NamedQuery(name = "SERBR.findByBr002", query = "SELECT s FROM SERBR s WHERE s.sERBRPK.br002 = :br002"),
     @NamedQuery(name = "SERBR.findByBr003", query = "SELECT s FROM SERBR s WHERE s.br003 = :br003"),
