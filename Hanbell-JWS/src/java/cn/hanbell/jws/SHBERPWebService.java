@@ -5,13 +5,17 @@
  */
 package cn.hanbell.jws;
 
+import cn.hanbell.erp.ejb.AmTbAssetApplyHadBean;
 import cn.hanbell.erp.ejb.ApmpayBean;
 import cn.hanbell.erp.ejb.BudgetDetailBean;
+import cn.hanbell.erp.ejb.CdrbrhadBean;
 import cn.hanbell.erp.ejb.CdrcusBean;
+import cn.hanbell.erp.ejb.InvhadBean;
 import cn.hanbell.erp.ejb.InvmasBean;
 import cn.hanbell.erp.ejb.PurhaskBean;
 import cn.hanbell.erp.ejb.PurvdrBean;
 import cn.hanbell.erp.ejb.SecgprgBean;
+import cn.hanbell.oa.ejb.HKCG007Bean;
 import cn.hanbell.oa.ejb.HZCW028Bean;
 import cn.hanbell.oa.ejb.HZCW033Bean;
 import java.util.logging.Level;
@@ -34,28 +38,32 @@ public class SHBERPWebService {
 
     @EJB
     private ApmpayBean apmpayBean;
-
     @EJB
     private CdrcusBean cdrcusBean;
-
     @EJB
     private PurvdrBean purvdrBean;
-
     @EJB
     private BudgetDetailBean budgetDetailBean;
-
     @EJB
     private InvmasBean invmasBean;
-
     @EJB
     private PurhaskBean purhaskBean;
     @EJB
     private HZCW028Bean hzcw028Bean;
     @EJB
     private HZCW033Bean hzcw033Bean;
-
     @EJB
     private SecgprgBean secgprgBean;
+    @EJB
+    private InvhadBean invhadBean;
+    @EJB
+    private CdrbrhadBean cdrbrhadBean;
+
+    @EJB
+    private AmTbAssetApplyHadBean amTbAssetApplyHadBean;
+
+    @EJB
+    private HKCG007Bean hkcg007Bean;
 
     @WebMethod(operationName = "hello")
     public String hello(@WebParam(name = "name") String txt) {
@@ -419,4 +427,95 @@ public class SHBERPWebService {
             return "404";
         }
     }
+
+    @WebMethod(operationName = "createSECGPRGByOAERPQXSQ")
+    public String createSECGPRGByOAERPQXSQ(@WebParam(name = "psn") String psn) {
+        Boolean ret = false;
+        try {
+            ret = secgprgBean.initSECGPRG(psn);
+        } catch (Exception ex) {
+            Logger.getLogger(SHBERPWebService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (ret) {
+            return "200";
+        } else {
+            return "404";
+        }
+    }
+
+    @WebMethod(operationName = "createINV310ByOAHKFW006INV310")
+    public String createINV310ByOAHKFW006INV310(@WebParam(name = "psn") String psn) {
+        Boolean ret = false;
+        try {
+            ret = invhadBean.initByOAHKFW006(psn);
+        } catch (Exception ex) {
+            Logger.getLogger(SHBERPWebService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (ret) {
+            return "200";
+        } else {
+            return "404";
+        }
+    }
+
+    @WebMethod(operationName = "createCDRN30ByOAHKFW006CDRN30")
+    public String createCDRN30ByOAHKFW006CDRN30(@WebParam(name = "psn") String psn) {
+        Boolean ret = false;
+        try {
+            ret = cdrbrhadBean.initByOAHKFW006(psn);
+        } catch (Exception ex) {
+            Logger.getLogger(SHBERPWebService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (ret) {
+            return "200";
+        } else {
+            return "404";
+        }
+    }
+
+    @WebMethod(operationName = "initAmLYByOAZCSQD")
+    public String initAmLYByOAZCSQD(@WebParam(name = "psn") String psn) {
+        Boolean ret = false;
+        try {
+            ret = amTbAssetApplyHadBean.initByOAZCSQD(psn);
+        } catch (Exception ex) {
+            Logger.getLogger(SHBERPWebService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (ret) {
+            return "200";
+        } else {
+            return "404";
+        }
+    }
+
+    @WebMethod(operationName = "createAMLYByOAZCSQD")
+    public String createAMLYByOAZCSQD(@WebParam(name = "psn") String psn) {
+        Boolean ret = false;
+        try {
+            ret = amTbAssetApplyHadBean.initByOAZCSQD(psn);
+        } catch (Exception ex) {
+            Logger.getLogger(SHBERPWebService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (ret) {
+            return "200";
+        } else {
+            return "404";
+        }
+    }
+
+    @WebMethod(operationName = "createHKCG007ByHKCW002P")
+    public String createHKCG007ByHKCW002P(@WebParam(name = "psn") String psn) {
+        Boolean ret = false;
+        try {
+            ret = hkcg007Bean.initByHKCW002P(psn);
+        } catch (Exception ex) {
+            Logger.getLogger(SHBERPWebService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (ret) {
+            return "200";
+        } else {
+            return "404";
+        }
+    }
+
 }
