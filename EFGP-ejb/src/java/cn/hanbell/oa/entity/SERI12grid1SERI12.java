@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "SERI12grid1SERI12.findAll", query = "SELECT s FROM SERI12grid1SERI12 s"),
-    @NamedQuery(name = "SERI12grid1SERI12.findByOId", query = "SELECT s FROM SERI12grid1SERI12 s WHERE s.oid = :oid"),
+    @NamedQuery(name = "SERI12grid1SERI12.findByOID", query = "SELECT s FROM SERI12grid1SERI12 s WHERE s.oid = :oid"),
     @NamedQuery(name = "SERI12grid1SERI12.findByBr013c", query = "SELECT s FROM SERI12grid1SERI12 s WHERE s.br013c = :br013c"),
     @NamedQuery(name = "SERI12grid1SERI12.findByBr014c", query = "SELECT s FROM SERI12grid1SERI12 s WHERE s.br014c = :br014c"),
     @NamedQuery(name = "SERI12grid1SERI12.findByAd007c", query = "SELECT s FROM SERI12grid1SERI12 s WHERE s.ad007c = :ad007c"),
