@@ -19,6 +19,7 @@ import cn.hanbell.erp.entity.Invclswah;
 import cn.hanbell.oa.ejb.HKCG007Bean;
 import cn.hanbell.oa.ejb.HKCW002Bean;
 import cn.hanbell.oa.ejb.HZJS034Bean;
+import cn.hanbell.oa.ejb.SERI12Bean;
 import cn.hanbell.oa.ejb.WorkFlowBean;
 import cn.hanbell.oa.entity.HKCW002;
 import cn.hanbell.oa.entity.HKCW002Detail;
@@ -71,6 +72,9 @@ public class EAPWebService {
 
     @EJB
     private WARMBBean warmbBean;
+    
+    @EJB
+    private SERI12Bean seri12Bean;
 
     /**
      * This is a sample web service operation
@@ -260,5 +264,18 @@ public class EAPWebService {
             return "404";
         }
     }
-
+    @WebMethod(operationName = "upadteCRMSERBQByOASERI12")
+    public String upadteCRMSERBQByOASERI12(@WebParam(name = "psn") String psn) {
+        Boolean ret = false;
+        try {
+            ret = seri12Bean.updateSerbq(psn);
+        } catch (Exception ex) {
+            Logger.getLogger(SHBERPWebService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (ret) {
+            return "200";
+        } else {
+            return "404";
+        }
+    }
 }
