@@ -81,7 +81,7 @@ public class EAPWebService {
     }
 
     @WebMethod(operationName = "createCRMWARMBByOAJHSQD")
-    public String createCRMWARMBByOAJHSQD(String psn) {
+    public String createCRMWARMBByOAJHSQD(@WebParam(name = "psn") String psn) {
         Boolean ret = false;
         HZJS034 h = hzjs034Bean.findByPSN(psn);
         if (h == null) {
