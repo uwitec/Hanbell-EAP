@@ -67,26 +67,38 @@ public class WorkFlowBean extends SuperEJBForEFGP<FormInstance> implements Seria
             try {
                 f.setAccessible(true);
                 if ((f.getName().equals("creator") || f.getName().equals("empl") || f.getName().equals("emply") || f.getName().equals("employee") || f.getName().endsWith("user") || f.getName().endsWith("userno") || f.getName().endsWith("User") || f.getName().endsWith("Userno")) && (!f.getName().startsWith("hdn"))) {
-                    Users user = this.findUserByUserno(f.get(master).toString());
-                    if (user == null) {
-                        Logger.getLogger(this.getClass().getName()).log(Level.INFO, null, f.get(master).toString() + "用户不存在");
-                        throw new RuntimeException();
+                    if (f.get(master) != null && !"".equals(f.get(master))) {
+                        Users user = this.findUserByUserno(f.get(master).toString());
+                        if (user == null) {
+                            Logger.getLogger(this.getClass().getName()).log(Level.INFO, null, f.get(master).toString() + "用户不存在");
+                            throw new RuntimeException();
+                        }
+                        builder.append("<").append(f.getName()).append("  id=\"").append(f.getName()).append("\" label=\"").append(user.getUserName()).append("\"");
+                        builder.append("  hidden=\"").append(user.getOid()).append("\" list_hidden=\"\"");
+                        builder.append("  dataType=\"").append(f.getType().getName()).append("\">").append(f.get(master)).append("</").append(f.getName()).append(">");
+                    } else {
+                        builder.append("<").append(f.getName()).append("  id=\"").append(f.getName()).append("\" label=\"\" hidden=\"\" list_hidden=\"\" dataType=\"").append(f.getType().getName()).append("\" />");
                     }
-                    builder.append("<").append(f.getName()).append("  id=\"").append(f.getName()).append("\" label=\"").append(user.getUserName()).append("\"");
-                    builder.append("  hidden=\"").append(user.getOid()).append("\" list_hidden=\"\"");
-                    builder.append("  dataType=\"").append(f.getType().getName()).append("\">").append(f.get(master)).append("</").append(f.getName()).append(">");
                 } else if ((f.getName().equals("dept") || f.getName().equals("department") || f.getName().endsWith("dept") || f.getName().endsWith("deptno") || f.getName().endsWith("Dept") || f.getName().endsWith("Deptno") || f.getName().endsWith("depno")) && (!f.getName().startsWith("hdn"))) {
-                    OrganizationUnit dept = this.findOrgUnitByDeptno(f.get(master).toString());
-                    if (dept == null) {
-                        Logger.getLogger(this.getClass().getName()).log(Level.INFO, null, f.get(master).toString() + "部门不存在");
-                        throw new RuntimeException();
+                    if (f.get(master) != null && !"".equals(f.get(master))) {
+                        OrganizationUnit dept = this.findOrgUnitByDeptno(f.get(master).toString());
+                        if (dept == null) {
+                            Logger.getLogger(this.getClass().getName()).log(Level.INFO, null, f.get(master).toString() + "部门不存在");
+                            throw new RuntimeException();
+                        }
+                        builder.append("<").append(f.getName()).append("  id=\"").append(f.getName()).append("\" label=\"").append(dept.getOrganizationUnitName()).append("\"");
+                        builder.append("  hidden=\"").append(dept.getOid()).append("\" list_hidden=\"\"");
+                        builder.append("  dataType=\"").append(f.getType().getName()).append("\">").append(f.get(master)).append("</").append(f.getName()).append(">");
+                    } else {
+                        builder.append("<").append(f.getName()).append("  id=\"").append(f.getName()).append("\" label=\"\" hidden=\"\" list_hidden=\"\" dataType=\"").append(f.getType().getName()).append("\" />");
                     }
-                    builder.append("<").append(f.getName()).append("  id=\"").append(f.getName()).append("\" label=\"").append(dept.getOrganizationUnitName()).append("\"");
-                    builder.append("  hidden=\"").append(dept.getOid()).append("\" list_hidden=\"\"");
-                    builder.append("  dataType=\"").append(f.getType().getName()).append("\">").append(f.get(master)).append("</").append(f.getName()).append(">");
                 } else if (f.getType().getName().equals("java.util.Date")) {
-                    builder.append("<").append(f.getName()).append("  id=\"").append(f.getName()).append("\" list_hidden=\"\" dataType=\"").append(f.getType().getName()).append("\" >");
-                    builder.append(BaseLib.formatDate("yyyy/MM/dd", (Date) f.get(master))).append("</").append(f.getName()).append(">");
+                    if (f.get(master) != null && !"".equals(f.get(master))) {
+                        builder.append("<").append(f.getName()).append("  id=\"").append(f.getName()).append("\" list_hidden=\"\" dataType=\"").append(f.getType().getName()).append("\" >");
+                        builder.append(BaseLib.formatDate("yyyy/MM/dd", (Date) f.get(master))).append("</").append(f.getName()).append(">");
+                    } else {
+                        builder.append("<").append(f.getName()).append("  id=\"").append(f.getName()).append("\" list_hidden=\"\" dataType=\"").append(f.getType().getName()).append("\" />");
+                    }
                 } else {
                     builder.append("<").append(f.getName()).append("  id=\"").append(f.getName()).append("\"  dataType=\"").append(f.getType().getName()).append("\" perDataProId=\"\">");
                     builder.append(f.get(master)).append("</").append(f.getName()).append(">");
