@@ -17,13 +17,19 @@ import cn.hanbell.erp.entity.InvsernoPK;
 import cn.hanbell.oa.ejb.HKFW006Bean;
 import cn.hanbell.oa.ejb.HKFW006Inv310Bean;
 import cn.hanbell.oa.ejb.HKFW006Inv310DetailBean;
+import cn.hanbell.oa.ejb.WARMI05Bean;
 import cn.hanbell.oa.entity.HKFW006;
 import cn.hanbell.oa.entity.HKFW006Inv310;
 import cn.hanbell.oa.entity.HKFW006Inv310Detail;
+import cn.hanbell.oa.entity.WARMI05;
+import cn.hanbell.oa.entity.WARMI05Detail;
 import cn.hanbell.util.BaseLib;
+import com.lightshell.comm.SuperEJB;
 import java.math.BigDecimal;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -45,6 +51,9 @@ public class InvhadBean extends SuperEJBForERP<Invhad> {
     private HKFW006Bean hkfw006Bean;
     @EJB
     private HKFW006Inv310DetailBean hkfw006inv310DetailBean;
+    @EJB
+    private WARMI05Bean warmi05Bean;
+
     @EJB
     private InvdouBean invdouBean;
     @EJB
@@ -73,7 +82,7 @@ public class InvhadBean extends SuperEJBForERP<Invhad> {
             String prono = "1";
             String depno = h.getDepno();
             String trtype = h.getTrtype();
-            String trno = GetINV310Trno(facno, depno, trtype, date, true);
+            String trno = getINV310Trno(facno, depno, trtype, date, true);
             pk.setFacno(facno);
             pk.setProno(prono);
             pk.setTrno(trno);
@@ -107,7 +116,7 @@ public class InvhadBean extends SuperEJBForERP<Invhad> {
             if (details.size() <= 0) {
                 throw new NullPointerException();
             }
-            //  表身循环
+            //表身循环
             for (int i = 0; i < details.size(); i++) {
                 HKFW006Inv310Detail detail = details.get(i);
                 Invdta invdta = new Invdta();
@@ -148,7 +157,117 @@ public class InvhadBean extends SuperEJBForERP<Invhad> {
         }
     }
 
-    private String GetINV310Trno(String facno, String depno, String trtype, Date trdate, boolean updateflag) {
+    public Boolean initByOAWARMI05(String psn) {
+
+        WARMI05 e = warmi05Bean.findByPSN(psn);
+        if (e == null) {
+            throw new NullPointerException();
+        }
+        warmi05Bean.setDetail(e.getFormSerialNumber());
+        if (warmi05Bean.getDetailList().isEmpty()) {
+            throw new NullPointerException();
+        }
+        String trtype = null;
+        if (e.getTa001().equals("FWLL")) {
+            //服务领料
+            trtype = "IAF";
+        } else if (e.getTa001().equals("FWTL")) {
+            //服务退料
+            trtype = "IAG";
+        }
+        if (trtype == null) {
+            throw new NullPointerException("单据类别错误，OA需要FWLL或FWTL");
+        }
+        String facno = e.getTa014();
+        String trno = "";
+        Date trdate = BaseLib.getDate();
+        short trseq = 0;
+        //获取ERP库存交易类别
+        invdouBean.setCompany(facno);
+        Invdou invdou = invdouBean.findByTrtype(trtype);
+        if (invdou == null) {
+            throw new NullPointerException("单据类别错误，ERP需要IAF或IAG");
+        }
+
+        List<Invdta> addedDetail = new ArrayList();
+        HashMap<SuperEJBForERP, List<?>> detailAdded = new HashMap<>();
+        detailAdded.put(invdtaBean, addedDetail);
+        this.setCompany(facno);
+        try {
+            for (WARMI05Detail d : warmi05Bean.getDetailList()) {
+                trseq++;
+                Invdta invdta = new Invdta();
+                InvdtaPK invdtaPK = new InvdtaPK();
+                invdtaPK.setFacno(facno);
+                invdtaPK.setItnbr(d.getTb004());
+                invdtaPK.setProno("1");
+                //invdtaPK.setTrno();
+                invdtaPK.setTrseq(trseq);
+                invdta.setInvdtaPK(invdtaPK);
+                invdta.setTrtype(trtype);
+                //获取品号资料
+                invmasBean.setCompany(facno);
+                Invmas m = invmasBean.findByItnbr(d.getTb004());
+                if (m == null) {
+                    throw new RuntimeException(d.getTb004() + "ERP中不存在");
+                }
+                invdta.setItcls(m.getItcls());
+                invdta.setItclscode(m.getItclscode());
+                if (d.getTb009() == null || "".equals(d.getTb009())) {
+                    invdta.setTrnqy1(BigDecimal.valueOf(Double.parseDouble(d.getTb007())));
+                } else {
+                    invdta.setTrnqy1(BigDecimal.valueOf(Double.parseDouble(d.getTb009())));
+                }
+                invdta.setTrnqy2(BigDecimal.ZERO);
+                invdta.setTrnqy3(BigDecimal.ZERO);
+                invdta.setUnmsr1(m.getUnmsr1());
+                invdta.setWareh(d.getTb010());
+                invdta.setFixnr(d.getTb011());
+                invdta.setVarnr(d.getTb019());
+                invdta.setIocode(invdou.getIocode());
+                //加入明细新增列表
+                addedDetail.add(invdta);
+            }
+            trno = getINV310Trno(facno, "", trtype, trdate, true);
+            Invhad invhad = new Invhad(facno, "1", trno);
+            invhad.setTrtype(trtype);
+            invhad.setTrdate(trdate);
+            invhad.setDepno(e.getTa032());//客户
+            invhad.setIocode(invdou.getIocode());
+            invhad.setHmark1(e.getTa031());//区域
+            invhad.setHmark2(e.getTa030());//产品
+            invhad.setResno(e.getTa042());
+            invhad.setKfno(e.getTa039());
+            invhad.setFwno(e.getTa040() + e.getTa041());
+            invhad.setSourceno(e.getTa002());
+            invhad.setStatus('N');
+            invhad.setUserno(trno);
+            invhad.setIndate(trdate);
+            invhad.setCfmuserno(trno);
+            invhad.setCfmdate(trdate);
+            //明细列表交易单号赋值
+            for (Invdta d : addedDetail) {
+                d.getInvdtaPK().setTrno(trno);
+            }
+            //更新到数据库
+            this.persist(invhad, detailAdded);
+            //回写OA记录ERP单号
+            if (trtype.equals("IAF")) {
+                e.setTa025(trno);
+            } else if (trtype.equals("IAG")) {
+                e.setTa026(trno);
+            }
+            warmi05Bean.update(e);
+
+            return true;
+        } catch (Exception ex) {
+            Logger.getLogger(InvhadBean.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+
+    }
+
+    private String getINV310Trno(String facno, String depno, String trtype, Date trdate, boolean updateflag) {
         String ls_autochar;
         Character ls_autono;
         String ls_nofmt;
@@ -165,8 +284,8 @@ public class InvhadBean extends SuperEJBForERP<Invhad> {
             ls_autono = invdou.getAutoyn();
             ls_nofmt = invdou.getNofmt();
             li_ordno = Integer.parseInt(ls_nofmt.substring(5));//流水号
-            ls_trno = this.GetINV310Staticno(facno, ls_depcode, trtype, trdate, ls_nofmt, ls_autochar);
-            ll_max = this.GetINV310MaxTrno(facno, trtype, ls_trno);
+            ls_trno = this.getINV310Staticno(facno, ls_depcode, trtype, trdate, ls_nofmt, ls_autochar);
+            ll_max = this.getINV310MaxTrno(facno, trtype, ls_trno);
             if (ll_max == 0) {
                 String a = "00000000001";
                 ls_serial = ls_trno + a.substring(a.length() - li_ordno);       //右边取li_ordno位
@@ -198,14 +317,13 @@ public class InvhadBean extends SuperEJBForERP<Invhad> {
                     } catch (Exception ex) {
                         return "";
                     }
-
                 }
             }
         }
         return ls_serial;
     }
 
-    private String GetINV310Staticno(String facno, String depcode, String trtype, Date trdate, String ls_nofmt, String autochar) {
+    private String getINV310Staticno(String facno, String depcode, String trtype, Date trdate, String ls_nofmt, String autochar) {
         String ls_no;
         String ls_str = "";
         String ls_ch;
@@ -263,7 +381,7 @@ public class InvhadBean extends SuperEJBForERP<Invhad> {
         return ls_no;
     }
 
-    private int GetINV310MaxTrno(String facno, String trtype, String ls_trno) {
+    private int getINV310MaxTrno(String facno, String trtype, String ls_trno) {
         int retvalue = 0;
         invsernoBean.setCompany(facno);
         Invserno invserno = invsernoBean.findByPK(facno, trtype, ls_trno);
