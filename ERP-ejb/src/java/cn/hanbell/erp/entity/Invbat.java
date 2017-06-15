@@ -12,9 +12,6 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.MapsId;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -29,23 +26,22 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author C0160
  */
 @Entity
-@Table(name = "invbal")
+@Table(name = "invbat")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Invbal.findByItnbr", query = "SELECT i FROM Invbal i WHERE i.invbalPK.itnbr = :itnbr"),
-    @NamedQuery(name = "Invbal.findByItnbrAndWareh", query = "SELECT i FROM Invbal i WHERE i.invbalPK.itnbr = :itnbr AND i.invbalPK.wareh = :wareh"),
-    @NamedQuery(name = "Invbal.findByItcls", query = "SELECT i FROM Invbal i WHERE i.itcls = :itcls"),
-    @NamedQuery(name = "Invbal.findByPK", query = "SELECT i FROM Invbal i WHERE i.invbalPK.facno = :facno AND i.invbalPK.prono = :prono AND i.invbalPK.itnbr = :itnbr AND i.invbalPK.wareh = :wareh")})
-public class Invbal implements Serializable {
+    @NamedQuery(name = "Invbat.findAll", query = "SELECT i FROM Invbat i"),
+    @NamedQuery(name = "Invbat.findByItnbr", query = "SELECT i FROM Invbat i WHERE i.invbatPK.itnbr = :itnbr"),
+    @NamedQuery(name = "Invbat.findByPK", query = "SELECT i FROM Invbat i WHERE i.invbatPK.facno = :facno AND i.invbatPK.prono = :prono AND  i.invbatPK.itnbr = :itnbr AND  i.invbatPK.wareh = :wareh AND i.invbatPK.fixnr = :fixnr AND i.invbatPK.varnr = :varnr"),
+    @NamedQuery(name = "Invbat.findByWareh", query = "SELECT i FROM Invbat i WHERE i.invbatPK.wareh = :wareh"),
+    @NamedQuery(name = "Invbat.findByFixnr", query = "SELECT i FROM Invbat i WHERE i.invbatPK.fixnr = :fixnr"),
+    @NamedQuery(name = "Invbat.findByVarnr", query = "SELECT i FROM Invbat i WHERE i.invbatPK.varnr = :varnr"),
+    @NamedQuery(name = "Invbat.findByItcls", query = "SELECT i FROM Invbat i WHERE i.itcls = :itcls"),
+    @NamedQuery(name = "Invbat.findByItclscode", query = "SELECT i FROM Invbat i WHERE i.itclscode = :itclscode")})
+public class Invbat implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    //@AttributeOverride(name = "wareh", column = @Column(name = "wareh"))
     @EmbeddedId
-    protected InvbalPK invbalPK;
-    @MapsId("wareh")//映射主键中的属性,转成对象
-    @ManyToOne
-    @JoinColumn(name = "wareh")
-    private Invwh invwh;
+    protected InvbatPK invbatPK;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 4)
@@ -55,10 +51,6 @@ public class Invbal implements Serializable {
     @NotNull
     @Column(name = "itclscode")
     private Character itclscode;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "cyclecnt")
-    private int cyclecnt;
     @Column(name = "trdate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date trdate;
@@ -68,9 +60,6 @@ public class Invbal implements Serializable {
     @Column(name = "loudate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date loudate;
-    @Column(name = "lcydate")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date lcydate;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Basic(optional = false)
     @NotNull
@@ -88,8 +77,6 @@ public class Invbal implements Serializable {
     private BigDecimal onhand2;
     @Column(name = "onhand3")
     private BigDecimal onhand3;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "mbegqy1")
     private BigDecimal mbegqy1;
     @Column(name = "mbegqy2")
@@ -97,7 +84,7 @@ public class Invbal implements Serializable {
     @Column(name = "mbegqy3")
     private BigDecimal mbegqy3;
 
-    public Invbal() {
+    public Invbat() {
         this.preqy1 = BigDecimal.ZERO;
         this.preqy2 = BigDecimal.ZERO;
         this.preqy3 = BigDecimal.ZERO;
@@ -109,8 +96,8 @@ public class Invbal implements Serializable {
         this.mbegqy3 = BigDecimal.ZERO;
     }
 
-    public Invbal(InvbalPK invbalPK) {
-        this.invbalPK = invbalPK;
+    public Invbat(InvbatPK invbatPK) {
+        this.invbatPK = invbatPK;
         this.preqy1 = BigDecimal.ZERO;
         this.preqy2 = BigDecimal.ZERO;
         this.preqy3 = BigDecimal.ZERO;
@@ -122,8 +109,16 @@ public class Invbal implements Serializable {
         this.mbegqy3 = BigDecimal.ZERO;
     }
 
-    public Invbal(String facno, String prono, String itnbr, String wareh) {
-        this.invbalPK = new InvbalPK(facno, prono, itnbr, wareh);
+    public Invbat(InvbatPK invbatPK, String itcls, Character itclscode, BigDecimal preqy1, BigDecimal onhand1) {
+        this.invbatPK = invbatPK;
+        this.itcls = itcls;
+        this.itclscode = itclscode;
+        this.preqy1 = preqy1;
+        this.onhand1 = onhand1;
+    }
+
+    public Invbat(String itnbr, String facno, String prono, String wareh, String fixnr, String varnr) {
+        this.invbatPK = new InvbatPK(itnbr, facno, prono, wareh, fixnr, varnr);
         this.preqy1 = BigDecimal.ZERO;
         this.preqy2 = BigDecimal.ZERO;
         this.preqy3 = BigDecimal.ZERO;
@@ -135,12 +130,12 @@ public class Invbal implements Serializable {
         this.mbegqy3 = BigDecimal.ZERO;
     }
 
-    public InvbalPK getInvbalPK() {
-        return invbalPK;
+    public InvbatPK getInvbatPK() {
+        return invbatPK;
     }
 
-    public void setInvbalPK(InvbalPK invbalPK) {
-        this.invbalPK = invbalPK;
+    public void setInvbatPK(InvbatPK invbatPK) {
+        this.invbatPK = invbatPK;
     }
 
     public String getItcls() {
@@ -157,14 +152,6 @@ public class Invbal implements Serializable {
 
     public void setItclscode(Character itclscode) {
         this.itclscode = itclscode;
-    }
-
-    public int getCyclecnt() {
-        return cyclecnt;
-    }
-
-    public void setCyclecnt(int cyclecnt) {
-        this.cyclecnt = cyclecnt;
     }
 
     public Date getTrdate() {
@@ -189,14 +176,6 @@ public class Invbal implements Serializable {
 
     public void setLoudate(Date loudate) {
         this.loudate = loudate;
-    }
-
-    public Date getLcydate() {
-        return lcydate;
-    }
-
-    public void setLcydate(Date lcydate) {
-        this.lcydate = lcydate;
     }
 
     public BigDecimal getPreqy1() {
@@ -274,18 +253,18 @@ public class Invbal implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (invbalPK != null ? invbalPK.hashCode() : 0);
+        hash += (invbatPK != null ? invbatPK.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Invbal)) {
+        if (!(object instanceof Invbat)) {
             return false;
         }
-        Invbal other = (Invbal) object;
-        if ((this.invbalPK == null && other.invbalPK != null) || (this.invbalPK != null && !this.invbalPK.equals(other.invbalPK))) {
+        Invbat other = (Invbat) object;
+        if ((this.invbatPK == null && other.invbatPK != null) || (this.invbatPK != null && !this.invbatPK.equals(other.invbatPK))) {
             return false;
         }
         return true;
@@ -293,21 +272,7 @@ public class Invbal implements Serializable {
 
     @Override
     public String toString() {
-        return "cn.hanbell.shb.ejb.Invbal[ invbalPK=" + invbalPK + " ]";
-    }
-
-    /**
-     * @return the invwh
-     */
-    public Invwh getInvwh() {
-        return invwh;
-    }
-
-    /**
-     * @param invwh the invwh to set
-     */
-    public void setInvwh(Invwh invwh) {
-        this.invwh = invwh;
+        return "cn.hanbell.erp.entity.Invbat[ invbatPK=" + invbatPK + " ]";
     }
 
 }

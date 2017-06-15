@@ -12,6 +12,8 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -107,6 +109,10 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Invmas.findByDwt", query = "SELECT i FROM Invmas i WHERE i.dwt = :dwt"),
     @NamedQuery(name = "Invmas.findByCstmon", query = "SELECT i FROM Invmas i WHERE i.cstmon = :cstmon")})
 public class Invmas implements Serializable {
+
+    @JoinColumn(name = "itcls", referencedColumnName = "itcls", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private Invcls invcls;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -1005,6 +1011,20 @@ public class Invmas implements Serializable {
     @Override
     public String toString() {
         return "cn.hanbell.erp.comm.Invmas[ itnbr=" + itnbr + " ]";
+    }
+
+    /**
+     * @return the invcls
+     */
+    public Invcls getInvcls() {
+        return invcls;
+    }
+
+    /**
+     * @param invcls the invcls to set
+     */
+    public void setInvcls(Invcls invcls) {
+        this.invcls = invcls;
     }
 
 }

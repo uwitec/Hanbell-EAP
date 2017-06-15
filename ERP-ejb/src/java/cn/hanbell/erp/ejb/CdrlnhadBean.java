@@ -16,7 +16,6 @@ import cn.hanbell.oa.entity.WARMI05;
 import cn.hanbell.oa.entity.WARMI05Detail;
 import cn.hanbell.util.BaseLib;
 import java.math.BigDecimal;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -109,7 +108,7 @@ public class CdrlnhadBean extends SuperEJBForERP<Cdrlnhad> {
                 invmasBean.setCompany(facno);
                 Invmas m = invmasBean.findByItnbr(d.getTb004());
                 if (m == null) {
-                    throw new RuntimeException();
+                    throw new RuntimeException(d.getTb004() + "ERP中不存在");
                 }
                 cdrlndta.setItnbr(d.getTb004());
                 if (d.getTb009() == null || "".equals(d.getTb009())) {
@@ -139,6 +138,7 @@ public class CdrlnhadBean extends SuperEJBForERP<Cdrlnhad> {
 
                 addedDetail.add(cdrlndta);
             }
+            cdrobdouBean.setCompany(facno);
             trno = cdrobdouBean.getSerno(trtype, facno, trdate, "");
             Cdrlnhad cdrlnhad = new Cdrlnhad(facno, trno);
             cdrlnhad.setCdrobtype(trtype);
