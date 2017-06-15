@@ -11,15 +11,13 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author C0160
  */
-@XmlRootElement
 @Embeddable
-public class InvbalPK implements Serializable {
+public class InvbatPK implements Serializable {
 
     @Basic(optional = false)
     @NotNull
@@ -41,15 +39,27 @@ public class InvbalPK implements Serializable {
     @Size(min = 1, max = 12)
     @Column(name = "wareh")
     private String wareh;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 12)
+    @Column(name = "fixnr")
+    private String fixnr;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 18)
+    @Column(name = "varnr")
+    private String varnr;
 
-    public InvbalPK() {
+    public InvbatPK() {
     }
 
-    public InvbalPK(String facno, String prono, String itnbr, String wareh) {
+    public InvbatPK(String itnbr, String facno, String prono, String wareh, String fixnr, String varnr) {
+        this.itnbr = itnbr;
         this.facno = facno;
         this.prono = prono;
-        this.itnbr = itnbr;
         this.wareh = wareh;
+        this.fixnr = fixnr;
+        this.varnr = varnr;
     }
 
     public String getItnbr() {
@@ -84,6 +94,22 @@ public class InvbalPK implements Serializable {
         this.wareh = wareh;
     }
 
+    public String getFixnr() {
+        return fixnr;
+    }
+
+    public void setFixnr(String fixnr) {
+        this.fixnr = fixnr;
+    }
+
+    public String getVarnr() {
+        return varnr;
+    }
+
+    public void setVarnr(String varnr) {
+        this.varnr = varnr;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -91,16 +117,18 @@ public class InvbalPK implements Serializable {
         hash += (facno != null ? facno.hashCode() : 0);
         hash += (prono != null ? prono.hashCode() : 0);
         hash += (wareh != null ? wareh.hashCode() : 0);
+        hash += (fixnr != null ? fixnr.hashCode() : 0);
+        hash += (varnr != null ? varnr.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof InvbalPK)) {
+        if (!(object instanceof InvbatPK)) {
             return false;
         }
-        InvbalPK other = (InvbalPK) object;
+        InvbatPK other = (InvbatPK) object;
         if ((this.itnbr == null && other.itnbr != null) || (this.itnbr != null && !this.itnbr.equals(other.itnbr))) {
             return false;
         }
@@ -113,12 +141,18 @@ public class InvbalPK implements Serializable {
         if ((this.wareh == null && other.wareh != null) || (this.wareh != null && !this.wareh.equals(other.wareh))) {
             return false;
         }
+        if ((this.fixnr == null && other.fixnr != null) || (this.fixnr != null && !this.fixnr.equals(other.fixnr))) {
+            return false;
+        }
+        if ((this.varnr == null && other.varnr != null) || (this.varnr != null && !this.varnr.equals(other.varnr))) {
+            return false;
+        }
         return true;
     }
 
     @Override
     public String toString() {
-        return "cn.hanbell.shb.ejb.InvbalPK[ itnbr=" + itnbr + ", facno=" + facno + ", prono=" + prono + ", wareh=" + wareh + " ]";
+        return "cn.hanbell.erp.entity.InvbatPK[ itnbr=" + itnbr + ", facno=" + facno + ", prono=" + prono + ", wareh=" + wareh + ", fixnr=" + fixnr + ", varnr=" + varnr + " ]";
     }
-
+    
 }
