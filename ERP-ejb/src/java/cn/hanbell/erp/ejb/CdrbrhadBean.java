@@ -79,7 +79,7 @@ public class CdrbrhadBean extends SuperEJBForERP<Cdrbrhad> {
             String facno = h.getFacno();
             String cdrobty = h.getCdrobty();
             date = BaseLib.getDate("yyyy/MM/dd", BaseLib.formatDate("yyyy/MM/dd", BaseLib.getDate()));
-            String brtrno = GetCDRN30Brno(cdrobty, facno, date, "1", Boolean.TRUE);
+            String brtrno = getCDRN30Brno(cdrobty, facno, date, "1", Boolean.TRUE);
             Cdrbrhad cdrbrhad = new Cdrbrhad();
             CdrbrhadPK pk = new CdrbrhadPK();
             pk.setFacno(facno);
@@ -145,7 +145,7 @@ public class CdrbrhadBean extends SuperEJBForERP<Cdrbrhad> {
 
     }
 
-    private String GetCDRN30Brno(String a_cdrobtype, String a_facno, Date a_trdate, String a_iocode, Boolean a_isupdate) {
+    private String getCDRN30Brno(String a_cdrobtype, String a_facno, Date a_trdate, String a_iocode, Boolean a_isupdate) {
         int li_ordno;
         int li_max = 0;
         String ls_serial = "";
@@ -161,8 +161,8 @@ public class CdrbrhadBean extends SuperEJBForERP<Cdrbrhad> {
             ls_autochar = cdrobdou.getZautochar().toString();
             ls_nofmt = cdrobdou.getZnofmt();
             li_ordno = Integer.parseInt(ls_nofmt.substring(5, 6));
-            ls_trno = GetCDRN30Staticno(a_facno, a_cdrobtype, a_trdate, ls_nofmt, ls_autochar);
-            li_max = GetCDRN30Maxno(a_facno, ls_trno, a_iocode, li_ordno);
+            ls_trno = getCDRN30Staticno(a_facno, a_cdrobtype, a_trdate, ls_nofmt, ls_autochar);
+            li_max = getCDRN30Maxno(a_facno, ls_trno, a_iocode, li_ordno);
             if (li_max == 0) {
                 String a = "00000000001";
                 ls_serial = ls_trno + a.substring(a.length() - li_ordno);
@@ -177,7 +177,7 @@ public class CdrbrhadBean extends SuperEJBForERP<Cdrbrhad> {
 
     }
 
-    private String GetCDRN30Staticno(String a_facno, String a_codrobtype, Date a_trdate, String a_nofmt, String a_autochar) {
+    private String getCDRN30Staticno(String a_facno, String a_codrobtype, Date a_trdate, String a_nofmt, String a_autochar) {
         int li_ordno = 0;
         int li_month = 0;
         String ls_no;
@@ -231,7 +231,7 @@ public class CdrbrhadBean extends SuperEJBForERP<Cdrbrhad> {
         return ls_no;
     }
 
-    private int GetCDRN30Maxno(String a_facno, String a_format, String a_iocode, int a_serlen) {
+    private int getCDRN30Maxno(String a_facno, String a_format, String a_iocode, int a_serlen) {
         String ls_trno = "";
         String ls_maxno = "";
         String ls_format = "";
@@ -266,4 +266,5 @@ public class CdrbrhadBean extends SuperEJBForERP<Cdrbrhad> {
         li_maxno = Integer.parseInt(ls_trno.substring(ls_trno.length() - (li_maxlen - li_fmtlen)));
         return li_maxno;
     }
+
 }

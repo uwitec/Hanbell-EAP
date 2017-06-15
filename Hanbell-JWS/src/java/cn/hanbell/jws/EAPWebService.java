@@ -18,6 +18,8 @@ import cn.hanbell.erp.ejb.InvclswahBean;
 import cn.hanbell.erp.entity.Invclswah;
 import cn.hanbell.oa.ejb.HKCG007Bean;
 import cn.hanbell.oa.ejb.HKCW002Bean;
+import cn.hanbell.oa.ejb.HZCW028Bean;
+import cn.hanbell.oa.ejb.HZCW033Bean;
 import cn.hanbell.oa.ejb.HZJS034Bean;
 import cn.hanbell.oa.ejb.SERI12Bean;
 import cn.hanbell.oa.ejb.WorkFlowBean;
@@ -47,34 +49,39 @@ import javax.jws.soap.SOAPBinding;
 @SOAPBinding(style = SOAPBinding.Style.RPC)
 public class EAPWebService {
 
-    @EJB
-    private DepartmentBean departmentBean;
-
-    @EJB
-    private SystemUserBean systemUserBean;
-
-    @EJB
-    private WorkFlowBean workFlowBean;
-
-    @EJB
-    private HKCW002Bean hkcw002Bean;
-    @EJB
-    private HZJS034Bean hzjs034Bean;
-
-    @EJB
-    private HKCG007Bean hkcg007Bean;
-
-    @EJB
-    private AssetApplyBean assetApplyBean;
-
-    @EJB
-    private InvclswahBean invclswahBean;
-
+    //EJBForCRM
     @EJB
     private WARMBBean warmbBean;
 
+    //EJBForEAP
+    @EJB
+    private DepartmentBean departmentBean;
+    @EJB
+    private SystemUserBean systemUserBean;
+
+    //EJBForEAM
+    @EJB
+    private AssetApplyBean assetApplyBean;
+
+    //EJBForEFGP
+    @EJB
+    private WorkFlowBean workFlowBean;
+    @EJB
+    private HKCG007Bean hkcg007Bean;
+    @EJB
+    private HKCW002Bean hkcw002Bean;
+    @EJB
+    private HZCW028Bean hzcw028Bean;
+    @EJB
+    private HZCW033Bean hzcw033Bean;
+    @EJB
+    private HZJS034Bean hzjs034Bean;
     @EJB
     private SERI12Bean seri12Bean;
+
+    //EJBForERP
+    @EJB
+    private InvclswahBean invclswahBean;
 
     /**
      * This is a sample web service operation
@@ -265,6 +272,81 @@ public class EAPWebService {
         }
     }
 
+    @WebMethod(operationName = "createOAHKCG007ByOAHKCW002P")
+    public String createOAHKCG007ByOAHKCW002P(@WebParam(name = "psn") String psn) {
+        Boolean ret = false;
+        try {
+            ret = hkcg007Bean.initByHKCW002P(psn);
+        } catch (Exception ex) {
+            Logger.getLogger(SHBERPWebService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (ret) {
+            return "200";
+        } else {
+            return "404";
+        }
+    }
+
+    @WebMethod(operationName = "rollbackCRMPORMYByOABXD")
+    public String rollbackCRMPORMYByOABXD(@WebParam(name = "psn") String psn) {
+        Boolean ret = false;
+        try {
+            ret = hzcw028Bean.rollbackCRMPORMY(psn);
+        } catch (Exception ex) {
+            Logger.getLogger(SHBERPWebService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (ret) {
+            return "200";
+        } else {
+            return "404";
+        }
+    }
+
+    @WebMethod(operationName = "rollbackCRMPORMYByOAJZGHD")
+    public String rollbackCRMPORMYByOAJZGHD(@WebParam(name = "psn") String psn) {
+        Boolean ret = false;
+        try {
+            ret = hzcw033Bean.rollbackCRMPORMY(psn);
+        } catch (Exception ex) {
+            Logger.getLogger(SHBERPWebService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (ret) {
+            return "200";
+        } else {
+            return "404";
+        }
+    }
+
+    @WebMethod(operationName = "updateCRMPORMYByOABXD")
+    public String updateCRMPORMYByOABXD(@WebParam(name = "psn") String psn) {
+        Boolean ret = false;
+        try {
+            ret = hzcw028Bean.updateCRMPORMY(psn);
+        } catch (Exception ex) {
+            Logger.getLogger(SHBERPWebService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (ret) {
+            return "200";
+        } else {
+            return "404";
+        }
+    }
+
+    @WebMethod(operationName = "updateCRMPORMYByOAJZGHD")
+    public String updateCRMPORMYByOAJZGHD(@WebParam(name = "psn") String psn) {
+        Boolean ret = false;
+        try {
+            ret = hzcw033Bean.updateCRMPORMY(psn);
+        } catch (Exception ex) {
+            Logger.getLogger(SHBERPWebService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (ret) {
+            return "200";
+        } else {
+            return "404";
+        }
+    }
+
     @WebMethod(operationName = "updateCRMSERBQByOASERI12")
     public String updateCRMSERBQByOASERI12(@WebParam(name = "psn") String psn) {
         Boolean ret = false;
@@ -279,4 +361,5 @@ public class EAPWebService {
             return "404";
         }
     }
+
 }
