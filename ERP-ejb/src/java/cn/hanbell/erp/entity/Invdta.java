@@ -121,24 +121,20 @@ public class Invdta implements Serializable {
     private Integer asrsSta;
 
     public Invdta() {
+        this.asrsQty = BigDecimal.ZERO;
+        this.asrsSta = 0;
     }
 
     public Invdta(InvdtaPK invdtaPK) {
         this.invdtaPK = invdtaPK;
-    }
-
-    public Invdta(InvdtaPK invdtaPK, String itcls, Character itclscode, BigDecimal trnqy1, String unmsr1, String wareh, Character iocode) {
-        this.invdtaPK = invdtaPK;
-        this.itcls = itcls;
-        this.itclscode = itclscode;
-        this.trnqy1 = trnqy1;
-        this.unmsr1 = unmsr1;
-        this.wareh = wareh;
-        this.iocode = iocode;
+        this.asrsQty = BigDecimal.ZERO;
+        this.asrsSta = 0;
     }
 
     public Invdta(String itnbr, String facno, String prono, String trno, int trseq) {
         this.invdtaPK = new InvdtaPK(itnbr, facno, prono, trno, trseq);
+        this.asrsQty = BigDecimal.ZERO;
+        this.asrsSta = 0;
     }
 
     public InvdtaPK getInvdtaPK() {
@@ -325,5 +321,5 @@ public class Invdta implements Serializable {
     public String toString() {
         return "cn.hanbell.erp.entity.Invdta[ invdtaPK=" + invdtaPK + " ]";
     }
-    
+
 }

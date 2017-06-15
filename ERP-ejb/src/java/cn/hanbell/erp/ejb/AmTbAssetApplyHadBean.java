@@ -31,16 +31,16 @@ import javax.persistence.Query;
 @Stateless
 @LocalBean
 public class AmTbAssetApplyHadBean extends SuperEJBForERP<AmTbAssetApplyHad> {
-    
+
     @EJB
     private HKCW002PBean hkcw002Bean;
-    
+
     @EJB
     private HKCW002PpurDetailBean hkcw002purDetailBean;
-    
+
     @EJB
     private AmTbAssetApplyDtaBean amTbAssetApplyDtaBean;
-    
+
     @EJB
     private SyncGZBean syncGZBean;
     @EJB
@@ -51,11 +51,11 @@ public class AmTbAssetApplyHadBean extends SuperEJBForERP<AmTbAssetApplyHad> {
     private SyncCQBean syncCQBean;
     @EJB
     private SyncSHBBean syncSHBBean;
-    
+
     public AmTbAssetApplyHadBean() {
         super(AmTbAssetApplyHad.class);
     }
-    
+
     public AmTbAssetApplyHad findBySheetno(String sheetno) {
         Query query = getEntityManager().createNamedQuery("AmTbAssetApplyHad.findBySheetno");
         query.setParameter("sheetno", sheetno);
@@ -65,11 +65,11 @@ public class AmTbAssetApplyHadBean extends SuperEJBForERP<AmTbAssetApplyHad> {
             return null;
         }
     }
-    
+
     public Boolean initByOAZCSQD(String psn) {
         Date date;
         String facno, newsn;
-        
+
         try {
             HKCW002P oa = hkcw002Bean.findByPSN(psn);
             if (oa == null) {
@@ -82,10 +82,10 @@ public class AmTbAssetApplyHadBean extends SuperEJBForERP<AmTbAssetApplyHad> {
             if (this.findBySheetno(oa.getSerialNumber()) != null) {
                 return false;
             }
-            
+
             List<HKCW002PpurDetail> details = hkcw002purDetailBean.findByFSN(oa.getFormSerialNumber());
             for (HKCW002PpurDetail detail : details) {
-                
+
             }
             AmTbAssetApplyHad p = new AmTbAssetApplyHad();
 
@@ -113,7 +113,7 @@ public class AmTbAssetApplyHadBean extends SuperEJBForERP<AmTbAssetApplyHad> {
                 pdk.setTrsep((short) (i + 1));
                 pdk.setApplyHadSn(newsn);
                 pd.setAmTbAssetApplyDtaPK(pdk);
-                
+
                 pd.setSpdsc(detail.getSpdse());
                 if (detail.getApplynum() != null && !detail.getApplynum().equals("")) {
                     pd.setApplyNum(Integer.valueOf(detail.getApplynum()));
@@ -129,21 +129,21 @@ public class AmTbAssetApplyHadBean extends SuperEJBForERP<AmTbAssetApplyHad> {
                 if (!"".equals(detail.getApplynum())) {
                     pd.setApplyNum(Integer.parseInt(detail.getApplynum()));
                 } else {
-                    pd.setApplyNum(0);                    
+                    pd.setApplyNum(0);
                 }
-                
+
                 pd.setTypeDtaCode(detail.getMidclasscode());
-                
+
                 if (detail.getPremoney() != null && !detail.getPremoney().equals("")) {
                     pd.setPreprice(BigDecimal.valueOf(detail.getPremoney().charAt(0)));
                 }
                 amTbAssetApplyDtaBean.setCompany(facno);
                 amTbAssetApplyDtaBean.persist(pd);
-                
+
             }
             oa.setIfturn("已抛转领用");
             return true;
-        } catch (Exception ex) {
+        } catch (NullPointerException | NumberFormatException ex) {
             Logger.getLogger(AmTbAssetApplyHadBean.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
