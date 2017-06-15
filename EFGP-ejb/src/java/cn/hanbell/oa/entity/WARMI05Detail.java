@@ -59,6 +59,9 @@ public class WARMI05Detail implements Serializable {
     @Column(name = "TB011")
     private String tb011;
     @Size(max = 255)
+    @Column(name = "TB003")
+    private String tb003;
+    @Size(max = 255)
     @Column(name = "TB005")
     private String tb005;
     @Size(max = 255)
@@ -318,6 +321,20 @@ public class WARMI05Detail implements Serializable {
     @Override
     public String toString() {
         return "cn.hanbell.oa.entity.WARMI05Detail[ oid=" + oid + " ]";
+    }
+
+    /**
+     * @return the tb003
+     */
+    public String getTb003() {
+        return tb003;
+    }
+
+    /**
+     * @param tb003 the tb003 to set
+     */
+    public void setTb003(String tb003) {
+        this.tb003 = tb003;
     }
 
 }
