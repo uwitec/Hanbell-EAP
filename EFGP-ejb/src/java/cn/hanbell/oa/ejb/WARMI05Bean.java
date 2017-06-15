@@ -5,9 +5,12 @@
  */
 package cn.hanbell.oa.ejb;
 
+import cn.hanbell.crm.ejb.WARTBBean;
+import cn.hanbell.crm.entity.WARTB;
 import cn.hanbell.oa.comm.SuperEJBForEFGP;
 import cn.hanbell.oa.entity.WARMI05;
 import cn.hanbell.oa.entity.WARMI05Detail;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
@@ -24,6 +27,9 @@ public class WARMI05Bean extends SuperEJBForEFGP<WARMI05> {
 
     @EJB
     private WARMI05DetailBean warmi05DetailBean;
+
+    @EJB
+    private WARTBBean wartbBean;
 
     private List<WARMI05Detail> detailList;
 
@@ -44,6 +50,37 @@ public class WARMI05Bean extends SuperEJBForEFGP<WARMI05> {
      */
     public List<WARMI05Detail> getDetailList() {
         return detailList;
+    }
+
+    public boolean updateWARTB(String psn, String step) {
+        WARMI05 w = findByPSN(psn);
+        if (w == null) {
+            throw new NullPointerException();
+        }
+        String ta001 = w.getTa001();
+        String ta002 = w.getTa002();
+
+        List<WARMI05Detail> detail1 = warmi05DetailBean.findByFSN(w.getFormSerialNumber());
+        for (int i = 0; i < detail1.size(); i++) {
+            WARMI05Detail wd = detail1.get(i);
+            String tb009 = wd.getTb009();
+            if (tb009 == null || tb009.equals("")) {
+                tb009 = wd.getTb007();
+            }
+            BigDecimal bd = new BigDecimal(tb009);
+            WARTB tb;
+            tb = wartbBean.findByPK(ta001, ta002, wd.getTb003());
+            if ("1".equals(step)) {
+                tb.setTb033(bd);
+                wartbBean.update(tb);
+            } else {
+                tb.setTb032(tb.getTb032().add(BigDecimal.ONE));
+                tb.setTb033(BigDecimal.ZERO);
+                wartbBean.update(tb);
+            }
+        }
+        return true;
+
     }
 
 }
