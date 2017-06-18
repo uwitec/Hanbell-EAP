@@ -298,7 +298,7 @@ public class InvhadBean extends SuperEJBForERP<Invhad> {
                 invtrn.setCfmuserno(e.getTa012());
                 invtrn.setRescode(e.getTa042());
                 invtrn.setSyscode(invdou.getSyscode());
-                invtrn.setSourceno(e.getTa002());
+                invtrn.setSourceno(e.getTa001() + e.getTa002());
                 invtrn.setItcls(invdta.getItcls());
                 invtrn.setItclscode(invdta.getItclscode());
                 invtrn.setIndate(trdate);
