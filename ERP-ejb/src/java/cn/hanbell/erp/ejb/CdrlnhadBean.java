@@ -69,6 +69,10 @@ public class CdrlnhadBean extends SuperEJBForERP<Cdrlnhad> {
         if (e == null) {
             throw new NullPointerException();
         }
+        if (e.getTa028() != null && !"".equals(e.getTa028())) {
+            return true;
+        }
+
         warmi05Bean.setDetail(e.getFormSerialNumber());
         if (warmi05Bean.getDetailList().isEmpty()) {
             throw new NullPointerException();
@@ -81,6 +85,7 @@ public class CdrlnhadBean extends SuperEJBForERP<Cdrlnhad> {
             throw new NullPointerException("单据类别错误，OA需要JCDF或JCDX");
         }
         String facno = e.getTa014();
+        String prono = "1";
         String trno = "";
         Date trdate = BaseLib.getDate();
         short trseq = 0;
@@ -92,8 +97,9 @@ public class CdrlnhadBean extends SuperEJBForERP<Cdrlnhad> {
         }
 
         List<Cdrlndta> addedDetail = new ArrayList();
-        HashMap<SuperEJBForERP, List<?>> detailAdded = new HashMap<>();
-        detailAdded.put(cdrlndtaBean, addedDetail);
+        //EclipseLink无法完成外键关联同时更新
+        //HashMap<SuperEJBForERP, List<?>> detailAdded = new HashMap<>();
+        //detailAdded.put(cdrlndtaBean, addedDetail);
         this.setCompany(facno);
         try {
             for (WARMI05Detail d : warmi05Bean.getDetailList()) {
@@ -127,12 +133,12 @@ public class CdrlnhadBean extends SuperEJBForERP<Cdrlnhad> {
                 cdrlndta.setSaleqy1(BigDecimal.ZERO);
                 cdrlndta.setSaleqy2(BigDecimal.ZERO);
                 cdrlndta.setStatus('N');
-                cdrlndta.setProno("1");
+                cdrlndta.setProno(prono);
                 cdrlndta.setArmqy(cdrlndta.getTrnqy1());
                 cdrlndta.setUnpris(BigDecimal.ZERO);
                 cdrlndta.setShpamts(BigDecimal.ZERO);
                 cdrlndta.setBfixnr(cdrlndta.getFixnr());
-                cdrlndta.setBvarnr(cdrlndta.getVarnr());
+                cdrlndta.setBvarnr(e.getTa036());
                 cdrlndta.setAsrsQty(BigDecimal.ZERO);
                 cdrlndta.setAsrsSta(0);
 
@@ -153,7 +159,7 @@ public class CdrlnhadBean extends SuperEJBForERP<Cdrlnhad> {
             cdrlnhad.setStatus('N');
             cdrlnhad.setPrtcnt((short) 0);
             cdrlnhad.setLnwareh("JCZC");
-            cdrlnhad.setProno("1");
+            cdrlnhad.setProno(prono);
             cdrlnhad.setShptrseq((short) 1);
             cdrlnhad.setTax('4');
             cdrlnhad.setTaxrate(BigDecimal.ZERO);
@@ -181,7 +187,7 @@ public class CdrlnhadBean extends SuperEJBForERP<Cdrlnhad> {
 
             return true;
         } catch (NullPointerException ex) {
-            Logger.getLogger(CdrbrhadBean.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CdrlnhadBean.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
 
