@@ -6,6 +6,8 @@
 package cn.hanbell.erp.ejb;
 
 import cn.hanbell.erp.comm.SuperEJBForERP;
+import cn.hanbell.erp.entity.Invbal;
+import cn.hanbell.erp.entity.Invbat;
 import cn.hanbell.erp.entity.Invdou;
 import cn.hanbell.erp.entity.Invdta;
 import cn.hanbell.erp.entity.InvdtaPK;
@@ -14,6 +16,7 @@ import cn.hanbell.erp.entity.InvhadPK;
 import cn.hanbell.erp.entity.Invmas;
 import cn.hanbell.erp.entity.Invserno;
 import cn.hanbell.erp.entity.InvsernoPK;
+import cn.hanbell.erp.entity.Invtrn;
 import cn.hanbell.oa.ejb.HKFW006Bean;
 import cn.hanbell.oa.ejb.HKFW006Inv310Bean;
 import cn.hanbell.oa.ejb.HKFW006Inv310DetailBean;
@@ -24,7 +27,6 @@ import cn.hanbell.oa.entity.HKFW006Inv310Detail;
 import cn.hanbell.oa.entity.WARMI05;
 import cn.hanbell.oa.entity.WARMI05Detail;
 import cn.hanbell.util.BaseLib;
-import com.lightshell.comm.SuperEJB;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -60,6 +62,12 @@ public class InvhadBean extends SuperEJBForERP<Invhad> {
     private InvsernoBean invsernoBean;
     @EJB
     private InvmasBean invmasBean;
+    @EJB
+    private InvbalBean invbalBean;
+    @EJB
+    private InvbatBean invbatBean;
+    @EJB
+    private InvtrnBean invtrnBean;
     @EJB
     private InvdtaBean invdtaBean;
 
@@ -178,7 +186,14 @@ public class InvhadBean extends SuperEJBForERP<Invhad> {
         if (trtype == null) {
             throw new NullPointerException("单据类别错误，OA需要FWLL或FWTL");
         }
+        //判断是否已经抛转
+        if ((trtype.equals("IAF") && e.getTa025() != null && !"".equals(e.getTa025())) || (trtype.equals("IAG")) && e.getTa026() != null && !"".equals(e.getTa026())) {
+            return true;//返回false会导致流程死循环
+        }
+
+        boolean flag = false;
         String facno = e.getTa014();
+        String prono = "1";
         String trno = "";
         Date trdate = BaseLib.getDate();
         short trseq = 0;
@@ -188,11 +203,21 @@ public class InvhadBean extends SuperEJBForERP<Invhad> {
         if (invdou == null) {
             throw new NullPointerException("单据类别错误，ERP需要IAF或IAG");
         }
+        Invbal invbal;
+        Invbat invbat;
+        Invtrn invtrn;
+        List<Invbal> invbalList = new ArrayList();
+        List<Invbat> invbatList = new ArrayList();
+        List<Invtrn> invtrnList = new ArrayList();
 
         List<Invdta> addedDetail = new ArrayList();
         HashMap<SuperEJBForERP, List<?>> detailAdded = new HashMap<>();
         detailAdded.put(invdtaBean, addedDetail);
         this.setCompany(facno);
+        invmasBean.setCompany(facno);
+        invbalBean.setCompany(facno);
+        invbatBean.setCompany(facno);
+        invtrnBean.setCompany(facno);
         try {
             for (WARMI05Detail d : warmi05Bean.getDetailList()) {
                 trseq++;
@@ -200,13 +225,12 @@ public class InvhadBean extends SuperEJBForERP<Invhad> {
                 InvdtaPK invdtaPK = new InvdtaPK();
                 invdtaPK.setFacno(facno);
                 invdtaPK.setItnbr(d.getTb004());
-                invdtaPK.setProno("1");
+                invdtaPK.setProno(prono);
                 //invdtaPK.setTrno();
                 invdtaPK.setTrseq(trseq);
                 invdta.setInvdtaPK(invdtaPK);
                 invdta.setTrtype(trtype);
                 //获取品号资料
-                invmasBean.setCompany(facno);
                 Invmas m = invmasBean.findByItnbr(d.getTb004());
                 if (m == null) {
                     throw new RuntimeException(d.getTb004() + "ERP中不存在");
@@ -225,8 +249,65 @@ public class InvhadBean extends SuperEJBForERP<Invhad> {
                 invdta.setFixnr(d.getTb011());
                 invdta.setVarnr(d.getTb019());
                 invdta.setIocode(invdou.getIocode());
-                //加入明细新增列表
+
+                if (invdou.getIocode() == '2') {
+                    //库存可利用量检查
+                    flag = invbalBean.isGreatThenInvbal(facno, prono, invdta.getInvdtaPK().getItnbr(), invdta.getWareh(), invdta.getTrnqy1());
+                    if (flag) {
+                        throw new RuntimeException(d.getTb004() + "库存可利用量不足(invbal)");
+                    } else {
+                        invbal = new Invbal(facno, prono, invdta.getInvdtaPK().getItnbr(), invdta.getWareh());
+                        invbal.setItcls(invdta.getItcls());
+                        invbal.setItclscode(invdta.getItclscode());
+                        invbal.setOnhand1(invdta.getTrnqy1());
+                        //加入库存更新列表
+                        invbalList.add(invbal);
+                    }
+                    //批号可利用量检查
+                    if (m.getInvcls().getNrcode() != '0') {
+                        invdta.setDefaultValue();
+                        flag = invbatBean.isGreatThenInvbat(facno, prono, invdta.getInvdtaPK().getItnbr(), invdta.getWareh(), invdta.getFixnr(), invdta.getVarnr(), invdta.getTrnqy1());
+                        if (flag) {
+                            throw new RuntimeException(d.getTb004() + "库存可利用量不足(invbat)");
+                        } else {
+                            invbat = new Invbat(facno, prono, invdta.getInvdtaPK().getItnbr(), invdta.getWareh(), invdta.getFixnr(), invdta.getVarnr());
+                            invbat.setItcls(invdta.getItcls());
+                            invbat.setItclscode(invdta.getItclscode());
+                            invbat.setOnhand1(invdta.getTrnqy1());
+                            //加入库存更新列表
+                            invbatList.add(invbat);
+                        }
+                    }
+                }
+                //交易单号预设空白，后续重新赋值
+                invtrn = new Invtrn(facno, prono, trtype, "", trseq);
+                invtrn.setItnbr(invdta.getInvdtaPK().getItnbr());
+                invtrn.setTrdate(trdate);
+                invtrn.setDepno(e.getTa032());
+                invtrn.setHmark1(e.getTa031());
+                invtrn.setHmark2(e.getTa030());
+                invtrn.setWareh(invdta.getWareh());
+                invtrn.setFixnr(invdta.getFixnr());
+                invtrn.setVarnr(invdta.getVarnr());
+                invtrn.setTrnqy1(invdta.getTrnqy1());
+                invtrn.setTrnqy2(invdta.getTrnqy2());
+                invtrn.setTrnqy3(invdta.getTrnqy3());
+                invtrn.setUnmsr1(m.getUnmsr1());
+                invtrn.setIocode(invdou.getIocode());
+                invtrn.setUserno(e.getTa012());
+                invtrn.setCfmuserno(e.getTa012());
+                invtrn.setRescode(e.getTa042());
+                invtrn.setSyscode(invdou.getSyscode());
+                invtrn.setSourceno(e.getTa001() + e.getTa002());
+                invtrn.setItcls(invdta.getItcls());
+                invtrn.setItclscode(invdta.getItclscode());
+                invtrn.setIndate(trdate);
+                invtrn.setCfmdate(trdate);
+
+                //加入库存出入新增列表
                 addedDetail.add(invdta);
+                //加入交易历史新增列表
+                invtrnList.add(invtrn);
             }
             trno = getINV310Trno(facno, "", trtype, trdate, true);
             Invhad invhad = new Invhad(facno, "1", trno);
@@ -240,17 +321,32 @@ public class InvhadBean extends SuperEJBForERP<Invhad> {
             invhad.setKfno(e.getTa039());
             invhad.setFwno(e.getTa040() + e.getTa041());
             invhad.setSourceno(e.getTa002());
-            invhad.setStatus('N');
-            invhad.setUserno(trno);
+            invhad.setStatus('Y');
+            invhad.setUserno(e.getTa012());
             invhad.setIndate(trdate);
-            invhad.setCfmuserno(trno);
+            invhad.setCfmuserno(e.getTa012());
             invhad.setCfmdate(trdate);
             //明细列表交易单号赋值
             for (Invdta d : addedDetail) {
                 d.getInvdtaPK().setTrno(trno);
             }
-            //更新到数据库
+            //更新ERP INV310
             this.persist(invhad, detailAdded);
+            //更新ERP交易历史
+            for (Invtrn t : invtrnList) {
+                t.getInvtrnPK().setTrno(trno);
+                invtrnBean.persist(t);
+            }
+            //更新ERP库存数量
+            if (invdou.getIocode() == '1') {
+                //入库增加库存
+                invbalBean.add(invbalList);
+                invbatBean.add(invbatList);
+            } else if (invdou.getIocode() == '2') {
+                //出库减少库存
+                invbalBean.subtract(invbalList);
+                invbatBean.subtract(invbatList);
+            }
             //回写OA记录ERP单号
             if (trtype.equals("IAF")) {
                 e.setTa025(trno);
