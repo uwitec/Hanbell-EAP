@@ -5,11 +5,17 @@
  */
 package cn.hanbell.oa.ejb;
 
+import cn.hanbell.crm.ejb.REPMIBean;
 import cn.hanbell.crm.ejb.REPTDBean;
+import cn.hanbell.crm.entity.REPMI;
+import cn.hanbell.crm.entity.REPMIPK;
 import cn.hanbell.crm.entity.REPTD;
 import cn.hanbell.oa.comm.SuperEJBForEFGP;
 import cn.hanbell.oa.entity.HKFW006;
+import cn.hanbell.oa.entity.HKFW006Cdrn30;
+import cn.hanbell.oa.entity.HKFW006Cdrn30Detail;
 import cn.hanbell.oa.entity.HKFW006Detail;
+import cn.hanbell.util.BaseLib;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -31,6 +37,10 @@ public class HKFW006Bean extends SuperEJBForEFGP<HKFW006> {
     private HKFW006DetailBean hkfw006DetailBean;
     @EJB
     private REPTDBean reptdBean;
+    @EJB
+    private REPMIBean repmiBean;
+    @EJB
+    private HKFW006Cdrn30Bean hkfw006CDRN30Bean;
 
     private List<HKFW006Detail> detailList;
 
@@ -51,6 +61,7 @@ public class HKFW006Bean extends SuperEJBForEFGP<HKFW006> {
                 REPTD td = reptdBean.findByPK(td001, td002, td003);
                 td.setTd047("Y");
                 reptdBean.update(td);
+                return  true ;
             }
 
             List<HKFW006Detail> details = hkfw006DetailBean.findByFSN(h.getFormSerialNumber());
@@ -66,6 +77,45 @@ public class HKFW006Bean extends SuperEJBForEFGP<HKFW006> {
                 }
             }
 
+            return true;
+
+        } catch (Exception ex) {
+
+            Logger.getLogger(HKFW006Bean.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+
+    //更新CRM REPMI
+    public Boolean updateREPMIByOAHKFW006(String psn) {
+        try {
+            HKFW006Cdrn30 h = hkfw006CDRN30Bean.findByPSN(psn);
+            if (h == null) {
+                throw new NullPointerException();
+            }
+            List<HKFW006Cdrn30Detail> details = hkfw006CDRN30Bean.getDetailList(h.getFormSerialNumber());
+            if (details.size() > 0) {
+                for (int i = 0; i < details.size(); i++) {
+                    HKFW006Cdrn30Detail detail = details.get(i);
+                    if(!detail.getVarnr().equals(detail.getDmark2())){
+                        String mi002 = detail.getVarnr();
+                        REPMI repmi = repmiBean.findByMI002(mi002);
+                        if(repmi == null){
+                        } else {
+                           REPMIPK repmipk = new REPMIPK();
+                           repmipk.setMi001(detail.getItnbr());
+                           repmipk.setMi002(mi002);
+                           repmi.setREPMIPK(repmipk);
+                           String mi003 = "OA反写"+BaseLib.getDate();
+                           repmi.setMi003(mi003);
+                           repmi.setMi014(h.getCusno());
+                           repmi.setMi015(h.getCusname());
+                           repmiBean.update(repmi);
+                        }
+                    }
+
+                }
+            }
             return true;
 
         } catch (Exception ex) {
