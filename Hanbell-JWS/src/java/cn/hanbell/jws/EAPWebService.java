@@ -18,11 +18,11 @@ import cn.hanbell.erp.ejb.InvclswahBean;
 import cn.hanbell.erp.entity.Invclswah;
 import cn.hanbell.oa.ejb.HKCG007Bean;
 import cn.hanbell.oa.ejb.HKCW002Bean;
+import cn.hanbell.oa.ejb.HKFW006Bean;
 import cn.hanbell.oa.ejb.HZCW028Bean;
 import cn.hanbell.oa.ejb.HZCW033Bean;
 import cn.hanbell.oa.ejb.HZJS034Bean;
 import cn.hanbell.oa.ejb.SERI12Bean;
-import cn.hanbell.oa.ejb.WARMI05Bean;
 import cn.hanbell.oa.ejb.WorkFlowBean;
 import cn.hanbell.oa.entity.HKCW002;
 import cn.hanbell.oa.entity.HKCW002Detail;
@@ -63,8 +63,6 @@ public class EAPWebService {
     //EJBForEAM
     @EJB
     private AssetApplyBean assetApplyBean;
-    @EJB
-    private WARMI05Bean warmi05Bean;
 
     //EJBForEFGP
     @EJB
@@ -73,6 +71,8 @@ public class EAPWebService {
     private HKCG007Bean hkcg007Bean;
     @EJB
     private HKCW002Bean hkcw002Bean;
+    @EJB
+    private HKFW006Bean hkfw006Bean;
     @EJB
     private HZCW028Bean hzcw028Bean;
     @EJB
@@ -251,7 +251,7 @@ public class EAPWebService {
                 ret = false;
             }
         } catch (Exception ex) {
-            Logger.getLogger(SHBERPWebService.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EAPWebService.class.getName()).log(Level.SEVERE, null, ex);
         }
         if (ret) {
             return "200";
@@ -266,7 +266,7 @@ public class EAPWebService {
         try {
             ret = hkcg007Bean.initByHKCW002(psn);
         } catch (Exception ex) {
-            Logger.getLogger(SHBERPWebService.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EAPWebService.class.getName()).log(Level.SEVERE, null, ex);
         }
         if (ret) {
             return "200";
@@ -281,7 +281,7 @@ public class EAPWebService {
         try {
             ret = hkcg007Bean.initByHKCW002P(psn);
         } catch (Exception ex) {
-            Logger.getLogger(SHBERPWebService.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EAPWebService.class.getName()).log(Level.SEVERE, null, ex);
         }
         if (ret) {
             return "200";
@@ -296,7 +296,7 @@ public class EAPWebService {
         try {
             ret = hzcw028Bean.rollbackCRMPORMY(psn);
         } catch (Exception ex) {
-            Logger.getLogger(SHBERPWebService.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EAPWebService.class.getName()).log(Level.SEVERE, null, ex);
         }
         if (ret) {
             return "200";
@@ -311,7 +311,7 @@ public class EAPWebService {
         try {
             ret = hzcw033Bean.rollbackCRMPORMY(psn);
         } catch (Exception ex) {
-            Logger.getLogger(SHBERPWebService.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EAPWebService.class.getName()).log(Level.SEVERE, null, ex);
         }
         if (ret) {
             return "200";
@@ -326,7 +326,7 @@ public class EAPWebService {
         try {
             ret = hzcw028Bean.updateCRMPORMY(psn);
         } catch (Exception ex) {
-            Logger.getLogger(SHBERPWebService.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EAPWebService.class.getName()).log(Level.SEVERE, null, ex);
         }
         if (ret) {
             return "200";
@@ -341,7 +341,22 @@ public class EAPWebService {
         try {
             ret = hzcw033Bean.updateCRMPORMY(psn);
         } catch (Exception ex) {
-            Logger.getLogger(SHBERPWebService.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EAPWebService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (ret) {
+            return "200";
+        } else {
+            return "404";
+        }
+    }
+
+    @WebMethod(operationName = "updateCRMREPMIByOAHKFW006")
+    public String updateCRMREPMIByOAHKFW006(@WebParam(name = "psn") String psn) {
+        Boolean ret = false;
+        try {
+            ret = hkfw006Bean.updateREPMIByOAHKFW006(psn);
+        } catch (Exception ex) {
+            Logger.getLogger(EAPWebService.class.getName()).log(Level.SEVERE, null, ex);
         }
         if (ret) {
             return "200";
@@ -356,7 +371,7 @@ public class EAPWebService {
         try {
             ret = seri12Bean.updateSerbq(psn);
         } catch (Exception ex) {
-            Logger.getLogger(SHBERPWebService.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EAPWebService.class.getName()).log(Level.SEVERE, null, ex);
         }
         if (ret) {
             return "200";
@@ -365,18 +380,4 @@ public class EAPWebService {
         }
     }
 
-    @WebMethod(operationName = "updateCRMWARTBByOAWARMI05")
-    public String updateCRMWARTBByOAWARMI05(@WebParam(name = "psn") String psn, @WebParam(name = "step") String step) {
-        Boolean ret = false;
-        try {
-            ret = warmi05Bean.updateWARTB(psn, step);
-        } catch (Exception ex) {
-            Logger.getLogger(SHBERPWebService.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        if (ret) {
-            return "200";
-        } else {
-            return "404";
-        }
-    }
 }

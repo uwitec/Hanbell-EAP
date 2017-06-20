@@ -56,8 +56,12 @@ public class CdrlnhadBean extends SuperEJBForERP<Cdrlnhad> {
         q.setParameter("facno", facno);
         q.setParameter("trno", trno);
         try {
-            Object o = q.getSingleResult();
-            return (Cdrlnhad) o;
+            List resultList = q.getResultList();
+            if (resultList.size() > 0) {
+                Object o = resultList.get(0);
+                return (Cdrlnhad) o;
+            }
+            return null;
         } catch (Exception ex) {
             return null;
         }
