@@ -18,7 +18,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Administrator
+ * @author C1587
  */
 @Entity
 @Table(name = "WARTA")
@@ -32,6 +32,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "WARTA.findByModifier", query = "SELECT w FROM WARTA w WHERE w.modifier = :modifier"),
     @NamedQuery(name = "WARTA.findByModiDate", query = "SELECT w FROM WARTA w WHERE w.modiDate = :modiDate"),
     @NamedQuery(name = "WARTA.findByFlag", query = "SELECT w FROM WARTA w WHERE w.flag = :flag"),
+    @NamedQuery(name = "WARTA.findByPK", query = "SELECT w FROM WARTA w WHERE w.wARTAPK.ta001 = :ta001 and w.wARTAPK.ta002 = :ta002"),
     @NamedQuery(name = "WARTA.findByTa001", query = "SELECT w FROM WARTA w WHERE w.wARTAPK.ta001 = :ta001"),
     @NamedQuery(name = "WARTA.findByTa002", query = "SELECT w FROM WARTA w WHERE w.wARTAPK.ta002 = :ta002"),
     @NamedQuery(name = "WARTA.findByTa003", query = "SELECT w FROM WARTA w WHERE w.ta003 = :ta003"),
@@ -138,7 +139,7 @@ public class WARTA implements Serializable {
     private String ta005;
     @Size(max = 1)
     @Column(name = "TA006")
-    private String ta006;
+    private Character ta006;
     @Size(max = 2)
     @Column(name = "TA007")
     private String ta007;
@@ -169,18 +170,22 @@ public class WARTA implements Serializable {
     @Size(max = 11)
     @Column(name = "TA016")
     private String ta016;
+
     @Size(max = 1)
     @Column(name = "TA017")
-    private String ta017;
+    private Character ta017;
+
     @Size(max = 1000)
     @Column(name = "TA018")
     private String ta018;
     @Size(max = 1000)
     @Column(name = "TA019")
     private String ta019;
+
     @Size(max = 1)
     @Column(name = "TA020")
-    private String ta020;
+    private Character ta020;
+
     @Size(max = 10)
     @Column(name = "TA021")
     private String ta021;
@@ -317,9 +322,11 @@ public class WARTA implements Serializable {
     @Size(max = 30)
     @Column(name = "TA042")
     private String ta042;
+
     @Size(max = 1)
     @Column(name = "TA200")
-    private String ta200;
+    private Character ta200;
+
     @Size(max = 20)
     @Column(name = "TA201")
     private String ta201;
@@ -429,11 +436,11 @@ public class WARTA implements Serializable {
         this.ta005 = ta005;
     }
 
-    public String getTa006() {
+    public Character getTa006() {
         return ta006;
     }
 
-    public void setTa006(String ta006) {
+    public void setTa006(Character ta006) {
         this.ta006 = ta006;
     }
 
@@ -517,11 +524,11 @@ public class WARTA implements Serializable {
         this.ta016 = ta016;
     }
 
-    public String getTa017() {
+    public Character getTa017() {
         return ta017;
     }
 
-    public void setTa017(String ta017) {
+    public void setTa017(Character ta017) {
         this.ta017 = ta017;
     }
 
@@ -541,11 +548,11 @@ public class WARTA implements Serializable {
         this.ta019 = ta019;
     }
 
-    public String getTa020() {
+    public Character getTa020() {
         return ta020;
     }
 
-    public void setTa020(String ta020) {
+    public void setTa020(Character ta020) {
         this.ta020 = ta020;
     }
 
@@ -917,11 +924,11 @@ public class WARTA implements Serializable {
         this.ta042 = ta042;
     }
 
-    public String getTa200() {
+    public Character getTa200() {
         return ta200;
     }
 
-    public void setTa200(String ta200) {
+    public void setTa200(Character ta200) {
         this.ta200 = ta200;
     }
 
