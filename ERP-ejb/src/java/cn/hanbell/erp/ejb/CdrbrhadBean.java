@@ -167,7 +167,7 @@ public class CdrbrhadBean extends SuperEJBForERP<Cdrbrhad> {
                 invbalList.add(invbal);
                 //批号可利用量检查
                 if (m.getInvcls().getNrcode() != '0') {
-                    invbat = new Invbat(cdrbrdta.getItnbr(), facno, prono, "JCZC", cdrbrdta.getFixnr(), cdrbrdta.getVarnr());
+                    invbat = new Invbat(facno, prono, cdrbrdta.getItnbr(), "JCZC", cdrbrdta.getFixnr(), cdrbrdta.getVarnr());
                     invbat.setItcls(m.getItcls());
                     invbat.setItclscode(m.getItclscode());
                     invbat.setPreqy1(cdrbrdta.getBrpqy1());
