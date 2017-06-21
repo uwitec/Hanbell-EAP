@@ -12,6 +12,9 @@ import cn.hanbell.erp.entity.Cdrbrhad;
 import cn.hanbell.erp.entity.CdrbrhadPK;
 import cn.hanbell.erp.entity.Cdrlnhad;
 import cn.hanbell.erp.entity.Cdrobdou;
+import cn.hanbell.erp.entity.Invbal;
+import cn.hanbell.erp.entity.Invbat;
+import cn.hanbell.erp.entity.Invmas;
 import cn.hanbell.oa.ejb.HKFW006Bean;
 import cn.hanbell.oa.ejb.HKFW006Cdrn30Bean;
 import cn.hanbell.oa.ejb.HKFW006Cdrn30DetailBean;
@@ -21,6 +24,7 @@ import cn.hanbell.oa.entity.HKFW006Cdrn30Detail;
 import cn.hanbell.util.BaseLib;
 import java.math.BigDecimal;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -52,6 +56,12 @@ public class CdrbrhadBean extends SuperEJBForERP<Cdrbrhad> {
     private HKFW006Cdrn30DetailBean hkfw006Cdrn30DetailBean;
     @EJB
     private HKFW006Bean hkfw006Bean;
+    @EJB
+    private InvbalBean invbalBean;
+    @EJB
+    private InvbatBean invbatBean;
+    @EJB
+    private InvmasBean invmasBean;
 
     public CdrbrhadBean() {
         super(Cdrbrhad.class);
@@ -62,8 +72,12 @@ public class CdrbrhadBean extends SuperEJBForERP<Cdrbrhad> {
         q.setParameter("facno", facno);
         q.setParameter("brtrno", brtrno);
         try {
-            Object o = q.getSingleResult();
-            return (Cdrbrhad) o;
+            List resultList = q.getResultList();
+            if (resultList.size() > 0) {
+                Object o = resultList.get(0);
+                return (Cdrbrhad) o;
+            }
+            return null;
         } catch (Exception ex) {
             return null;
         }
@@ -75,8 +89,20 @@ public class CdrbrhadBean extends SuperEJBForERP<Cdrbrhad> {
             if (h == null) {
                 throw new NullPointerException();
             }
+            List<HKFW006Cdrn30Detail> details = hkfw006Cdrn30DetailBean.findByFSN(h.getFormSerialNumber());
+            if (details == null || details.size() <= 0) {
+                throw new NullPointerException();
+            }
             Date date;
             String facno = h.getFacno();
+            String prono = h.getProno();
+            List<Invbal> invbalList = new ArrayList();
+            List<Invbat> invbatList = new ArrayList();
+            Invbal invbal;
+            Invbat invbat;
+            invmasBean.setCompany(facno);
+            invbalBean.setCompany(facno);
+            invbatBean.setCompany(facno);
             String cdrobty = h.getCdrobty();
             date = BaseLib.getDate("yyyy/MM/dd", BaseLib.formatDate("yyyy/MM/dd", BaseLib.getDate()));
             String brtrno = getCDRN30Brno(cdrobty, facno, date, "1", Boolean.TRUE);
@@ -103,10 +129,6 @@ public class CdrbrhadBean extends SuperEJBForERP<Cdrbrhad> {
             this.setCompany(facno);
             persist(cdrbrhad);
 
-            List<HKFW006Cdrn30Detail> details = hkfw006Cdrn30DetailBean.findByFSN(h.getFormSerialNumber());
-            if (details.size() <= 0) {
-                throw new NullPointerException();
-            }
             //  表身循环
             for (int i = 0; i < details.size(); i++) {
                 HKFW006Cdrn30Detail detail = details.get(i);
@@ -121,6 +143,7 @@ public class CdrbrhadBean extends SuperEJBForERP<Cdrbrhad> {
                 cdrbrdta.setItnbr(detail.getItnbr());
                 cdrbrdta.setWareh(detail.getWareh());
                 cdrbrdta.setVarnr(detail.getVarnr());
+                cdrbrdta.setFixnr(detail.getFixnr());
                 cdrbrdta.setBrpqy1(BigDecimal.valueOf(Double.parseDouble(detail.getBrpqy1())));
                 cdrbrdta.setBrdate(cdrbrhad.getBrdate());
                 cdrbrdta.setPyhbrdate(BaseLib.getDate("yyyy/MM/dd", detail.getPrebkdate()));
@@ -129,7 +152,36 @@ public class CdrbrhadBean extends SuperEJBForERP<Cdrbrhad> {
                 cdrbrdta.setDmark2(detail.getDmark2());
                 cdrbrdtaBean.setCompany(facno);
                 cdrbrdtaBean.persist(cdrbrdta);
+
+                //更新ERP invbat/invbal
+                Invmas m = invmasBean.findByItnbr(cdrbrdta.getItnbr());
+                if (m == null) {
+                    throw new RuntimeException(cdrbrdta.getItnbr() + "ERP中不存在");
+                }
+                invbal = new Invbal(facno, prono, cdrbrdta.getItnbr(), "JCZC");
+
+                invbal.setItcls(m.getItcls());
+                invbal.setItclscode(m.getItclscode());
+                invbal.setPreqy1(cdrbrdta.getBrpqy1());
+                //加入库存更新列表
+                invbalList.add(invbal);
+                //批号可利用量检查
+                if (m.getInvcls().getNrcode() != '0') {
+                    invbat = new Invbat(cdrbrdta.getItnbr(), facno, prono, "JCZC", cdrbrdta.getFixnr(), cdrbrdta.getVarnr());
+                    invbat.setItcls(m.getItcls());
+                    invbat.setItclscode(m.getItclscode());
+                    invbat.setPreqy1(cdrbrdta.getBrpqy1());
+                    //加入库存更新列表
+                    invbatList.add(invbat);
+
+                }
             }
+
+            //更新ERP库存数量 //入库增加库存
+            invbalBean.add(invbalList);
+            invbatBean.add(invbatList);
+
+            //反写OA归还单号
             h.setPzno(brtrno);
             this.getEntityManager().flush();
             hkfw006Cdrn30Bean.update(h);

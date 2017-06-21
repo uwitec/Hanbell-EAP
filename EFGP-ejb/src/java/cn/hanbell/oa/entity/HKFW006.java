@@ -103,6 +103,9 @@ public class HKFW006 implements Serializable {
     @ManyToOne(optional = true)
     private OrganizationUnit supportDept;
     @Size(max = 255)
+    @Column(name = "hdreturntype")
+    private String hdreturntype;
+    @Size(max = 255)
     @Column(name = "hdcptype")
     private String hdcptype;
     @Size(max = 255)
@@ -883,6 +886,14 @@ public class HKFW006 implements Serializable {
 
     public void setSupportDept(OrganizationUnit supportDept) {
         this.supportDept = supportDept;
+    }
+
+    public String getHdreturntype() {
+        return hdreturntype;
+    }
+
+    public void setHdreturntype(String hdreturntype) {
+        this.hdreturntype = hdreturntype;
     }
 
 }
