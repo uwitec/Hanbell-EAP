@@ -137,6 +137,7 @@ public class WARTA implements Serializable {
     @Size(max = 255)
     @Column(name = "TA005")
     private String ta005;
+    @Size(max = 1)
     @Column(name = "TA006")
     private Character ta006;
     @Size(max = 2)
@@ -169,16 +170,22 @@ public class WARTA implements Serializable {
     @Size(max = 11)
     @Column(name = "TA016")
     private String ta016;
+
+    @Size(max = 1)
     @Column(name = "TA017")
     private Character ta017;
+
     @Size(max = 1000)
     @Column(name = "TA018")
     private String ta018;
     @Size(max = 1000)
     @Column(name = "TA019")
     private String ta019;
+
+    @Size(max = 1)
     @Column(name = "TA020")
     private Character ta020;
+
     @Size(max = 10)
     @Column(name = "TA021")
     private String ta021;
@@ -315,8 +322,11 @@ public class WARTA implements Serializable {
     @Size(max = 30)
     @Column(name = "TA042")
     private String ta042;
+
+    @Size(max = 1)
     @Column(name = "TA200")
     private Character ta200;
+
     @Size(max = 20)
     @Column(name = "TA201")
     private String ta201;

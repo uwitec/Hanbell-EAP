@@ -137,7 +137,7 @@ public class InvhadBean extends SuperEJBForERP<Invhad> {
                 invdta.setInvdtaPK(invdtaPK);
                 invdta.setTrtype(trtype);
                 invmasBean.setCompany(facno);
-                System.out.println(detail.getItnbr());
+                //System.out.println(detail.getItnbr());
                 Invmas m = invmasBean.findByItnbr(detail.getItnbr());
                 invdta.setItcls(m.getItcls());
                 invdta.setItclscode(m.getItclscode());

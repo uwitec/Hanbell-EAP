@@ -19,6 +19,11 @@ import javax.persistence.Query;
 @LocalBean
 public class WARTABean extends SuperEJBForCRM<WARTA>{
 
+
+    public WARTABean() {
+        super(WARTA.class);
+    }
+
     public WARTABean(){
         super(WARTA.class);
     }
@@ -33,4 +38,5 @@ public class WARTABean extends SuperEJBForCRM<WARTA>{
             return null;
         }
     }
+
 }
