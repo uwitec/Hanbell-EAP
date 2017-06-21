@@ -120,7 +120,10 @@ public class HKFW006Inv310 implements Serializable {
     @Size(max = 255)
     @Column(name = "depname")
     private String depname;
-
+    @Size(max = 255)
+    @Column(name = "pzuser")
+    private String pzuser;
+    
     public HKFW006Inv310() {
     }
 
@@ -327,6 +330,14 @@ public class HKFW006Inv310 implements Serializable {
 
     public void setPzinv310(String pzinv310) {
         this.pzinv310 = pzinv310;
+    }
+
+    public String getPzuser() {
+        return pzuser;
+    }
+
+    public void setPzuser(String pzuser) {
+        this.pzuser = pzuser;
     }
     
 }
