@@ -109,16 +109,8 @@ public class Invbat implements Serializable {
         this.mbegqy3 = BigDecimal.ZERO;
     }
 
-    public Invbat(InvbatPK invbatPK, String itcls, Character itclscode, BigDecimal preqy1, BigDecimal onhand1) {
-        this.invbatPK = invbatPK;
-        this.itcls = itcls;
-        this.itclscode = itclscode;
-        this.preqy1 = preqy1;
-        this.onhand1 = onhand1;
-    }
-
-    public Invbat(String itnbr, String facno, String prono, String wareh, String fixnr, String varnr) {
-        this.invbatPK = new InvbatPK(itnbr, facno, prono, wareh, fixnr, varnr);
+    public Invbat(String facno, String prono, String itnbr, String wareh, String fixnr, String varnr) {
+        this.invbatPK = new InvbatPK(facno, prono, itnbr, wareh, fixnr, varnr);
         this.preqy1 = BigDecimal.ZERO;
         this.preqy2 = BigDecimal.ZERO;
         this.preqy3 = BigDecimal.ZERO;

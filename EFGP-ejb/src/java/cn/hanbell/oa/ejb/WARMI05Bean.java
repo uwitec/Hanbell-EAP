@@ -32,7 +32,7 @@ public class WARMI05Bean extends SuperEJBForEFGP<WARMI05> {
 
     @EJB
     private WARTBBean wartbBean;
-    
+
     @EJB
     private WARTABean wartaBean;
 
@@ -69,6 +69,9 @@ public class WARMI05Bean extends SuperEJBForEFGP<WARMI05> {
         String ta028 = w.getTa028();
         String ta029 = w.getTa029();
 
+        WARTA ta;
+        ta = wartaBean.findByPK(ta001, ta002);
+
         List<WARMI05Detail> detail1 = warmi05DetailBean.findByFSN(w.getFormSerialNumber());
         for (int i = 0; i < detail1.size(); i++) {
             WARMI05Detail wd = detail1.get(i);
@@ -78,23 +81,23 @@ public class WARMI05Bean extends SuperEJBForEFGP<WARMI05> {
             }
             BigDecimal bd = new BigDecimal(tb009);
             WARTB tb;
-            WARTA ta;
             tb = wartbBean.findByPK(ta001, ta002, wd.getTb003());
-            ta = wartaBean.findByPK(ta001, ta002);
             if ("1".equals(step)) {
                 tb.setTb033(bd);
                 wartbBean.update(tb);
             } else {
                 tb.setTb032(tb.getTb032().add(BigDecimal.ONE));
                 tb.setTb033(BigDecimal.ZERO);
-                if("FWLL".equals(ta001)){
+                if ("FWLL".equals(ta001)) {
                     ta.setTa025(ta025);
-                }else if("JCDX".equals(ta001) || "JCDF".equals(ta001)){
+                } else if ("JCDX".equals(ta001) || "JCDF".equals(ta001)) {
                     ta.setTa028(ta028);
                 }
                 wartbBean.update(tb);
-                wartaBean.update(ta);
             }
+        }
+        if (!"1".equals(step)) {
+            wartaBean.update(ta);
         }
         return true;
 

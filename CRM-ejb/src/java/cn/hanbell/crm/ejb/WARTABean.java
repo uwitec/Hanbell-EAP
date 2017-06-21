@@ -17,17 +17,13 @@ import javax.persistence.Query;
  */
 @Stateless
 @LocalBean
-public class WARTABean extends SuperEJBForCRM<WARTA>{
-
+public class WARTABean extends SuperEJBForCRM<WARTA> {
 
     public WARTABean() {
         super(WARTA.class);
     }
 
-    public WARTABean(){
-        super(WARTA.class);
-    }
-        public WARTA findByPK(String ta001,String ta002){
+    public WARTA findByPK(String ta001, String ta002) {
         Query query = this.getEntityManager().createNamedQuery("WARTA.findByPK");
         query.setParameter("ta001", ta001);
         query.setParameter("ta002", ta002);

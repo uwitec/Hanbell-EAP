@@ -18,7 +18,6 @@ import cn.hanbell.util.BaseLib;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -56,12 +55,8 @@ public class CdrlnhadBean extends SuperEJBForERP<Cdrlnhad> {
         q.setParameter("facno", facno);
         q.setParameter("trno", trno);
         try {
-            List resultList = q.getResultList();
-            if (resultList.size() > 0) {
-                Object o = resultList.get(0);
-                return (Cdrlnhad) o;
-            }
-            return null;
+            Object o = q.getSingleResult();
+            return (Cdrlnhad) o;
         } catch (Exception ex) {
             return null;
         }
@@ -157,7 +152,7 @@ public class CdrlnhadBean extends SuperEJBForERP<Cdrlnhad> {
             cdrlnhad.setDepno(e.getTa004());
             cdrlnhad.setCusno(e.getTa032());
             cdrlnhad.setMancode(e.getTa012());
-            cdrlnhad.setResno(e.getTa042());
+            cdrlnhad.setResno(e.getTa043());
             cdrlnhad.setUserno(e.getTa012());
             cdrlnhad.setIndate(trdate);
             cdrlnhad.setStatus('N');
