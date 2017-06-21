@@ -53,10 +53,10 @@ public class InvbatPK implements Serializable {
     public InvbatPK() {
     }
 
-    public InvbatPK(String itnbr, String facno, String prono, String wareh, String fixnr, String varnr) {
-        this.itnbr = itnbr;
+    public InvbatPK(String facno, String prono, String itnbr, String wareh, String fixnr, String varnr) {
         this.facno = facno;
         this.prono = prono;
+        this.itnbr = itnbr;
         this.wareh = wareh;
         this.fixnr = fixnr;
         this.varnr = varnr;
@@ -154,5 +154,5 @@ public class InvbatPK implements Serializable {
     public String toString() {
         return "cn.hanbell.erp.entity.InvbatPK[ itnbr=" + itnbr + ", facno=" + facno + ", prono=" + prono + ", wareh=" + wareh + ", fixnr=" + fixnr + ", varnr=" + varnr + " ]";
     }
-    
+
 }

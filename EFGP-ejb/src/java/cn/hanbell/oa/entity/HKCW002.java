@@ -276,6 +276,15 @@ public class HKCW002 implements Serializable {
     @Size(max = 255)
     @Column(name = "formSerialNumber")
     private String formSerialNumber;
+    @Size(max = 255)
+    @Column(name = "srcformid")
+    private String srcformid;
+    @Size(max = 255)
+    @Column(name = "relformid")
+    private String relformid;
+    @Size(max = 255)
+    @Column(name = "creator")
+    private String creator;
 
     public HKCW002() {
     }
@@ -972,5 +981,47 @@ public class HKCW002 implements Serializable {
     public String toString() {
         return "cn.hanbell.oa.entity.HKCW002[ oid=" + oid + " ]";
     }
-    
+
+    /**
+     * @return the srcformid
+     */
+    public String getSrcformid() {
+        return srcformid;
+    }
+
+    /**
+     * @param srcformid the srcformid to set
+     */
+    public void setSrcformid(String srcformid) {
+        this.srcformid = srcformid;
+    }
+
+    /**
+     * @return the relformid
+     */
+    public String getRelformid() {
+        return relformid;
+    }
+
+    /**
+     * @param relformid the relformid to set
+     */
+    public void setRelformid(String relformid) {
+        this.relformid = relformid;
+    }
+
+    /**
+     * @return the creator
+     */
+    public String getCreator() {
+        return creator;
+    }
+
+    /**
+     * @param creator the creator to set
+     */
+    public void setCreator(String creator) {
+        this.creator = creator;
+    }
+
 }

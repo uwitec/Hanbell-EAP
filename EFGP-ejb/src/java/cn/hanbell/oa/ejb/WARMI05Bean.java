@@ -5,7 +5,9 @@
  */
 package cn.hanbell.oa.ejb;
 
+import cn.hanbell.crm.ejb.WARTABean;
 import cn.hanbell.crm.ejb.WARTBBean;
+import cn.hanbell.crm.entity.WARTA;
 import cn.hanbell.crm.entity.WARTB;
 import cn.hanbell.oa.comm.SuperEJBForEFGP;
 import cn.hanbell.oa.entity.WARMI05;
@@ -30,6 +32,9 @@ public class WARMI05Bean extends SuperEJBForEFGP<WARMI05> {
 
     @EJB
     private WARTBBean wartbBean;
+
+    @EJB
+    private WARTABean wartaBean;
 
     private List<WARMI05Detail> detailList;
 
@@ -59,6 +64,13 @@ public class WARMI05Bean extends SuperEJBForEFGP<WARMI05> {
         }
         String ta001 = w.getTa001();
         String ta002 = w.getTa002();
+        String ta025 = w.getTa025();
+        String ta026 = w.getTa026();
+        String ta028 = w.getTa028();
+        String ta029 = w.getTa029();
+
+        WARTA ta;
+        ta = wartaBean.findByPK(ta001, ta002);
 
         List<WARMI05Detail> detail1 = warmi05DetailBean.findByFSN(w.getFormSerialNumber());
         for (int i = 0; i < detail1.size(); i++) {
@@ -76,8 +88,16 @@ public class WARMI05Bean extends SuperEJBForEFGP<WARMI05> {
             } else {
                 tb.setTb032(tb.getTb032().add(BigDecimal.ONE));
                 tb.setTb033(BigDecimal.ZERO);
+                if ("FWLL".equals(ta001)) {
+                    ta.setTa025(ta025);
+                } else if ("JCDX".equals(ta001) || "JCDF".equals(ta001)) {
+                    ta.setTa028(ta028);
+                }
                 wartbBean.update(tb);
             }
+        }
+        if (!"1".equals(step)) {
+            wartaBean.update(ta);
         }
         return true;
 

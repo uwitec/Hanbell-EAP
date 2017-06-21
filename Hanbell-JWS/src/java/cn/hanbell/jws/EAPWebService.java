@@ -23,6 +23,7 @@ import cn.hanbell.oa.ejb.HZCW028Bean;
 import cn.hanbell.oa.ejb.HZCW033Bean;
 import cn.hanbell.oa.ejb.HZJS034Bean;
 import cn.hanbell.oa.ejb.SERI12Bean;
+import cn.hanbell.oa.ejb.WARMI05Bean;
 import cn.hanbell.oa.ejb.WorkFlowBean;
 import cn.hanbell.oa.entity.HKCW002;
 import cn.hanbell.oa.entity.HKCW002Detail;
@@ -72,15 +73,17 @@ public class EAPWebService {
     @EJB
     private HKCW002Bean hkcw002Bean;
     @EJB
-    private HKFW006Bean hkfw006Bean;
-    @EJB
     private HZCW028Bean hzcw028Bean;
     @EJB
     private HZCW033Bean hzcw033Bean;
     @EJB
+    private HKFW006Bean hkfw006Bean;
+    @EJB
     private HZJS034Bean hzjs034Bean;
     @EJB
     private SERI12Bean seri12Bean;
+    @EJB
+    private WARMI05Bean warmi05Bean;
 
     //EJBForERP
     @EJB
@@ -372,6 +375,21 @@ public class EAPWebService {
             ret = seri12Bean.updateSerbq(psn);
         } catch (Exception ex) {
             Logger.getLogger(EAPWebService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (ret) {
+            return "200";
+        } else {
+            return "404";
+        }
+    }
+
+    @WebMethod(operationName = "updateCRMWARTBByOAWARMI05")
+    public String updateCRMWARTBByOAWARMI05(@WebParam(name = "psn") String psn, @WebParam(name = "step") String step) {
+        Boolean ret = false;
+        try {
+            ret = warmi05Bean.updateWARTB(psn, step);
+        } catch (Exception ex) {
+            Logger.getLogger(SHBERPWebService.class.getName()).log(Level.SEVERE, null, ex);
         }
         if (ret) {
             return "200";

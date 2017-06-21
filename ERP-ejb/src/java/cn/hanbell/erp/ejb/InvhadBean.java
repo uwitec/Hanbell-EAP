@@ -90,7 +90,8 @@ public class InvhadBean extends SuperEJBForERP<Invhad> {
             String prono = "1";
             String depno = h.getDepno();
             String trtype = h.getTrtype();
-            String trno = getINV310Trno(facno, depno, trtype, date, true);
+            invsernoBean.setCompany(facno);
+            String trno = invsernoBean.getTrno(facno, depno, trtype, date, true);
             pk.setFacno(facno);
             pk.setProno(prono);
             pk.setTrno(trno);
@@ -110,7 +111,7 @@ public class InvhadBean extends SuperEJBForERP<Invhad> {
             HKFW006 hkfw006 = hkfw006Bean.findByPSN(psn);
             invhad.setUserno(hkfw006.getApplyuser());
             invhad.setIndate(date);
-            // invhad.setCfmuserno(trno);
+            //invhad.setCfmuserno(trno);
             //invhad.setCfmdate(date);
             invhad.setStatus("N".charAt(0));
             invhad.setPrtcnt((short) 0);
@@ -137,7 +138,6 @@ public class InvhadBean extends SuperEJBForERP<Invhad> {
                 invdta.setInvdtaPK(invdtaPK);
                 invdta.setTrtype(trtype);
                 invmasBean.setCompany(facno);
-                //System.out.println(detail.getItnbr());
                 Invmas m = invmasBean.findByItnbr(detail.getItnbr());
                 invdta.setItcls(m.getItcls());
                 invdta.setItclscode(m.getItclscode());
@@ -309,8 +309,9 @@ public class InvhadBean extends SuperEJBForERP<Invhad> {
                 //加入交易历史新增列表
                 invtrnList.add(invtrn);
             }
-            trno = getINV310Trno(facno, "", trtype, trdate, true);
-            Invhad invhad = new Invhad(facno, "1", trno);
+            invsernoBean.setCompany(facno);
+            trno = invsernoBean.getTrno(facno, "", trtype, trdate, true);
+            Invhad invhad = new Invhad(facno, prono, trno);
             invhad.setTrtype(trtype);
             invhad.setTrdate(trdate);
             invhad.setDepno(e.getTa032());//客户
@@ -361,132 +362,6 @@ public class InvhadBean extends SuperEJBForERP<Invhad> {
             return false;
         }
 
-    }
-
-    private String getINV310Trno(String facno, String depno, String trtype, Date trdate, boolean updateflag) {
-        String ls_autochar;
-        Character ls_autono;
-        String ls_nofmt;
-        String ls_trno;
-        String ls_depcode = "";
-        String ls_serial = "";
-        int ll_max;
-        int li_ordno;
-        invdouBean.setCompany(facno);
-        Invdou invdou = invdouBean.findByTrtype(trtype);
-        if (invdou != null) {
-
-            ls_autochar = invdou.getAutochar().toString();
-            ls_autono = invdou.getAutoyn();
-            ls_nofmt = invdou.getNofmt();
-            li_ordno = Integer.parseInt(ls_nofmt.substring(5));//流水号
-            ls_trno = this.getINV310Staticno(facno, ls_depcode, trtype, trdate, ls_nofmt, ls_autochar);
-            ll_max = this.getINV310MaxTrno(facno, trtype, ls_trno);
-            if (ll_max == 0) {
-                String a = "00000000001";
-                ls_serial = ls_trno + a.substring(a.length() - li_ordno);       //右边取li_ordno位
-                if (updateflag) {
-                    try {
-                        Invserno invser = new Invserno();
-                        InvsernoPK invserPK = new InvsernoPK();
-                        invserPK.setFacno(facno);
-                        invserPK.setTrtype(trtype);
-                        invserPK.setKeyformat(ls_trno);
-                        invser.setInvsernoPK(invserPK);
-                        invser.setMaxserno((short) 1);
-                        invsernoBean.setCompany(facno);
-                        invsernoBean.persist(invser);
-                    } catch (Exception ex) {
-                        return "";
-                    }
-                }
-            } else {
-                ll_max += 1;
-                String a = "0000000000" + ll_max;//
-                ls_serial = ls_trno + a.substring(a.length() - li_ordno);//右边取li_ordno位
-                if (updateflag) {
-                    try {
-                        invsernoBean.setCompany(facno);
-                        Invserno invser = invsernoBean.findByPK(facno, trtype, ls_trno);
-                        invser.setMaxserno((short) ll_max);
-                        invsernoBean.update(invser);
-                    } catch (Exception ex) {
-                        return "";
-                    }
-                }
-            }
-        }
-        return ls_serial;
-    }
-
-    private String getINV310Staticno(String facno, String depcode, String trtype, Date trdate, String ls_nofmt, String autochar) {
-        String ls_no;
-        String ls_str = "";
-        String ls_ch;
-        int li_i = 0;
-        int li_ordno = 0;
-        int li_month = 0;
-        if (autochar == null || "0".equals(autochar)) {
-            autochar = "";
-        }
-        ls_no = autochar.trim();
-        for (int i = 0; i < 5; i++) {
-            ls_ch = ls_nofmt.substring(i, i + 1);
-            switch (ls_ch) {
-                case "1":
-                    ls_no += facno;
-                    break;
-                case "2":
-                    ls_no += trtype;
-                    break;
-                case "3":
-                    ls_no += BaseLib.formatDate("yyyy", trdate);
-                    break;
-                case "4":
-                    ls_no += BaseLib.formatDate("yy", trdate);
-                    break;
-                case "5":
-                    ls_no += BaseLib.formatDate("MM", trdate);
-                    break;
-                case "6":
-                    li_month = Integer.parseInt(BaseLib.formatDate("MM", trdate), 10);
-                    if (li_month == 10) {
-                        ls_str = "A";
-                    }
-                    if (li_month == 11) {
-                        ls_str = "B";
-                    }
-                    if (li_month == 12) {
-                        ls_str = "C";
-                    }
-                    if (li_month < 10) {
-                        ls_str = BaseLib.formatDate("MM", trdate);
-                    }
-                    ls_no += ls_str;
-                    break;
-                case "7":
-                    ls_no += BaseLib.formatDate("dd", trdate);
-                    break;
-                case "9":
-                    ls_no += depcode.trim();
-                    break;
-                default:
-                    break;
-            }
-        }
-        return ls_no;
-    }
-
-    private int getINV310MaxTrno(String facno, String trtype, String ls_trno) {
-        int retvalue = 0;
-        invsernoBean.setCompany(facno);
-        Invserno invserno = invsernoBean.findByPK(facno, trtype, ls_trno);
-
-        if (invserno != null) {
-            retvalue = invserno.getMaxserno();
-
-        }
-        return retvalue;
     }
 
 }

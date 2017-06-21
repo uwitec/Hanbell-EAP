@@ -9,18 +9,30 @@ import cn.hanbell.crm.comm.SuperEJBForCRM;
 import cn.hanbell.crm.entity.WARTA;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
+import javax.persistence.Query;
 
 /**
  *
- * @author Administrator
+ * @author C1587
  */
 @Stateless
 @LocalBean
-public class WARTABean extends SuperEJBForCRM<WARTA>{
+public class WARTABean extends SuperEJBForCRM<WARTA> {
 
     public WARTABean() {
         super(WARTA.class);
     }
 
- 
+    public WARTA findByPK(String ta001, String ta002) {
+        Query query = this.getEntityManager().createNamedQuery("WARTA.findByPK");
+        query.setParameter("ta001", ta001);
+        query.setParameter("ta002", ta002);
+        try {
+            Object o = query.getSingleResult();
+            return (WARTA) o;
+        } catch (Exception ex) {
+            return null;
+        }
+    }
+
 }

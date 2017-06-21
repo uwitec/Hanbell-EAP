@@ -14,7 +14,7 @@ import javax.validation.constraints.Size;
 
 /**
  *
- * @author Administrator
+ * @author C1587
  */
 @Embeddable
 public class WARTAPK implements Serializable {
