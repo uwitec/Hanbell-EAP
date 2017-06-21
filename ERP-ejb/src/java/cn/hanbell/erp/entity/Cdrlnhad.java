@@ -35,7 +35,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Cdrlnhad.findByFwno", query = "SELECT c FROM Cdrlnhad c WHERE c.fwno = :fwno"),
     @NamedQuery(name = "Cdrlnhad.findByBugdsc", query = "SELECT c FROM Cdrlnhad c WHERE c.bugdsc = :bugdsc"),
     @NamedQuery(name = "Cdrlnhad.findByAsrsstatus", query = "SELECT c FROM Cdrlnhad c WHERE c.asrsstatus = :asrsstatus"),
-    @NamedQuery(name = "Cdrlnhad.findByPK", query = "SELECT c FROM Cdrlnhad c WHERE c.cdrlnhadPK.facno = :facno AND c.cdrlnhadPK.trno LIKE :trno  ORDER BY c.cdrlnhadPK.trno DESC"),
+    @NamedQuery(name = "Cdrlnhad.findByPK", query = "SELECT c FROM Cdrlnhad c WHERE c.cdrlnhadPK.facno = :facno AND c.cdrlnhadPK.trno = :trno"),
     @NamedQuery(name = "Cdrlnhad.findByYuy", query = "SELECT c FROM Cdrlnhad c WHERE c.yuy = :yuy")})
 public class Cdrlnhad implements Serializable {
 

@@ -109,7 +109,7 @@ public class InvhadBean extends SuperEJBForERP<Invhad> {
             invhad.setSourceno(srcno);
 
             HKFW006 hkfw006 = hkfw006Bean.findByPSN(psn);
-            invhad.setUserno(hkfw006.getApplyuser());
+            invhad.setUserno(h.getPzuser());
             invhad.setIndate(date);
             //invhad.setCfmuserno(trno);
             //invhad.setCfmdate(date);

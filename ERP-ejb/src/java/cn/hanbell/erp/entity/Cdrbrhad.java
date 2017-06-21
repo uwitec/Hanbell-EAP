@@ -36,7 +36,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Cdrbrhad.findByFacno", query = "SELECT c FROM Cdrbrhad c WHERE c.cdrbrhadPK.facno = :facno"),
     @NamedQuery(name = "Cdrbrhad.findByBrtrno", query = "SELECT c FROM Cdrbrhad c WHERE c.cdrbrhadPK.brtrno = :brtrno"),
     @NamedQuery(name = "Cdrbrhad.findByCdrobtype", query = "SELECT c FROM Cdrbrhad c WHERE c.cdrobtype = :cdrobtype"),
-    @NamedQuery(name = "Cdrbrhad.findByPK", query = "SELECT c FROM Cdrbrhad c WHERE c.cdrbrhadPK.facno = :facno AND c.cdrbrhadPK.brtrno LIKE :brtrno ORDER BY c.cdrbrhadPK.brtrno DESC")})
+    @NamedQuery(name = "Cdrbrhad.findByPK", query = "SELECT c FROM Cdrbrhad c WHERE c.cdrbrhadPK.facno = :facno AND c.cdrbrhadPK.brtrno = :brtrno ")})
 public class Cdrbrhad implements Serializable {
 
     private static final long serialVersionUID = 1L;
