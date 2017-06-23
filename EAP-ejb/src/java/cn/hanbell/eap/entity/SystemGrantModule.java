@@ -6,6 +6,7 @@
 package cn.hanbell.eap.entity;
 
 import com.lightshell.comm.SuperEntity;
+import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -81,7 +82,16 @@ public class SystemGrantModule extends SuperEntity {
             return false;
         }
         SystemGrantModule other = (SystemGrantModule) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if (this.id != null && other.id != null) {
+            return Objects.equals(this.id, other.id);
+        }
+        if ((!this.kind.equals(other.kind)) || !Objects.equals(this.systemRole, other.systemRole) || !Objects.equals(this.systemUser, other.systemUser)) {
+            return false;
+        }
+        if ((this.kind.equals(other.kind)) && ((Objects.equals(this.systemRole, other.systemRole)) || (Objects.equals(this.systemUser, other.systemUser))) && (Objects.equals(this.systemModule, other.systemModule))) {
+            return true;
+        }
+        if ((this.kind.equals(other.kind)) && ((Objects.equals(this.systemRole, other.systemRole)) || (Objects.equals(this.systemUser, other.systemUser))) && (!Objects.equals(this.systemModule, other.systemModule))) {
             return false;
         }
         return true;
