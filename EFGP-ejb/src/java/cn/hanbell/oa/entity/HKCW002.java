@@ -31,7 +31,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "HKCW002.findAll", query = "SELECT h FROM HKCW002 h"),
     @NamedQuery(name = "HKCW002.findByOID", query = "SELECT h FROM HKCW002 h WHERE h.oid = :oid"),
     @NamedQuery(name = "HKCW002.findByPSN", query = "SELECT h FROM HKCW002 h WHERE h.processSerialNumber = :psn"),
-    @NamedQuery(name = "HKCW002.findByFSN", query = "SELECT h FROM HKCW002 h WHERE h.formSerialNumber = :fsn")})
+    @NamedQuery(name = "HKCW002.findByFSN", query = "SELECT h FROM HKCW002 h WHERE h.formSerialNumber = :fsn"),
+    @NamedQuery(name = "HKCW002.findNotAcceptance", query = "SELECT h FROM HKCW002 h WHERE h.purchase = '1' AND (NOT h.hkcg007 IS NULL) AND h.hkcg007<>'' AND  ((h.relformid IS NULL) OR (h.relformid=''))")})
 public class HKCW002 implements Serializable {
 
     private static final long serialVersionUID = 1L;

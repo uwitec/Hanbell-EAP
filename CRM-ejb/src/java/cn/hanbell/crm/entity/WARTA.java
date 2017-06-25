@@ -139,7 +139,7 @@ public class WARTA implements Serializable {
     private String ta005;
     @Size(max = 1)
     @Column(name = "TA006")
-    private Character ta006;
+    private String ta006;
     @Size(max = 2)
     @Column(name = "TA007")
     private String ta007;
@@ -173,7 +173,7 @@ public class WARTA implements Serializable {
 
     @Size(max = 1)
     @Column(name = "TA017")
-    private Character ta017;
+    private String ta017;
 
     @Size(max = 1000)
     @Column(name = "TA018")
@@ -184,7 +184,7 @@ public class WARTA implements Serializable {
 
     @Size(max = 1)
     @Column(name = "TA020")
-    private Character ta020;
+    private String ta020;
 
     @Size(max = 10)
     @Column(name = "TA021")
@@ -325,7 +325,7 @@ public class WARTA implements Serializable {
 
     @Size(max = 1)
     @Column(name = "TA200")
-    private Character ta200;
+    private String ta200;
 
     @Size(max = 20)
     @Column(name = "TA201")
@@ -436,11 +436,11 @@ public class WARTA implements Serializable {
         this.ta005 = ta005;
     }
 
-    public Character getTa006() {
+    public String getTa006() {
         return ta006;
     }
 
-    public void setTa006(Character ta006) {
+    public void setTa006(String ta006) {
         this.ta006 = ta006;
     }
 
@@ -524,11 +524,11 @@ public class WARTA implements Serializable {
         this.ta016 = ta016;
     }
 
-    public Character getTa017() {
+    public String getTa017() {
         return ta017;
     }
 
-    public void setTa017(Character ta017) {
+    public void setTa017(String ta017) {
         this.ta017 = ta017;
     }
 
@@ -548,11 +548,11 @@ public class WARTA implements Serializable {
         this.ta019 = ta019;
     }
 
-    public Character getTa020() {
+    public String getTa020() {
         return ta020;
     }
 
-    public void setTa020(Character ta020) {
+    public void setTa020(String ta020) {
         this.ta020 = ta020;
     }
 
@@ -924,11 +924,11 @@ public class WARTA implements Serializable {
         this.ta042 = ta042;
     }
 
-    public Character getTa200() {
+    public String getTa200() {
         return ta200;
     }
 
-    public void setTa200(Character ta200) {
+    public void setTa200(String ta200) {
         this.ta200 = ta200;
     }
 
