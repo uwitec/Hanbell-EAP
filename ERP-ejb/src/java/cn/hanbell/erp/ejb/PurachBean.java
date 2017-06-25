@@ -51,16 +51,14 @@ public class PurachBean extends SuperEJBForERP<Purach> {
         String[] acceptno = null;
         StringBuilder sb = new StringBuilder();
         sb.append("SELECT DISTINCT acceptno FROM purdtamap,puracd WHERE purdtamap.facno=puracd.facno AND purdtamap.prono=puracd.prono AND purdtamap.pono=puracd.pono AND purdtamap.trseq =puracd.ponotrseq ");
-        sb.append(" AND srcno=?1");
+        sb.append(" AND purdtamap.srcno=?1");
         Query query = getEntityManager().createNativeQuery(sb.toString());
         query.setParameter(1, prno);
         List result = query.getResultList();
         if (result != null && !result.isEmpty()) {
-            Object[] row;
             acceptno = new String[result.size()];
             for (int i = 0; i < result.size(); i++) {
-                row = (Object[]) result.get(i);
-                acceptno[i] = row[0].toString();
+                acceptno[i] = result.get(i).toString();
             }
         }
         return acceptno;

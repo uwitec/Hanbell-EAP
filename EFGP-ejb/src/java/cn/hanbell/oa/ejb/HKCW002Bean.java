@@ -13,6 +13,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
+import javax.persistence.Query;
 
 /**
  *
@@ -29,6 +30,15 @@ public class HKCW002Bean extends SuperEJBForEFGP<HKCW002> {
 
     public HKCW002Bean() {
         super(HKCW002.class);
+    }
+
+    public List<HKCW002> findNotAcceptance() {
+        Query query = getEntityManager().createNamedQuery("HKCW002.findNotAcceptance");
+        try {
+            return query.getResultList();
+        } catch (Exception ex) {
+            return null;
+        }
     }
 
     public void setDetail(String fsn) {
