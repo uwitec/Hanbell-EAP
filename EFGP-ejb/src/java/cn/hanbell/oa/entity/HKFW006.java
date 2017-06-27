@@ -56,7 +56,6 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "HKFW006.findByLcreateno", query = "SELECT h FROM HKFW006 h WHERE h.lcreateno = :lcreateno"),
     @NamedQuery(name = "HKFW006.findByRetqty", query = "SELECT h FROM HKFW006 h WHERE h.retqty = :retqty"),
     @NamedQuery(name = "HKFW006.findByOid", query = "SELECT h FROM HKFW006 h WHERE h.oid = :oid"),
-    @NamedQuery(name = "HKFW006.findByTextbox49", query = "SELECT h FROM HKFW006 h WHERE h.textbox49 = :textbox49"),
     @NamedQuery(name = "HKFW006.findByApplydept", query = "SELECT h FROM HKFW006 h WHERE h.applydept = :applydept"),
     @NamedQuery(name = "HKFW006.findByFacno", query = "SELECT h FROM HKFW006 h WHERE h.facno = :facno"),
     @NamedQuery(name = "HKFW006.findByRetitdsc", query = "SELECT h FROM HKFW006 h WHERE h.retitdsc = :retitdsc"),
@@ -66,7 +65,6 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "HKFW006.findByRstyle", query = "SELECT h FROM HKFW006 h WHERE h.rstyle = :rstyle"),
     @NamedQuery(name = "HKFW006.findByRetitnbr", query = "SELECT h FROM HKFW006 h WHERE h.retitnbr = :retitnbr"),
     @NamedQuery(name = "HKFW006.findByPSN", query = "SELECT h FROM HKFW006 h WHERE h.processSerialNumber = :psn"),
-    @NamedQuery(name = "HKFW006.findByTextbox54", query = "SELECT h FROM HKFW006 h WHERE h.textbox54 = :textbox54"),
     @NamedQuery(name = "HKFW006.findByYf", query = "SELECT h FROM HKFW006 h WHERE h.yf = :yf"),
     @NamedQuery(name = "HKFW006.findByCusna", query = "SELECT h FROM HKFW006 h WHERE h.cusna = :cusna"),
     @NamedQuery(name = "HKFW006.findByBhmk", query = "SELECT h FROM HKFW006 h WHERE h.bhmk = :bhmk"),
@@ -120,9 +118,6 @@ public class HKFW006 implements Serializable {
     @Size(max = 255)
     @Column(name = "hdljxx")
     private String hdljxx;
-    @Size(max = 255)
-    @Column(name = "selectPZ")
-    private String selectPZ;
     @Size(max = 255)
     @Column(name = "hditcls")
     private String hditcls;
@@ -209,9 +204,6 @@ public class HKFW006 implements Serializable {
     @Column(name = "OID")
     private String oid;
     @Size(max = 255)
-    @Column(name = "Textbox49")
-    private String textbox49;
-    @Size(max = 255)
     @Column(name = "applydept")
     private String applydept;
     @Size(max = 255)
@@ -238,9 +230,6 @@ public class HKFW006 implements Serializable {
     @Size(max = 255)
     @Column(name = "processSerialNumber")
     private String processSerialNumber;
-    @Size(max = 255)
-    @Column(name = "Textbox54")
-    private String textbox54;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "yf")
     private Double yf;
@@ -511,14 +500,6 @@ public class HKFW006 implements Serializable {
         this.oid = oid;
     }
 
-    public String getTextbox49() {
-        return textbox49;
-    }
-
-    public void setTextbox49(String textbox49) {
-        this.textbox49 = textbox49;
-    }
-
     public String getApplydept() {
         return applydept;
     }
@@ -590,15 +571,7 @@ public class HKFW006 implements Serializable {
     public void setProcessSerialNumber(String processSerialNumber) {
         this.processSerialNumber = processSerialNumber;
     }
-
-    public String getTextbox54() {
-        return textbox54;
-    }
-
-    public void setTextbox54(String textbox54) {
-        this.textbox54 = textbox54;
-    }
-
+    
     public Double getYf() {
         return yf;
     }
@@ -798,14 +771,6 @@ public class HKFW006 implements Serializable {
 
     public void setHdljxx(String hdljxx) {
         this.hdljxx = hdljxx;
-    }
-
-    public String getSelectPZ() {
-        return selectPZ;
-    }
-
-    public void setSelectPZ(String selectPZ) {
-        this.selectPZ = selectPZ;
     }
 
     public String getHditcls() {
