@@ -11,21 +11,14 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author C0160
  */
-@XmlRootElement
 @Embeddable
-public class InvbalPK implements Serializable {
+public class PurdtamapPK implements Serializable {
 
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 20)
-    @Column(name = "itnbr")
-    private String itnbr;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 3)
@@ -38,26 +31,22 @@ public class InvbalPK implements Serializable {
     private String prono;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 12)
-    @Column(name = "wareh")
-    private String wareh;
+    @Size(min = 1, max = 18)
+    @Column(name = "pono")
+    private String pono;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "trseq")
+    private short trseq;
 
-    public InvbalPK() {
+    public PurdtamapPK() {
     }
 
-    public InvbalPK(String facno, String prono, String itnbr, String wareh) {
+    public PurdtamapPK(String facno, String prono, String pono, short trseq) {
         this.facno = facno;
         this.prono = prono;
-        this.itnbr = itnbr;
-        this.wareh = wareh;
-    }
-
-    public String getItnbr() {
-        return itnbr;
-    }
-
-    public void setItnbr(String itnbr) {
-        this.itnbr = itnbr;
+        this.pono = pono;
+        this.trseq = trseq;
     }
 
     public String getFacno() {
@@ -76,41 +65,49 @@ public class InvbalPK implements Serializable {
         this.prono = prono;
     }
 
-    public String getWareh() {
-        return wareh;
+    public String getPono() {
+        return pono;
     }
 
-    public void setWareh(String wareh) {
-        this.wareh = wareh;
+    public void setPono(String pono) {
+        this.pono = pono;
+    }
+
+    public short getTrseq() {
+        return trseq;
+    }
+
+    public void setTrseq(short trseq) {
+        this.trseq = trseq;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (itnbr != null ? itnbr.hashCode() : 0);
         hash += (facno != null ? facno.hashCode() : 0);
         hash += (prono != null ? prono.hashCode() : 0);
-        hash += (wareh != null ? wareh.hashCode() : 0);
+        hash += (pono != null ? pono.hashCode() : 0);
+        hash += (int) trseq;
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof InvbalPK)) {
+        if (!(object instanceof PurdtamapPK)) {
             return false;
         }
-        InvbalPK other = (InvbalPK) object;
-        if ((this.itnbr == null && other.itnbr != null) || (this.itnbr != null && !this.itnbr.equals(other.itnbr))) {
-            return false;
-        }
+        PurdtamapPK other = (PurdtamapPK) object;
         if ((this.facno == null && other.facno != null) || (this.facno != null && !this.facno.equals(other.facno))) {
             return false;
         }
         if ((this.prono == null && other.prono != null) || (this.prono != null && !this.prono.equals(other.prono))) {
             return false;
         }
-        if ((this.wareh == null && other.wareh != null) || (this.wareh != null && !this.wareh.equals(other.wareh))) {
+        if ((this.pono == null && other.pono != null) || (this.pono != null && !this.pono.equals(other.pono))) {
+            return false;
+        }
+        if (this.trseq != other.trseq) {
             return false;
         }
         return true;
@@ -118,7 +115,7 @@ public class InvbalPK implements Serializable {
 
     @Override
     public String toString() {
-        return "cn.hanbell.shb.ejb.InvbalPK[ itnbr=" + itnbr + ", facno=" + facno + ", prono=" + prono + ", wareh=" + wareh + " ]";
+        return "cn.hanbell.erp.entity.PurdtamapPK[ facno=" + facno + ", prono=" + prono + ", pono=" + pono + ", trseq=" + trseq + " ]";
     }
-
+    
 }

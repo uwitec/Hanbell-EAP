@@ -308,6 +308,9 @@ public class SystemGrantPrg extends SuperDetailEntity {
             return false;
         }
         SystemGrantPrg other = (SystemGrantPrg) object;
+        if (this.id != null && other.id != null) {
+            return Objects.equals(this.id, other.id);
+        }
         if ((!this.kind.equals(other.kind)) || !Objects.equals(this.systemRole, other.systemRole) || !Objects.equals(this.systemUser, other.systemUser)) {
             return false;
         }

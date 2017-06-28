@@ -75,7 +75,7 @@ public class CdrobdouBean extends SuperEJBForERP<Cdrobdou> {
         if ("".equals(ls_trno)) {
             return 0;
         }
-        li_maxno = Integer.valueOf(ls_trno.substring(ls_trno.length() - format.length()));
+        li_maxno = Integer.valueOf(ls_trno.substring(format.length()));
 
         return li_maxno;
 

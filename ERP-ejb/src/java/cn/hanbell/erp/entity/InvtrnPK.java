@@ -11,21 +11,14 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author C0160
  */
-@XmlRootElement
 @Embeddable
-public class InvbalPK implements Serializable {
+public class InvtrnPK implements Serializable {
 
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 20)
-    @Column(name = "itnbr")
-    private String itnbr;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 3)
@@ -38,26 +31,28 @@ public class InvbalPK implements Serializable {
     private String prono;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 12)
-    @Column(name = "wareh")
-    private String wareh;
+    @Size(min = 1, max = 3)
+    @Column(name = "trtype")
+    private String trtype;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 18)
+    @Column(name = "trno")
+    private String trno;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "trseq")
+    private int trseq;
 
-    public InvbalPK() {
+    public InvtrnPK() {
     }
 
-    public InvbalPK(String facno, String prono, String itnbr, String wareh) {
+    public InvtrnPK(String facno, String prono, String trtype, String trno, int trseq) {
         this.facno = facno;
         this.prono = prono;
-        this.itnbr = itnbr;
-        this.wareh = wareh;
-    }
-
-    public String getItnbr() {
-        return itnbr;
-    }
-
-    public void setItnbr(String itnbr) {
-        this.itnbr = itnbr;
+        this.trtype = trtype;
+        this.trno = trno;
+        this.trseq = trseq;
     }
 
     public String getFacno() {
@@ -76,41 +71,61 @@ public class InvbalPK implements Serializable {
         this.prono = prono;
     }
 
-    public String getWareh() {
-        return wareh;
+    public String getTrtype() {
+        return trtype;
     }
 
-    public void setWareh(String wareh) {
-        this.wareh = wareh;
+    public void setTrtype(String trtype) {
+        this.trtype = trtype;
+    }
+
+    public String getTrno() {
+        return trno;
+    }
+
+    public void setTrno(String trno) {
+        this.trno = trno;
+    }
+
+    public int getTrseq() {
+        return trseq;
+    }
+
+    public void setTrseq(int trseq) {
+        this.trseq = trseq;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (itnbr != null ? itnbr.hashCode() : 0);
         hash += (facno != null ? facno.hashCode() : 0);
         hash += (prono != null ? prono.hashCode() : 0);
-        hash += (wareh != null ? wareh.hashCode() : 0);
+        hash += (trtype != null ? trtype.hashCode() : 0);
+        hash += (trno != null ? trno.hashCode() : 0);
+        hash += (int) trseq;
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof InvbalPK)) {
+        if (!(object instanceof InvtrnPK)) {
             return false;
         }
-        InvbalPK other = (InvbalPK) object;
-        if ((this.itnbr == null && other.itnbr != null) || (this.itnbr != null && !this.itnbr.equals(other.itnbr))) {
-            return false;
-        }
+        InvtrnPK other = (InvtrnPK) object;
         if ((this.facno == null && other.facno != null) || (this.facno != null && !this.facno.equals(other.facno))) {
             return false;
         }
         if ((this.prono == null && other.prono != null) || (this.prono != null && !this.prono.equals(other.prono))) {
             return false;
         }
-        if ((this.wareh == null && other.wareh != null) || (this.wareh != null && !this.wareh.equals(other.wareh))) {
+        if ((this.trtype == null && other.trtype != null) || (this.trtype != null && !this.trtype.equals(other.trtype))) {
+            return false;
+        }
+        if ((this.trno == null && other.trno != null) || (this.trno != null && !this.trno.equals(other.trno))) {
+            return false;
+        }
+        if (this.trseq != other.trseq) {
             return false;
         }
         return true;
@@ -118,7 +133,7 @@ public class InvbalPK implements Serializable {
 
     @Override
     public String toString() {
-        return "cn.hanbell.shb.ejb.InvbalPK[ itnbr=" + itnbr + ", facno=" + facno + ", prono=" + prono + ", wareh=" + wareh + " ]";
+        return "cn.hanbell.erp.entity.InvtrnPK[ facno=" + facno + ", prono=" + prono + ", trtype=" + trtype + ", trno=" + trno + ", trseq=" + trseq + " ]";
     }
-
+    
 }

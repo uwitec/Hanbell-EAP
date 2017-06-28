@@ -334,7 +334,11 @@ public class HKCG007Bean extends SuperEJBForEFGP<HKCG007> {
                     m.setNewqty2(aa.getNewqty2());
 
                     //重新初始化流程发起人员
-                    workFlowBean.initUserInfo(aa.getApplyUserno());
+                    if (aa.getCreator() != null) {
+                        workFlowBean.initUserInfo(aa.getCreator());
+                    } else {
+                        workFlowBean.initUserInfo(aa.getApplyUserno());
+                    }
                     String formInstance = workFlowBean.buildXmlForEFGP("HK_CG007", m, details);
                     String subject = "资产申请单_" + aa.getProcessSerialNumber();
                     String msg = workFlowBean.invokeProcess(workFlowBean.hostAdd, workFlowBean.hostPort, "PKG_HK_CG007", formInstance, subject);

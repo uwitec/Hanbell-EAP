@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cn.hanbell.oa.ejb;
+package cn.hanbell.erp.ejb;
 
-import cn.hanbell.oa.comm.SuperEJBForEFGP;
-import cn.hanbell.oa.entity.HZJS034Detail;
+import cn.hanbell.erp.comm.SuperEJBForERP;
+import cn.hanbell.erp.entity.Invtrn;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 
@@ -16,10 +16,10 @@ import javax.ejb.LocalBean;
  */
 @Stateless
 @LocalBean
-public class HZJS034DetailBean extends SuperEJBForEFGP<HZJS034Detail> {
+public class InvtrnBean extends SuperEJBForERP<Invtrn> {
 
-    public HZJS034DetailBean() {
-        super(HZJS034Detail.class);
+    public InvtrnBean() {
+        super(Invtrn.class);
     }
 
 }

@@ -106,6 +106,15 @@ public class HKCW002Detail implements Serializable {
     @Size(max = 255)
     @Column(name = "amts")
     private String amts;
+    @Size(max = 255)
+    @Column(name = "relno")
+    private String relno;
+    @Size(max = 255)
+    @Column(name = "relseq")
+    private String relseq;
+    @Size(max = 255)
+    @Column(name = "relqty")
+    private String relqty;
 
     public HKCW002Detail() {
     }
@@ -329,6 +338,48 @@ public class HKCW002Detail implements Serializable {
     @Override
     public String toString() {
         return "cn.hanbell.oa.entity.HKCW002Detail[ oid=" + oid + " ]";
+    }
+
+    /**
+     * @return the relno
+     */
+    public String getRelno() {
+        return relno;
+    }
+
+    /**
+     * @param relno the relno to set
+     */
+    public void setRelno(String relno) {
+        this.relno = relno;
+    }
+
+    /**
+     * @return the relseq
+     */
+    public String getRelseq() {
+        return relseq;
+    }
+
+    /**
+     * @param relseq the relseq to set
+     */
+    public void setRelseq(String relseq) {
+        this.relseq = relseq;
+    }
+
+    /**
+     * @return the relqty
+     */
+    public String getRelqty() {
+        return relqty;
+    }
+
+    /**
+     * @param relqty the relqty to set
+     */
+    public void setRelqty(String relqty) {
+        this.relqty = relqty;
     }
 
 }

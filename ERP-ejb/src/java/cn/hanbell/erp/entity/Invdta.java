@@ -322,4 +322,13 @@ public class Invdta implements Serializable {
         return "cn.hanbell.erp.entity.Invdta[ invdtaPK=" + invdtaPK + " ]";
     }
 
+    public void setDefaultValue() {
+        if (this.fixnr == null) {
+            this.fixnr = "";
+        }
+        if (this.varnr == null) {
+            this.varnr = "";
+        }
+    }
+
 }

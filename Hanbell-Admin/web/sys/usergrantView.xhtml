@@ -53,9 +53,18 @@
                             <p:ajax event="rowUnselect"  update="" oncomplete="" />
                             <p:column styleClass="Wid20">
                                 <f:facet name="header">
+                                    <h:outputText value="系统名称"/>
+                                </f:facet>
+                                <h:outputText value="#{item.systemModule.sysname}"/>
+                            </p:column>
+                            <p:column styleClass="Wid20">
+                                <f:facet name="header">
                                     <h:outputText value="授权模块"/>
                                 </f:facet>
                                 <h:outputText value="#{item.systemModule.name}"/>
+                            </p:column>
+                            <p:column styleClass="Wid60">
+
                             </p:column>
                         </p:dataTable>
                     </p:panel>

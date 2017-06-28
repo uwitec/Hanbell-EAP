@@ -40,6 +40,5 @@ public class HZJS034Bean extends SuperEJBForEFGP<HZJS034> {
     public List<HZJS034Detail> getDetailList() {
         return detailList;
     }
-    
-    
+
 }
