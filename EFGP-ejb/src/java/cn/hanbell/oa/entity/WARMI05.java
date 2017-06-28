@@ -204,9 +204,6 @@ public class WARMI05 implements Serializable {
     @Column(name = "formSerialNumber")
     private String formSerialNumber;
     @Size(max = 255)
-    @Column(name = "TA014C")
-    private String ta014c;
-    @Size(max = 255)
     @Column(name = "TA043C")
     private String ta043c;
     @Size(max = 255)
@@ -675,14 +672,6 @@ public class WARMI05 implements Serializable {
 
     public void setFormSerialNumber(String formSerialNumber) {
         this.formSerialNumber = formSerialNumber;
-    }
-
-    public String getTa014c() {
-        return ta014c;
-    }
-
-    public void setTa014c(String ta014c) {
-        this.ta014c = ta014c;
     }
 
     public String getTa043c() {
