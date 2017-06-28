@@ -30,6 +30,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "HKGL004.findAll", query = "SELECT h FROM HKGL004 h"),
     @NamedQuery(name = "HKGL004.findByOID", query = "SELECT h FROM HKGL004 h WHERE h.oid = :oid"),
+    @NamedQuery(name = "HKGL004.findByFacno", query = "SELECT h FROM HKGL004 h WHERE h.facno = :facno"),
+    @NamedQuery(name = "HKGL004.findBySerialNumber", query = "SELECT h FROM HKGL004 h WHERE h.serialNumber = :serialNumber"),
     @NamedQuery(name = "HKGL004.findByPSN", query = "SELECT h FROM HKGL004 h WHERE h.processSerialNumber = :psn"),
     @NamedQuery(name = "HKGL004.findByFSN", query = "SELECT h FROM HKGL004 h WHERE h.formSerialNumber = :fsn")})
 public class HKGL004 implements Serializable {
@@ -42,47 +44,44 @@ public class HKGL004 implements Serializable {
     @Column(name = "OID")
     private String oid;
     @Size(max = 255)
-    @Column(name = "leauser")
-    private String leauser;
-    @Size(max = 255)
     @Column(name = "reason")
     private String reason;
     @Size(max = 255)
     @Column(name = "userTitle")
     private String userTitle;
     @Size(max = 255)
+    @Column(name = "hdn_applyDept")
+    private String hdnapplyDept;
+    @Size(max = 255)
+    @Column(name = "hdn_applyUser")
+    private String hdnapplyUser;
+    @Size(max = 255)
     @Column(name = "facno")
     private String facno;
-    @Column(name = "createtime")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createtime;
     @Size(max = 255)
     @Column(name = "SerialNumber")
     private String serialNumber;
-    @Size(max = 255)
-    @Column(name = "hdn_emply")
-    private String hdnEmply;
     @Size(max = 255)
     @Column(name = "time2")
     private String time2;
     @Size(max = 255)
     @Column(name = "time1")
     private String time1;
-    @Size(max = 255)
-    @Column(name = "emply")
-    private String emply;
-    @Column(name = "dayst")
+    @Column(name = "date2")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date dayst;
+    private Date date2;
     @Size(max = 255)
     @Column(name = "leano")
     private String leano;
     @Size(max = 255)
-    @Column(name = "dept")
-    private String dept;
-    @Size(max = 255)
     @Column(name = "processSerialNumber")
     private String processSerialNumber;
+    @Size(max = 255)
+    @Column(name = "employee")
+    private String employee;
+    @Column(name = "date1")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date date1;
     @Size(max = 255)
     @Column(name = "hdn_leatp")
     private String hdnLeatp;
@@ -93,27 +92,26 @@ public class HKGL004 implements Serializable {
     @Column(name = "hdn_leano")
     private String hdnLeano;
     @Size(max = 255)
-    @Column(name = "hdn_dept")
-    private String hdnDept;
-    @Size(max = 255)
     @Column(name = "leana")
     private String leana;
-    @Column(name = "dayed")
+    @Column(name = "applyDate")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date dayed;
+    private Date applyDate;
     @Size(max = 255)
-    @Column(name = "hdn_leauser")
-    private String hdnLeauser;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Column(name = "applyUser")
+    private String applyUser;
+    @Size(max = 255)
+    @Column(name = "applyDept")
+    private String applyDept;
     @Column(name = "leaday2")
-    private Double leaday2;
+    private Integer leaday2;
     @Column(name = "leaday3")
-    private Double leaday3;
+    private Integer leaday3;
     @Size(max = 255)
     @Column(name = "hdn_leana")
     private String hdnLeana;
     @Column(name = "leaday1")
-    private Double leaday1;
+    private Integer leaday1;
     @Size(max = 255)
     @Column(name = "day")
     private String day;
@@ -123,6 +121,9 @@ public class HKGL004 implements Serializable {
     @Size(max = 255)
     @Column(name = "hdn_facno")
     private String hdnFacno;
+    @Size(max = 255)
+    @Column(name = "hdn_employee")
+    private String hdnEmployee;
 
     public HKGL004() {
     }
@@ -137,14 +138,6 @@ public class HKGL004 implements Serializable {
 
     public void setOid(String oid) {
         this.oid = oid;
-    }
-
-    public String getLeauser() {
-        return leauser;
-    }
-
-    public void setLeauser(String leauser) {
-        this.leauser = leauser;
     }
 
     public String getReason() {
@@ -163,6 +156,22 @@ public class HKGL004 implements Serializable {
         this.userTitle = userTitle;
     }
 
+    public String getHdnapplyDept() {
+        return hdnapplyDept;
+    }
+
+    public void setHdnapplyDept(String hdnapplyDept) {
+        this.hdnapplyDept = hdnapplyDept;
+    }
+
+    public String getHdnapplyUser() {
+        return hdnapplyUser;
+    }
+
+    public void setHdnapplyUser(String hdnapplyUser) {
+        this.hdnapplyUser = hdnapplyUser;
+    }
+
     public String getFacno() {
         return facno;
     }
@@ -171,28 +180,12 @@ public class HKGL004 implements Serializable {
         this.facno = facno;
     }
 
-    public Date getCreatetime() {
-        return createtime;
-    }
-
-    public void setCreatetime(Date createtime) {
-        this.createtime = createtime;
-    }
-
     public String getSerialNumber() {
         return serialNumber;
     }
 
     public void setSerialNumber(String serialNumber) {
         this.serialNumber = serialNumber;
-    }
-
-    public String getHdnEmply() {
-        return hdnEmply;
-    }
-
-    public void setHdnEmply(String hdnEmply) {
-        this.hdnEmply = hdnEmply;
     }
 
     public String getTime2() {
@@ -211,20 +204,12 @@ public class HKGL004 implements Serializable {
         this.time1 = time1;
     }
 
-    public String getEmply() {
-        return emply;
+    public Date getDate2() {
+        return date2;
     }
 
-    public void setEmply(String emply) {
-        this.emply = emply;
-    }
-
-    public Date getDayst() {
-        return dayst;
-    }
-
-    public void setDayst(Date dayst) {
-        this.dayst = dayst;
+    public void setDate2(Date date2) {
+        this.date2 = date2;
     }
 
     public String getLeano() {
@@ -235,20 +220,28 @@ public class HKGL004 implements Serializable {
         this.leano = leano;
     }
 
-    public String getDept() {
-        return dept;
-    }
-
-    public void setDept(String dept) {
-        this.dept = dept;
-    }
-
     public String getProcessSerialNumber() {
         return processSerialNumber;
     }
 
     public void setProcessSerialNumber(String processSerialNumber) {
         this.processSerialNumber = processSerialNumber;
+    }
+
+    public String getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(String employee) {
+        this.employee = employee;
+    }
+
+    public Date getDate1() {
+        return date1;
+    }
+
+    public void setDate1(Date date1) {
+        this.date1 = date1;
     }
 
     public String getHdnLeatp() {
@@ -275,14 +268,6 @@ public class HKGL004 implements Serializable {
         this.hdnLeano = hdnLeano;
     }
 
-    public String getHdnDept() {
-        return hdnDept;
-    }
-
-    public void setHdnDept(String hdnDept) {
-        this.hdnDept = hdnDept;
-    }
-
     public String getLeana() {
         return leana;
     }
@@ -291,35 +276,43 @@ public class HKGL004 implements Serializable {
         this.leana = leana;
     }
 
-    public Date getDayed() {
-        return dayed;
+    public Date getApplyDate() {
+        return applyDate;
     }
 
-    public void setDayed(Date dayed) {
-        this.dayed = dayed;
+    public void setApplyDate(Date applyDate) {
+        this.applyDate = applyDate;
     }
 
-    public String getHdnLeauser() {
-        return hdnLeauser;
+    public String getApplyUser() {
+        return applyUser;
     }
 
-    public void setHdnLeauser(String hdnLeauser) {
-        this.hdnLeauser = hdnLeauser;
+    public void setApplyUser(String applyUser) {
+        this.applyUser = applyUser;
     }
 
-    public Double getLeaday2() {
+    public String getApplyDept() {
+        return applyDept;
+    }
+
+    public void setApplyDept(String applyDept) {
+        this.applyDept = applyDept;
+    }
+
+    public Integer getLeaday2() {
         return leaday2;
     }
 
-    public void setLeaday2(Double leaday2) {
+    public void setLeaday2(Integer leaday2) {
         this.leaday2 = leaday2;
     }
 
-    public Double getLeaday3() {
+    public Integer getLeaday3() {
         return leaday3;
     }
 
-    public void setLeaday3(Double leaday3) {
+    public void setLeaday3(Integer leaday3) {
         this.leaday3 = leaday3;
     }
 
@@ -331,11 +324,11 @@ public class HKGL004 implements Serializable {
         this.hdnLeana = hdnLeana;
     }
 
-    public Double getLeaday1() {
+    public Integer getLeaday1() {
         return leaday1;
     }
 
-    public void setLeaday1(Double leaday1) {
+    public void setLeaday1(Integer leaday1) {
         this.leaday1 = leaday1;
     }
 
@@ -363,6 +356,14 @@ public class HKGL004 implements Serializable {
         this.hdnFacno = hdnFacno;
     }
 
+    public String getHdnEmployee() {
+        return hdnEmployee;
+    }
+
+    public void setHdnEmployee(String hdnEmployee) {
+        this.hdnEmployee = hdnEmployee;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -387,5 +388,5 @@ public class HKGL004 implements Serializable {
     public String toString() {
         return "cn.hanbell.oa.entity.HKGL004[ oid=" + oid + " ]";
     }
-    
+
 }
