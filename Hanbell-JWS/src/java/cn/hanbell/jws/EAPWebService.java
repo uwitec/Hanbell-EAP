@@ -201,7 +201,15 @@ public class EAPWebService {
                     if (user != null) {
                         aa.setRequireUsername(user.getUsername());
                     }
-                    aa.setRemark(e.getRemark());
+                    if (e.getRemark() != null) {
+                        if (e.getRemark().length() < 81) {
+                            aa.setRemark(e.getProcessSerialNumber() + "_" + e.getRemark());
+                        } else {
+                            aa.setRemark(e.getProcessSerialNumber() + "_" + e.getRemark().substring(0, 80));
+                        }
+                    } else {
+                        aa.setRemark(e.getProcessSerialNumber());
+                    }
                     aa.setStatusToNew();
                     aa.setCreator(e.getProcessSerialNumber());
                     aa.setCredateToNow();

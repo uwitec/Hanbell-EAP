@@ -38,41 +38,41 @@ public class HKGL034Detail implements Serializable {
     @Column(name = "OID")
     private String oid;
     @Size(max = 255)
-    @Column(name = "content")
-    private String content;
-    @Size(max = 255)
-    @Column(name = "seq")
-    private String seq;
+    @Column(name = "dept_lbl")
+    private String deptLbl;
     @Size(max = 255)
     @Column(name = "hour")
     private String hour;
     @Size(max = 255)
-    @Column(name = "starttime_txt")
-    private String starttimeTxt;
+    @Column(name = "date1_txt")
+    private String date1Txt;
     @Size(max = 255)
-    @Column(name = "jbtime_txt")
-    private String jbtimeTxt;
+    @Column(name = "employeeName")
+    private String employeeName;
     @Size(max = 255)
-    @Column(name = "endtime_txt")
-    private String endtimeTxt;
+    @Column(name = "content")
+    private String content;
     @Size(max = 255)
-    @Column(name = "dinner")
-    private String dinner;
+    @Column(name = "hdn_dinner")
+    private String hdnDinner;
     @Size(max = 255)
-    @Column(name = "lunch")
-    private String lunch;
+    @Column(name = "hdn_lunch")
+    private String hdnLunch;
     @Size(max = 255)
-    @Column(name = "emplname")
-    private String emplname;
+    @Column(name = "dept_txt")
+    private String deptTxt;
     @Size(max = 255)
-    @Column(name = "jbdept_txt")
-    private String jbdeptTxt;
+    @Column(name = "time2_txt")
+    private String time2Txt;
     @Size(max = 255)
-    @Column(name = "jbdept_lbl")
-    private String jbdeptLbl;
+    @Column(name = "seq")
+    private String seq;
     @Size(max = 255)
-    @Column(name = "empl")
-    private String empl;
+    @Column(name = "time1_txt")
+    private String time1Txt;
+    @Size(max = 255)
+    @Column(name = "employee")
+    private String employee;
     @Size(max = 255)
     @Column(name = "formSerialNumber")
     private String formSerialNumber;
@@ -92,20 +92,12 @@ public class HKGL034Detail implements Serializable {
         this.oid = oid;
     }
 
-    public String getContent() {
-        return content;
+    public String getDeptLbl() {
+        return deptLbl;
     }
 
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public String getSeq() {
-        return seq;
-    }
-
-    public void setSeq(String seq) {
-        this.seq = seq;
+    public void setDeptLbl(String deptLbl) {
+        this.deptLbl = deptLbl;
     }
 
     public String getHour() {
@@ -116,76 +108,84 @@ public class HKGL034Detail implements Serializable {
         this.hour = hour;
     }
 
-    public String getStarttimeTxt() {
-        return starttimeTxt;
+    public String getDate1Txt() {
+        return date1Txt;
     }
 
-    public void setStarttimeTxt(String starttimeTxt) {
-        this.starttimeTxt = starttimeTxt;
+    public void setDate1Txt(String date1Txt) {
+        this.date1Txt = date1Txt;
     }
 
-    public String getJbtimeTxt() {
-        return jbtimeTxt;
+    public String getEmployeeName() {
+        return employeeName;
     }
 
-    public void setJbtimeTxt(String jbtimeTxt) {
-        this.jbtimeTxt = jbtimeTxt;
+    public void setEmployeeName(String employeeName) {
+        this.employeeName = employeeName;
     }
 
-    public String getEndtimeTxt() {
-        return endtimeTxt;
+    public String getContent() {
+        return content;
     }
 
-    public void setEndtimeTxt(String endtimeTxt) {
-        this.endtimeTxt = endtimeTxt;
+    public void setContent(String content) {
+        this.content = content;
     }
 
-    public String getDinner() {
-        return dinner;
+    public String getHdnDinner() {
+        return hdnDinner;
     }
 
-    public void setDinner(String dinner) {
-        this.dinner = dinner;
+    public void setHdnDinner(String hdnDinner) {
+        this.hdnDinner = hdnDinner;
     }
 
-    public String getLunch() {
-        return lunch;
+    public String getHdnLunch() {
+        return hdnLunch;
     }
 
-    public void setLunch(String lunch) {
-        this.lunch = lunch;
+    public void setHdnLunch(String hdnLunch) {
+        this.hdnLunch = hdnLunch;
     }
 
-    public String getEmplname() {
-        return emplname;
+    public String getDeptTxt() {
+        return deptTxt;
     }
 
-    public void setEmplname(String emplname) {
-        this.emplname = emplname;
+    public void setDeptTxt(String deptTxt) {
+        this.deptTxt = deptTxt;
     }
 
-    public String getJbdeptTxt() {
-        return jbdeptTxt;
+    public String getTime2Txt() {
+        return time2Txt;
     }
 
-    public void setJbdeptTxt(String jbdeptTxt) {
-        this.jbdeptTxt = jbdeptTxt;
+    public void setTime2Txt(String time2Txt) {
+        this.time2Txt = time2Txt;
     }
 
-    public String getJbdeptLbl() {
-        return jbdeptLbl;
+    public String getSeq() {
+        return seq;
     }
 
-    public void setJbdeptLbl(String jbdeptLbl) {
-        this.jbdeptLbl = jbdeptLbl;
+    public void setSeq(String seq) {
+        this.seq = seq;
     }
 
-    public String getEmpl() {
-        return empl;
+    public String getTime1Txt() {
+        return time1Txt;
     }
 
-    public void setEmpl(String empl) {
-        this.empl = empl;
+    public void setTime1Txt(String time1Txt) {
+        this.time1Txt = time1Txt;
+    }
+
+    public String getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(String employee) {
+        this.employee = employee;
     }
 
     public String getFormSerialNumber() {
@@ -220,5 +220,5 @@ public class HKGL034Detail implements Serializable {
     public String toString() {
         return "cn.hanbell.oa.entity.HKGL034Detail[ oid=" + oid + " ]";
     }
-    
+
 }
