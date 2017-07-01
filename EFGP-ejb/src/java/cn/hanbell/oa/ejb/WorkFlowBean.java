@@ -145,6 +145,32 @@ public class WorkFlowBean extends SuperEJBForEFGP<FormInstance> implements Seria
 
     }
 
+    public String getCompanyByDeptId(String deptId) {
+        switch (deptId.substring(0, 2)) {
+            case "1C":
+                return "J";
+            case "1D":
+                return "G";
+            case "1E":
+                return "N";
+            case "1V":
+                return "C4";
+            case "1R":
+                return "W";
+        }
+        switch (deptId.substring(0, 1)) {
+            case "2":
+                return "H";
+            case "5":
+                return "K";
+            case "4":
+                return "Q";
+            default:
+
+        }
+        return "C";
+    }
+
     public String invokeProcess(String host, String port, String processId, String formFieldValue, String subject) throws Exception {
         if ((getCurrentUser() == null) || (getUserFunction() == null)) {
             Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, "用户或部门不存在");

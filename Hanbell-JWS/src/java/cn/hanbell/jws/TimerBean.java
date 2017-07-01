@@ -82,8 +82,8 @@ public class TimerBean {
 
     }
 
-    @Schedule(minute = "*/3", hour = "*", persistent = false)
-    public void syncEAMAssetAcceptanceWithERPPUR530() {
+    @Schedule(minute = "*/30", hour = "*", persistent = false)
+    public void createEAMAssetAcceptanceByERPPUR530() {
         //将ERP资产验收同步到EAM资产入库
         List<HKCW002Detail> hkcw002Details;
         List<HKCW002> hkcw002List = hkcw002Bean.findNotAcceptance();
@@ -194,6 +194,7 @@ public class TimerBean {
                                                 aa.setFormdate(purach.getAcceptdate());
                                                 aa.setVendorno(purach.getVdrno());
                                                 aa.setDeptno(purach.getDepno());
+                                                aa.setRemark(e.getProcessSerialNumber() + "_" + purach.getPurachPK().getAcceptno());
                                                 aa.setStatus("N");
                                                 //产生EAM资产入库
                                                 assetAcceptanceBean.initAssetAcceptance(aa, addedDetail);
@@ -234,7 +235,7 @@ public class TimerBean {
     }
 
     @Schedule(minute = "*/5", hour = "*", persistent = false)
-    public void syncOAHZJS034WithPLM() {
+    public void createOAHZJS034ByPLM() {
         try {
             HZJS034Model m;
             HZJS034DetailModel d;
