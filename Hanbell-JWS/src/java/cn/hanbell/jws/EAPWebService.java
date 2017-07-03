@@ -19,6 +19,7 @@ import cn.hanbell.erp.entity.Invclswah;
 import cn.hanbell.oa.ejb.HKCG007Bean;
 import cn.hanbell.oa.ejb.HKCW002Bean;
 import cn.hanbell.oa.ejb.HKFW006Bean;
+import cn.hanbell.oa.ejb.HKGL038Bean;
 import cn.hanbell.oa.ejb.HZCW028Bean;
 import cn.hanbell.oa.ejb.HZCW033Bean;
 import cn.hanbell.oa.ejb.HZJS034Bean;
@@ -78,6 +79,8 @@ public class EAPWebService {
     private HZCW033Bean hzcw033Bean;
     @EJB
     private HKFW006Bean hkfw006Bean;
+    @EJB
+    private HKGL038Bean hkgl038Bean;
     @EJB
     private HZJS034Bean hzjs034Bean;
     @EJB
@@ -398,4 +401,18 @@ public class EAPWebService {
         }
     }
 
+     @WebMethod(operationName = "updateOAHKGL037ByOAHKGL038")
+    public String updateOAHKGL037ByOAHKGL038(@WebParam(name = "psn") String psn) {
+        Boolean ret = false;
+        try {
+            ret = hkgl038Bean.updateHKGL037(psn);
+        } catch (Exception ex) {
+            Logger.getLogger(EAPWebService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (ret) {
+            return "200";
+        } else {
+            return "404";
+        }
+    }
 }
