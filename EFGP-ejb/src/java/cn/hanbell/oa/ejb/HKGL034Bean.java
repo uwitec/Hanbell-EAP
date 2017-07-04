@@ -9,6 +9,7 @@ import cn.hanbell.oa.comm.SuperEJBForEFGP;
 import cn.hanbell.oa.entity.HKGL034;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
+import javax.inject.Named;
 
 /**
  *
@@ -16,6 +17,7 @@ import javax.ejb.LocalBean;
  */
 @Stateless
 @LocalBean
+@Named
 public class HKGL034Bean extends SuperEJBForEFGP<HKGL034> {
 
     public HKGL034Bean() {

@@ -50,6 +50,7 @@ public class ApplicationConfig extends Application {
         resources.add(cn.hanbell.jrs.CORSFilter.class);
         resources.add(cn.hanbell.oa.jrs.HKGL004FacadeREST.class);
         resources.add(cn.hanbell.oa.jrs.HKGL034FacadeREST.class);
+        resources.add(cn.hanbell.oa.jrs.UsersFacadeREST.class);
     }
 
 }

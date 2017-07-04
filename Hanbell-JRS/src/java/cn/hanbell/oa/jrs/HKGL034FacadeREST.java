@@ -64,35 +64,45 @@ public class HKGL034FacadeREST extends SuperREST<HKGL034> {
         details.put("Detail", detailList);
         try {
             workFlowBean.initUserInfo(entity.getEmployee());
-            HKGL034Model oa = new HKGL034Model();
-            //需要处理分公司人员公司别设定逻辑
-            oa.setFacno(entity.getEmployee().substring(0, 1));
-            oa.setEmply(workFlowBean.getCurrentUser().getId());
-            oa.setHdnEmply(workFlowBean.getCurrentUser().getUserName());
-            oa.setDept(workFlowBean.getUserFunction().getOrganizationUnit().getId());
-            oa.setHdnDept(workFlowBean.getUserFunction().getOrganizationUnit().getOrganizationUnitName());
-            oa.setCreatedate(BaseLib.getDate());
-            oa.setType(entity.getFormType());
-            oa.setHdnType(entity.getFormTypeDesc());
+
+            m = new HKGL034Model();
+            m.setApplyDate(BaseLib.getDate());
+            m.setApplyUser(workFlowBean.getCurrentUser().getId());
+            m.setHdnApplyUser(workFlowBean.getCurrentUser().getUserName());
+            m.setApplyDept(workFlowBean.getUserFunction().getOrganizationUnit().getId());
+            m.setHdnApplyDept(workFlowBean.getUserFunction().getOrganizationUnit().getOrganizationUnitName());
+            m.setType(entity.getFormType());
+            m.setHdnType(entity.getFormTypeDesc());
+            //根据部门设置公司
+            m.setFacno(workFlowBean.getCompanyByDeptId(m.getApplyDept()));
+            m.setHdnFacno(m.getFacno());
 
             for (OvertimeApplicationDetail oad : entity.getDetailList()) {
                 d = new HKGL034DetailModel();
                 d.setSeq(oad.getSeq());
-                d.setLunch("不用餐");
-                d.setDinner("不用餐");
-                d.setJbtimeTxt(oad.getDate1());
-                d.setStarttimeTxt(oad.getTime1());
-                d.setEndtimeTxt(oad.getTime2());
-                d.setHour(oad.getHour());
-                d.setJbdeptTxt(workFlowBean.getUserFunction().getOrganizationUnit().getId());
-                d.setJbdeptLbl(workFlowBean.getUserFunction().getOrganizationUnit().getOrganizationUnitName());
-                d.setEmpl(workFlowBean.getCurrentUser().getId());
-                d.setEmplname(workFlowBean.getCurrentUser().getUserName());
+                d.setDeptTxt(workFlowBean.getUserFunction().getOrganizationUnit().getId());
+                d.setDeptLbl(workFlowBean.getUserFunction().getOrganizationUnit().getOrganizationUnitName());
+                d.setEmployee(workFlowBean.getCurrentUser().getId());
+                d.setEmployeeName(workFlowBean.getCurrentUser().getUserName());
                 d.setContent(oad.getContent());
+                d.setDate1Txt(oad.getDate1());
+                d.setTime1Txt(oad.getTime1());
+                d.setTime2Txt(oad.getTime2());
+                d.setHour(oad.getHour());
+                if (oad.getLunch()) {
+                    d.setHdnLunch("用餐");
+                } else {
+                    d.setHdnLunch("不用餐");
+                }
+                if (oad.getDinner()) {
+                    d.setHdnDinner("用餐");
+                } else {
+                    d.setHdnDinner("不用餐");
+                }
                 detailList.add(d);
             }
 
-            String formInstance = workFlowBean.buildXmlForEFGP("HK_GL034", oa, details);
+            String formInstance = workFlowBean.buildXmlForEFGP("HK_GL034", m, details);
             String subject = entity.getEmployee() + "加班申请";
             String msg = workFlowBean.invokeProcess(workFlowBean.hostAdd, workFlowBean.hostPort, "PKG_HK_GL034", formInstance, subject);
             String[] rm = msg.split("\\$");

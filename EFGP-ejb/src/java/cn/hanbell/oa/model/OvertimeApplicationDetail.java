@@ -21,8 +21,8 @@ public class OvertimeApplicationDetail implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String seq;
-    private String lunch;
-    private String dinner;
+    private Boolean lunch;
+    private Boolean dinner;
 
     private String date1;
     private String time1;
@@ -51,28 +51,28 @@ public class OvertimeApplicationDetail implements Serializable {
     /**
      * @return the lunch
      */
-    public String getLunch() {
+    public Boolean getLunch() {
         return lunch;
     }
 
     /**
      * @param lunch the lunch to set
      */
-    public void setLunch(String lunch) {
+    public void setLunch(Boolean lunch) {
         this.lunch = lunch;
     }
 
     /**
      * @return the dinner
      */
-    public String getDinner() {
+    public Boolean getDinner() {
         return dinner;
     }
 
     /**
      * @param dinner the dinner to set
      */
-    public void setDinner(String dinner) {
+    public void setDinner(Boolean dinner) {
         this.dinner = dinner;
     }
 
