@@ -250,7 +250,11 @@ public class EAPWebService {
                         aadList.add(aad);
                     }
                     //新增到EAM
-                    assetApplyBean.initAssetApply(aa, aadList);
+                    String formid = assetApplyBean.initAssetApply(aa, aadList);
+                    if (formid != null && !"".equals(formid)) {
+                        e.setSrcformid(formid);
+                        hkcw002Bean.update(e);//记录EAM单号
+                    }
                 }
                 ret = true;
             } else {

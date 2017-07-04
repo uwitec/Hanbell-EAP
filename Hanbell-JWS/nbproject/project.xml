@@ -18,6 +18,9 @@
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library dirs="100">
+                    <file>${reference.CRM-ejb.dist}</file>
+                </library>
+                <library dirs="100">
                     <file>${reference.EAP-ejb.dist}</file>
                 </library>
                 <library dirs="100">
@@ -33,6 +36,9 @@
                     <file>${reference.EAM-ejb.dist}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
+                <library dirs="100">
+                    <file>${reference.PLM-ejb.dist}</file>
+                </library>
             </web-module-libraries>
             <web-module-additional-libraries/>
             <source-roots>
@@ -43,6 +49,14 @@
             </test-roots>
         </data>
         <references xmlns="http://www.netbeans.org/ns/ant-project-references/1">
+            <reference>
+                <foreign-project>CRM-ejb</foreign-project>
+                <artifact-type>jar</artifact-type>
+                <script>build.xml</script>
+                <target>dist</target>
+                <clean-target>clean</clean-target>
+                <id>dist</id>
+            </reference>
             <reference>
                 <foreign-project>EAM-ejb</foreign-project>
                 <artifact-type>jar</artifact-type>
@@ -77,6 +91,14 @@
             </reference>
             <reference>
                 <foreign-project>ERP-ejb</foreign-project>
+                <artifact-type>jar</artifact-type>
+                <script>build.xml</script>
+                <target>dist</target>
+                <clean-target>clean</clean-target>
+                <id>dist</id>
+            </reference>
+            <reference>
+                <foreign-project>PLM-ejb</foreign-project>
                 <artifact-type>jar</artifact-type>
                 <script>build.xml</script>
                 <target>dist</target>
