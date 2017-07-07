@@ -21,139 +21,211 @@ public class HKGL034DetailModel implements Serializable {
     @Column(name = "seq")
     private String seq;
     @Size(max = 255)
-    @Column(name = "lunch")
-    private String lunch;
+    @Column(name = "dept_txt")
+    private String deptTxt;
     @Size(max = 255)
-    @Column(name = "dinner")
-    private String dinner;
-
+    @Column(name = "dept_lbl")
+    private String deptLbl;
     @Size(max = 255)
-    @Column(name = "jbtime_txt")
-    private String jbtimeTxt;
+    @Column(name = "employee")
+    private String employee;
     @Size(max = 255)
-    @Column(name = "starttime_txt")
-    private String starttimeTxt;
+    @Column(name = "employeeName")
+    private String employeeName;
     @Size(max = 255)
-    @Column(name = "endtime_txt")
-    private String endtimeTxt;
+    @Column(name = "content")
+    private String content;
+    @Size(max = 255)
+    @Column(name = "date1_txt")
+    private String date1Txt;
+    @Size(max = 255)
+    @Column(name = "time1_txt")
+    private String time1Txt;
+    @Size(max = 255)
+    @Column(name = "time2_txt")
+    private String time2Txt;
     @Size(max = 255)
     @Column(name = "hour")
     private String hour;
     @Size(max = 255)
-    @Column(name = "jbdept_txt")
-    private String jbdeptTxt;
+    @Column(name = "hdn_dinner")
+    private String hdnDinner;
     @Size(max = 255)
-    @Column(name = "jbdept_lbl")
-    private String jbdeptLbl;
-    @Size(max = 255)
-    @Column(name = "empl")
-    private String empl;
-    @Size(max = 255)
-    @Column(name = "emplname")
-    private String emplname;
-    @Size(max = 255)
-    @Column(name = "content")
-    private String content;
+    @Column(name = "hdn_lunch")
+    private String hdnLunch;
 
     public HKGL034DetailModel() {
     }
 
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
+    /**
+     * @return the seq
+     */
     public String getSeq() {
         return seq;
     }
 
+    /**
+     * @param seq the seq to set
+     */
     public void setSeq(String seq) {
         this.seq = seq;
     }
 
+    /**
+     * @return the deptTxt
+     */
+    public String getDeptTxt() {
+        return deptTxt;
+    }
+
+    /**
+     * @param deptTxt the deptTxt to set
+     */
+    public void setDeptTxt(String deptTxt) {
+        this.deptTxt = deptTxt;
+    }
+
+    /**
+     * @return the deptLbl
+     */
+    public String getDeptLbl() {
+        return deptLbl;
+    }
+
+    /**
+     * @param deptLbl the deptLbl to set
+     */
+    public void setDeptLbl(String deptLbl) {
+        this.deptLbl = deptLbl;
+    }
+
+    /**
+     * @return the employee
+     */
+    public String getEmployee() {
+        return employee;
+    }
+
+    /**
+     * @param employee the employee to set
+     */
+    public void setEmployee(String employee) {
+        this.employee = employee;
+    }
+
+    /**
+     * @return the employeeName
+     */
+    public String getEmployeeName() {
+        return employeeName;
+    }
+
+    /**
+     * @param employeeName the employeeName to set
+     */
+    public void setEmployeeName(String employeeName) {
+        this.employeeName = employeeName;
+    }
+
+    /**
+     * @return the content
+     */
+    public String getContent() {
+        return content;
+    }
+
+    /**
+     * @param content the content to set
+     */
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    /**
+     * @return the date1Txt
+     */
+    public String getDate1Txt() {
+        return date1Txt;
+    }
+
+    /**
+     * @param date1Txt the date1Txt to set
+     */
+    public void setDate1Txt(String date1Txt) {
+        this.date1Txt = date1Txt;
+    }
+
+    /**
+     * @return the time1Txt
+     */
+    public String getTime1Txt() {
+        return time1Txt;
+    }
+
+    /**
+     * @param time1Txt the time1Txt to set
+     */
+    public void setTime1Txt(String time1Txt) {
+        this.time1Txt = time1Txt;
+    }
+
+    /**
+     * @return the time2Txt
+     */
+    public String getTime2Txt() {
+        return time2Txt;
+    }
+
+    /**
+     * @param time2Txt the time2Txt to set
+     */
+    public void setTime2Txt(String time2Txt) {
+        this.time2Txt = time2Txt;
+    }
+
+    /**
+     * @return the hour
+     */
     public String getHour() {
         return hour;
     }
 
+    /**
+     * @param hour the hour to set
+     */
     public void setHour(String hour) {
         this.hour = hour;
     }
 
-    public String getStarttimeTxt() {
-        return starttimeTxt;
+    /**
+     * @return the hdnDinner
+     */
+    public String getHdnDinner() {
+        return hdnDinner;
     }
 
-    public void setStarttimeTxt(String starttimeTxt) {
-        this.starttimeTxt = starttimeTxt;
+    /**
+     * @param hdnDinner the hdnDinner to set
+     */
+    public void setHdnDinner(String hdnDinner) {
+        this.hdnDinner = hdnDinner;
     }
 
-    public String getJbtimeTxt() {
-        return jbtimeTxt;
+    /**
+     * @return the hdnLunch
+     */
+    public String getHdnLunch() {
+        return hdnLunch;
     }
 
-    public void setJbtimeTxt(String jbtimeTxt) {
-        this.jbtimeTxt = jbtimeTxt;
+    /**
+     * @param hdnLunch the hdnLunch to set
+     */
+    public void setHdnLunch(String hdnLunch) {
+        this.hdnLunch = hdnLunch;
     }
 
-    public String getEndtimeTxt() {
-        return endtimeTxt;
-    }
-
-    public void setEndtimeTxt(String endtimeTxt) {
-        this.endtimeTxt = endtimeTxt;
-    }
-
-    public String getDinner() {
-        return dinner;
-    }
-
-    public void setDinner(String dinner) {
-        this.dinner = dinner;
-    }
-
-    public String getLunch() {
-        return lunch;
-    }
-
-    public void setLunch(String lunch) {
-        this.lunch = lunch;
-    }
-
-    public String getEmplname() {
-        return emplname;
-    }
-
-    public void setEmplname(String emplname) {
-        this.emplname = emplname;
-    }
-
-    public String getJbdeptTxt() {
-        return jbdeptTxt;
-    }
-
-    public void setJbdeptTxt(String jbdeptTxt) {
-        this.jbdeptTxt = jbdeptTxt;
-    }
-
-    public String getJbdeptLbl() {
-        return jbdeptLbl;
-    }
-
-    public void setJbdeptLbl(String jbdeptLbl) {
-        this.jbdeptLbl = jbdeptLbl;
-    }
-
-    public String getEmpl() {
-        return empl;
-    }
-
-    public void setEmpl(String empl) {
-        this.empl = empl;
-    }
-
+    
     @Override
     public int hashCode() {
         int hash = 0;

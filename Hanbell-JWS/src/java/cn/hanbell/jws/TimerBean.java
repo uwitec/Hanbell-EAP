@@ -8,12 +8,20 @@
 package cn.hanbell.jws;
 
 import cn.hanbell.eam.ejb.AssetAcceptanceBean;
+import cn.hanbell.eam.ejb.AssetDistributeBean;
 import cn.hanbell.eam.ejb.AssetItemBean;
 import cn.hanbell.eam.entity.AssetAcceptance;
 import cn.hanbell.eam.entity.AssetAcceptanceDetail;
+import cn.hanbell.eam.entity.AssetDistribute;
+import cn.hanbell.eam.entity.AssetDistributeDetail;
 import cn.hanbell.eam.entity.AssetItem;
+import cn.hanbell.erp.ejb.InvhadBean;
+import cn.hanbell.erp.ejb.InvmasBean;
 import cn.hanbell.erp.ejb.PurachBean;
 import cn.hanbell.erp.ejb.PurhaskBean;
+import cn.hanbell.erp.entity.Invdta;
+import cn.hanbell.erp.entity.Invhad;
+import cn.hanbell.erp.entity.Invmas;
 import cn.hanbell.erp.entity.Puracd;
 import cn.hanbell.erp.entity.Purach;
 import cn.hanbell.erp.entity.Purhask;
@@ -31,6 +39,7 @@ import com.lightshell.comm.SuperEJB;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -56,6 +65,8 @@ public class TimerBean {
     private AssetAcceptanceBean assetAcceptanceBean;
     @EJB
     private AssetItemBean assetItemBean;
+    @EJB
+    private AssetDistributeBean assetDistributeBean;
 
     //EJBForEFGP
     @EJB
@@ -64,6 +75,10 @@ public class TimerBean {
     private WorkFlowBean workFlowBean;
 
     //EJBForERP
+    @EJB
+    private InvhadBean invhadBean;
+    @EJB
+    private InvmasBean invmasBean;
     @EJB
     private PurachBean purachBean;
     @EJB
@@ -82,8 +97,8 @@ public class TimerBean {
 
     }
 
-    @Schedule(minute = "*/3", hour = "*", persistent = false)
-    public void syncEAMAssetAcceptanceWithERPPUR530() {
+    @Schedule(minute = "*/30", hour = "*", persistent = false)
+    public void createEAMAssetAcceptanceByERPPUR530() {
         //将ERP资产验收同步到EAM资产入库
         List<HKCW002Detail> hkcw002Details;
         List<HKCW002> hkcw002List = hkcw002Bean.findNotAcceptance();
@@ -194,6 +209,7 @@ public class TimerBean {
                                                 aa.setFormdate(purach.getAcceptdate());
                                                 aa.setVendorno(purach.getVdrno());
                                                 aa.setDeptno(purach.getDepno());
+                                                aa.setRemark(e.getProcessSerialNumber() + "_" + purach.getPurachPK().getAcceptno());
                                                 aa.setStatus("N");
                                                 //产生EAM资产入库
                                                 assetAcceptanceBean.initAssetAcceptance(aa, addedDetail);
@@ -223,7 +239,7 @@ public class TimerBean {
                             }
 
                         } catch (Exception ex) {
-                            Logger.getLogger("syncEAMAssetAcceptanceWithERPPUR530").log(Level.SEVERE, null, ex);
+                            Logger.getLogger("createEAMAssetAcceptanceByERPPUR530").log(Level.SEVERE, null, ex);
                         }
 
                     }
@@ -234,7 +250,91 @@ public class TimerBean {
     }
 
     @Schedule(minute = "*/5", hour = "*", persistent = false)
-    public void syncOAHZJS034WithPLM() {
+    public void createERPINV310ByEAMAssetDistribute() {
+        //将EAM资产领用同步到ERP INV310手工领料
+        List<AssetDistribute> adList = assetDistributeBean.findByStatus("V");//已确认的领用
+
+        if (adList != null && !adList.isEmpty()) {
+            short trseq;
+            String trtype = "IAB";
+            String facno;
+            String prono = "1";
+            String trno;
+            Date trdate;
+            List<AssetDistributeDetail> addList;
+            List<Invdta> addedDetail = new ArrayList();
+
+            //用于更新资产明细
+            for (AssetDistribute e : adList) {
+
+                if (e.getRelformid() != null && !"".equals(e.getRelformid())) {
+                    continue;
+                }
+
+                facno = e.getCompany();
+                trdate = e.getFormdate();
+                trno = "";
+                trseq = 0;
+                assetDistributeBean.setDetail(e.getFormid());
+                addList = assetDistributeBean.getDetailList();
+                if (addList != null && !addList.isEmpty()) {
+                    addedDetail.clear();
+                    try {
+                        for (AssetDistributeDetail d : addList) {
+                            trseq++;
+                            Invdta invdta = new Invdta(d.getAssetItem().getItemno(), facno, prono, trno, trseq);
+                            invdta.setTrtype(trtype);
+                            //获取品号资料
+                            Invmas m = invmasBean.findByItnbr(d.getAssetItem().getItemno());
+                            if (m == null) {
+                                throw new RuntimeException("EAM" + e.getFormid() + "中的品号" + d.getAssetItem().getItemno() + "ERP中不存在");
+                            }
+                            invdta.setItcls(m.getItcls());
+                            invdta.setItclscode(m.getItclscode());
+                            invdta.setTrnqy1(d.getQty());
+                            invdta.setTrnqy2(BigDecimal.ZERO);
+                            invdta.setTrnqy3(BigDecimal.ZERO);
+                            invdta.setUnmsr1(m.getUnmsr1());
+                            invdta.setWareh(d.getWarehouse2().getRemark());
+                            invdta.setFixnr("");
+                            invdta.setVarnr("");
+                            invdta.setIocode('0');
+
+                            //加入库存出入新增列表
+                            addedDetail.add(invdta);
+                        }
+
+                        Invhad invhad = new Invhad(facno, prono, trno);
+                        invhad.setTrtype(trtype);
+                        invhad.setTrdate(trdate);
+                        invhad.setDepno(e.getDeptno());
+                        invhad.setIocode('0');
+                        invhad.setResno("K15");
+                        invhad.setHmark1(null);
+                        invhad.setHmark2("0008");
+                        invhad.setSourceno(e.getFormid());
+                        invhad.setStatus('N');
+                        invhad.setUserno("mis");
+                        invhad.setIndate(trdate);
+
+                        trno = invhadBean.initINV310(invhad, addedDetail);
+                        if (trno != null && !"".equals(trno)) {
+                            e.setRelformid(trno);
+                            e.setStatus("T");
+                            assetDistributeBean.update(e);
+                        }
+                    } catch (Exception ex) {
+                        Logger.getLogger(InvhadBean.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+
+            }
+        }
+        logger.log(Level.INFO, "createERPINV310ByEAMAssetDistribute");
+    }
+
+    @Schedule(minute = "*/5", hour = "*", persistent = false)
+    public void createOAHZJS034ByPLM() {
         try {
             HZJS034Model m;
             HZJS034DetailModel d;

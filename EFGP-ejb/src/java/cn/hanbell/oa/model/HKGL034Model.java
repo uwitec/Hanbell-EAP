@@ -23,23 +23,24 @@ public class HKGL034Model implements Serializable {
     @Size(max = 255)
     @Column(name = "facno")
     private String facno;
-
     @Size(max = 255)
-    @Column(name = "emply")
-    private String emply;
-    @Size(max = 255)
-    @Column(name = "hdn_emply")
-    private String hdnEmply;
-    @Size(max = 255)
-    @Column(name = "dept")
-    private String dept;
-    @Size(max = 255)
-    @Column(name = "hdn_dept")
-    private String hdnDept;
-
-    @Column(name = "createdate")
+    @Column(name = "hdn_facno")
+    private String hdnFacno;
+    @Column(name = "applyDate")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date createdate;
+    private Date applyDate;
+    @Size(max = 255)
+    @Column(name = "applyUser")
+    private String applyUser;
+    @Size(max = 255)
+    @Column(name = "hdn_applyUser")
+    private String hdnApplyUser;
+    @Size(max = 255)
+    @Column(name = "applyDept")
+    private String applyDept;
+    @Size(max = 255)
+    @Column(name = "hdn_applyDept")
+    private String hdnApplyDept;
 
     @Size(max = 255)
     @Column(name = "type")
@@ -51,12 +52,12 @@ public class HKGL034Model implements Serializable {
     public HKGL034Model() {
     }
 
-    public Date getCreatedate() {
-        return createdate;
+    public Date getApplyDate() {
+        return applyDate;
     }
 
-    public void setCreatedate(Date createdate) {
-        this.createdate = createdate;
+    public void setApplyDate(Date applyDate) {
+        this.applyDate = applyDate;
     }
 
     public String getType() {
@@ -75,20 +76,34 @@ public class HKGL034Model implements Serializable {
         this.facno = facno;
     }
 
-    public String getHdnEmply() {
-        return hdnEmply;
+    /**
+     * @return the hdnFacno
+     */
+    public String getHdnFacno() {
+        return hdnFacno;
     }
 
-    public void setHdnEmply(String hdnEmply) {
-        this.hdnEmply = hdnEmply;
+    /**
+     * @param hdnFacno the hdnFacno to set
+     */
+    public void setHdnFacno(String hdnFacno) {
+        this.hdnFacno = hdnFacno;
     }
 
-    public String getEmply() {
-        return emply;
+    public String getHdnApplyUser() {
+        return hdnApplyUser;
     }
 
-    public void setEmply(String emply) {
-        this.emply = emply;
+    public void setHdnApplyUser(String hdnApplyUser) {
+        this.hdnApplyUser = hdnApplyUser;
+    }
+
+    public String getApplyUser() {
+        return applyUser;
+    }
+
+    public void setApplyUser(String applyUser) {
+        this.applyUser = applyUser;
     }
 
     public String getHdnType() {
@@ -99,20 +114,20 @@ public class HKGL034Model implements Serializable {
         this.hdnType = hdnType;
     }
 
-    public String getDept() {
-        return dept;
+    public String getApplyDept() {
+        return applyDept;
     }
 
-    public void setDept(String dept) {
-        this.dept = dept;
+    public void setApplyDept(String applyDept) {
+        this.applyDept = applyDept;
     }
 
-    public String getHdnDept() {
-        return hdnDept;
+    public String getHdnApplyDept() {
+        return hdnApplyDept;
     }
 
-    public void setHdnDept(String hdnDept) {
-        this.hdnDept = hdnDept;
+    public void setHdnApplyDept(String hdnApplyDept) {
+        this.hdnApplyDept = hdnApplyDept;
     }
 
     @Override

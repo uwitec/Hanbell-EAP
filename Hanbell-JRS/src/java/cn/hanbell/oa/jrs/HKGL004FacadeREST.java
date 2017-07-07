@@ -55,24 +55,26 @@ public class HKGL004FacadeREST extends SuperREST<HKGL004> {
         try {
             workFlowBean.initUserInfo(entity.getEmployee());
             HKGL004Model la = new HKGL004Model();
-            //需要处理分公司人员公司别设定逻辑
-            la.setFacno(entity.getEmployee().substring(0, 1));
-            la.setEmply(workFlowBean.getCurrentUser().getId());
-            la.setHdnEmply(workFlowBean.getCurrentUser().getUserName());
-            la.setDept(workFlowBean.getUserFunction().getOrganizationUnit().getId());
-            la.setHdnDept(workFlowBean.getUserFunction().getOrganizationUnit().getOrganizationUnitName());
-            la.setCreatetime(BaseLib.getDate());
+
+            la.setApplyDate(BaseLib.getDate());
+            la.setApplyUser(workFlowBean.getCurrentUser().getId());
+            la.setHdnApplyUser(workFlowBean.getCurrentUser().getUserName());
+            la.setApplyDept(workFlowBean.getUserFunction().getOrganizationUnit().getId());
+            la.setHdnApplyDept(workFlowBean.getUserFunction().getOrganizationUnit().getOrganizationUnitName());
+            //根据部门编号代出公司编号
+            la.setFacno(workFlowBean.getCompanyByDeptId(la.getApplyDept()));
+
             la.setLeana(entity.getFormType());
             la.setHdnLeana(entity.getFormTypeDesc());
             la.setLeano(entity.getFormKind());
             la.setHdnLeano(entity.getFormKindDesc());
-            la.setLeauser(workFlowBean.getCurrentUser().getId());
-            la.setHdnLeauser(workFlowBean.getCurrentUser().getUserName());
             la.setLeatp(entity.getWorkType());
             la.setHdnLeatp(entity.getWorkTypeDesc());
-            la.setDayst(BaseLib.getDate("yyyy-MM-dd", entity.getDate1()));
+            la.setEmployee(workFlowBean.getCurrentUser().getId());
+            la.setHdnEmployee(workFlowBean.getCurrentUser().getUserName());
+            la.setDate1(BaseLib.getDate("yyyy-MM-dd", entity.getDate1()));
             la.setTime1(entity.getTime1());
-            la.setDayed(BaseLib.getDate("yyyy-MM-dd", entity.getDate2()));
+            la.setDate2(BaseLib.getDate("yyyy-MM-dd", entity.getDate2()));
             la.setTime2(entity.getTime2());
             la.setLeaday1(entity.getLeaveDay());
             la.setLeaday2(entity.getLeaveHour());
@@ -80,7 +82,7 @@ public class HKGL004FacadeREST extends SuperREST<HKGL004> {
             la.setUserTitle(workFlowBean.getUserTitle().getTitleDefinition().getTitleDefinitionName());
             la.setReason(entity.getReason());
             String formInstance = workFlowBean.buildXmlForEFGP("HK_GL004", la, null);
-            String subject = la.getHdnLeauser() + entity.getDate1() + "开始请假" + entity.getLeaveDay() + "天" + entity.getLeaveHour()+ "时" + entity.getLeaveMinute() + "分";
+            String subject = la.getHdnEmployee() + entity.getDate1() + "开始请假" + entity.getLeaveDay() + "天" + entity.getLeaveHour() + "时" + entity.getLeaveMinute() + "分";
             String msg = workFlowBean.invokeProcess(workFlowBean.hostAdd, workFlowBean.hostPort, "PKG_HK_GL004", formInstance, subject);
             String[] rm = msg.split("\\$");
             if (rm.length == 2) {

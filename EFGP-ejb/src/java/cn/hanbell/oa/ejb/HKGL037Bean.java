@@ -6,22 +6,20 @@
 package cn.hanbell.oa.ejb;
 
 import cn.hanbell.oa.comm.SuperEJBForEFGP;
-import cn.hanbell.oa.entity.Users;
+import cn.hanbell.oa.entity.HKGL037;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
-import javax.inject.Named;
 
 /**
  *
- * @author C0160
+ * @author Administrator
  */
 @Stateless
 @LocalBean
-@Named
-public class UsersBean extends SuperEJBForEFGP<Users> {
+public class HKGL037Bean extends SuperEJBForEFGP<HKGL037> {
 
-    public UsersBean() {
-        super(Users.class);
+    public HKGL037Bean() {
+        super(HKGL037.class);
     }
 
 }
