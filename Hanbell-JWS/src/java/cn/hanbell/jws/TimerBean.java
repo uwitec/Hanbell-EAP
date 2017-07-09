@@ -15,13 +15,18 @@ import cn.hanbell.eam.entity.AssetAcceptanceDetail;
 import cn.hanbell.eam.entity.AssetDistribute;
 import cn.hanbell.eam.entity.AssetDistributeDetail;
 import cn.hanbell.eam.entity.AssetItem;
+import cn.hanbell.erp.ejb.InvbalBean;
+import cn.hanbell.erp.ejb.InvwhsafeBean;
 import cn.hanbell.erp.ejb.InvhadBean;
 import cn.hanbell.erp.ejb.InvmasBean;
 import cn.hanbell.erp.ejb.PurachBean;
 import cn.hanbell.erp.ejb.PurhaskBean;
+import cn.hanbell.erp.entity.Invbal;
 import cn.hanbell.erp.entity.Invdta;
 import cn.hanbell.erp.entity.Invhad;
 import cn.hanbell.erp.entity.Invmas;
+import cn.hanbell.erp.entity.Invwhsafe;
+import cn.hanbell.erp.entity.InvwhsafePK;
 import cn.hanbell.erp.entity.Puracd;
 import cn.hanbell.erp.entity.Purach;
 import cn.hanbell.erp.entity.Purhask;
@@ -31,6 +36,8 @@ import cn.hanbell.oa.entity.HKCW002;
 import cn.hanbell.oa.entity.HKCW002Detail;
 import cn.hanbell.oa.model.HZJS034DetailModel;
 import cn.hanbell.oa.model.HZJS034Model;
+import cn.hanbell.oa.model.SHBERPINV325DetailModel;
+import cn.hanbell.oa.model.SHBERPINV325Model;
 import cn.hanbell.plm.ejb.PLMItnbrMasterTempBean;
 import cn.hanbell.plm.entity.PLMItnbrDetailTemp;
 import cn.hanbell.plm.entity.PLMItnbrMasterTemp;
@@ -75,6 +82,10 @@ public class TimerBean {
     private WorkFlowBean workFlowBean;
 
     //EJBForERP
+    @EJB
+    private InvwhsafeBean invwhsafeBean;
+    @EJB
+    private InvbalBean invbalBean;
     @EJB
     private InvhadBean invhadBean;
     @EJB
@@ -397,5 +408,81 @@ public class TimerBean {
         }
         logger.log(Level.INFO, "PLM件号抛转轮询");
     }
+@Schedule(minute = "*/5", hour = "*", persistent = false)
+    public void automaticTimer2() {
+        try {
+            SHBERPINV325Model s;
+            SHBERPINV325DetailModel dm;
+            List<SHBERPINV325DetailModel> detailList = new ArrayList<>();
+            LinkedHashMap<String, List<?>> details = new LinkedHashMap<>();
+            details.put("Detail", detailList);
+            List<Invwhsafe> list = null;
+            list = invwhsafeBean.findAll();
+            int c;
+            int i = 0;
+            for (Invwhsafe iw : list) {
+                InvwhsafePK PK = iw.getInvwhsafePK();
+                double low;
+                double high;
+                double take;
+                double onhand1;
+                low = iw.getLowest().doubleValue();
+                high = iw.getHighest().doubleValue();
+                take = iw.getMintake().doubleValue();
+                String itnbr = PK.getItnbr();
+                String wareh = PK.getWareh();
+                String itdsc = iw.getItdsc();
+                Invbal IB = invbalBean.findByItnbrAndWareh(itnbr, wareh);
+                BigDecimal Onhand1 = IB.getOnhand1();
+                onhand1 = Onhand1.doubleValue();
+                if (onhand1 < low) {
+                    c = (int) ((high - onhand1) / take);
+                    System.out.println(c);
+                } else {
+                    continue;
+                }
+                i++;
+                dm = new SHBERPINV325DetailModel();
+//                dm.setSeq(String.valueOf(i));
+                dm.setItnbr(itnbr);
+                dm.setItdsc(itdsc);
+                dm.setCount(c + "");
+                System.out.println(dm.getCount());
+                dm.setSum((take*c)+"");
+                System.out.println(dm.getSum());
+                dm.setDfromwareh("ASRS01");
+                dm.setDtowareh("ZP01");
+                dm.setBz("");
+                detailList.add(dm);
+            }
+            workFlowBean.initUserInfo("C0385");
+            s = new SHBERPINV325Model();
+            s.setFacno("C");
+            s.setApplyuser("C1587");
+            s.setDept("1F220");
+            s.setProno("1");
+            s.setResno("T01");
+            s.setTrtype("IAC");
+            s.setFromwareh("ASRA01");
+            s.setTowareh("ZP01");
+            s.setBz("");
+            s.setDfromwareh("");
+            s.setDtowareh("");
+            s.setItdsc("");
+            s.setItnbr("");
+            s.setSum("");
+            s.setCount("");
+            if(detailList.size()>0) {
+            String formInstance = workFlowBean.buildXmlForEFGP("SHB_ERP_INV325", s, details);
+            String subject = "生产制领料";
+            String msg = workFlowBean.invokeProcess(workFlowBean.hostAdd, workFlowBean.hostPort, "PKG_SHB_ERP_INV325", formInstance, subject);
+            System.out.println(msg);
+            } else {
+                
+            }
 
+        } catch (Exception ex) {
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex.getMessage());
+        }
+    }
 }
