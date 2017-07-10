@@ -408,7 +408,7 @@ public class TimerBean {
         }
         logger.log(Level.INFO, "PLM件号抛转轮询");
     }
-@Schedule(minute = "*/5", hour = "*", persistent = false)
+@Schedule(minute = "*", hour = "*/24", persistent = false)
     public void automaticTimer2() {
         try {
             SHBERPINV325Model s;
