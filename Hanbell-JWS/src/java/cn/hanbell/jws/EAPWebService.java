@@ -204,15 +204,8 @@ public class EAPWebService {
                     if (user != null) {
                         aa.setRequireUsername(user.getUsername());
                     }
-                    if (e.getRemark() != null) {
-                        if (e.getRemark().length() < 81) {
-                            aa.setRemark(e.getProcessSerialNumber() + "_" + e.getRemark());
-                        } else {
-                            aa.setRemark(e.getProcessSerialNumber() + "_" + e.getRemark().substring(0, 80));
-                        }
-                    } else {
-                        aa.setRemark(e.getProcessSerialNumber());
-                    }
+                    aa.setRemark(e.getProcessSerialNumber());
+
                     aa.setStatusToNew();
                     aa.setCreator(e.getProcessSerialNumber());
                     aa.setCredateToNow();
@@ -413,7 +406,7 @@ public class EAPWebService {
         }
     }
 
-     @WebMethod(operationName = "updateOAHKGL037ByOAHKGL038")
+    @WebMethod(operationName = "updateOAHKGL037ByOAHKGL038")
     public String updateOAHKGL037ByOAHKGL038(@WebParam(name = "psn") String psn) {
         Boolean ret = false;
         try {

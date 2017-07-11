@@ -11,6 +11,8 @@ import cn.hanbell.erp.ejb.BudgetDetailBean;
 import cn.hanbell.erp.ejb.CdrbrhadBean;
 import cn.hanbell.erp.ejb.CdrcusBean;
 import cn.hanbell.erp.ejb.CdrlnhadBean;
+import cn.hanbell.erp.ejb.InvbalBean;
+import cn.hanbell.erp.ejb.InvbatBean;
 import cn.hanbell.erp.ejb.InvhadBean;
 import cn.hanbell.erp.ejb.InvmasBean;
 import cn.hanbell.erp.ejb.PurhaskBean;
@@ -19,6 +21,7 @@ import cn.hanbell.erp.ejb.SecgprgBean;
 import cn.hanbell.oa.ejb.HKCG007Bean;
 import cn.hanbell.oa.ejb.HZCW028Bean;
 import cn.hanbell.oa.ejb.HZCW033Bean;
+import java.math.BigDecimal;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -40,15 +43,20 @@ public class SHBERPWebService {
     @EJB
     private ApmpayBean apmpayBean;
     @EJB
+    private BudgetDetailBean budgetDetailBean;
+    @EJB
     private CdrcusBean cdrcusBean;
     @EJB
-    private PurvdrBean purvdrBean;
+    private InvbalBean invbalBean;
     @EJB
-    private BudgetDetailBean budgetDetailBean;
+    private InvbatBean invbatBean;
     @EJB
     private InvmasBean invmasBean;
     @EJB
     private PurhaskBean purhaskBean;
+    @EJB
+    private PurvdrBean purvdrBean;
+
     @EJB
     private HZCW028Bean hzcw028Bean;
     @EJB
@@ -325,6 +333,40 @@ public class SHBERPWebService {
             return "200";
         } else {
             return "404";
+        }
+    }
+
+    @WebMethod(operationName = "isLessThenInvbal")
+    public String isLessThenInvbal(@WebParam(name = "facno") String facno, @WebParam(name = "prono") String prono, @WebParam(name = "itnbr") String itnbr, @WebParam(name = "wareh") String wareh, @WebParam(name = "qty") String qty) {
+        Boolean ret;
+        try {
+            invbalBean.setCompany(facno);
+            ret = invbalBean.isGreatThenInvbal(facno, prono, itnbr, wareh, BigDecimal.valueOf(Double.valueOf(qty)));
+        } catch (Exception ex) {
+            Logger.getLogger(SHBERPWebService.class.getName()).log(Level.SEVERE, null, ex);
+            return "500";
+        }
+        if (ret) {
+            return "404";
+        } else {
+            return "200";
+        }
+    }
+
+    @WebMethod(operationName = "isLessThenInvbat")
+    public String isLessThenInvbat(@WebParam(name = "facno") String facno, @WebParam(name = "prono") String prono, @WebParam(name = "itnbr") String itnbr, @WebParam(name = "wareh") String wareh, @WebParam(name = "fixnr") String fixnr, @WebParam(name = "varnr") String varnr, @WebParam(name = "qty") String qty) {
+        Boolean ret;
+        try {
+            invbatBean.setCompany(facno);
+            ret = invbatBean.isGreatThenInvbat(facno, prono, itnbr, wareh, fixnr, varnr, BigDecimal.valueOf(Double.valueOf(qty)));
+        } catch (Exception ex) {
+            Logger.getLogger(SHBERPWebService.class.getName()).log(Level.SEVERE, null, ex);
+            return "500";
+        }
+        if (ret) {
+            return "404";
+        } else {
+            return "200";
         }
     }
 
