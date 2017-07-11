@@ -6,10 +6,7 @@
 package cn.hanbell.oa.model;
 
 import java.io.Serializable;
-import javax.persistence.Basic;
 import javax.persistence.Column;
-import javax.persistence.Id;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -21,12 +18,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class SHBERPINV325Model implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Id
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 255)
-    @Column(name = "OID")
-    private String oid;
     @Size(max = 255)
     @Column(name = "resno")
     private String resno;
@@ -72,12 +63,6 @@ public class SHBERPINV325Model implements Serializable {
     @Size(max = 255)
     @Column(name = "dept")
     private String dept;
-    @Size(max = 255)
-    @Column(name = "processSerialNumber")
-    private String processSerialNumber;
-    @Size(max = 255)
-    @Column(name = "formSerialNumber")
-    private String formSerialNumber;
 
     public SHBERPINV325Model() {
         this.prono = "1";
@@ -88,17 +73,6 @@ public class SHBERPINV325Model implements Serializable {
         this.facno = "C";
         this.applyuser = "C1587";
         this.dept = "13000";
-    }
-
-//    public SHBERPINV325Model(String oid) {
-//        this.oid = oid;
-//    }
-    public String getOid() {
-        return oid;
-    }
-
-    public void setOid(String oid) {
-        this.oid = oid;
     }
 
     public String getResno() {
@@ -211,47 +185,6 @@ public class SHBERPINV325Model implements Serializable {
 
     public void setDept(String dept) {
         this.dept = dept;
-    }
-
-    public String getProcessSerialNumber() {
-        return processSerialNumber;
-    }
-
-    public void setProcessSerialNumber(String processSerialNumber) {
-        this.processSerialNumber = processSerialNumber;
-    }
-
-    public String getFormSerialNumber() {
-        return formSerialNumber;
-    }
-
-    public void setFormSerialNumber(String formSerialNumber) {
-        this.formSerialNumber = formSerialNumber;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (oid != null ? oid.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof SHBERPINV325Model)) {
-            return false;
-        }
-        SHBERPINV325Model other = (SHBERPINV325Model) object;
-        if ((this.oid == null && other.oid != null) || (this.oid != null && !this.oid.equals(other.oid))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "cn.hanbell.oa.entity.SHBERPINV325[ oid=" + oid + " ]";
     }
 
     /**

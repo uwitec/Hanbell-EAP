@@ -21,59 +21,18 @@ import javax.ejb.LocalBean;
  */
 @Stateless
 @LocalBean
-public class InvwhsafeBean extends SuperEJBForERP<Invwhsafe>{
-    
+public class InvwhsafeBean extends SuperEJBForERP<Invwhsafe> {
+
     @EJB
     private InvbalBean invbalBean;
-    
-    public InvwhsafeBean(){
+
+    public InvwhsafeBean() {
         super(Invwhsafe.class);
     }
-    public Boolean initINVWHSAFE(String a,String b ) {
-        
-        
+
+    public Boolean initINVWHSAFE(String a, String b) {
+
         return true;
     }
-    public int findByAll( String a,String b){
-        int count = 0;
-//循环查询数据库
-//        List list = new ArrayList<Invwhsafe>();
-//        list  = this.findAll();
-        List<Invwhsafe> list  = this.findAll();
-//        for(int i =0;(i+1)<list.size();i++){   
-//        }
-        int c[] = null;
-        int i=0;
-        for (Invwhsafe invwhsafe : list) {
-            InvwhsafePK PK = invwhsafe.getInvwhsafePK();
-            double low;
-            double high;
-            double take;
-            double onhand1;
-            BigDecimal Lowest = invwhsafe.getLowest();
-            BigDecimal Highest = invwhsafe.getHighest();
-            BigDecimal Mintake = invwhsafe.getMintake();
-            low = Lowest.doubleValue();
-            high = Highest.doubleValue();
-            take = Mintake.doubleValue();
-            String itnbr = PK.getItnbr();
-            String wareh = PK.getWareh();
-            Invbal IB = invbalBean.findByItnbrAndWareh(itnbr, wareh);
-            BigDecimal Onhand1 = IB.getOnhand1();
-            onhand1 = Onhand1.doubleValue();
-            if(onhand1<low){
-            c[i]=(int)((high-onhand1)/take); 
-            }
-        }  
-    
-        
-        return count;
-    }
 
-   
-    
-    
-    
-    
-    
 }

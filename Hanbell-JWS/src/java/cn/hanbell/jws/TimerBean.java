@@ -408,7 +408,8 @@ public class TimerBean {
         }
         logger.log(Level.INFO, "PLM件号抛转轮询");
     }
-@Schedule(minute = "*", hour = "*/24", persistent = false)
+
+    @Schedule(minute = "*", hour = "*/24", persistent = false)
     public void automaticTimer2() {
         try {
             SHBERPINV325Model s;
@@ -443,12 +444,14 @@ public class TimerBean {
                 }
                 i++;
                 dm = new SHBERPINV325DetailModel();
-//                dm.setSeq(String.valueOf(i));
+                dm.setSeq(String.valueOf(i));
                 dm.setItnbr(itnbr);
                 dm.setItdsc(itdsc);
                 dm.setCount(c + "");
                 System.out.println(dm.getCount());
-                dm.setSum((take*c)+"");
+                System.out.println(i);
+                System.out.println(String.valueOf(i));
+                dm.setSum((take * c) + "");
                 System.out.println(dm.getSum());
                 dm.setDfromwareh("ASRS01");
                 dm.setDtowareh("ZP01");
@@ -472,13 +475,13 @@ public class TimerBean {
             s.setItnbr("");
             s.setSum("");
             s.setCount("");
-            if(detailList.size()>0) {
-            String formInstance = workFlowBean.buildXmlForEFGP("SHB_ERP_INV325", s, details);
-            String subject = "生产制领料";
-            String msg = workFlowBean.invokeProcess(workFlowBean.hostAdd, workFlowBean.hostPort, "PKG_SHB_ERP_INV325", formInstance, subject);
-            System.out.println(msg);
+            if (detailList.size() > 0) {
+                String formInstance = workFlowBean.buildXmlForEFGP("SHB_ERP_INV325", s, details);
+                String subject = "生产制领料";
+                String msg = workFlowBean.invokeProcess(workFlowBean.hostAdd, workFlowBean.hostPort, "PKG_SHB_ERP_INV325", formInstance, subject);
+                System.out.println(msg);
             } else {
-                
+
             }
 
         } catch (Exception ex) {

@@ -6,10 +6,7 @@
 package cn.hanbell.oa.model;
 
 import java.io.Serializable;
-import javax.persistence.Basic;
 import javax.persistence.Column;
-import javax.persistence.Id;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -20,11 +17,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class SHBERPINV325DetailModel implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-
-//    @Size(max = 255)
-//    @Column(name = "seq")
-//    private String seq;
+    @Size(max = 255)
+    @Column(name = "seq")
+    private String seq;
     @Size(max = 255)
     @Column(name = "itnbr")
     private String itnbr;
@@ -33,7 +28,7 @@ public class SHBERPINV325DetailModel implements Serializable {
     private String itdsc;
     @Size(max = 255)
     @Column(name = "count")
-    private String count;    
+    private String count;
     @Size(max = 255)
     @Column(name = "sum")
     private String sum;
@@ -46,18 +41,11 @@ public class SHBERPINV325DetailModel implements Serializable {
     @Size(max = 255)
     @Column(name = "bz")
     private String bz;
+
     @Size(max = 255)
-    @Column(name = "formSerialNumber")
-    private String formSerialNumber;
-    @Id
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 255)
-    @Column(name = "OID")
-    private String oid;
 
     public SHBERPINV325DetailModel() {
-//        this.seq = "";
+        this.seq = "";
         this.itnbr = "";
         this.itdsc = "";
         this.count = "";
@@ -67,113 +55,116 @@ public class SHBERPINV325DetailModel implements Serializable {
         this.bz = "";
     }
 
-    public SHBERPINV325DetailModel(String oid) {
-        this.oid = oid;
+    /**
+     * @return the seq
+     */
+    public String getSeq() {
+        return seq;
     }
 
-    public String getOid() {
-        return oid;
+    /**
+     * @param seq the seq to set
+     */
+    public void setSeq(String seq) {
+        this.seq = seq;
     }
 
-    public void setOid(String oid) {
-        this.oid = oid;
-    }
-
-    public String getCount() {
-        return count;
-    }
-
-    public void setCount(String count) {
-        this.count = count;
-    }
-
-    public String getBz() {
-        return bz;
-    }
-
-    public void setBz(String bz) {
-        this.bz = bz;
-    }
-
-    public String getDtowareh() {
-        return dtowareh;
-    }
-
-    public void setDtowareh(String dtowareh) {
-        this.dtowareh = dtowareh;
-    }
-
-//    public String getSeq() {
-//        return seq;
-//    }
-//
-//    public void setSeq(String seq) {
-//        this.seq = seq;
-//    }
-
-    public String getSum() {
-        return sum;
-    }
-
-    public void setSum(String sum) {
-        this.sum = sum;
-    }
-
+    /**
+     * @return the itnbr
+     */
     public String getItnbr() {
         return itnbr;
     }
 
+    /**
+     * @param itnbr the itnbr to set
+     */
     public void setItnbr(String itnbr) {
         this.itnbr = itnbr;
     }
 
+    /**
+     * @return the itdsc
+     */
     public String getItdsc() {
         return itdsc;
     }
 
+    /**
+     * @param itdsc the itdsc to set
+     */
     public void setItdsc(String itdsc) {
         this.itdsc = itdsc;
     }
 
-    public String getFormSerialNumber() {
-        return formSerialNumber;
+    /**
+     * @return the count
+     */
+    public String getCount() {
+        return count;
     }
 
-    public void setFormSerialNumber(String formSerialNumber) {
-        this.formSerialNumber = formSerialNumber;
+    /**
+     * @param count the count to set
+     */
+    public void setCount(String count) {
+        this.count = count;
     }
 
+    /**
+     * @return the sum
+     */
+    public String getSum() {
+        return sum;
+    }
+
+    /**
+     * @param sum the sum to set
+     */
+    public void setSum(String sum) {
+        this.sum = sum;
+    }
+
+    /**
+     * @return the dfromwareh
+     */
     public String getDfromwareh() {
         return dfromwareh;
     }
 
+    /**
+     * @param dfromwareh the dfromwareh to set
+     */
     public void setDfromwareh(String dfromwareh) {
         this.dfromwareh = dfromwareh;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (oid != null ? oid.hashCode() : 0);
-        return hash;
+    /**
+     * @return the dtowareh
+     */
+    public String getDtowareh() {
+        return dtowareh;
     }
 
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof SHBERPINV325DetailModel)) {
-            return false;
-        }
-        SHBERPINV325DetailModel other = (SHBERPINV325DetailModel) object;
-        if ((this.oid == null && other.oid != null) || (this.oid != null && !this.oid.equals(other.oid))) {
-            return false;
-        }
-        return true;
+    /**
+     * @param dtowareh the dtowareh to set
+     */
+    public void setDtowareh(String dtowareh) {
+        this.dtowareh = dtowareh;
     }
 
-    @Override
-    public String toString() {
-        return "cn.hanbell.oa.entity.SHBERPINV325Detail[ oid=" + oid + " ]";
+    /**
+     * @return the bz
+     */
+    public String getBz() {
+        return bz;
+    }
+
+    /**
+     * @param bz the bz to set
+     */
+    public void setBz(String bz) {
+        this.bz = bz;
     }
 
 }
