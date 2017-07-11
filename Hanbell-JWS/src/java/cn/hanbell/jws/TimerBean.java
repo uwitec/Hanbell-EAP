@@ -306,7 +306,7 @@ public class TimerBean {
                             invdta.setTrnqy2(BigDecimal.ZERO);
                             invdta.setTrnqy3(BigDecimal.ZERO);
                             invdta.setUnmsr1(m.getUnmsr1());
-                            invdta.setWareh(d.getWarehouse2().getRemark());
+                            invdta.setWareh(d.getWarehouse().getRemark());
                             invdta.setFixnr("");
                             invdta.setVarnr("");
                             invdta.setIocode('0');

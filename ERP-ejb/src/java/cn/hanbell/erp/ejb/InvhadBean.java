@@ -405,6 +405,7 @@ public class InvhadBean extends SuperEJBForERP<Invhad> {
             invsernoBean.setCompany(facno);
             trno = invsernoBean.getTrno(facno, "", trtype, trdate, true);
             invhad.getInvhadPK().setTrno(trno);
+            invhad.setIocode(invdou.getIocode());
 
             flag = true;
             for (Invdta invdta : addedDetail) {
