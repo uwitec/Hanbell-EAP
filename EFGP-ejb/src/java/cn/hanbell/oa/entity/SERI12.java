@@ -130,7 +130,6 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "SERI12.findByBq198", query = "SELECT s FROM SERI12 s WHERE s.bq198 = :bq198"),
     @NamedQuery(name = "SERI12.findByBq019", query = "SELECT s FROM SERI12 s WHERE s.bq019 = :bq019"),
     @NamedQuery(name = "SERI12.findByBq199", query = "SELECT s FROM SERI12 s WHERE s.bq199 = :bq199"),
-    @NamedQuery(name = "SERI12.findByListbox1", query = "SELECT s FROM SERI12 s WHERE s.listbox1 = :listbox1"),
     @NamedQuery(name = "SERI12.findByBq197c", query = "SELECT s FROM SERI12 s WHERE s.bq197c = :bq197c"),
     @NamedQuery(name = "SERI12.findByBq005", query = "SELECT s FROM SERI12 s WHERE s.bq005 = :bq005"),
     @NamedQuery(name = "SERI12.findByBq006", query = "SELECT s FROM SERI12 s WHERE s.bq006 = :bq006"),
@@ -142,11 +141,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "SERI12.findByBq007", query = "SELECT s FROM SERI12 s WHERE s.bq007 = :bq007"),
     @NamedQuery(name = "SERI12.findByFSN", query = "SELECT s FROM SERI12 s WHERE s.formSerialNumber = :fsn"),
     @NamedQuery(name = "SERI12.findByBq008", query = "SELECT s FROM SERI12 s WHERE s.bq008 = :bq008"),
-    @NamedQuery(name = "SERI12.findByBq129h", query = "SELECT s FROM SERI12 s WHERE s.bq129h = :bq129h"),
-    @NamedQuery(name = "SERI12.findByBq129hh", query = "SELECT s FROM SERI12 s WHERE s.bq129hh = :bq129hh"),
     @NamedQuery(name = "SERI12.findByBq130h", query = "SELECT s FROM SERI12 s WHERE s.bq130h = :bq130h"),
     @NamedQuery(name = "SERI12.findByBq133c", query = "SELECT s FROM SERI12 s WHERE s.bq133c = :bq133c"),
-    @NamedQuery(name = "SERI12.findByDropdown0", query = "SELECT s FROM SERI12 s WHERE s.dropdown0 = :dropdown0"),
     @NamedQuery(name = "SERI12.findByFacno", query = "SELECT s FROM SERI12 s WHERE s.facno = :facno"),
     @NamedQuery(name = "SERI12.findByBq035h", query = "SELECT s FROM SERI12 s WHERE s.bq035h = :bq035h")})
 public class SERI12 implements Serializable {
@@ -465,9 +461,6 @@ public class SERI12 implements Serializable {
     @Column(name = "BQ199")
     private String bq199;
     @Size(max = 255)
-    @Column(name = "Listbox1")
-    private String listbox1;
-    @Size(max = 255)
     @Column(name = "BQ197C")
     private String bq197c;
     @Size(max = 255)
@@ -501,20 +494,11 @@ public class SERI12 implements Serializable {
     @Column(name = "BQ008")
     private String bq008;
     @Size(max = 255)
-    @Column(name = "BQ129H")
-    private String bq129h;
-    @Size(max = 255)
-    @Column(name = "BQ129HH")
-    private String bq129hh;
-    @Size(max = 255)
     @Column(name = "BQ130H")
     private String bq130h;
     @Size(max = 255)
     @Column(name = "BQ133C")
     private String bq133c;
-    @Size(max = 255)
-    @Column(name = "Dropdown0")
-    private String dropdown0;
     @Size(max = 255)
     @Column(name = "facno")
     private String facno;
@@ -1353,13 +1337,6 @@ public class SERI12 implements Serializable {
         this.bq199 = bq199;
     }
 
-    public String getListbox1() {
-        return listbox1;
-    }
-
-    public void setListbox1(String listbox1) {
-        this.listbox1 = listbox1;
-    }
 
     public String getBq197c() {
         return bq197c;
@@ -1449,21 +1426,6 @@ public class SERI12 implements Serializable {
         this.bq008 = bq008;
     }
 
-    public String getBq129h() {
-        return bq129h;
-    }
-
-    public void setBq129h(String bq129h) {
-        this.bq129h = bq129h;
-    }
-
-    public String getBq129hh() {
-        return bq129hh;
-    }
-
-    public void setBq129hh(String bq129hh) {
-        this.bq129hh = bq129hh;
-    }
 
     public String getBq130h() {
         return bq130h;
@@ -1479,14 +1441,6 @@ public class SERI12 implements Serializable {
 
     public void setBq133c(String bq133c) {
         this.bq133c = bq133c;
-    }
-
-    public String getDropdown0() {
-        return dropdown0;
-    }
-
-    public void setDropdown0(String dropdown0) {
-        this.dropdown0 = dropdown0;
     }
 
     public String getFacno() {
