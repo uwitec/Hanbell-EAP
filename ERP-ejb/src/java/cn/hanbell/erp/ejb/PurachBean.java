@@ -65,6 +65,12 @@ public class PurachBean extends SuperEJBForERP<Purach> {
     }
 
     @Override
+    public void setCompany(String company) {
+        super.setCompany(company);
+        puracdBean.setCompany(company);
+    }
+
+    @Override
     public void setDetail(Object value) {
         detailList = puracdBean.findByAcceptno(value.toString());
     }
