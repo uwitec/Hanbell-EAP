@@ -5,6 +5,8 @@
  */
 package cn.hanbell.erp.ejb;
 
+import cn.hanbell.crm.ejb.WARMBBean;
+import cn.hanbell.crm.entity.WARMB;
 import cn.hanbell.erp.comm.SuperEJBForERP;
 import cn.hanbell.erp.entity.Invcls;
 import cn.hanbell.erp.entity.Invmas;
@@ -13,6 +15,7 @@ import cn.hanbell.oa.ejb.HKJS001Bean;
 import cn.hanbell.oa.ejb.HKJS001DetailBean;
 import cn.hanbell.oa.ejb.HZJS034Bean;
 import cn.hanbell.oa.ejb.HZJS034DetailBean;
+import cn.hanbell.oa.ejb.SHBERPPURX141Bean;
 import cn.hanbell.oa.ejb.SHBINV140Bean;
 import cn.hanbell.oa.ejb.SHBINV140DetailBean;
 import cn.hanbell.oa.ejb.SHBINV146Bean;
@@ -25,6 +28,8 @@ import cn.hanbell.oa.entity.SHBERPINV140Detail;
 import cn.hanbell.oa.entity.SHBERPINV140;
 import cn.hanbell.oa.entity.SHBERPINV146;
 import cn.hanbell.oa.entity.SHBERPINV146Detail;
+import cn.hanbell.oa.entity.SHBERPPURX141;
+import cn.hanbell.oa.entity.SHBERPPURX141Detail;
 import cn.hanbell.util.BaseLib;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -44,12 +49,12 @@ public class InvmasBean extends SuperEJBForERP<Invmas> {
     private HKJS001Bean hkjs001Bean;
     @EJB
     private HKJS001DetailBean hkjs001DetailBean;
-
     @EJB
     private HZJS034Bean hzjs034Bean;
     @EJB
     private HZJS034DetailBean hzjs034DetailBean;
-
+    @EJB
+    private SHBERPPURX141Bean shberppurx141Bean;
     @EJB
     private SHBINV140Bean shbinv140Bean;
     @EJB
@@ -70,6 +75,8 @@ public class InvmasBean extends SuperEJBForERP<Invmas> {
     private SyncNJBean syncNJBean;
     @EJB
     private SyncCQBean syncCQBean;
+    @EJB
+    private WARMBBean warmbBean;
 
     public InvmasBean() {
         super(Invmas.class);
@@ -236,11 +243,56 @@ public class InvmasBean extends SuperEJBForERP<Invmas> {
                 this.getEntityManager().detach(m);
                 invclsBean.setCompany(h.getFacno2());
                 Invcls c = invclsBean.findByItcls(detail.getItcls());
-                m.setInvcls(c);                
+                m.setInvcls(c);
                 m.setItclscode(c.getItclscode());
                 setCompany(h.getFacno2());
                 persist(m);
                 this.getEntityManager().flush();
+
+                //同步MES资料
+                if (h.getFacno2().equals("C") || h.getFacno2().equals("K")) {
+                    Scminvmas scm = new Scminvmas();
+                    scm.setItnbr(detail.getItnbr());
+                    scm.setItdsc(detail.getItdsc());
+                    scm.setProducttype(detail.getProducttype());
+                    scm.setLevel1(detail.getLevel1());
+                    scm.setLevel2(detail.getLevel2());
+                    scm.setTracetype(detail.getTracetype());
+                    scm.setLotid(detail.getLotid());
+                    scm.setCompid(detail.getCompid());
+                    scm.setLno(detail.getLno());
+                    scm.setWno(detail.getWno());
+                    scm.setGetseq(detail.getGetseq());
+                    scm.setPrinttype(detail.getPrinttype());
+                    scm.setQcdata(detail.getQcdata());
+                    scm.setQcdatanum(detail.getQcdatanum());
+                    scm.setAsrstype(detail.getAsrstype());
+                    scm.setSelfprint(detail.getSelfprint());
+                    scm.setTransflag("N");
+                    scm.setTranstime(BaseLib.getDate().toString());
+                    scm.setDeydetyn("N");
+                    scminvmasBean.setCompany(h.getFacno2());
+                    scminvmasBean.persist(scm);
+                }
+
+                //同步分公司
+                if (h.getFacno2().equals("C")) {
+                    if (c.getNrcode().equals('0')) {
+                        m.setDirrvyn('Y');
+                    }
+                    syncNJBean.persist(m, null);
+                    syncNJBean.getEntityManager().flush();
+
+                    syncGZBean.persist(m, null);
+                    syncGZBean.getEntityManager().flush();
+
+                    syncJNBean.persist(m, null);
+                    syncJNBean.getEntityManager().flush();
+
+                    syncCQBean.persist(m, null);
+                    syncCQBean.getEntityManager().flush();
+
+                }
             }
 
             return true;
@@ -342,6 +394,27 @@ public class InvmasBean extends SuperEJBForERP<Invmas> {
                         update(e);
                         this.getEntityManager().flush();
                     }
+
+                    //更新CRM件号2017/7/11
+                    WARMB warmb = warmbBean.findByMB001(detail.getItnbr());
+                    if (warmb != null) {
+                        warmb.setMb002(detail.getItdsc());
+                        warmb.setMb003(detail.getSpdsc());
+                        warmb.setMb029(detail.getEitdsc());
+                        warmb.setMb030(detail.getEspdsc());
+                        warmbBean.update(warmb);
+                    }
+                }
+                //更新MES件号 2017/7/11
+                if (h.getFacno().equals("C") || h.getFacno().equals("K")) {
+                    scminvmasBean.setCompany(h.getFacno());
+                    Scminvmas scminvmas = scminvmasBean.findByItnbr(detail.getItnbr());
+                    if (scminvmas != null) {
+                        scminvmas.setItdsc(detail.getItdsc());
+                        scminvmas.setTransflag("N");
+                        scminvmasBean.update(scminvmas);
+                    }
+
                 }
             }
             return true;
@@ -406,4 +479,43 @@ public class InvmasBean extends SuperEJBForERP<Invmas> {
 
     }
 
+    //标准成本价格金额
+    public Boolean updateByOASHBERPPURX141(String psn) {
+        SHBERPPURX141 h = shberppurx141Bean.findByPSN(psn);
+        if (h == null) {
+            throw new NullPointerException();
+        }
+
+        try {
+            List<SHBERPPURX141Detail> details = shberppurx141Bean.getDetailList(h.getFormSerialNumber());
+            //表身循环
+            for (int i = 0; i < details.size(); i++) {
+
+                SHBERPPURX141Detail detail = details.get(i);
+
+                this.setCompany(h.getFacno());
+                Invmas m = findByItnbr(detail.getItnbr());
+                if (m == null) {
+                    throw new NullPointerException();
+                }
+                if("".equals(detail.getCost())){
+                    m.setCost(null);
+                }else{
+                     m.setCost(BigDecimal.valueOf(Double.parseDouble(detail.getCost())));
+                }
+               if("".equals(detail.getAsscost())){
+                   m.setAsscost(null);
+               }else{
+                 m.setAsscost(BigDecimal.valueOf(Double.parseDouble(detail.getAsscost())));
+               }
+                update(m);
+            }
+
+            return true;
+        } catch (Exception ex) {
+            Logger.getLogger(InvmasBean.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+
+        }
+    }
 }
