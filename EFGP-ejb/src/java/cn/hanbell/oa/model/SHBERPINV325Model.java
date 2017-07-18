@@ -22,8 +22,8 @@ public class SHBERPINV325Model implements Serializable {
     @Column(name = "resno")
     private String resno;
     @Size(max = 255)
-    @Column(name = "count")
-    private String count;
+    @Column(name = "countnum")
+    private String countnum;
     @Size(max = 255)
     @Column(name = "towareh")
     private String towareh;
@@ -37,8 +37,8 @@ public class SHBERPINV325Model implements Serializable {
     @Column(name = "dtowareh")
     private String dtowareh;
     @Size(max = 255)
-    @Column(name = "sum")
-    private String sum;
+    @Column(name = "sumnum")
+    private String sumnum;
     @Size(max = 255)
     @Column(name = "itdsc")
     private String itdsc;
@@ -83,12 +83,12 @@ public class SHBERPINV325Model implements Serializable {
         this.resno = resno;
     }
 
-    public String getCount() {
-        return count;
+    public String getCountnum() {
+        return countnum;
     }
 
-    public void setCount(String count) {
-        this.count = count;
+    public void setCountnum(String countnum) {
+        this.countnum = countnum;
     }
 
     public String getTowareh() {
@@ -123,12 +123,12 @@ public class SHBERPINV325Model implements Serializable {
         this.dtowareh = dtowareh;
     }
 
-    public String getSum() {
-        return sum;
+    public String getSumnum() {
+        return sumnum;
     }
 
-    public void setSum(String sum) {
-        this.sum = sum;
+    public void setSumnum(String sumnum) {
+        this.sumnum = sumnum;
     }
 
     public String getItdsc() {

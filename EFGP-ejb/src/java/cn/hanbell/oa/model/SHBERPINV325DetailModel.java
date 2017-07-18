@@ -27,11 +27,11 @@ public class SHBERPINV325DetailModel implements Serializable {
     @Column(name = "itdsc")
     private String itdsc;
     @Size(max = 255)
-    @Column(name = "count")
-    private String count;
+    @Column(name = "countnum")
+    private String countnum;
     @Size(max = 255)
-    @Column(name = "sum")
-    private String sum;
+    @Column(name = "sumnum")
+    private String sumnum;
     @Size(max = 255)
     @Column(name = "dfromwareh")
     private String dfromwareh;
@@ -48,8 +48,8 @@ public class SHBERPINV325DetailModel implements Serializable {
         this.seq = "";
         this.itnbr = "";
         this.itdsc = "";
-        this.count = "";
-        this.sum = "";
+        this.countnum = "";
+        this.sumnum = "";
         this.dfromwareh = "";
         this.dtowareh = "";
         this.bz = "";
@@ -98,31 +98,31 @@ public class SHBERPINV325DetailModel implements Serializable {
     }
 
     /**
-     * @return the count
+     * @return the countnum
      */
-    public String getCount() {
-        return count;
+    public String getCountnum() {
+        return countnum;
     }
 
     /**
-     * @param count the count to set
+     * @param countnum the countnum to set
      */
-    public void setCount(String count) {
-        this.count = count;
+    public void setCountnum(String countnum) {
+        this.countnum = countnum;
     }
 
     /**
-     * @return the sum
+     * @return the sumnum
      */
-    public String getSum() {
-        return sum;
+    public String getSumnum() {
+        return sumnum;
     }
 
     /**
-     * @param sum the sum to set
+     * @param sumnum the sumnum to set
      */
-    public void setSum(String sum) {
-        this.sum = sum;
+    public void setSumnum(String sumnum) {
+        this.sumnum = sumnum;
     }
 
     /**
