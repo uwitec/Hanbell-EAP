@@ -15,6 +15,7 @@ import cn.hanbell.eap.ejb.SystemUserBean;
 import cn.hanbell.eap.entity.Department;
 import cn.hanbell.eap.entity.SystemUser;
 import cn.hanbell.erp.ejb.InvclswahBean;
+import cn.hanbell.erp.ejb.InvmasBean;
 import cn.hanbell.erp.entity.Invclswah;
 import cn.hanbell.oa.ejb.HKCG007Bean;
 import cn.hanbell.oa.ejb.HKCW002Bean;
@@ -24,6 +25,7 @@ import cn.hanbell.oa.ejb.HZCW028Bean;
 import cn.hanbell.oa.ejb.HZCW033Bean;
 import cn.hanbell.oa.ejb.HZJS034Bean;
 import cn.hanbell.oa.ejb.SERI12Bean;
+import cn.hanbell.oa.ejb.SHBERPPURX141Bean;
 import cn.hanbell.oa.ejb.SHBINV140Bean;
 import cn.hanbell.oa.ejb.WARMI05Bean;
 import cn.hanbell.oa.ejb.WorkFlowBean;
@@ -89,6 +91,8 @@ public class EAPWebService {
     @EJB
     private SERI12Bean seri12Bean;
     @EJB
+    private SHBERPPURX141Bean shberppurx141Bean;
+    @EJB
     private SHBINV140Bean shbinv140Bean;
     @EJB
     private WARMI05Bean warmi05Bean;
@@ -96,6 +100,8 @@ public class EAPWebService {
     //EJBForERP
     @EJB
     private InvclswahBean invclswahBean;
+    @EJB
+    private InvmasBean invmasBean;
 
     /**
      * This is a sample web service operation
@@ -103,6 +109,21 @@ public class EAPWebService {
     @WebMethod(operationName = "hello")
     public String hello(@WebParam(name = "name") String txt) {
         return "Hello " + txt + " !";
+    }
+
+    @WebMethod(operationName = "createCRMREPMFByOASHBERPPURX141")
+    public String createCRMREPMFByOASHBERPPURX141(@WebParam(name = "psn") String psn) {
+        Boolean ret = false;
+        try {
+            ret = shberppurx141Bean.initByOASHBERPPURX141(psn);
+        } catch (Exception ex) {
+            Logger.getLogger(EAPWebService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (ret) {
+            return "200";
+        } else {
+            return "404";
+        }
     }
 
     @WebMethod(operationName = "createCRMWARMBByOAJHSQD")
@@ -469,6 +490,21 @@ public class EAPWebService {
             ret = warmi05Bean.updateWARTB(psn, step);
         } catch (Exception ex) {
             Logger.getLogger(SHBERPWebService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (ret) {
+            return "200";
+        } else {
+            return "404";
+        }
+    }
+
+    @WebMethod(operationName = "updateERPINV140ByOASHBERPPURX141")
+    public String updateERPINV140ByOASHBERPPURX141(@WebParam(name = "psn") String psn) {
+        Boolean ret = false;
+        try {
+            ret = invmasBean.updateByOASHBERPPURX141(psn);
+        } catch (Exception ex) {
+            Logger.getLogger(EAPWebService.class.getName()).log(Level.SEVERE, null, ex);
         }
         if (ret) {
             return "200";
