@@ -47,6 +47,49 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class SHBERPINV140Detail implements Serializable {
 
     @Size(max = 255)
+    @Column(name = "printtype")
+    private String printtype;
+    @Size(max = 255)
+    @Column(name = "lno")
+    private String lno;
+    @Size(max = 255)
+    @Column(name = "lotid")
+    private String lotid;
+    @Size(max = 255)
+    @Column(name = "level2")
+    private String level2;
+    @Size(max = 255)
+    @Column(name = "level1")
+    private String level1;
+    @Size(max = 255)
+    @Column(name = "getseq")
+    private String getseq;
+    @Size(max = 255)
+    @Column(name = "producttype")
+    private String producttype;
+    @Size(max = 255)
+    @Column(name = "qcdatanum")
+    private String qcdatanum;
+    @Size(max = 255)
+    @Column(name = "asrstype")
+    private String asrstype;
+    @Size(max = 255)
+    @Column(name = "qcdata")
+    private String qcdata;
+    @Size(max = 255)
+    @Column(name = "compid")
+    private String compid;
+    @Size(max = 255)
+    @Column(name = "tracetype")
+    private String tracetype;
+    @Size(max = 255)
+    @Column(name = "selfprint")
+    private String selfprint;
+    @Size(max = 255)
+    @Column(name = "wno")
+    private String wno;
+
+    @Size(max = 255)
     @Column(name = "brate2")
     private String brate2;
     @Size(max = 255)
@@ -445,6 +488,118 @@ public class SHBERPINV140Detail implements Serializable {
 
     public void setBitdsc2(String bitdsc2) {
         this.bitdsc2 = bitdsc2;
+    }
+
+    public String getPrinttype() {
+        return printtype;
+    }
+
+    public void setPrinttype(String printtype) {
+        this.printtype = printtype;
+    }
+
+    public String getLno() {
+        return lno;
+    }
+
+    public void setLno(String lno) {
+        this.lno = lno;
+    }
+
+    public String getLotid() {
+        return lotid;
+    }
+
+    public void setLotid(String lotid) {
+        this.lotid = lotid;
+    }
+
+    public String getLevel2() {
+        return level2;
+    }
+
+    public void setLevel2(String level2) {
+        this.level2 = level2;
+    }
+
+    public String getLevel1() {
+        return level1;
+    }
+
+    public void setLevel1(String level1) {
+        this.level1 = level1;
+    }
+
+    public String getGetseq() {
+        return getseq;
+    }
+
+    public void setGetseq(String getseq) {
+        this.getseq = getseq;
+    }
+
+    public String getProducttype() {
+        return producttype;
+    }
+
+    public void setProducttype(String producttype) {
+        this.producttype = producttype;
+    }
+
+    public String getQcdatanum() {
+        return qcdatanum;
+    }
+
+    public void setQcdatanum(String qcdatanum) {
+        this.qcdatanum = qcdatanum;
+    }
+
+    public String getAsrstype() {
+        return asrstype;
+    }
+
+    public void setAsrstype(String asrstype) {
+        this.asrstype = asrstype;
+    }
+
+    public String getQcdata() {
+        return qcdata;
+    }
+
+    public void setQcdata(String qcdata) {
+        this.qcdata = qcdata;
+    }
+
+    public String getCompid() {
+        return compid;
+    }
+
+    public void setCompid(String compid) {
+        this.compid = compid;
+    }
+
+    public String getTracetype() {
+        return tracetype;
+    }
+
+    public void setTracetype(String tracetype) {
+        this.tracetype = tracetype;
+    }
+
+    public String getSelfprint() {
+        return selfprint;
+    }
+
+    public void setSelfprint(String selfprint) {
+        this.selfprint = selfprint;
+    }
+
+    public String getWno() {
+        return wno;
+    }
+
+    public void setWno(String wno) {
+        this.wno = wno;
     }
     
 }

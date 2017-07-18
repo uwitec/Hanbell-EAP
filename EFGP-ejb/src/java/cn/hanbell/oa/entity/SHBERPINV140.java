@@ -75,6 +75,51 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "SHBERPINV140.findByClsdsc", query = "SELECT s FROM SHBERPINV140 s WHERE s.clsdsc = :clsdsc")})
 public class SHBERPINV140 implements Serializable {
 
+    @Size(max = 255)
+    @Column(name = "printtype")
+    private String printtype;
+    @Size(max = 255)
+    @Column(name = "lotid")
+    private String lotid;
+    @Size(max = 255)
+    @Column(name = "getseq")
+    private String getseq;
+    @Size(max = 255)
+    @Column(name = "producttype")
+    private String producttype;
+    @Size(max = 255)
+    @Column(name = "deydetyn")
+    private String deydetyn;
+    @Size(max = 255)
+    @Column(name = "compid")
+    private String compid;
+    @Size(max = 255)
+    @Column(name = "selfprint")
+    private String selfprint;
+    @Size(max = 255)
+    @Column(name = "wno")
+    private String wno;
+    @Size(max = 255)
+    @Column(name = "lno")
+    private String lno;
+    @Size(max = 255)
+    @Column(name = "level2")
+    private String level2;
+    @Size(max = 255)
+    @Column(name = "level1")
+    private String level1;
+    @Column(name = "qcdatanum")
+    private Integer qcdatanum;
+    @Size(max = 255)
+    @Column(name = "asrstype")
+    private String asrstype;
+    @Size(max = 255)
+    @Column(name = "qcdata")
+    private String qcdata;
+    @Size(max = 255)
+    @Column(name = "tracetype")
+    private String tracetype;
+
     private static final long serialVersionUID = 1L;
     @Size(max = 255)
     @Column(name = "sitdsc")
@@ -594,6 +639,126 @@ public class SHBERPINV140 implements Serializable {
     @Override
     public String toString() {
         return "cn.hanbell.oa.entity.SHBERPINV140[ oid=" + oid + " ]";
+    }
+
+    public String getPrinttype() {
+        return printtype;
+    }
+
+    public void setPrinttype(String printtype) {
+        this.printtype = printtype;
+    }
+
+    public String getLotid() {
+        return lotid;
+    }
+
+    public void setLotid(String lotid) {
+        this.lotid = lotid;
+    }
+
+    public String getGetseq() {
+        return getseq;
+    }
+
+    public void setGetseq(String getseq) {
+        this.getseq = getseq;
+    }
+
+    public String getProducttype() {
+        return producttype;
+    }
+
+    public void setProducttype(String producttype) {
+        this.producttype = producttype;
+    }
+
+    public String getDeydetyn() {
+        return deydetyn;
+    }
+
+    public void setDeydetyn(String deydetyn) {
+        this.deydetyn = deydetyn;
+    }
+
+    public String getCompid() {
+        return compid;
+    }
+
+    public void setCompid(String compid) {
+        this.compid = compid;
+    }
+
+    public String getSelfprint() {
+        return selfprint;
+    }
+
+    public void setSelfprint(String selfprint) {
+        this.selfprint = selfprint;
+    }
+
+    public String getWno() {
+        return wno;
+    }
+
+    public void setWno(String wno) {
+        this.wno = wno;
+    }
+
+    public String getLno() {
+        return lno;
+    }
+
+    public void setLno(String lno) {
+        this.lno = lno;
+    }
+
+    public String getLevel2() {
+        return level2;
+    }
+
+    public void setLevel2(String level2) {
+        this.level2 = level2;
+    }
+
+    public String getLevel1() {
+        return level1;
+    }
+
+    public void setLevel1(String level1) {
+        this.level1 = level1;
+    }
+
+    public Integer getQcdatanum() {
+        return qcdatanum;
+    }
+
+    public void setQcdatanum(Integer qcdatanum) {
+        this.qcdatanum = qcdatanum;
+    }
+
+    public String getAsrstype() {
+        return asrstype;
+    }
+
+    public void setAsrstype(String asrstype) {
+        this.asrstype = asrstype;
+    }
+
+    public String getQcdata() {
+        return qcdata;
+    }
+
+    public void setQcdata(String qcdata) {
+        this.qcdata = qcdata;
+    }
+
+    public String getTracetype() {
+        return tracetype;
+    }
+
+    public void setTracetype(String tracetype) {
+        this.tracetype = tracetype;
     }
     
 }

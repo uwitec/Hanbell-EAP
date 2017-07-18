@@ -24,12 +24,15 @@ import cn.hanbell.oa.ejb.HZCW028Bean;
 import cn.hanbell.oa.ejb.HZCW033Bean;
 import cn.hanbell.oa.ejb.HZJS034Bean;
 import cn.hanbell.oa.ejb.SERI12Bean;
+import cn.hanbell.oa.ejb.SHBINV140Bean;
 import cn.hanbell.oa.ejb.WARMI05Bean;
 import cn.hanbell.oa.ejb.WorkFlowBean;
 import cn.hanbell.oa.entity.HKCW002;
 import cn.hanbell.oa.entity.HKCW002Detail;
 import cn.hanbell.oa.entity.HZJS034;
 import cn.hanbell.oa.entity.HZJS034Detail;
+import cn.hanbell.oa.entity.SHBERPINV140;
+import cn.hanbell.oa.entity.SHBERPINV140Detail;
 import cn.hanbell.util.BaseLib;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -85,6 +88,8 @@ public class EAPWebService {
     private HZJS034Bean hzjs034Bean;
     @EJB
     private SERI12Bean seri12Bean;
+    @EJB
+    private SHBINV140Bean shbinv140Bean;
     @EJB
     private WARMI05Bean warmi05Bean;
 
@@ -155,6 +160,72 @@ public class EAPWebService {
         } catch (Exception ex) {
             Logger.getLogger(HZJS034Detail.class.getName()).log(Level.SEVERE, null, ex);
             ret = false;
+        }
+        if (ret) {
+            return "200";
+        } else {
+            return "404";
+        }
+    }
+
+    @WebMethod(operationName = "createCRMWARMBByOAJHZYD")
+    public String createCRMWARMBByOAJHZYD(@WebParam(name = "psn") String psn) {
+        Boolean ret = false;
+        SHBERPINV140 h = shbinv140Bean.findByPSN(psn);
+        if (h == null) {
+            throw new NullPointerException();
+        }
+        if ("C".equals(h.getFacno2())) {
+            List<SHBERPINV140Detail> details = shbinv140Bean.getDetailList(h.getFormSerialNumber());
+            try {
+                //表身循环
+                for (int i = 0; i < details.size(); i++) {
+                    SHBERPINV140Detail detail = details.get(i);
+                    WARMB m = new WARMB();
+                    m.setCompany(h.getFacno2());
+                    m.setCreator(h.getApplyuser());
+                    m.setMb001(detail.getItnbr());                                  //设置件号
+                    m.setMb008(detail.getItcls());                                  //设置品号大类
+                    m.setMb002(detail.getItdsc());                                  //设置中文品名
+                    m.setMb003(detail.getSpdsc());                                  //设置中文规格
+                    m.setMb004(detail.getUnmsr1());                                 //设置单位一
+                    m.setMb029(detail.getEitdsc());
+                    m.setMb030(detail.getEspdsc());
+                    if (null != detail.getMorpcode()) {
+                        switch (detail.getMorpcode()) {
+                            case "W":
+                                m.setMb010("M");
+                                break;
+                            case "H":
+                                m.setMb010("Y");
+                                break;
+                            case "A":
+                                m.setMb010("S");
+                                break;
+                            default:
+                                m.setMb010(detail.getMorpcode());                   //设置自制采购码
+                                break;
+                        }
+                    }
+                    m.setMb028("Y");                                                //设置产品序号管理
+                    m.setMb050("Y");                                                //设置需核销
+                    invclswahBean.setCompany(h.getFacno2());
+                    Invclswah invclswah = invclswahBean.findByInvclswahPK(h.getFacno2(), "1", detail.getItcls());
+                    if (invclswah != null) {
+                        m.setMb011(invclswah.getDefwah());
+                    }
+                    m.setMb033(detail.getItnbr());
+                    m.setMb057(BaseLib.formatDate("yyyyMMdd", BaseLib.getDate()));  //设置生效日期日期
+                    warmbBean.persist(m);
+                }
+                ret = true;
+            } catch (Exception ex) {
+                Logger.getLogger(EAPWebService.class.getName()).log(Level.SEVERE, null, ex);
+                ret = false;
+            }
+
+        } else {
+            ret = true;
         }
         if (ret) {
             return "200";
