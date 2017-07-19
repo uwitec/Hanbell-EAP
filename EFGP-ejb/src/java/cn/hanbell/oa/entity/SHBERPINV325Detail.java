@@ -37,6 +37,7 @@ public class SHBERPINV325Detail implements Serializable {
     @Column(name = "OID")
     private String oid;
     @Size(max = 255)
+    @Column(name = "countnum")
     private String countnum;
     @Size(max = 255)
     @Column(name = "bz")
