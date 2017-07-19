@@ -291,6 +291,21 @@ public class SHBERPWebService {
         }
     }
 
+    @WebMethod(operationName = "createINV325ByOASHBERPINV325")
+    public String createINV325ByOASHBERPINV325(@WebParam(name = "psn") String psn) {
+        String ret = null;
+        try {
+            ret = invhadBean.initByOASHBERPINV325(psn);
+        } catch (Exception ex) {
+            Logger.getLogger(SHBERPWebService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (ret != null && !"".equals(ret)) {
+            return "200";
+        } else {
+            return "404";
+        }
+    }
+
     @WebMethod(operationName = "createPUR120ByOAPSN")
     public String createPUR120ByOAPSN(@WebParam(name = "psn") String psn) {
         Boolean ret = false;

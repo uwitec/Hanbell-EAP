@@ -416,7 +416,7 @@ public class TimerBean {
         logger.log(Level.INFO, "PLM件号抛转轮询");
     }
 
-    @Schedule(minute = "∗/50", hour = "7,8", persistent = false)
+    @Schedule(minute = "*", hour = "*/2", persistent = false)
     public void createOASHBERPINV325ByERPWSQ() {
         SHBERPINV325Model s;
         SHBERPINV325DetailModel dm;
@@ -429,18 +429,21 @@ public class TimerBean {
             List<Invwhsafe> list = invwhsafeBean.findAll();
             int c;
             int i = 0;
+            double low;
+            double high;
+            double take;
+            double onhand1;
+            String itnbr;
+            String wareh;
+            String itdsc;
             for (Invwhsafe iw : list) {
                 InvwhsafePK PK = iw.getInvwhsafePK();
-                double low;
-                double high;
-                double take;
-                double onhand1;
                 low = iw.getLowest().doubleValue();
                 high = iw.getHighest().doubleValue();
                 take = iw.getMintake().doubleValue();
-                String itnbr = PK.getItnbr();
-                String wareh = PK.getWareh();
-                String itdsc = iw.getItdsc();
+                itnbr = PK.getItnbr();
+                wareh = PK.getWareh();
+                itdsc = iw.getItdsc();
                 Invbal IB = invbalBean.findByItnbrAndWareh(itnbr, wareh);
                 BigDecimal Onhand1 = IB.getOnhand1();
                 onhand1 = Onhand1.doubleValue();
@@ -464,6 +467,7 @@ public class TimerBean {
             workFlowBean.initUserInfo("C0385");
             s = new SHBERPINV325Model();
             s.setFacno("C");
+            s.setCreatedate(BaseLib.getDate());
             s.setApplyuser("C1587");
             s.setDept("1F220");
             s.setProno("1");
@@ -476,9 +480,10 @@ public class TimerBean {
             s.setDtowareh("");
             s.setItdsc("");
             s.setItnbr("");
+            s.setRelformid("");
             if (detailList.size() > 0) {
                 String formInstance = workFlowBean.buildXmlForEFGP("SHB_ERP_INV325", s, details);
-                String subject = "生产制程领料";// + BaseLib.formatDate("yyyyMMdd", s.getCreatedate());
+                String subject = "生产制程领料" + BaseLib.formatDate("yyyyMMdd", s.getCreatedate());
                 String msg = workFlowBean.invokeProcess(workFlowBean.hostAdd, workFlowBean.hostPort, "PKG_SHB_ERP_INV325", formInstance, subject);
             }
         } catch (Exception ex) {

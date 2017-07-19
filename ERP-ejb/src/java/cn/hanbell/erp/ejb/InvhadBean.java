@@ -19,10 +19,13 @@ import cn.hanbell.erp.entity.Invtrn;
 import cn.hanbell.oa.ejb.HKFW006Bean;
 import cn.hanbell.oa.ejb.HKFW006Inv310Bean;
 import cn.hanbell.oa.ejb.HKFW006Inv310DetailBean;
+import cn.hanbell.oa.ejb.SHBERPINV325Bean;
 import cn.hanbell.oa.ejb.WARMI05Bean;
 import cn.hanbell.oa.entity.HKFW006;
 import cn.hanbell.oa.entity.HKFW006Inv310;
 import cn.hanbell.oa.entity.HKFW006Inv310Detail;
+import cn.hanbell.oa.entity.SHBERPINV325;
+import cn.hanbell.oa.entity.SHBERPINV325Detail;
 import cn.hanbell.oa.entity.WARMI05;
 import cn.hanbell.oa.entity.WARMI05Detail;
 import cn.hanbell.util.BaseLib;
@@ -46,6 +49,7 @@ import javax.ejb.LocalBean;
 @LocalBean
 public class InvhadBean extends SuperEJBForERP<Invhad> {
 
+    //EJBForEFGP
     @EJB
     private HKFW006Inv310Bean hkfw006inv310Bean;
     @EJB
@@ -53,8 +57,11 @@ public class InvhadBean extends SuperEJBForERP<Invhad> {
     @EJB
     private HKFW006Inv310DetailBean hkfw006inv310DetailBean;
     @EJB
+    private SHBERPINV325Bean shberpinv325Bean;
+    @EJB
     private WARMI05Bean warmi05Bean;
 
+    //EJBForERP
     @EJB
     private InvclsBean invclsBean;
     @EJB
@@ -365,7 +372,109 @@ public class InvhadBean extends SuperEJBForERP<Invhad> {
 
     }
 
-    public String initINV310(Invhad invhad, List<Invdta> addedDetail) {
+    public String initByOASHBERPINV325(String psn) {
+        SHBERPINV325 e = shberpinv325Bean.findByPSN(psn);
+        if (e == null) {
+            throw new NullPointerException();
+        }
+        if (e.getRelformid() != null && !"".equals(e.getRelformid())) {
+            return "200";
+        }
+        shberpinv325Bean.setDetail(e.getFormSerialNumber());
+        if (shberpinv325Bean.getDetailList() == null || shberpinv325Bean.getDetailList().isEmpty()) {
+            throw new NullPointerException();
+        }
+        String facno;
+        String prono;
+        String trno;
+        Date trdate;
+        String trtype;
+
+        facno = e.getFacno();
+        prono = e.getProno();
+        trdate = BaseLib.getDate();
+        trtype = e.getTrtype();
+        //获取ERP库存交易类别
+        invdouBean.setCompany(facno);
+        Invdou invdou = invdouBean.findByTrtype(trtype);
+        if (invdou == null) {
+            throw new NullPointerException("库存交易单据类别错误，ERP不存在" + trtype);
+        }
+
+        int trseq = 0;
+        Invhad invhad;
+        Invdta invdta;
+        Invmas m;
+        List<Invdta> addedDetail = new ArrayList<>();
+        HashMap<SuperEJBForERP, List<?>> detailAdded = new HashMap<>();
+        detailAdded.put(invdtaBean, addedDetail);
+
+        invmasBean.setCompany(facno);
+        try {
+            for (SHBERPINV325Detail d : shberpinv325Bean.getDetailList()) {
+                //获取品号资料
+                m = invmasBean.findByItnbr(d.getItnbr());
+                if (m == null) {
+                    throw new RuntimeException(d.getItnbr() + "ERP中不存在");
+                }
+                trseq++;
+                invdta = new Invdta(d.getItnbr(), facno, prono, "", trseq);
+                invdta.setTrtype(trtype);
+                invdta.setItcls(m.getItcls());
+                invdta.setItclscode(m.getItclscode());
+                invdta.setTrnqy1(BigDecimal.valueOf(Double.parseDouble(d.getSumnum())));
+                invdta.setTrnqy2(BigDecimal.ZERO);
+                invdta.setTrnqy3(BigDecimal.ZERO);
+                invdta.setUnmsr1(m.getUnmsr1());
+                invdta.setWareh(d.getDfromwareh());
+                invdta.setFixnr("");
+                invdta.setVarnr("");
+                invdta.setIocode('2');
+                addedDetail.add(invdta);
+
+                trseq++;
+                invdta = new Invdta(d.getItnbr(), facno, prono, "", trseq);
+                invdta.setTrtype(trtype);
+                invdta.setItcls(m.getItcls());
+                invdta.setItclscode(m.getItclscode());
+                invdta.setTrnqy1(BigDecimal.valueOf(Double.parseDouble(d.getSumnum())));
+                invdta.setTrnqy2(BigDecimal.ZERO);
+                invdta.setTrnqy3(BigDecimal.ZERO);
+                invdta.setUnmsr1(m.getUnmsr1());
+                invdta.setWareh(d.getDtowareh());
+                invdta.setFixnr("");
+                invdta.setVarnr("");
+                invdta.setIocode('1');
+                addedDetail.add(invdta);
+            }
+            invsernoBean.setCompany(facno);
+            trno = invsernoBean.getTrno(facno, "", trtype, trdate, true);
+            invhad = new Invhad(facno, prono, trno);
+            invhad.setTrtype(trtype);
+            invhad.setTrdate(trdate);
+            invhad.setDepno(e.getDept());
+            invhad.setIocode(invdou.getIocode());
+            invhad.setResno(e.getResno());
+            invhad.setSourceno(e.getProcessSerialNumber().substring(8));
+            invhad.setStatus('N');
+            invhad.setUserno(e.getApplyuser());
+            invhad.setIndate(trdate);
+            //明细列表交易单号赋值
+            for (Invdta d : addedDetail) {
+                d.getInvdtaPK().setTrno(trno);
+            }
+            //更新ERP INV310
+            this.persist(invhad, detailAdded);
+            e.setRelformid(trno);
+            shberpinv325Bean.update(e);
+            return trno;
+        } catch (Exception ex) {
+            Logger.getLogger(InvhadBean.class.getName()).log(Level.SEVERE, null, ex);
+            return "";
+        }
+    }
+
+    public String initINV310(Invhad invhad, List<Invdta> addedDetail, boolean confirm) {
         boolean flag;
         String facno;
         String prono;
@@ -465,7 +574,7 @@ public class InvhadBean extends SuperEJBForERP<Invhad> {
 
             }
             //如果库存检查正确直接确认单据
-            if (flag) {
+            if (flag && confirm) {
                 invhad.setStatus('Y');
                 invhad.setCfmuserno("mis");
                 invhad.setCfmdate(trdate);
@@ -474,7 +583,7 @@ public class InvhadBean extends SuperEJBForERP<Invhad> {
             this.persist(invhad, detailAdded);
 
             //如果库存检查正确直接确认单据
-            if (flag) {
+            if (flag && confirm) {
                 //更新ERP交易历史
                 for (Invtrn t : invtrnList) {
                     invtrnBean.persist(t);

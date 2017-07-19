@@ -142,7 +142,7 @@ public class InvsernoBean extends SuperEJBForERP<Invserno> {
                         ls_str = "C";
                     }
                     if (li_month < 10) {
-                        ls_str = BaseLib.formatDate("MM", trdate);
+                        ls_str = BaseLib.formatDate("M", trdate);
                     }
                     ls_no += ls_str;
                     break;
