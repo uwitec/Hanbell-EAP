@@ -416,14 +416,14 @@ public class TimerBean {
         logger.log(Level.INFO, "PLM件号抛转轮询");
     }
 
-    @Schedule(minute = "*/5", hour = "*", persistent = false)
+    @Schedule(minute = "∗/50", hour = "7,8", persistent = false)
     public void createOASHBERPINV325ByERPWSQ() {
+        SHBERPINV325Model s;
+        SHBERPINV325DetailModel dm;
+        List<SHBERPINV325DetailModel> detailList = new ArrayList<>();
+        LinkedHashMap<String, List<?>> details = new LinkedHashMap<>();
+        details.put("Detail", detailList);
         try {
-            SHBERPINV325Model s;
-            SHBERPINV325DetailModel dm;
-            List<SHBERPINV325DetailModel> detailList = new ArrayList<>();
-            LinkedHashMap<String, List<?>> details = new LinkedHashMap<>();
-            details.put("Detail", detailList);
             invwhsafeBean.setCompany("C");
             invbalBean.setCompany("C");
             List<Invwhsafe> list = invwhsafeBean.findAll();
@@ -454,8 +454,8 @@ public class TimerBean {
                 dm.setSeq(String.valueOf(i));
                 dm.setItnbr(itnbr);
                 dm.setItdsc(itdsc);
-                dm.setCount(c + "");
-                dm.setSum((take * c) + "");
+                dm.setCountnum(c + "");
+                dm.setSumnum((take * c) + "");
                 dm.setDfromwareh("ASRS01");
                 dm.setDtowareh("ZP01");
                 dm.setBz("");
