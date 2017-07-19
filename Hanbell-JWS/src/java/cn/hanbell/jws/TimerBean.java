@@ -409,7 +409,7 @@ public class TimerBean {
         logger.log(Level.INFO, "PLM件号抛转轮询");
     }
 
-    @Schedule(minute = "*", hour = "*/24", persistent = false)
+    @Schedule(minute = "∗/50", hour="7,8", persistent = false)
     public void automaticTimer2() {
         try {
             SHBERPINV325Model s;
@@ -447,12 +447,12 @@ public class TimerBean {
                 dm.setSeq(String.valueOf(i));
                 dm.setItnbr(itnbr);
                 dm.setItdsc(itdsc);
-                dm.setCount(c + "");
-                System.out.println(dm.getCount());
+                dm.setCountnum(c + "");
+                System.out.println(dm.getCountnum());
                 System.out.println(i);
                 System.out.println(String.valueOf(i));
-                dm.setSum((take * c) + "");
-                System.out.println(dm.getSum());
+                dm.setSumnum((take * c) + "");
+                System.out.println(dm.getSumnum());
                 dm.setDfromwareh("ASRS01");
                 dm.setDtowareh("ZP01");
                 dm.setBz("");
@@ -473,8 +473,8 @@ public class TimerBean {
             s.setDtowareh("");
             s.setItdsc("");
             s.setItnbr("");
-            s.setSum("");
-            s.setCount("");
+            s.setSumnum("");
+            s.setCountnum("");
             if (detailList.size() > 0) {
                 String formInstance = workFlowBean.buildXmlForEFGP("SHB_ERP_INV325", s, details);
                 String subject = "生产制领料";
