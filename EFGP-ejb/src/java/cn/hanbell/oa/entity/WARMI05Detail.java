@@ -76,9 +76,7 @@ public class WARMI05Detail implements Serializable {
     @Size(max = 255)
     @Column(name = "TB015")
     private String tb015;
-    @Size(max = 255)
-    @Column(name = "seq")
-    private String seq;
+
     @Size(max = 255)
     @Column(name = "TB018")
     private String tb018;
@@ -216,14 +214,6 @@ public class WARMI05Detail implements Serializable {
 
     public void setTb015(String tb015) {
         this.tb015 = tb015;
-    }
-
-    public String getSeq() {
-        return seq;
-    }
-
-    public void setSeq(String seq) {
-        this.seq = seq;
     }
 
     public String getTb018() {
