@@ -15,13 +15,18 @@ import cn.hanbell.eam.entity.AssetAcceptanceDetail;
 import cn.hanbell.eam.entity.AssetDistribute;
 import cn.hanbell.eam.entity.AssetDistributeDetail;
 import cn.hanbell.eam.entity.AssetItem;
+import cn.hanbell.erp.ejb.InvbalBean;
+import cn.hanbell.erp.ejb.InvwhsafeBean;
 import cn.hanbell.erp.ejb.InvhadBean;
 import cn.hanbell.erp.ejb.InvmasBean;
 import cn.hanbell.erp.ejb.PurachBean;
 import cn.hanbell.erp.ejb.PurhaskBean;
+import cn.hanbell.erp.entity.Invbal;
 import cn.hanbell.erp.entity.Invdta;
 import cn.hanbell.erp.entity.Invhad;
 import cn.hanbell.erp.entity.Invmas;
+import cn.hanbell.erp.entity.Invwhsafe;
+import cn.hanbell.erp.entity.InvwhsafePK;
 import cn.hanbell.erp.entity.Puracd;
 import cn.hanbell.erp.entity.Purach;
 import cn.hanbell.erp.entity.Purhask;
@@ -31,6 +36,8 @@ import cn.hanbell.oa.entity.HKCW002;
 import cn.hanbell.oa.entity.HKCW002Detail;
 import cn.hanbell.oa.model.HZJS034DetailModel;
 import cn.hanbell.oa.model.HZJS034Model;
+import cn.hanbell.oa.model.SHBERPINV325DetailModel;
+import cn.hanbell.oa.model.SHBERPINV325Model;
 import cn.hanbell.plm.ejb.PLMItnbrMasterTempBean;
 import cn.hanbell.plm.entity.PLMItnbrDetailTemp;
 import cn.hanbell.plm.entity.PLMItnbrMasterTemp;
@@ -76,6 +83,10 @@ public class TimerBean {
 
     //EJBForERP
     @EJB
+    private InvwhsafeBean invwhsafeBean;
+    @EJB
+    private InvbalBean invbalBean;
+    @EJB
     private InvhadBean invhadBean;
     @EJB
     private InvmasBean invmasBean;
@@ -116,34 +127,37 @@ public class TimerBean {
                 //HKCG007抛转PUR210时截取了流程序号,省略了PKG_
                 Purhask prh = purhaskBean.findBySrcno(e.getHkcg007().substring(4));
                 if (prh != null) {
-                    //根据请购单号得到验收单号数组
-                    acceptno = purachBean.findByPRN(prh.getPurhaskPK().getPrno());
-                    if (acceptno != null) {
 
-                        try {
-                            flag = true;
-                            int i;
-                            BigDecimal qty;
-                            //EAM相关对象
-                            AssetItem ai;
-                            List<AssetAcceptanceDetail> addedDetail = new ArrayList();
-                            //ERP相关对象
-                            Purach purach;
-                            List<Puracd> puracdList;
-                            //EFGP相关对象
-                            hkcw002Bean.setDetail(e.getFormSerialNumber());
-                            hkcw002Details = hkcw002Bean.getDetailList();
+                    try {
+                        flag = true;
+                        int i;
+                        BigDecimal qty;
+                        //EAM相关对象
+                        AssetItem ai;
+                        List<AssetAcceptanceDetail> addedDetail = new ArrayList();
+                        //ERP相关对象
+                        Purach purach;
+                        List<Puracd> puracdList;
+                        //EFGP相关对象
+                        hkcw002Bean.setDetail(e.getFormSerialNumber());
+                        hkcw002Details = hkcw002Bean.getDetailList();
 
-                            if (hkcw002Details != null && !hkcw002Details.isEmpty()) {
+                        if (hkcw002Details != null && !hkcw002Details.isEmpty()) {
 
-                                for (HKCW002Detail d : hkcw002Details) {
+                            for (HKCW002Detail d : hkcw002Details) {
 
-                                    if (d.getRelqty() != null && !"".equals(d.getRelqty())) {
-                                        qty = BigDecimal.valueOf(Double.parseDouble(d.getRelqty()));
-                                        if (qty.compareTo(BigDecimal.valueOf(Double.parseDouble(d.getPurqty()))) >= 0) {
-                                            continue;
-                                        }
+                                if (d.getPurqty() == null || "".equals(d.getPurqty())) {
+                                    continue;
+                                }
+                                if (d.getRelqty() != null && !"".equals(d.getRelqty())) {
+                                    qty = BigDecimal.valueOf(Double.parseDouble(d.getRelqty()));
+                                    if (qty.compareTo(BigDecimal.valueOf(Double.parseDouble(d.getPurqty()))) >= 0) {
+                                        continue;
                                     }
+                                }
+                                //得到验收单号数组
+                                acceptno = purachBean.findByPrnoAndItnbr(prh.getPurhaskPK().getPrno(), d.getItemno());
+                                if (acceptno != null) {
 
                                     qty = BigDecimal.ZERO;
                                     for (String n : acceptno) {
@@ -218,35 +232,39 @@ public class TimerBean {
                                         }
                                     }
                                 }
-                                if (editedHKCW002Detail.size() > 0) {
-                                    //判断整张资产申请是否全部验收
-                                    for (HKCW002Detail d : hkcw002Details) {
-                                        if (d.getRelqty() != null && !"".equals(d.getRelqty())) {
-                                            qty = BigDecimal.valueOf(Double.parseDouble(d.getRelqty()));
-                                            if (qty.compareTo(BigDecimal.valueOf(Double.parseDouble(d.getPurqty()))) < 0) {
-                                                flag = false;
-                                            }
-                                        } else {
-                                            flag = false;
-                                        }
-                                    }
-                                    if (flag) {
-                                        //全部验收完成
-                                        e.setRelformid(Arrays.toString(acceptno));
-                                    }
-                                    hkcw002Bean.update(e, null, hkcw002DetailEdited, null);
-                                }
                             }
 
-                        } catch (Exception ex) {
-                            Logger.getLogger("createEAMAssetAcceptanceByERPPUR530").log(Level.SEVERE, null, ex);
+                            if (editedHKCW002Detail.size() > 0) {
+                                //判断整张资产申请是否全部验收
+                                for (HKCW002Detail d : hkcw002Details) {
+                                    if (d.getPurqty() == null || "".equals(d.getPurqty())) {
+                                        continue;
+                                    }
+                                    if (d.getRelqty() != null && !"".equals(d.getRelqty())) {
+                                        qty = BigDecimal.valueOf(Double.parseDouble(d.getRelqty()));
+                                        if (qty.compareTo(BigDecimal.valueOf(Double.parseDouble(d.getPurqty()))) < 0) {
+                                            flag = false;
+                                        }
+                                    } else {
+                                        flag = false;
+                                    }
+                                }
+                                if (flag) {
+                                    //全部验收完成
+                                    acceptno = purachBean.findByPrno(prh.getPurhaskPK().getPrno());
+                                    e.setRelformid(Arrays.toString(acceptno));
+                                }
+                                hkcw002Bean.update(e, null, hkcw002DetailEdited, null);
+                            }
                         }
-
+                    } catch (Exception ex) {
+                        Logger.getLogger("createEAMAssetAcceptanceByERPPUR530").log(Level.SEVERE, null, ex);
                     }
+
                 }
             }
         }
-        logger.log(Level.INFO, "syncEAMAssetAcceptanceWithERPPUR530");
+        logger.log(Level.INFO, "createEAMAssetAcceptanceWithERPPUR530");
     }
 
     @Schedule(minute = "*/5", hour = "*", persistent = false)
@@ -295,7 +313,7 @@ public class TimerBean {
                             invdta.setTrnqy2(BigDecimal.ZERO);
                             invdta.setTrnqy3(BigDecimal.ZERO);
                             invdta.setUnmsr1(m.getUnmsr1());
-                            invdta.setWareh(d.getWarehouse2().getRemark());
+                            invdta.setWareh(d.getWarehouse().getRemark());
                             invdta.setFixnr("");
                             invdta.setVarnr("");
                             invdta.setIocode('0');
@@ -317,7 +335,7 @@ public class TimerBean {
                         invhad.setUserno("mis");
                         invhad.setIndate(trdate);
 
-                        trno = invhadBean.initINV310(invhad, addedDetail);
+                        trno = invhadBean.initINV310(invhad, addedDetail, true);
                         if (trno != null && !"".equals(trno)) {
                             e.setRelformid(trno);
                             e.setStatus("T");
@@ -396,6 +414,82 @@ public class TimerBean {
             Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
         }
         logger.log(Level.INFO, "PLM件号抛转轮询");
+    }
+
+    @Schedule(minute = "*", hour = "*/2", persistent = false)
+    public void createOASHBERPINV325ByERPWSQ() {
+        SHBERPINV325Model s;
+        SHBERPINV325DetailModel dm;
+        List<SHBERPINV325DetailModel> detailList = new ArrayList<>();
+        LinkedHashMap<String, List<?>> details = new LinkedHashMap<>();
+        details.put("Detail", detailList);
+        try {
+            invwhsafeBean.setCompany("C");
+            invbalBean.setCompany("C");
+            List<Invwhsafe> list = invwhsafeBean.findAll();
+            int c;
+            int i = 0;
+            double low;
+            double high;
+            double take;
+            double onhand1;
+            String itnbr;
+            String wareh;
+            String itdsc;
+            for (Invwhsafe iw : list) {
+                InvwhsafePK PK = iw.getInvwhsafePK();
+                low = iw.getLowest().doubleValue();
+                high = iw.getHighest().doubleValue();
+                take = iw.getMintake().doubleValue();
+                itnbr = PK.getItnbr();
+                wareh = PK.getWareh();
+                itdsc = iw.getItdsc();
+                Invbal IB = invbalBean.findByItnbrAndWareh(itnbr, wareh);
+                BigDecimal Onhand1 = IB.getOnhand1();
+                onhand1 = Onhand1.doubleValue();
+                if (onhand1 < low) {
+                    c = (int) ((high - onhand1) / take);
+                } else {
+                    continue;
+                }
+                i++;
+                dm = new SHBERPINV325DetailModel();
+                dm.setSeq(String.valueOf(i));
+                dm.setItnbr(itnbr);
+                dm.setItdsc(itdsc);
+                dm.setCountnum(c + "");
+                dm.setSumnum((take * c) + "");
+                dm.setDfromwareh("ASRS01");
+                dm.setDtowareh("ZP01");
+                dm.setBz("");
+                detailList.add(dm);
+            }
+            workFlowBean.initUserInfo("C0385");
+            s = new SHBERPINV325Model();
+            s.setFacno("C");
+            s.setCreatedate(BaseLib.getDate());
+            s.setApplyuser("C1587");
+            s.setDept("1F220");
+            s.setProno("1");
+            s.setResno("T01");
+            s.setTrtype("IAC");
+            s.setFromwareh("ASRA01");
+            s.setTowareh("ZP01");
+            s.setBz("");
+            s.setDfromwareh("");
+            s.setDtowareh("");
+            s.setItdsc("");
+            s.setItnbr("");
+            s.setRelformid("");
+            if (detailList.size() > 0) {
+                String formInstance = workFlowBean.buildXmlForEFGP("SHB_ERP_INV325", s, details);
+                String subject = "生产制程领料" + BaseLib.formatDate("yyyyMMdd", s.getCreatedate());
+                String msg = workFlowBean.invokeProcess(workFlowBean.hostAdd, workFlowBean.hostPort, "PKG_SHB_ERP_INV325", formInstance, subject);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex.getMessage());
+        }
+        logger.log(Level.INFO, "发起生产制程领料轮询");
     }
 
 }
