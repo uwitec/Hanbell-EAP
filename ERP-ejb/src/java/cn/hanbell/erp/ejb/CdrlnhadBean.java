@@ -175,6 +175,7 @@ public class CdrlnhadBean extends SuperEJBForERP<Cdrlnhad> {
 
             this.persist(cdrlnhad);
             this.getEntityManager().flush();
+            cdrlndtaBean.setCompany(facno);
             for (Cdrlndta d : addedDetail) {
                 d.getCdrlndtaPK().setTrno(trno);
                 cdrlndtaBean.persist(d);

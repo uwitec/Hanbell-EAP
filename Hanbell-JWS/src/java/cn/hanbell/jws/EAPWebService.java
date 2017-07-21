@@ -15,6 +15,7 @@ import cn.hanbell.eap.ejb.SystemUserBean;
 import cn.hanbell.eap.entity.Department;
 import cn.hanbell.eap.entity.SystemUser;
 import cn.hanbell.erp.ejb.InvclswahBean;
+import cn.hanbell.erp.ejb.InvmasBean;
 import cn.hanbell.erp.entity.Invclswah;
 import cn.hanbell.oa.ejb.HKCG007Bean;
 import cn.hanbell.oa.ejb.HKCW002Bean;
@@ -24,12 +25,16 @@ import cn.hanbell.oa.ejb.HZCW028Bean;
 import cn.hanbell.oa.ejb.HZCW033Bean;
 import cn.hanbell.oa.ejb.HZJS034Bean;
 import cn.hanbell.oa.ejb.SERI12Bean;
+import cn.hanbell.oa.ejb.SHBERPPURX141Bean;
+import cn.hanbell.oa.ejb.SHBINV140Bean;
 import cn.hanbell.oa.ejb.WARMI05Bean;
 import cn.hanbell.oa.ejb.WorkFlowBean;
 import cn.hanbell.oa.entity.HKCW002;
 import cn.hanbell.oa.entity.HKCW002Detail;
 import cn.hanbell.oa.entity.HZJS034;
 import cn.hanbell.oa.entity.HZJS034Detail;
+import cn.hanbell.oa.entity.SHBERPINV140;
+import cn.hanbell.oa.entity.SHBERPINV140Detail;
 import cn.hanbell.util.BaseLib;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -86,11 +91,17 @@ public class EAPWebService {
     @EJB
     private SERI12Bean seri12Bean;
     @EJB
+    private SHBERPPURX141Bean shberppurx141Bean;
+    @EJB
+    private SHBINV140Bean shbinv140Bean;
+    @EJB
     private WARMI05Bean warmi05Bean;
 
     //EJBForERP
     @EJB
     private InvclswahBean invclswahBean;
+    @EJB
+    private InvmasBean invmasBean;
 
     /**
      * This is a sample web service operation
@@ -98,6 +109,21 @@ public class EAPWebService {
     @WebMethod(operationName = "hello")
     public String hello(@WebParam(name = "name") String txt) {
         return "Hello " + txt + " !";
+    }
+
+    @WebMethod(operationName = "createCRMREPMFByOASHBERPPURX141")
+    public String createCRMREPMFByOASHBERPPURX141(@WebParam(name = "psn") String psn) {
+        Boolean ret = false;
+        try {
+            ret = shberppurx141Bean.initByOASHBERPPURX141(psn);
+        } catch (Exception ex) {
+            Logger.getLogger(EAPWebService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (ret) {
+            return "200";
+        } else {
+            return "404";
+        }
     }
 
     @WebMethod(operationName = "createCRMWARMBByOAJHSQD")
@@ -163,6 +189,72 @@ public class EAPWebService {
         }
     }
 
+    @WebMethod(operationName = "createCRMWARMBByOAJHZYD")
+    public String createCRMWARMBByOAJHZYD(@WebParam(name = "psn") String psn) {
+        Boolean ret = false;
+        SHBERPINV140 h = shbinv140Bean.findByPSN(psn);
+        if (h == null) {
+            throw new NullPointerException();
+        }
+        if ("C".equals(h.getFacno2())) {
+            List<SHBERPINV140Detail> details = shbinv140Bean.getDetailList(h.getFormSerialNumber());
+            try {
+                //表身循环
+                for (int i = 0; i < details.size(); i++) {
+                    SHBERPINV140Detail detail = details.get(i);
+                    WARMB m = new WARMB();
+                    m.setCompany(h.getFacno2());
+                    m.setCreator(h.getApplyuser());
+                    m.setMb001(detail.getItnbr());                                  //设置件号
+                    m.setMb008(detail.getItcls());                                  //设置品号大类
+                    m.setMb002(detail.getItdsc());                                  //设置中文品名
+                    m.setMb003(detail.getSpdsc());                                  //设置中文规格
+                    m.setMb004(detail.getUnmsr1());                                 //设置单位一
+                    m.setMb029(detail.getEitdsc());
+                    m.setMb030(detail.getEspdsc());
+                    if (null != detail.getMorpcode()) {
+                        switch (detail.getMorpcode()) {
+                            case "W":
+                                m.setMb010("M");
+                                break;
+                            case "H":
+                                m.setMb010("Y");
+                                break;
+                            case "A":
+                                m.setMb010("S");
+                                break;
+                            default:
+                                m.setMb010(detail.getMorpcode());                   //设置自制采购码
+                                break;
+                        }
+                    }
+                    m.setMb028("Y");                                                //设置产品序号管理
+                    m.setMb050("Y");                                                //设置需核销
+                    invclswahBean.setCompany(h.getFacno2());
+                    Invclswah invclswah = invclswahBean.findByInvclswahPK(h.getFacno2(), "1", detail.getItcls());
+                    if (invclswah != null) {
+                        m.setMb011(invclswah.getDefwah());
+                    }
+                    m.setMb033(detail.getItnbr());
+                    m.setMb057(BaseLib.formatDate("yyyyMMdd", BaseLib.getDate()));  //设置生效日期日期
+                    warmbBean.persist(m);
+                }
+                ret = true;
+            } catch (Exception ex) {
+                Logger.getLogger(EAPWebService.class.getName()).log(Level.SEVERE, null, ex);
+                ret = false;
+            }
+
+        } else {
+            ret = true;
+        }
+        if (ret) {
+            return "200";
+        } else {
+            return "404";
+        }
+    }
+
     @WebMethod(operationName = "createEAMAssetApplyByOAHKCW002")
     public String createEAMAssetApplyByOAHKCW002(@WebParam(name = "psn") String psn) {
         Boolean ret = false;
@@ -204,15 +296,8 @@ public class EAPWebService {
                     if (user != null) {
                         aa.setRequireUsername(user.getUsername());
                     }
-                    if (e.getRemark() != null) {
-                        if (e.getRemark().length() < 81) {
-                            aa.setRemark(e.getProcessSerialNumber() + "_" + e.getRemark());
-                        } else {
-                            aa.setRemark(e.getProcessSerialNumber() + "_" + e.getRemark().substring(0, 80));
-                        }
-                    } else {
-                        aa.setRemark(e.getProcessSerialNumber());
-                    }
+                    aa.setRemark(e.getProcessSerialNumber());
+
                     aa.setStatusToNew();
                     aa.setCreator(e.getProcessSerialNumber());
                     aa.setCredateToNow();
@@ -413,7 +498,22 @@ public class EAPWebService {
         }
     }
 
-     @WebMethod(operationName = "updateOAHKGL037ByOAHKGL038")
+    @WebMethod(operationName = "updateERPINV140ByOASHBERPPURX141")
+    public String updateERPINV140ByOASHBERPPURX141(@WebParam(name = "psn") String psn) {
+        Boolean ret = false;
+        try {
+            ret = invmasBean.updateByOASHBERPPURX141(psn);
+        } catch (Exception ex) {
+            Logger.getLogger(EAPWebService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (ret) {
+            return "200";
+        } else {
+            return "404";
+        }
+    }
+
+    @WebMethod(operationName = "updateOAHKGL037ByOAHKGL038")
     public String updateOAHKGL037ByOAHKGL038(@WebParam(name = "psn") String psn) {
         Boolean ret = false;
         try {

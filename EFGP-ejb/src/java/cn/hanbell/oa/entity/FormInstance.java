@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "FormInstance.findAll", query = "SELECT f FROM FormInstance f"),
-    @NamedQuery(name = "FormInstance.findByOid", query = "SELECT f FROM FormInstance f WHERE f.oid = :oid"),
+    @NamedQuery(name = "FormInstance.findByOID", query = "SELECT f FROM FormInstance f WHERE f.oid = :oid"),
     @NamedQuery(name = "FormInstance.findByCreatorOID", query = "SELECT f FROM FormInstance f WHERE f.creatorOID = :creatorOID"),
     @NamedQuery(name = "FormInstance.findByDefinitionOID", query = "SELECT f FROM FormInstance f WHERE f.definitionOID = :definitionOID"),
     @NamedQuery(name = "FormInstance.findByObjectVersion", query = "SELECT f FROM FormInstance f WHERE f.objectVersion = :objectVersion"),
