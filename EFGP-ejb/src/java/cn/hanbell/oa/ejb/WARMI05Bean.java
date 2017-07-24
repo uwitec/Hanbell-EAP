@@ -97,6 +97,7 @@ public class WARMI05Bean extends SuperEJBForEFGP<WARMI05> {
             }
         }
         if (!"1".equals(step)) {
+            ta.setTa200("3");
             wartaBean.update(ta);
         }
         return true;
