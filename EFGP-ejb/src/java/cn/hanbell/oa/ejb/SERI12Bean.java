@@ -155,6 +155,7 @@ public class SERI12Bean extends SuperEJBForEFGP<SERI12> {
         BQ.setBq132(BQ132);
         BQ.setBq133(BQ133);
         BQ.setBq134(BQ134);
+        BQ.setBq059("3");
 
         serbqBean.update(BQ);
 
