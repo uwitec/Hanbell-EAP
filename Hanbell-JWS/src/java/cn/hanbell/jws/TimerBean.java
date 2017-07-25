@@ -470,12 +470,12 @@ public class TimerBean {
             s = new SHBERPINV325Model();
             s.setFacno("C");
             s.setCreatedate(BaseLib.getDate());
-            s.setApplyuser("C1587");
+            s.setApplyuser("C0385");
             s.setDept("1F220");
             s.setProno("1");
             s.setResno("T01");
             s.setTrtype("IAC");
-            s.setFromwareh("ASRA01");
+            s.setFromwareh("ASRS01");
             s.setTowareh("ZP01");
             s.setBz("");
             s.setDfromwareh("");
