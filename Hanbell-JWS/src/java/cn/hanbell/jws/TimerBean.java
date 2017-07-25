@@ -10,6 +10,7 @@ package cn.hanbell.jws;
 import cn.hanbell.eam.ejb.AssetAcceptanceBean;
 import cn.hanbell.eam.ejb.AssetDistributeBean;
 import cn.hanbell.eam.ejb.AssetItemBean;
+import cn.hanbell.eam.ejb.WarehouseBean;
 import cn.hanbell.eam.entity.AssetAcceptance;
 import cn.hanbell.eam.entity.AssetAcceptanceDetail;
 import cn.hanbell.eam.entity.AssetDistribute;
@@ -74,6 +75,8 @@ public class TimerBean {
     private AssetItemBean assetItemBean;
     @EJB
     private AssetDistributeBean assetDistributeBean;
+    @EJB
+    private WarehouseBean warehouseBean;
 
     //EJBForEFGP
     @EJB
@@ -216,7 +219,6 @@ public class TimerBean {
                                                 }
                                             }
                                             if (addedDetail.size() > 0) {
-
                                                 AssetAcceptance aa = new AssetAcceptance();
                                                 aa.setCompany(purach.getPurachPK().getFacno());
                                                 aa.setFormid("");
@@ -227,7 +229,6 @@ public class TimerBean {
                                                 aa.setStatus("N");
                                                 //产生EAM资产入库
                                                 assetAcceptanceBean.initAssetAcceptance(aa, addedDetail);
-
                                             }
                                         }
                                     }
@@ -278,6 +279,7 @@ public class TimerBean {
             String facno;
             String prono = "1";
             String trno;
+            String wareh;
             Date trdate;
             List<AssetDistributeDetail> addList;
             List<Invdta> addedDetail = new ArrayList();
@@ -300,6 +302,7 @@ public class TimerBean {
                     try {
                         for (AssetDistributeDetail d : addList) {
                             trseq++;
+                            wareh = warehouseBean.findERPWarehouse(facno, d.getWarehouse().getId());
                             Invdta invdta = new Invdta(d.getAssetItem().getItemno(), facno, prono, trno, trseq);
                             invdta.setTrtype(trtype);
                             //获取品号资料
@@ -313,15 +316,14 @@ public class TimerBean {
                             invdta.setTrnqy2(BigDecimal.ZERO);
                             invdta.setTrnqy3(BigDecimal.ZERO);
                             invdta.setUnmsr1(m.getUnmsr1());
-                            invdta.setWareh(d.getWarehouse().getRemark());
+                            invdta.setWareh(wareh);
                             invdta.setFixnr("");
                             invdta.setVarnr("");
                             invdta.setIocode('0');
-
                             //加入库存出入新增列表
                             addedDetail.add(invdta);
                         }
-
+                        //INV310表头资料
                         Invhad invhad = new Invhad(facno, prono, trno);
                         invhad.setTrtype(trtype);
                         invhad.setTrdate(trdate);
@@ -334,7 +336,7 @@ public class TimerBean {
                         invhad.setStatus('N');
                         invhad.setUserno("mis");
                         invhad.setIndate(trdate);
-
+                        //获取编号
                         trno = invhadBean.initINV310(invhad, addedDetail, true);
                         if (trno != null && !"".equals(trno)) {
                             e.setRelformid(trno);
@@ -416,7 +418,7 @@ public class TimerBean {
         logger.log(Level.INFO, "PLM件号抛转轮询");
     }
 
-    @Schedule(minute = "*", hour = "*/2", persistent = false)
+    @Schedule(minute = "0", hour = "16", persistent = false)
     public void createOASHBERPINV325ByERPWSQ() {
         SHBERPINV325Model s;
         SHBERPINV325DetailModel dm;
