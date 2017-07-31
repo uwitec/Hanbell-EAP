@@ -39,10 +39,11 @@ public class SHBERPINV325DetailModel implements Serializable {
     @Column(name = "dtowareh")
     private String dtowareh;
     @Size(max = 255)
+    @Column(name = "dtowarehsum")
+    private String dtowarehsum;
+    @Size(max = 255)
     @Column(name = "bz")
     private String bz;
-
-    @Size(max = 255)
 
     public SHBERPINV325DetailModel() {
         this.seq = "";
@@ -52,6 +53,7 @@ public class SHBERPINV325DetailModel implements Serializable {
         this.sumnum = "";
         this.dfromwareh = "";
         this.dtowareh = "";
+        this.dtowarehsum = "";
         this.bz = "";
     }
 
@@ -151,6 +153,20 @@ public class SHBERPINV325DetailModel implements Serializable {
      */
     public void setDtowareh(String dtowareh) {
         this.dtowareh = dtowareh;
+    }
+
+    /**
+     * @return the dtowarehsum
+     */
+    public String getDtowarehsum() {
+        return dtowarehsum;
+    }
+
+    /**
+     * @param dtowarehsum the dtowarehsum to set
+     */
+    public void setDtowarehsum(String dtowarehsum) {
+        this.dtowarehsum = dtowarehsum;
     }
 
     /**
