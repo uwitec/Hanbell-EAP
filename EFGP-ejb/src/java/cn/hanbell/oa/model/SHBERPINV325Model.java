@@ -39,6 +39,9 @@ public class SHBERPINV325Model implements Serializable {
     @Column(name = "dtowareh")
     private String dtowareh;
     @Size(max = 255)
+    @Column(name = "dtowarehsum")
+    private String dtowarehsum;
+    @Size(max = 255)
     @Column(name = "itdsc")
     private String itdsc;
     @Size(max = 255)
@@ -213,6 +216,20 @@ public class SHBERPINV325Model implements Serializable {
      */
     public void setRelformid(String relformid) {
         this.relformid = relformid;
+    }
+
+    /**
+     * @return the dtowarehsum
+     */
+    public String getDtowarehsum() {
+        return dtowarehsum;
+    }
+
+    /**
+     * @param dtowarehsum the dtowarehsum to set
+     */
+    public void setDtowarehsum(String dtowarehsum) {
+        this.dtowarehsum = dtowarehsum;
     }
 
 }
