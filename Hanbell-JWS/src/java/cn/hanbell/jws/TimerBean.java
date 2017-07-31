@@ -418,7 +418,7 @@ public class TimerBean {
         logger.log(Level.INFO, "PLM件号抛转轮询");
     }
 
-    @Schedule(minute = "0", hour = "16", persistent = false)
+    @Schedule(minute = "0", hour = "15", persistent = false)
     public void createOASHBERPINV325ByERPWSQ() {
         SHBERPINV325Model s;
         SHBERPINV325DetailModel dm;
@@ -463,6 +463,7 @@ public class TimerBean {
                 dm.setSumnum((take * c) + "");
                 dm.setDfromwareh("ASRS01");
                 dm.setDtowareh("ZP01");
+                dm.setDtowarehsum(onhand1 + "");
                 dm.setBz("");
                 detailList.add(dm);
             }
@@ -480,6 +481,7 @@ public class TimerBean {
             s.setBz("");
             s.setDfromwareh("");
             s.setDtowareh("");
+            s.setDtowarehsum("");
             s.setItdsc("");
             s.setItnbr("");
             s.setRelformid("");
