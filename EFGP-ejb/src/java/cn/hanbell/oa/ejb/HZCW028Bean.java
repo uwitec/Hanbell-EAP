@@ -34,6 +34,10 @@ public class HZCW028Bean extends SuperEJBForEFGP<HZCW028> {
         super(HZCW028.class);
     }
 
+    public Boolean updateCRMPORMY(String psn) {
+        return updateCRMPORMY(psn, "1");
+    }
+
     public Boolean updateCRMPORMY(String psn, String status) {
         try {
             //OA选择CRM单号后更新CRM状态
