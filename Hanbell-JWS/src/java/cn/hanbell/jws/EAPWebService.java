@@ -424,10 +424,10 @@ public class EAPWebService {
     }
 
     @WebMethod(operationName = "updateCRMPORMYByOABXD")
-    public String updateCRMPORMYByOABXD(@WebParam(name = "psn") String psn) {
+    public String updateCRMPORMYByOABXD(@WebParam(name = "psn") String psn, @WebParam(name = "status") String status) {
         Boolean ret = false;
         try {
-            ret = hzcw028Bean.updateCRMPORMY(psn);
+            ret = hzcw028Bean.updateCRMPORMY(psn,status);
         } catch (Exception ex) {
             Logger.getLogger(EAPWebService.class.getName()).log(Level.SEVERE, null, ex);
         }
