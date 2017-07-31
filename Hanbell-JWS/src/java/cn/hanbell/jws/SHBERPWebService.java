@@ -505,10 +505,10 @@ public class SHBERPWebService {
 
     //<-------------------------------以下内容保持在最后,以后要删除------------------------------->
     @WebMethod(operationName = "updateCRMPORMYByOABXD")
-    public String updateCRMPORMYByOABXD(@WebParam(name = "psn") String psn) {
+    public String updateCRMPORMYByOABXD(@WebParam(name = "psn") String psn, @WebParam(name = "status") String status) {
         Boolean ret = false;
         try {
-            ret = hzcw028Bean.updateCRMPORMY(psn);
+            ret = hzcw028Bean.updateCRMPORMY(psn ,status);
         } catch (Exception ex) {
             Logger.getLogger(SHBERPWebService.class.getName()).log(Level.SEVERE, null, ex);
         }
