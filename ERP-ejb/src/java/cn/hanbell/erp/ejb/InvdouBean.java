@@ -17,21 +17,21 @@ import javax.persistence.Query;
  */
 @Stateless
 @LocalBean
-public class InvdouBean  extends  SuperEJBForERP<Invdou>{
+public class InvdouBean extends SuperEJBForERP<Invdou> {
 
     public InvdouBean() {
         super(Invdou.class);
     }
 
-    public Invdou findByTrtype(String trtype){
-       Query query = getEntityManager().createNamedQuery("Invdou.findByTrtype");
+    public Invdou findByTrtype(String trtype) {
+        Query query = getEntityManager().createNamedQuery("Invdou.findByTrtype");
         query.setParameter("trtype", trtype);
         try {
-          Object o =  query.getSingleResult();
+            Object o = query.getSingleResult();
             return (Invdou) o;
         } catch (Exception ex) {
             return null;
         }
     }
-    
+
 }

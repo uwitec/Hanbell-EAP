@@ -12,6 +12,9 @@ import cn.hanbell.erp.entity.Cdrbrhad;
 import cn.hanbell.erp.entity.CdrbrhadPK;
 import cn.hanbell.erp.entity.Cdrlnhad;
 import cn.hanbell.erp.entity.Cdrobdou;
+import cn.hanbell.erp.entity.Invbal;
+import cn.hanbell.erp.entity.Invbat;
+import cn.hanbell.erp.entity.Invmas;
 import cn.hanbell.oa.ejb.HKFW006Bean;
 import cn.hanbell.oa.ejb.HKFW006Cdrn30Bean;
 import cn.hanbell.oa.ejb.HKFW006Cdrn30DetailBean;
@@ -21,6 +24,7 @@ import cn.hanbell.oa.entity.HKFW006Cdrn30Detail;
 import cn.hanbell.util.BaseLib;
 import java.math.BigDecimal;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -52,6 +56,12 @@ public class CdrbrhadBean extends SuperEJBForERP<Cdrbrhad> {
     private HKFW006Cdrn30DetailBean hkfw006Cdrn30DetailBean;
     @EJB
     private HKFW006Bean hkfw006Bean;
+    @EJB
+    private InvbalBean invbalBean;
+    @EJB
+    private InvbatBean invbatBean;
+    @EJB
+    private InvmasBean invmasBean;
 
     public CdrbrhadBean() {
         super(Cdrbrhad.class);
@@ -75,11 +85,23 @@ public class CdrbrhadBean extends SuperEJBForERP<Cdrbrhad> {
             if (h == null) {
                 throw new NullPointerException();
             }
+            List<HKFW006Cdrn30Detail> details = hkfw006Cdrn30DetailBean.findByFSN(h.getFormSerialNumber());
+            if (details == null || details.size() <= 0) {
+                throw new NullPointerException();
+            }
             Date date;
             String facno = h.getFacno();
+            String prono = h.getProno();
+            List<Invbal> invbalList = new ArrayList();
+            List<Invbat> invbatList = new ArrayList();
+            Invbal invbal;
+            Invbat invbat;
+            invmasBean.setCompany(facno);
+            invbalBean.setCompany(facno);
+            invbatBean.setCompany(facno);
             String cdrobty = h.getCdrobty();
             date = BaseLib.getDate("yyyy/MM/dd", BaseLib.formatDate("yyyy/MM/dd", BaseLib.getDate()));
-            String brtrno = GetCDRN30Brno(cdrobty, facno, date, "1", Boolean.TRUE);
+            String brtrno = cdrobdouBean.getSerno(cdrobty, facno, date, "");
             Cdrbrhad cdrbrhad = new Cdrbrhad();
             CdrbrhadPK pk = new CdrbrhadPK();
             pk.setFacno(facno);
@@ -103,10 +125,6 @@ public class CdrbrhadBean extends SuperEJBForERP<Cdrbrhad> {
             this.setCompany(facno);
             persist(cdrbrhad);
 
-            List<HKFW006Cdrn30Detail> details = hkfw006Cdrn30DetailBean.findByFSN(h.getFormSerialNumber());
-            if (details.size() <= 0) {
-                throw new NullPointerException();
-            }
             //  表身循环
             for (int i = 0; i < details.size(); i++) {
                 HKFW006Cdrn30Detail detail = details.get(i);
@@ -121,6 +139,7 @@ public class CdrbrhadBean extends SuperEJBForERP<Cdrbrhad> {
                 cdrbrdta.setItnbr(detail.getItnbr());
                 cdrbrdta.setWareh(detail.getWareh());
                 cdrbrdta.setVarnr(detail.getVarnr());
+                cdrbrdta.setFixnr(detail.getFixnr());
                 cdrbrdta.setBrpqy1(BigDecimal.valueOf(Double.parseDouble(detail.getBrpqy1())));
                 cdrbrdta.setBrdate(cdrbrhad.getBrdate());
                 cdrbrdta.setPyhbrdate(BaseLib.getDate("yyyy/MM/dd", detail.getPrebkdate()));
@@ -129,7 +148,36 @@ public class CdrbrhadBean extends SuperEJBForERP<Cdrbrhad> {
                 cdrbrdta.setDmark2(detail.getDmark2());
                 cdrbrdtaBean.setCompany(facno);
                 cdrbrdtaBean.persist(cdrbrdta);
+
+                //更新ERP invbat/invbal
+                Invmas m = invmasBean.findByItnbr(cdrbrdta.getItnbr());
+                if (m == null) {
+                    throw new RuntimeException(cdrbrdta.getItnbr() + "ERP中不存在");
+                }
+                invbal = new Invbal(facno, prono, cdrbrdta.getItnbr(), "JCZC");
+
+                invbal.setItcls(m.getItcls());
+                invbal.setItclscode(m.getItclscode());
+                invbal.setPreqy1(cdrbrdta.getBrpqy1());
+                //加入库存更新列表
+                invbalList.add(invbal);
+                //批号可利用量检查
+                if (m.getInvcls().getNrcode() != '0') {
+                    invbat = new Invbat(facno, prono, cdrbrdta.getItnbr(), "JCZC", cdrbrdta.getFixnr(), cdrbrdta.getVarnr());
+                    invbat.setItcls(m.getItcls());
+                    invbat.setItclscode(m.getItclscode());
+                    invbat.setPreqy1(cdrbrdta.getBrpqy1());
+                    //加入库存更新列表
+                    invbatList.add(invbat);
+
+                }
             }
+
+            //更新ERP库存数量 //入库增加库存
+            invbalBean.add(invbalList);
+            invbatBean.add(invbatList);
+
+            //反写OA归还单号
             h.setPzno(brtrno);
             this.getEntityManager().flush();
             hkfw006Cdrn30Bean.update(h);
@@ -145,125 +193,4 @@ public class CdrbrhadBean extends SuperEJBForERP<Cdrbrhad> {
 
     }
 
-    private String GetCDRN30Brno(String a_cdrobtype, String a_facno, Date a_trdate, String a_iocode, Boolean a_isupdate) {
-        int li_ordno;
-        int li_max = 0;
-        String ls_serial = "";
-        String ls_trno;
-        String ls_maxno;
-        String ls_nofmt;
-        Character ls_autoyn;
-        String ls_autochar;
-        cdrobdouBean.setCompany(a_facno);
-        Cdrobdou cdrobdou = cdrobdouBean.findByCdrobtype(a_cdrobtype);
-        if (cdrobdou != null) {
-            ls_autoyn = cdrobdou.getZautoyn();
-            ls_autochar = cdrobdou.getZautochar().toString();
-            ls_nofmt = cdrobdou.getZnofmt();
-            li_ordno = Integer.parseInt(ls_nofmt.substring(5, 6));
-            ls_trno = GetCDRN30Staticno(a_facno, a_cdrobtype, a_trdate, ls_nofmt, ls_autochar);
-            li_max = GetCDRN30Maxno(a_facno, ls_trno, a_iocode, li_ordno);
-            if (li_max == 0) {
-                String a = "00000000001";
-                ls_serial = ls_trno + a.substring(a.length() - li_ordno);
-            } else {
-                li_max += 1;
-                String a = "000000000" + li_max;
-                ls_serial = ls_trno + a.substring(a.length() - li_ordno);
-            }
-
-        }
-        return ls_serial;
-
-    }
-
-    private String GetCDRN30Staticno(String a_facno, String a_codrobtype, Date a_trdate, String a_nofmt, String a_autochar) {
-        int li_ordno = 0;
-        int li_month = 0;
-        String ls_no;
-        String ls_ch = "";
-        String ls_curno = "";
-        if (a_autochar == null || "0".equals(a_autochar)) {
-            a_autochar = "";
-        }
-        ls_no = a_autochar;
-        for (int i = 0; i < 5; i++) {
-            ls_curno = a_nofmt.substring(i, i + 1);
-            switch (ls_curno) {
-                case "1":
-                    ls_no += a_facno;
-                    break;
-                case "2":
-                    ls_no += a_codrobtype;
-                    break;
-                case "3":
-                    ls_no += BaseLib.formatDate("yyyy", a_trdate);
-                    break;
-                case "4":
-                    ls_no += BaseLib.formatDate("yy", a_trdate);
-                    break;
-                case "5":
-                    ls_no += BaseLib.formatDate("MM", a_trdate);
-                    break;
-                case "6":
-                    li_month = Integer.parseInt(BaseLib.formatDate("MM", a_trdate), 10);
-                    if (li_month < 10) {
-                        ls_ch = String.valueOf(li_month);
-                    }
-                    if (li_month == 10) {
-                        ls_ch = "A";
-                    }
-                    if (li_month == 11) {
-                        ls_ch = "B";
-                    }
-                    if (li_month == 12) {
-                        ls_ch = "C";
-                    }
-                    ls_no += ls_ch;
-                    break;
-                case "7":
-                    ls_no += BaseLib.formatDate("dd", a_trdate);
-                    break;
-                default:
-                    break;
-            }
-        }
-        return ls_no;
-    }
-
-    private int GetCDRN30Maxno(String a_facno, String a_format, String a_iocode, int a_serlen) {
-        String ls_trno = "";
-        String ls_maxno = "";
-        String ls_format = "";
-        String ls_lntrno = "";
-        String ls_brtrno = "";
-        int li_maxno = 0;
-        int li_fmtlen = 0;
-        int li_maxlen = 0;
-        li_fmtlen = a_format.length();
-        a_format += "%";
-        cdrlnhadBean.setCompany(a_facno);
-        Cdrlnhad cdrlnhad = cdrlnhadBean.findByPK(a_facno, a_format);
-        if (cdrlnhad != null) {
-            ls_lntrno = cdrlnhad.getCdrlnhadPK().getTrno();
-        }
-        cdrbrhadBean.setCompany(a_facno);
-        Cdrbrhad cdrbrhad = cdrbrhadBean.findByPK(a_facno, a_format);
-        if (cdrbrhad != null) {
-            ls_brtrno = cdrbrhad.getCdrbrhadPK().getBrtrno();
-        }
-        if (false == ls_lntrno.isEmpty()) {
-            ls_trno = ls_lntrno;
-        }
-
-        if (false == ls_brtrno.isEmpty()) {
-            ls_trno = ls_brtrno;
-        }
-        li_maxlen = ls_trno.length();
-        if (li_maxlen == 0) {
-            return li_maxno;
-        }
-        li_maxno = Integer.parseInt(ls_trno.substring(ls_trno.length() - (li_maxlen - li_fmtlen)));
-        return li_maxno;
-    }
 }

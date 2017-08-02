@@ -45,6 +45,13 @@ public class InvbalPK implements Serializable {
     public InvbalPK() {
     }
 
+    public InvbalPK(String facno, String prono, String itnbr, String wareh) {
+        this.facno = facno;
+        this.prono = prono;
+        this.itnbr = itnbr;
+        this.wareh = wareh;
+    }
+
     public String getItnbr() {
         return itnbr;
     }

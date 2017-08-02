@@ -9,12 +9,12 @@ import cn.hanbell.erp.comm.SuperEJBForERP;
 import cn.hanbell.erp.entity.Scminvmas;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
+import javax.persistence.Query;
 
 /**
  *
  * @author Administrator
  */
-
 @Stateless
 @LocalBean
 public class ScminvmasBean extends SuperEJBForERP<Scminvmas> {
@@ -22,6 +22,16 @@ public class ScminvmasBean extends SuperEJBForERP<Scminvmas> {
     public ScminvmasBean() {
         super(Scminvmas.class);
     }
-    
-    
+
+    public Scminvmas findByItnbr(String itnbr) {
+        Query query = getEntityManager().createNamedQuery("Scminvmas.findByItnbr");
+        query.setParameter("itnbr", itnbr);
+        try {
+            Object o = query.getSingleResult();
+            return (Scminvmas) o;
+        } catch (Exception ex) {
+            return null;
+        }
+    }
+
 }

@@ -472,7 +472,7 @@ public class CdrcusBean extends SuperEJBForERP<Cdrcus> {
             cdrcus.setCusbakna(oa.getCusbakna());
         }
         if (Objects.equals(oa.getChkcusacctno(), "1") && (oa.getCusacctno() != null) && !"".equals(oa.getCusacctno())) {
-            cdrcus.setCusbakna(oa.getCusacctno());
+            cdrcus.setCusacctno(oa.getCusacctno());
         }
         if (Objects.equals(oa.getChkuniform(), "1") && (oa.getUniform() != null) && !"".equals(oa.getUniform())) {
             cdrcus.setUniform(oa.getUniform());

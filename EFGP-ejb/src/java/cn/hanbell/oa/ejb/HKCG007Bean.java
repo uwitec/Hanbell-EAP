@@ -6,6 +6,7 @@
 package cn.hanbell.oa.ejb;
 
 import cn.hanbell.oa.comm.SuperEJBForEFGP;
+import cn.hanbell.oa.entity.FormInstance;
 import cn.hanbell.oa.entity.HKCG007;
 import cn.hanbell.oa.entity.HKCW002;
 import cn.hanbell.oa.entity.HKCW002Detail;
@@ -32,6 +33,8 @@ import javax.ejb.LocalBean;
 public class HKCG007Bean extends SuperEJBForEFGP<HKCG007> {
 
     @EJB
+    private FormInstanceBean formInstanceBean;
+    @EJB
     private WorkFlowBean workFlowBean;
     @EJB
     private HKCW002PBean hkcw002pBean;
@@ -56,7 +59,7 @@ public class HKCG007Bean extends SuperEJBForEFGP<HKCG007> {
             HKCW002P pm = hkcw002pBean.findByPSN(psn);
 
             //判断是否已抛转
-            if (!"".equals(pm.getIfturn()) && pm.getIfturn() != null) {
+            if (pm.getIfturn() != null && !"".equals(pm.getIfturn())) {
                 return false;
             }
             purDetailList = hkcw002ppurdetalBean.findByFSN(pm.getFormSerialNumber());
@@ -193,19 +196,20 @@ public class HKCG007Bean extends SuperEJBForEFGP<HKCG007> {
             }
             return true;
         } catch (Exception ex) {
-            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex.getMessage());
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
             return false;
         }
     }
 
     public Boolean initByHKCW002(String psn) {
-        try {
-            HKCG007Model m;
-            HKCG007DetailModel d;
-            List<HKCG007DetailModel> detailList = new ArrayList<>();
-            LinkedHashMap<String, List<?>> details = new LinkedHashMap<>();
-            details.put("purDetail", detailList);
+        HKCG007Model m;
+        HKCG007DetailModel d;
+        List<HKCG007DetailModel> detailList = new ArrayList<>();
+        LinkedHashMap<String, List<?>> details = new LinkedHashMap<>();
+        details.put("purDetail", detailList);
 
+        String attachment = null;
+        try {
             List<HKCW002Detail> purDetailList;
             HKCW002 aa = hkcw002Bean.findByPSN(psn);
             if (aa == null) {
@@ -215,6 +219,19 @@ public class HKCG007Bean extends SuperEJBForEFGP<HKCG007> {
             if ("0".equals(aa.getPurchase()) || !"".equals(aa.getHkcg007())) {
                 return true;
             }
+            //找到表单实例
+            FormInstance fi = formInstanceBean.findByOID(aa.getOid());
+            if (fi == null) {
+                return false;
+            }
+            //获取附件信息
+            int s = fi.getFieldValues().indexOf("<Attachment id=\"Attachment\">");
+            int e = fi.getFieldValues().indexOf("</Attachment>");
+            if (s > 0 && e > 0 && e > s) {
+                attachment = fi.getFieldValues().substring(s, e + 13);
+                attachment = attachment.replaceAll("\r|\n", "");
+            }
+
             hkcw002Bean.setDetail(aa.getFormSerialNumber());
             purDetailList = hkcw002Bean.getDetailList();
             if (purDetailList != null && !purDetailList.isEmpty()) {
@@ -334,8 +351,17 @@ public class HKCG007Bean extends SuperEJBForEFGP<HKCG007> {
                     m.setNewqty2(aa.getNewqty2());
 
                     //重新初始化流程发起人员
-                    workFlowBean.initUserInfo(aa.getApplyUserno());
+                    if (aa.getCreator() != null) {
+                        workFlowBean.initUserInfo(aa.getCreator());
+                    } else {
+                        workFlowBean.initUserInfo(aa.getApplyUserno());
+                    }
                     String formInstance = workFlowBean.buildXmlForEFGP("HK_CG007", m, details);
+                    //代入资产申请单的附件
+                    if (attachment != null) {
+                        formInstance = formInstance.replaceFirst("<HK_CG007>", "<HK_CG007>" + attachment);
+                    }
+
                     String subject = "资产申请单_" + aa.getProcessSerialNumber();
                     String msg = workFlowBean.invokeProcess(workFlowBean.hostAdd, workFlowBean.hostPort, "PKG_HK_CG007", formInstance, subject);
                     String[] rm = msg.split("\\$");
@@ -349,7 +375,7 @@ public class HKCG007Bean extends SuperEJBForEFGP<HKCG007> {
             }
             return true;
         } catch (Exception ex) {
-            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex.getMessage());
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
             return false;
         }
     }

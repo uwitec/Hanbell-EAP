@@ -8,7 +8,6 @@ package cn.hanbell.erp.entity;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
-import javax.persistence.AttributeOverride;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
@@ -35,7 +34,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Invbal.findByItnbr", query = "SELECT i FROM Invbal i WHERE i.invbalPK.itnbr = :itnbr"),
     @NamedQuery(name = "Invbal.findByItnbrAndWareh", query = "SELECT i FROM Invbal i WHERE i.invbalPK.itnbr = :itnbr AND i.invbalPK.wareh = :wareh"),
-    @NamedQuery(name = "Invbal.findByItcls", query = "SELECT i FROM Invbal i WHERE i.itcls = :itcls")})
+    @NamedQuery(name = "Invbal.findByItcls", query = "SELECT i FROM Invbal i WHERE i.itcls = :itcls"),
+    @NamedQuery(name = "Invbal.findByPK", query = "SELECT i FROM Invbal i WHERE i.invbalPK.facno = :facno AND i.invbalPK.prono = :prono AND i.invbalPK.itnbr = :itnbr AND i.invbalPK.wareh = :wareh")})
 public class Invbal implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -98,20 +98,41 @@ public class Invbal implements Serializable {
     private BigDecimal mbegqy3;
 
     public Invbal() {
+        this.preqy1 = BigDecimal.ZERO;
+        this.preqy2 = BigDecimal.ZERO;
+        this.preqy3 = BigDecimal.ZERO;
+        this.onhand1 = BigDecimal.ZERO;
+        this.onhand2 = BigDecimal.ZERO;
+        this.onhand3 = BigDecimal.ZERO;
+        this.mbegqy1 = BigDecimal.ZERO;
+        this.mbegqy2 = BigDecimal.ZERO;
+        this.mbegqy3 = BigDecimal.ZERO;
     }
 
     public Invbal(InvbalPK invbalPK) {
         this.invbalPK = invbalPK;
+        this.preqy1 = BigDecimal.ZERO;
+        this.preqy2 = BigDecimal.ZERO;
+        this.preqy3 = BigDecimal.ZERO;
+        this.onhand1 = BigDecimal.ZERO;
+        this.onhand2 = BigDecimal.ZERO;
+        this.onhand3 = BigDecimal.ZERO;
+        this.mbegqy1 = BigDecimal.ZERO;
+        this.mbegqy2 = BigDecimal.ZERO;
+        this.mbegqy3 = BigDecimal.ZERO;
     }
 
-    public Invbal(InvbalPK invbalPK, String itcls, Character itclscode, int cyclecnt, BigDecimal preqy1, BigDecimal onhand1, BigDecimal mbegqy1) {
-        this.invbalPK = invbalPK;
-        this.itcls = itcls;
-        this.itclscode = itclscode;
-        this.cyclecnt = cyclecnt;
-        this.preqy1 = preqy1;
-        this.onhand1 = onhand1;
-        this.mbegqy1 = mbegqy1;
+    public Invbal(String facno, String prono, String itnbr, String wareh) {
+        this.invbalPK = new InvbalPK(facno, prono, itnbr, wareh);
+        this.preqy1 = BigDecimal.ZERO;
+        this.preqy2 = BigDecimal.ZERO;
+        this.preqy3 = BigDecimal.ZERO;
+        this.onhand1 = BigDecimal.ZERO;
+        this.onhand2 = BigDecimal.ZERO;
+        this.onhand3 = BigDecimal.ZERO;
+        this.mbegqy1 = BigDecimal.ZERO;
+        this.mbegqy2 = BigDecimal.ZERO;
+        this.mbegqy3 = BigDecimal.ZERO;
     }
 
     public InvbalPK getInvbalPK() {
