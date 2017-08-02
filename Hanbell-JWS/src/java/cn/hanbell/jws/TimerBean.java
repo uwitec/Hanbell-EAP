@@ -360,24 +360,34 @@ public class TimerBean {
             HZJS034DetailModel d;
             List<HZJS034DetailModel> detailList = new ArrayList<>();
             LinkedHashMap<String, List<?>> details = new LinkedHashMap<>();
-
             details.put("Detail", detailList);
 
             List<PLMItnbrDetailTemp> plmDetailList;
             List<PLMItnbrMasterTemp> plmMasterList = plmItnbrMasterTempBean.findNeedThrow();
             if (plmMasterList != null && !plmMasterList.isEmpty()) {
+                boolean fromTHB;
+                int i, j;
+                String k;
                 for (PLMItnbrMasterTemp pm : plmMasterList) {
+                    fromTHB = pm.getProno().equals("A") || pm.getProno().equals("B");
                     plmDetailList = plmItnbrMasterTempBean.findNeedThrowDetail(pm.getItemNumber());
                     if (plmDetailList != null && !plmDetailList.isEmpty()) {
                         detailList.clear();//清除前面的资料
-                        int i = 0;
+                        i = 0;
                         for (PLMItnbrDetailTemp pd : plmDetailList) {
                             i++;
                             d = new HZJS034DetailModel();
                             d.setSeq(String.valueOf(i));
                             d.setItcls("");
                             d.setClsdsc("");
-                            d.setItnbr(pd.getCItnbr());
+                            j = pd.getCItnbr().indexOf("-");
+                            k = pd.getCItnbr().substring(0, 1);
+                            if (j == 4 && (k.equals("1") || k.equals("2") || k.equals("3"))) {
+                                //1,2,3字头前面是4码，加入中间3字码
+                                d.setItnbr(pd.getCItnbr().substring(0, 2) + "3" + pd.getCItnbr().substring(2));
+                            } else {
+                                d.setItnbr(pd.getCItnbr());
+                            }
                             d.setItdsc(pd.getCItdsc());
                             d.setSpdsc(pd.getCSpdsc());
                             d.setEitdsc(pd.getCEitdsc());
@@ -392,15 +402,26 @@ public class TimerBean {
                             d.setRemark("");
                             detailList.add(d);
                         }
-                        workFlowBean.initUserInfo(pm.getApplicant());
+                        if (fromTHB) {
+                            workFlowBean.initUserInfo("C1526");//THB申请的品号转入SHB暂时由唐倩处理
+                        } else {
+                            workFlowBean.initUserInfo(pm.getApplicant());
+                        }
                         m = new HZJS034Model();
-                        m.setFacno(pm.getProno());
+                        if (fromTHB) {
+                            m.setFacno("C");//THB申请的品号转入SHB
+                        } else {
+                            m.setFacno(pm.getProno());
+                        }
                         m.setEmpl(workFlowBean.getCurrentUser().getId());
                         m.setDept(workFlowBean.getUserFunction().getOrganizationUnit().getId());
                         m.setIndate(BaseLib.getDate());
                         m.setPLMNO(pm.getItemNumber());
                         String formInstance = workFlowBean.buildXmlForEFGP("HZ_JS034", m, details);
                         String subject = "PLM件号申请_" + pm.getItemNumber();
+                        if (fromTHB) {
+                            subject += "_THB";
+                        }
                         String msg = workFlowBean.invokeProcess(workFlowBean.hostAdd, workFlowBean.hostPort, "HZ_JS034", formInstance, subject);
                         String[] rm = msg.split("\\$");
                         if (rm.length == 2 && rm[0].equals("200")) {
