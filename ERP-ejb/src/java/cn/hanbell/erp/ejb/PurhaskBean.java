@@ -126,9 +126,9 @@ public class PurhaskBean extends SuperEJBForERP<Purhask> {
             p.setCfmdate(date);
             p.setPrtcnt((short) 0);
             if (q.getFormid().isEmpty()) {
-                p.setApplyno("N");
-            } else {
                 p.setApplyno("Y");
+            } else {
+                p.setApplyno("N");
             }
             persist(p);
 
