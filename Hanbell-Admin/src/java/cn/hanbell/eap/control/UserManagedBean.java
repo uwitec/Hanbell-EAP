@@ -4,7 +4,6 @@
  */
 package cn.hanbell.eap.control;
 
-
 import cn.hanbell.eap.ejb.SystemUserBean;
 import cn.hanbell.eap.entity.SystemGrantPrg;
 import cn.hanbell.eap.entity.SystemUser;
@@ -37,7 +36,7 @@ public class UserManagedBean implements Serializable {
     private String newpwd;
     private String secpwd;
     private boolean status;
-    
+
     private List<SystemGrantPrg> systemGrantPrgList;
 
     public UserManagedBean() {
@@ -59,23 +58,30 @@ public class UserManagedBean implements Serializable {
         }
         secpwd = BaseLib.securityMD5(getPwd());
         try {
-            SystemUser u = systemUserBean.findByUserIdAndPwd(getUserid(), getSecpwd());
+            SystemUser u = null;
+            if ("Admin".equals(userid) || "admin".equals(userid)) {
+                u = systemUserBean.findByUserIdAndPwd(userid, secpwd);
+                if (u == null) {
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "用户名或密码错误"));
+                    status = false;
+                    return "";
+                }
+            } else if (cn.hanbell.util.BaseLib.ADAuth("172.16.10.6:389", userid + "@hanbell.com.cn", pwd)) {
+                u = systemUserBean.findByUserId(getUserid());
+            }
             if (u != null) {
                 currentUser = u;
                 status = true;
                 mobile = u.getUserid();
                 updateLoginTime();
-            } else {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "用户名或密码错误"));
-                status = false;
-                return "";
+                return "home";
             }
         } catch (Exception e) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Fatal", "用户名或密码不正确！"));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "用户名或密码不正确！"));
             status = false;
             return "login";
         }
-        return "home";
+        return "";
     }
 
     public String logout() {

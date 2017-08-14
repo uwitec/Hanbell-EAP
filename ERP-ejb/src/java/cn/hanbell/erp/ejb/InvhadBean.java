@@ -203,7 +203,8 @@ public class InvhadBean extends SuperEJBForERP<Invhad> {
         String facno = e.getTa014();
         String prono = "1";
         String trno = "";
-        Date trdate = BaseLib.getDate();
+        Date trdate;
+        Date indate = BaseLib.getDate();
         short trseq = 0;
         //获取ERP库存交易类别
         invdouBean.setCompany(facno);
@@ -227,6 +228,7 @@ public class InvhadBean extends SuperEJBForERP<Invhad> {
         invbatBean.setCompany(facno);
         invtrnBean.setCompany(facno);
         try {
+            trdate = BaseLib.getDate("yyyy/MM/dd", BaseLib.formatDate("yyyy/MM/dd", BaseLib.getDate()));
             for (WARMI05Detail d : warmi05Bean.getDetailList()) {
                 trseq++;
                 Invdta invdta = new Invdta();
@@ -257,7 +259,21 @@ public class InvhadBean extends SuperEJBForERP<Invhad> {
                 invdta.setFixnr(d.getTb011());
                 invdta.setVarnr(d.getTb019());
                 invdta.setIocode(invdou.getIocode());
-
+                //按ERP逻辑重新设置批号
+                switch (m.getInvcls().getNrcode()) {
+                    case '0':
+                        invdta.setFixnr("");
+                        invdta.setVarnr("");
+                        break;
+                    case '1':
+                        invdta.setVarnr("");
+                        break;
+                    case '2':
+                        invdta.setFixnr("");
+                        break;
+                    default:
+                        break;
+                }
                 if (invdou.getIocode() == '2') {
                     //库存可利用量检查
                     flag = invbalBean.isGreatThenInvbal(facno, prono, invdta.getInvdtaPK().getItnbr(), invdta.getWareh(), invdta.getTrnqy1());
@@ -309,8 +325,8 @@ public class InvhadBean extends SuperEJBForERP<Invhad> {
                 invtrn.setSourceno(e.getTa001() + e.getTa002());
                 invtrn.setItcls(invdta.getItcls());
                 invtrn.setItclscode(invdta.getItclscode());
-                invtrn.setIndate(trdate);
-                invtrn.setCfmdate(trdate);
+                invtrn.setIndate(indate);
+                invtrn.setCfmdate(indate);
 
                 //加入库存出入新增列表
                 addedDetail.add(invdta);
@@ -332,9 +348,9 @@ public class InvhadBean extends SuperEJBForERP<Invhad> {
             invhad.setSourceno(e.getTa002());
             invhad.setStatus('Y');
             invhad.setUserno(e.getTa012());
-            invhad.setIndate(trdate);
+            invhad.setIndate(indate);
             invhad.setCfmuserno(e.getTa012());
-            invhad.setCfmdate(trdate);
+            invhad.setCfmdate(indate);
             //明细列表交易单号赋值
             for (Invdta d : addedDetail) {
                 d.getInvdtaPK().setTrno(trno);
@@ -365,7 +381,7 @@ public class InvhadBean extends SuperEJBForERP<Invhad> {
             warmi05Bean.update(e);
 
             return true;
-        } catch (Exception ex) {
+        } catch (ParseException | RuntimeException ex) {
             Logger.getLogger(InvhadBean.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
@@ -388,11 +404,11 @@ public class InvhadBean extends SuperEJBForERP<Invhad> {
         String prono;
         String trno;
         Date trdate;
+        Date indate = BaseLib.getDate();
         String trtype;
 
         facno = e.getFacno();
         prono = e.getProno();
-        trdate = BaseLib.getDate();
         trtype = e.getTrtype();
         //获取ERP库存交易类别
         invdouBean.setCompany(facno);
@@ -411,6 +427,7 @@ public class InvhadBean extends SuperEJBForERP<Invhad> {
 
         invmasBean.setCompany(facno);
         try {
+            trdate = BaseLib.getDate("yyyy/MM/dd", BaseLib.formatDate("yyyy/MM/dd", BaseLib.getDate()));
             for (SHBERPINV325Detail d : shberpinv325Bean.getDetailList()) {
                 //获取品号资料
                 m = invmasBean.findByItnbr(d.getItnbr());
@@ -458,17 +475,19 @@ public class InvhadBean extends SuperEJBForERP<Invhad> {
             invhad.setSourceno(e.getProcessSerialNumber().substring(8));
             invhad.setStatus('N');
             invhad.setUserno(e.getApplyuser());
-            invhad.setIndate(trdate);
+            invhad.setIndate(indate);
+            invhad.setPrtcnt((short) 0);
+            invhad.setAsrsQty(BigDecimal.ZERO);
             //明细列表交易单号赋值
             for (Invdta d : addedDetail) {
                 d.getInvdtaPK().setTrno(trno);
             }
-            //更新ERP INV310
+            //更新ERP INV325
             this.persist(invhad, detailAdded);
             e.setRelformid(trno);
             shberpinv325Bean.update(e);
             return trno;
-        } catch (Exception ex) {
+        } catch (ParseException | RuntimeException ex) {
             Logger.getLogger(InvhadBean.class.getName()).log(Level.SEVERE, null, ex);
             return "";
         }
