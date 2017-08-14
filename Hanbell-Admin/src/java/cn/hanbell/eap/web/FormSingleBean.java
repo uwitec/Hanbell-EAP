@@ -5,15 +5,15 @@
  */
 package cn.hanbell.eap.web;
 
-import com.lightshell.comm.SuperEntity;
 import cn.hanbell.eap.control.UserManagedBean;
 import cn.hanbell.eap.ejb.SystemProgramBean;
 import cn.hanbell.eap.entity.SystemGrantPrg;
-import com.lightshell.comm.SuperDetailEntity;
-import com.lightshell.comm.SuperMulti2ManagedBean;
+import com.lightshell.comm.FormEntity;
+import com.lightshell.comm.FormSingleManagedBean;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import javax.ejb.EJB;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 
@@ -21,10 +21,8 @@ import javax.faces.context.FacesContext;
  *
  * @author KevinDong
  * @param <T>
- * @param <D1>
- * @param <D2>
  */
-public abstract class SuperMulti2Bean<T extends SuperEntity, D1 extends SuperDetailEntity, D2 extends SuperDetailEntity> extends SuperMulti2ManagedBean<T, D1, D2> {
+public abstract class FormSingleBean<T extends FormEntity> extends FormSingleManagedBean<T> {
 
     @EJB
     protected SystemProgramBean sysprgBean;
@@ -34,18 +32,17 @@ public abstract class SuperMulti2Bean<T extends SuperEntity, D1 extends SuperDet
 
     protected String persistenceUnitName;
     protected String appDataPath;
-    protected String appImgPath;
+    protected String appResPath;
     protected SystemGrantPrg currentPrgGrant;
+
+    protected Map<String, Object> openOptions;
+    protected Map<String, List<String>> openParams;
 
     /**
      * @param entityClass
-     * @param detailClass
-     * @param detailClass2
      */
-    public SuperMulti2Bean(Class<T> entityClass, Class<D1> detailClass, Class<D2> detailClass2) {
+    public FormSingleBean(Class<T> entityClass) {
         this.entityClass = entityClass;
-        this.detailClass = detailClass;
-        this.detailClass2 = detailClass2;
     }
 
     @Override
@@ -62,12 +59,12 @@ public abstract class SuperMulti2Bean<T extends SuperEntity, D1 extends SuperDet
     public void construct() {
         fc = FacesContext.getCurrentInstance();
         ec = fc.getExternalContext();
-        appDataPath = ec.getRealPath("/") + ec.getInitParameter("cn.hanbell.eap.web.appdatapath");
-        appImgPath = ec.getRealPath("/") + ec.getInitParameter("cn.hanbell.eap.web.appimgpath");
-        reportPath = ec.getRealPath("/") + ec.getInitParameter("cn.hanbell.eap.web.reportpath");
-        reportOutputFormat = ec.getInitParameter("cn.hanbell.eap.web.reportoutputformat");
-        reportOutputPath = ec.getRealPath("/") + ec.getInitParameter("cn.hanbell.eap.web.reportoutputpath");
-        reportViewContext = ec.getInitParameter("cn.hanbell.eap.web.reportviewcontext");
+        appDataPath = ec.getRealPath("/") + ec.getInitParameter("cn.hanbell.web.appdatapath");
+        appResPath = ec.getRealPath("/") + ec.getInitParameter("cn.hanbell.web.apprespath");
+        reportPath = ec.getRealPath("/") + ec.getInitParameter("cn.hanbell.web.reportpath");
+        reportOutputFormat = ec.getInitParameter("cn.hanbell.web.reportoutputformat");
+        reportOutputPath = ec.getRealPath("/") + ec.getInitParameter("cn.hanbell.web.reportoutputpath");
+        reportViewContext = ec.getInitParameter("cn.hanbell.web.reportviewcontext");
         int beginIndex = fc.getViewRoot().getViewId().lastIndexOf("/") + 1;
         int endIndex = fc.getViewRoot().getViewId().lastIndexOf(".");
         if (userManagedBean.getSystemGrantPrgList() != null && !userManagedBean.getSystemGrantPrgList().isEmpty()) {
@@ -95,13 +92,29 @@ public abstract class SuperMulti2Bean<T extends SuperEntity, D1 extends SuperDet
     }
 
     @Override
+    protected boolean doBeforePersist() throws Exception {
+        if (this.newEntity != null && this.getCurrentPrgGrant() != null) {
+            if (this.getCurrentPrgGrant().getSysprg().getNoauto()) {
+                String formid = this.superEJB.getFormId(newEntity.getFormdate(), this.getCurrentPrgGrant().getSysprg().getNolead(), this.getCurrentPrgGrant().getSysprg().getNoformat(), this.getCurrentPrgGrant().getSysprg().getNoseqlen());
+                this.newEntity.setFormid(formid);
+            }
+            return true;
+        }
+        return false;
+    }
+
+    @Override
     public String getAppDataPath() {
         return this.appDataPath;
     }
 
     @Override
     public String getAppImgPath() {
-        return this.appImgPath;
+        return this.appResPath;
+    }
+
+    public String getAppResPath() {
+        return this.appResPath;
     }
 
     @Override
@@ -118,7 +131,7 @@ public abstract class SuperMulti2Bean<T extends SuperEntity, D1 extends SuperDet
         //设置报表参数
         HashMap<String, Object> reportParams = new HashMap<>();
         reportParams.put("id", currentEntity.getId());
-        reportParams.put("pid", currentEntity.getId());
+        reportParams.put("formid", currentEntity.getFormid());
         reportParams.put("JNDIName", this.currentPrgGrant.getSysprg().getRptjndi());
         //设置报表名称
         String reportFormat;
@@ -128,8 +141,8 @@ public abstract class SuperMulti2Bean<T extends SuperEntity, D1 extends SuperDet
             reportFormat = reportOutputFormat;
         }
         String reportName = reportPath + this.currentPrgGrant.getSysprg().getRptdesign();
-        String outputName = reportOutputPath + currentEntity.getId() + "." + reportFormat;
-        this.reportViewPath = reportViewContext + currentEntity.getId() + "." + reportFormat;
+        String outputName = reportOutputPath + currentEntity.getFormid() + "." + reportFormat;
+        this.reportViewPath = reportViewContext + currentEntity.getFormid() + "." + reportFormat;
         try {
             if (this.currentPrgGrant != null && this.currentPrgGrant.getSysprg().getRptclazz() != null) {
                 reportClassLoader = Class.forName(this.currentPrgGrant.getSysprg().getRptclazz()).getClassLoader();
@@ -184,12 +197,21 @@ public abstract class SuperMulti2Bean<T extends SuperEntity, D1 extends SuperDet
         }
     }
 
+    public String update(String path) {
+        try {
+            update();
+            return path;
+        } catch (Exception e) {
+            return "";
+        }
+    }
+
     @Override
     public void unverify() {
         if (null != getCurrentEntity()) {
             try {
                 if (doBeforeUnverify()) {
-                    currentEntity.setStatus("N");
+                    currentEntity.setStatus("N");//简化查询条件,此处不再提供修改状态(M)
                     currentEntity.setOptuser(getUserManagedBean().getCurrentUser().getUsername());
                     currentEntity.setOptdateToNow();
                     currentEntity.setCfmuser(null);
@@ -198,10 +220,10 @@ public abstract class SuperMulti2Bean<T extends SuperEntity, D1 extends SuperDet
                     doAfterUnverify();
                     showInfoMsg("Info", "更新成功");
                 } else {
-                    showWarnMsg("Warn", "还原前检查失败");
+                    showErrorMsg("Error", "还原前检查失败");
                 }
             } catch (Exception ex) {
-                showErrorMsg("Error", ex.toString());
+                showErrorMsg("Error", ex.getMessage());
             }
         } else {
             showWarnMsg("Warn", "没有可更新数据");
@@ -220,10 +242,10 @@ public abstract class SuperMulti2Bean<T extends SuperEntity, D1 extends SuperDet
                     doAfterVerify();
                     showInfoMsg("Info", "更新成功");
                 } else {
-                    showWarnMsg("Warn", "审核前检查失败");
+                    showErrorMsg("Error", "审核前检查失败");
                 }
             } catch (Exception ex) {
-                showErrorMsg("Error", ex.toString());
+                showErrorMsg("Error", ex.getMessage());
             }
         } else {
             showWarnMsg("Warn", "没有可更新数据");

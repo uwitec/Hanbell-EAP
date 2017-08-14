@@ -53,13 +53,14 @@ public abstract class SuperSingleBean<T extends SuperEntity> extends SuperSingle
 
     @Override
     public void construct() {
-        FacesContext fc = FacesContext.getCurrentInstance();
-        appDataPath = fc.getExternalContext().getRealPath("/") + fc.getExternalContext().getInitParameter("cn.hanbell.eap.web.appdatapath");
-        appImgPath = fc.getExternalContext().getRealPath("/") + fc.getExternalContext().getInitParameter("cn.hanbell.eap.web.appimgpath");
-        reportPath = fc.getExternalContext().getRealPath("/") + fc.getExternalContext().getInitParameter("cn.hanbell.eap.web.reportpath");
-        reportOutputFormat = fc.getExternalContext().getInitParameter("cn.hanbell.eap.web.reportoutputformat");
-        reportOutputPath = fc.getExternalContext().getRealPath("/") + fc.getExternalContext().getInitParameter("cn.hanbell.eap.web.reportoutputpath");
-        reportViewContext = fc.getExternalContext().getInitParameter("cn.hanbell.eap.web.reportviewcontext");
+        fc = FacesContext.getCurrentInstance();
+        ec = fc.getExternalContext();
+        appDataPath = ec.getRealPath("/") + ec.getInitParameter("cn.hanbell.eap.web.appdatapath");
+        appImgPath = ec.getRealPath("/") + ec.getInitParameter("cn.hanbell.eap.web.appimgpath");
+        reportPath = ec.getRealPath("/") + ec.getInitParameter("cn.hanbell.eap.web.reportpath");
+        reportOutputFormat = ec.getInitParameter("cn.hanbell.eap.web.reportoutputformat");
+        reportOutputPath = ec.getRealPath("/") + ec.getInitParameter("cn.hanbell.eap.web.reportoutputpath");
+        reportViewContext = ec.getInitParameter("cn.hanbell.eap.web.reportviewcontext");
         int beginIndex = fc.getViewRoot().getViewId().lastIndexOf("/") + 1;
         int endIndex = fc.getViewRoot().getViewId().lastIndexOf(".");
         if (userManagedBean.getSystemGrantPrgList() != null && !userManagedBean.getSystemGrantPrgList().isEmpty()) {
@@ -104,13 +105,13 @@ public abstract class SuperSingleBean<T extends SuperEntity> extends SuperSingle
     @Override
     public void print() throws Exception {
         if (currentEntity == null) {
-            showMsg(FacesMessage.SEVERITY_WARN, "Warn", "没有可打印数据");
+            showWarnMsg("Warn", "没有可打印数据");
             return;
         }
         //设置报表参数
-        HashMap<String, Object> params = new HashMap<>();
-        params.put("id", currentEntity.getId());
-        params.put("JNDIName", this.currentPrgGrant.getSysprg().getRptjndi());
+        HashMap<String, Object> reportParams = new HashMap<>();
+        reportParams.put("id", currentEntity.getId());
+        reportParams.put("JNDIName", this.currentPrgGrant.getSysprg().getRptjndi());
         //设置报表名称
         String reportFormat;
         if (this.currentPrgGrant.getSysprg().getRptformat() != null) {
@@ -128,7 +129,7 @@ public abstract class SuperSingleBean<T extends SuperEntity> extends SuperSingle
             //初始配置
             this.reportInitAndConfig();
             //生成报表
-            this.reportRunAndOutput(reportName, params, outputName, reportFormat, null);
+            this.reportRunAndOutput(reportName, reportParams, outputName, reportFormat, null);
             //预览报表
             this.preview();
         } catch (Exception ex) {
@@ -196,15 +197,15 @@ public abstract class SuperSingleBean<T extends SuperEntity> extends SuperSingle
                     currentEntity.setCfmdate(null);
                     superEJB.unverify(currentEntity);
                     doAfterUnverify();
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "更新成功!"));
+                    showInfoMsg("Info", "更新成功!");
                 } else {
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "还原前检查失败!"));
+                    showWarnMsg("Warn", "还原前检查失败!");
                 }
-            } catch (Exception e) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, e.getMessage()));
+            } catch (Exception ex) {
+                showErrorMsg("Error", ex.getMessage());
             }
         } else {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "没有可更新数据!"));
+            showWarnMsg("Warn", "没有可更新数据!");
         }
     }
 
@@ -218,15 +219,15 @@ public abstract class SuperSingleBean<T extends SuperEntity> extends SuperSingle
                     currentEntity.setCfmdateToNow();
                     superEJB.verify(currentEntity);
                     doAfterVerify();
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "更新成功!"));
+                    showInfoMsg("Info", "更新成功!");
                 } else {
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "审核前检查失败!"));
+                    showWarnMsg("Warn", "审核前检查失败!");
                 }
-            } catch (Exception e) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, e.getMessage()));
+            } catch (Exception ex) {
+                showErrorMsg("Error", ex.getMessage());
             }
         } else {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "没有可更新数据!"));
+            showWarnMsg("Warn", "没有可更新数据!");
         }
     }
 

@@ -57,13 +57,14 @@ public abstract class SuperMultiBean<T extends SuperEntity, D1 extends SuperDeta
 
     @Override
     public void construct() {
-        FacesContext fc = FacesContext.getCurrentInstance();
-        appDataPath = fc.getExternalContext().getRealPath("/") + fc.getExternalContext().getInitParameter("cn.hanbell.eap.web.appdatapath");
-        appImgPath = fc.getExternalContext().getRealPath("/") + fc.getExternalContext().getInitParameter("cn.hanbell.eap.web.appimgpath");
-        reportPath = fc.getExternalContext().getRealPath("/") + fc.getExternalContext().getInitParameter("cn.hanbell.eap.web.reportpath");
-        reportOutputFormat = fc.getExternalContext().getInitParameter("cn.hanbell.eap.web.reportoutputformat");
-        reportOutputPath = fc.getExternalContext().getRealPath("/") + fc.getExternalContext().getInitParameter("cn.hanbell.eap.web.reportoutputpath");
-        reportViewContext = fc.getExternalContext().getInitParameter("cn.hanbell.eap.web.reportviewcontext");
+        fc = FacesContext.getCurrentInstance();
+        ec = fc.getExternalContext();
+        appDataPath = ec.getRealPath("/") + ec.getInitParameter("cn.hanbell.eap.web.appdatapath");
+        appImgPath = ec.getRealPath("/") + ec.getInitParameter("cn.hanbell.eap.web.appimgpath");
+        reportPath = ec.getRealPath("/") + ec.getInitParameter("cn.hanbell.eap.web.reportpath");
+        reportOutputFormat = ec.getInitParameter("cn.hanbell.eap.web.reportoutputformat");
+        reportOutputPath = ec.getRealPath("/") + ec.getInitParameter("cn.hanbell.eap.web.reportoutputpath");
+        reportViewContext = ec.getInitParameter("cn.hanbell.eap.web.reportviewcontext");
         int beginIndex = fc.getViewRoot().getViewId().lastIndexOf("/") + 1;
         int endIndex = fc.getViewRoot().getViewId().lastIndexOf(".");
         if (userManagedBean.getSystemGrantPrgList() != null && !userManagedBean.getSystemGrantPrgList().isEmpty()) {
@@ -114,14 +115,14 @@ public abstract class SuperMultiBean<T extends SuperEntity, D1 extends SuperDeta
     @Override
     public void print() throws Exception {
         if (currentEntity == null) {
-            showMsg(FacesMessage.SEVERITY_WARN, "Warn", "没有可打印数据");
+            showWarnMsg("Warn", "没有可打印数据");
             return;
         }
         //设置报表参数
-        HashMap<String, Object> params = new HashMap<>();
-        params.put("id", currentEntity.getId());
-        params.put("pid", currentEntity.getId());
-        params.put("JNDIName", this.currentPrgGrant.getSysprg().getRptjndi());
+        HashMap<String, Object> reportParams = new HashMap<>();
+        reportParams.put("id", currentEntity.getId());
+        reportParams.put("pid", currentEntity.getId());
+        reportParams.put("JNDIName", this.currentPrgGrant.getSysprg().getRptjndi());
         //设置报表名称
         String reportFormat;
         if (this.currentPrgGrant.getSysprg().getRptformat() != null) {
@@ -139,7 +140,7 @@ public abstract class SuperMultiBean<T extends SuperEntity, D1 extends SuperDeta
             //初始配置
             this.reportInitAndConfig();
             //生成报表
-            this.reportRunAndOutput(reportName, params, outputName, reportFormat, null);
+            this.reportRunAndOutput(reportName, reportParams, outputName, reportFormat, null);
             //预览报表
             this.preview();
         } catch (Exception ex) {
