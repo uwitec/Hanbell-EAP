@@ -78,6 +78,9 @@ public class HKGL038Detail implements Serializable {
     @Column(name = "cctime")
     private String cctime;
     @Size(max = 255)
+    @Column(name = "hctime")
+    private String hctime;
+    @Size(max = 255)
     @Column(name = "formSerialNumber")
     private String formSerialNumber;
 
@@ -176,6 +179,15 @@ public class HKGL038Detail implements Serializable {
         this.cctime = cctime;
     }
 
+    
+    public String getHctime() {
+        return hctime;
+    }
+
+    public void setHctime(String hctime) {
+        this.hctime = hctime;
+    }
+    
     public String getFormSerialNumber() {
         return formSerialNumber;
     }
@@ -208,5 +220,5 @@ public class HKGL038Detail implements Serializable {
     public String toString() {
         return "cn.hanbell.oa.comm.HKGL038Detail[ oid=" + oid + " ]";
     }
-    
+
 }
