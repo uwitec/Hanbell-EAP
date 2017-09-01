@@ -934,7 +934,7 @@ public class Cdrcus implements Serializable {
 
     @Override
     public String toString() {
-        return "cn.hanbell.erp.entity.Cdrcus[ cusno=" + cusno + " ]";
+        return cusno;
     }
 
 }
