@@ -109,7 +109,7 @@ public class CdrbrhadBean extends SuperEJBForERP<Cdrbrhad> {
             cdrbrhad.setCdrbrhadPK(pk);
             cdrbrhad.setCdrobtype(cdrobty);
             cdrbrhad.setCusno(h.getCusno());
-            cdrbrhad.setBrdate(BaseLib.getDate("yyyy/MM/dd", h.getBrdate()));
+            cdrbrhad.setBrdate(date);
             cdrbrhad.setDepno(h.getDepno());
             cdrbrhad.setHmark01(h.getHmark01());
             cdrbrhad.setUserno(h.getUserno());

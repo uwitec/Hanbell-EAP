@@ -32,11 +32,11 @@
                     <path-in-war>/</path-in-war>
                 </library>
                 <library>
-                    <file>${reference.Hanbell-JRS.dist-ear}</file>
+                    <file>${reference.Hanbell-JWS.dist-ear}</file>
                     <path-in-war>/</path-in-war>
                 </library>
                 <library>
-                    <file>${reference.Hanbell-JWS.dist-ear}</file>
+                    <file>${reference.Hanbell-JRS.dist-ear}</file>
                     <path-in-war>/</path-in-war>
                 </library>
                 <library>
@@ -49,6 +49,10 @@
                 </library>
                 <library>
                     <file>${reference.EAM-ejb.dist-ear}</file>
+                    <path-in-war>/</path-in-war>
+                </library>
+                <library>
+                    <file>${reference.Hanbell-war.dist-ear}</file>
                     <path-in-war>/</path-in-war>
                 </library>
             </web-module-additional-libraries>
@@ -128,6 +132,14 @@
             </reference>
             <reference>
                 <foreign-project>Hanbell-RPT</foreign-project>
+                <artifact-type>j2ee_ear_archive</artifact-type>
+                <script>build.xml</script>
+                <target>dist-ear</target>
+                <clean-target>clean-ear</clean-target>
+                <id>dist-ear</id>
+            </reference>
+            <reference>
+                <foreign-project>Hanbell-war</foreign-project>
                 <artifact-type>j2ee_ear_archive</artifact-type>
                 <script>build.xml</script>
                 <target>dist-ear</target>

@@ -57,13 +57,14 @@ public abstract class SuperQueryBean<T extends BaseEntity> extends SuperSingleMa
     @Override
     public void construct() {
         //不需要进行操作权限设置
-        FacesContext fc = FacesContext.getCurrentInstance();
-        appDataPath = fc.getExternalContext().getRealPath("/") + fc.getExternalContext().getInitParameter("cn.hanbell.eap.web.appdatapath");
-        appImgPath = fc.getExternalContext().getRealPath("/") + fc.getExternalContext().getInitParameter("cn.hanbell.eap.web.appimgpath");
-        reportPath = fc.getExternalContext().getRealPath("/") + fc.getExternalContext().getInitParameter("cn.hanbell.eap.web.reportpath");
-        reportOutputFormat = fc.getExternalContext().getInitParameter("cn.hanbell.eap.web.reportoutputformat");
-        reportOutputPath = fc.getExternalContext().getRealPath("/") + fc.getExternalContext().getInitParameter("cn.hanbell.eap.web.reportoutputpath");
-        reportViewContext = fc.getExternalContext().getInitParameter("cn.hanbell.eap.web.reportviewcontext");
+        fc = FacesContext.getCurrentInstance();
+        ec = fc.getExternalContext();
+        appDataPath = ec.getRealPath("/") + ec.getInitParameter("cn.hanbell.eap.web.appdatapath");
+        appImgPath = ec.getRealPath("/") + ec.getInitParameter("cn.hanbell.eap.web.appimgpath");
+        reportPath = ec.getRealPath("/") + ec.getInitParameter("cn.hanbell.eap.web.reportpath");
+        reportOutputFormat = ec.getInitParameter("cn.hanbell.eap.web.reportoutputformat");
+        reportOutputPath = ec.getRealPath("/") + ec.getInitParameter("cn.hanbell.eap.web.reportoutputpath");
+        reportViewContext = ec.getInitParameter("cn.hanbell.eap.web.reportviewcontext");
         int beginIndex = fc.getViewRoot().getViewId().lastIndexOf("/") + 1;
         int endIndex = fc.getViewRoot().getViewId().lastIndexOf(".");
         if (userManagedBean.getSystemGrantPrgList() != null && !userManagedBean.getSystemGrantPrgList().isEmpty()) {

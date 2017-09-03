@@ -59,7 +59,7 @@ public class HKCG007Bean extends SuperEJBForEFGP<HKCG007> {
             HKCW002P pm = hkcw002pBean.findByPSN(psn);
 
             //判断是否已抛转
-            if (!"".equals(pm.getIfturn()) && pm.getIfturn() != null) {
+            if (pm.getIfturn() != null && !"".equals(pm.getIfturn())) {
                 return false;
             }
             purDetailList = hkcw002ppurdetalBean.findByFSN(pm.getFormSerialNumber());
@@ -133,7 +133,7 @@ public class HKCG007Bean extends SuperEJBForEFGP<HKCG007> {
                     m.setDeptPeriod(pm.getDeptperbal());
                     m.setDeptYear(pm.getDeptyearbal());
 
-                    m.setIsNine("0");
+                    m.setIsNine(pm.getProtype());
                     m.setYfPrice("N");
                     m.setBudgetcode(workFlowBean.getOrganizationUnit().getId());
                     m.setCfmuserno(workFlowBean.getOrganizationUnit().getManager().getId());
@@ -196,7 +196,7 @@ public class HKCG007Bean extends SuperEJBForEFGP<HKCG007> {
             }
             return true;
         } catch (Exception ex) {
-            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex.getMessage());
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
             return false;
         }
     }
@@ -375,7 +375,7 @@ public class HKCG007Bean extends SuperEJBForEFGP<HKCG007> {
             }
             return true;
         } catch (Exception ex) {
-            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex.getMessage());
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
             return false;
         }
     }
