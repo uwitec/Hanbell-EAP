@@ -408,6 +408,21 @@ public class EAPWebService {
         }
     }
 
+    @WebMethod(operationName = "rollbackCRMWARTBByOAWARMI05")
+    public String rollbackCRMWARTBByOAWARMI05(@WebParam(name = "psn") String psn) {
+        Boolean ret = false;
+        try {
+            ret = warmi05Bean.initWARTB(psn);
+        } catch (Exception ex) {
+            Logger.getLogger(SHBERPWebService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (ret) {
+            return "200";
+        } else {
+            return "404";
+        }
+    }
+    
     @WebMethod(operationName = "rollbackCRMPORMYByOAJZGHD")
     public String rollbackCRMPORMYByOAJZGHD(@WebParam(name = "psn") String psn) {
         Boolean ret = false;

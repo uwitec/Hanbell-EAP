@@ -104,5 +104,18 @@ public class WARMI05Bean extends SuperEJBForEFGP<WARMI05> {
         return true;
 
     }
+	public boolean initWARTB(String psn) {
+        WARMI05 w = findByPSN(psn);
+        if (w == null) {
+            throw new NullPointerException();
+        }
+        String ta001 = w.getTa001();
+        String ta002 = w.getTa002();
 
+        WARTA ta;
+        ta = wartaBean.findByPK(ta001, ta002);
+        ta.setTa200("0");
+        wartaBean.update(ta);
+        return true;
+        }
 }
