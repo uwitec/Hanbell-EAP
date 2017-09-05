@@ -79,6 +79,11 @@
             <redirect/>
         </navigation-case>
         <navigation-case>
+            <from-outcome>invmasimport</from-outcome>
+            <to-view-id>/app/erp/invmasimport.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
             <description>ERP权限查询</description>
             <from-outcome>secusergrant</from-outcome>
             <to-view-id>/app/erp/secusergrant.xhtml</to-view-id>
