@@ -133,7 +133,7 @@ public class HKCG007Bean extends SuperEJBForEFGP<HKCG007> {
                     m.setDeptPeriod(pm.getDeptperbal());
                     m.setDeptYear(pm.getDeptyearbal());
 
-                    m.setIsNine("0");
+                    m.setIsNine(pm.getProtype());
                     m.setYfPrice("N");
                     m.setBudgetcode(workFlowBean.getOrganizationUnit().getId());
                     m.setCfmuserno(workFlowBean.getOrganizationUnit().getManager().getId());

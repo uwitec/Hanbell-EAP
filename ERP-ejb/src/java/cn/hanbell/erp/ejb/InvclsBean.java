@@ -29,6 +29,14 @@ public class InvclsBean extends SuperEJBForERP<Invcls> {
         }
     }
 
-  
+    public String findPurtrtypeByItclscode(String value) {
+        Query query = getEntityManager().createNativeQuery("select purtrtype from purdou p ,invdou v where p.trtype = v.trtype and p.itclscode = ?1 and v.iocode='1'");
+        query.setParameter(1, value);
+        try {
+            return query.getSingleResult().toString();
+        } catch (Exception ex) {
+            return "";
+        }
+    }
 
 }

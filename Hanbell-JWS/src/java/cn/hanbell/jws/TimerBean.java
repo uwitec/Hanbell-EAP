@@ -281,6 +281,7 @@ public class TimerBean {
             String trno;
             String wareh;
             Date trdate;
+            Date indate;
             List<AssetDistributeDetail> addList;
             List<Invdta> addedDetail = new ArrayList();
 
@@ -293,6 +294,7 @@ public class TimerBean {
 
                 facno = e.getCompany();
                 trdate = e.getFormdate();
+                indate = BaseLib.getDate();
                 trno = "";
                 trseq = 0;
                 assetDistributeBean.setDetail(e.getFormid());
@@ -300,6 +302,10 @@ public class TimerBean {
                 if (addList != null && !addList.isEmpty()) {
                     addedDetail.clear();
                     try {
+                        //跨月单据使用当前日期
+                        if (trdate.getMonth() < indate.getMonth()) {
+                            trdate = BaseLib.getDate("yyyy-MM-dd", BaseLib.formatDate("yyyy-MM-dd", indate));
+                        }
                         for (AssetDistributeDetail d : addList) {
                             trseq++;
                             wareh = warehouseBean.findERPWarehouse(facno, d.getWarehouse().getId());
@@ -335,7 +341,7 @@ public class TimerBean {
                         invhad.setSourceno(e.getFormid());
                         invhad.setStatus('N');
                         invhad.setUserno("mis");
-                        invhad.setIndate(trdate);
+                        invhad.setIndate(indate);
                         //获取编号
                         trno = invhadBean.initINV310(invhad, addedDetail, true);
                         if (trno != null && !"".equals(trno)) {
@@ -424,11 +430,15 @@ public class TimerBean {
                         }
                         String msg = workFlowBean.invokeProcess(workFlowBean.hostAdd, workFlowBean.hostPort, "HZ_JS034", formInstance, subject);
                         String[] rm = msg.split("\\$");
+                        if (rm != null) {
+                            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, rm);
+                        }
                         if (rm.length == 2 && rm[0].equals("200")) {
                             //更新PLM状态
                             Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, rm[0]);
                             pm.setCTriggerYn('Y');
                             plmItnbrMasterTempBean.update(pm);
+                            plmItnbrMasterTempBean.getEntityManager().flush();
                         }
                     }
                 }

@@ -21,6 +21,7 @@ import cn.hanbell.oa.ejb.HKCG007Bean;
 import cn.hanbell.oa.ejb.HKCW002Bean;
 import cn.hanbell.oa.ejb.HKFW006Bean;
 import cn.hanbell.oa.ejb.HKGL038Bean;
+import cn.hanbell.oa.ejb.HKJH001Bean;
 import cn.hanbell.oa.ejb.HZCW028Bean;
 import cn.hanbell.oa.ejb.HZCW033Bean;
 import cn.hanbell.oa.ejb.HZJS034Bean;
@@ -88,6 +89,8 @@ public class EAPWebService {
     private HKGL038Bean hkgl038Bean;
     @EJB
     private HZJS034Bean hzjs034Bean;
+    @EJB
+    private HKJH001Bean hkjh001Bean;
     @EJB
     private SERI12Bean seri12Bean;
     @EJB
@@ -408,6 +411,21 @@ public class EAPWebService {
         }
     }
 
+    @WebMethod(operationName = "rollbackCRMWARTBByOAWARMI05")
+    public String rollbackCRMWARTBByOAWARMI05(@WebParam(name = "psn") String psn) {
+        Boolean ret = false;
+        try {
+            ret = warmi05Bean.initWARTB(psn);
+        } catch (Exception ex) {
+            Logger.getLogger(SHBERPWebService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (ret) {
+            return "200";
+        } else {
+            return "404";
+        }
+    }
+    
     @WebMethod(operationName = "rollbackCRMPORMYByOAJZGHD")
     public String rollbackCRMPORMYByOAJZGHD(@WebParam(name = "psn") String psn) {
         Boolean ret = false;
@@ -513,6 +531,20 @@ public class EAPWebService {
         }
     }
 
+    @WebMethod(operationName = "updateOAHKJH001ByOAHKJH001")
+    public String updateOAHKJH001ByOAHKJH001(@WebParam(name = "psn") String psn) {
+        Boolean ret = false;
+        try {
+            ret = hkjh001Bean.updatehkjh001(psn);
+        } catch (Exception ex) {
+            Logger.getLogger(EAPWebService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (ret) {
+            return "200";
+        } else {
+            return "404";
+        }
+    }
     @WebMethod(operationName = "updateOAHKGL037ByOAHKGL038")
     public String updateOAHKGL037ByOAHKGL038(@WebParam(name = "psn") String psn) {
         Boolean ret = false;

@@ -197,7 +197,7 @@ public class InvmasBean extends SuperEJBForERP<Invmas> {
                         syncCQBean.persist(m, null);
                         syncCQBean.getEntityManager().flush();
                     }
-                } 
+                }
 
             }
             return true;
@@ -292,7 +292,6 @@ public class InvmasBean extends SuperEJBForERP<Invmas> {
 
                     syncCQBean.persist(m, null);
                     syncCQBean.getEntityManager().flush();
-
                 }
             }
 
