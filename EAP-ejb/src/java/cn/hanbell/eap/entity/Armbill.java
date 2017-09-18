@@ -67,15 +67,20 @@ public class Armbill extends FormEntity {
     @Size(min = 1, max = 100)
     @Column(name = "customer")
     private String customer;
+    @Size(max = 20)
+    @Column(name = "tel")
+    private String tel;
+    @Size(max = 20)
+    @Column(name = "fax")
+    private String fax;
+    @Size(max = 45)
+    @Column(name = "contacter")
+    private String contacter;
     @Size(max = 200)
     @Column(name = "remark")
     private String remark;
 
     public Armbill() {
-    }
-
-    public Armbill(Integer id) {
-        this.id = id;
     }
 
     public Armbill(Integer id, String company, String formid, Date formdate, String customerno, String customer, String status) {
@@ -86,14 +91,6 @@ public class Armbill extends FormEntity {
         this.customerno = customerno;
         this.customer = customer;
         this.status = status;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getCompany() {
@@ -168,68 +165,56 @@ public class Armbill extends FormEntity {
         this.customer = customer;
     }
 
+    /**
+     * @return the tel
+     */
+    public String getTel() {
+        return tel;
+    }
+
+    /**
+     * @param tel the tel to set
+     */
+    public void setTel(String tel) {
+        this.tel = tel;
+    }
+
+    /**
+     * @return the fax
+     */
+    public String getFax() {
+        return fax;
+    }
+
+    /**
+     * @param fax the fax to set
+     */
+    public void setFax(String fax) {
+        this.fax = fax;
+    }
+
+    /**
+     * @return the contacter
+     */
+    public String getContacter() {
+        return contacter;
+    }
+
+    /**
+     * @param contacter the contacter to set
+     */
+    public void setContacter(String contacter) {
+        this.contacter = contacter;
+    }
+
+ 
+
     public String getRemark() {
         return remark;
     }
 
     public void setRemark(String remark) {
         this.remark = remark;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getCreator() {
-        return creator;
-    }
-
-    public void setCreator(String creator) {
-        this.creator = creator;
-    }
-
-    public Date getCredate() {
-        return credate;
-    }
-
-    public void setCredate(Date credate) {
-        this.credate = credate;
-    }
-
-    public String getOptuser() {
-        return optuser;
-    }
-
-    public void setOptuser(String optuser) {
-        this.optuser = optuser;
-    }
-
-    public Date getOptdate() {
-        return optdate;
-    }
-
-    public void setOptdate(Date optdate) {
-        this.optdate = optdate;
-    }
-
-    public String getCfmuser() {
-        return cfmuser;
-    }
-
-    public void setCfmuser(String cfmuser) {
-        this.cfmuser = cfmuser;
-    }
-
-    public Date getCfmdate() {
-        return cfmdate;
-    }
-
-    public void setCfmdate(Date cfmdate) {
-        this.cfmdate = cfmdate;
     }
 
     @Override
