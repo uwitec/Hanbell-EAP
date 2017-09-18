@@ -5,22 +5,18 @@
  */
 package cn.hanbell.oa.jrs;
 
-import cn.hanbell.oa.model.LeaveApplication;
-import cn.hanbell.jrs.ResponseMessage;
-import cn.hanbell.jrs.SuperREST;
+import cn.hanbell.jrs.SuperRESTForEFGP;
+import cn.hanbell.oa.comm.SuperEJBForEFGP;
 import cn.hanbell.oa.ejb.UsersBean;
-import cn.hanbell.oa.ejb.WorkFlowBean;
 import cn.hanbell.oa.entity.Users;
 import cn.hanbell.util.BaseLib;
-import cn.hanbell.util.SuperEJB;
 import javax.inject.Inject;
-import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
-import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.PathSegment;
 import javax.ws.rs.core.Response;
 
 /**
@@ -29,13 +25,13 @@ import javax.ws.rs.core.Response;
  */
 @Path("efgp/users")
 @javax.enterprise.context.RequestScoped
-public class UsersFacadeREST extends SuperREST<Users> {
+public class UsersFacadeREST extends SuperRESTForEFGP<Users> {
 
     @Inject
     private UsersBean usersBean;
 
     @Override
-    protected SuperEJB getSuperEJB() {
+    protected SuperEJBForEFGP getSuperEJB() {
         return usersBean;
     }
 
@@ -60,6 +56,22 @@ public class UsersFacadeREST extends SuperREST<Users> {
             throw new WebApplicationException(Response.Status.NOT_FOUND);
         }
         throw new WebApplicationException(Response.Status.NOT_FOUND);
+    }
+
+    @Override
+    public Users findById(PathSegment id, String appid, String token) {
+        if (isAuthorized(appid, token)) {
+            try {
+                workFlowBean.initUserInfo(id.getPath());
+                Users u = workFlowBean.getCurrentUser();
+                u.setCompany(workFlowBean.getCompanyByDeptId(u.getDeptno()));
+                return u;
+            } catch (Exception ex) {
+                throw new WebApplicationException(Response.Status.NOT_FOUND);
+            }
+        } else {
+            throw new WebApplicationException(Response.Status.UNAUTHORIZED);
+        }
     }
 
 }

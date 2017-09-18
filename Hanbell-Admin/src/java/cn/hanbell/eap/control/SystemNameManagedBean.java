@@ -9,6 +9,7 @@ import cn.hanbell.eap.ejb.SystemNameBean;
 import cn.hanbell.eap.entity.SystemName;
 import cn.hanbell.eap.lazy.SystemNameModel;
 import cn.hanbell.eap.web.SuperSingleBean;
+import com.lightshell.comm.BaseLib;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -35,6 +36,16 @@ public class SystemNameManagedBean extends SuperSingleBean<SystemName> {
     public void create() {
         super.create();
         newEntity.setSortid(1);
+    }
+
+    public void authorize() {
+        if (currentEntity == null) {
+            showErrorMsg("Error", "没有可操作数据");
+            return;
+        }
+        currentEntity.setAppid(String.valueOf(BaseLib.getDate().getTime()));
+        currentEntity.setToken(BaseLib.securityMD5(currentEntity.getName()));
+        showErrorMsg("Info", "请妥善保管密钥");
     }
 
     @Override

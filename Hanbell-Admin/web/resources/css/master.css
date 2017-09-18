@@ -89,7 +89,7 @@ button.inputWithButton{
 
 /*-------------------------------MainFrameStyle*/
 
-.tableList td,.plgHead td,.plgBase td,.plgDetail td,.plgQuery td{
+.tableList td,.plg td,.plgHead td,.plgBase td,.plgDetail td,.plgQuery td{
     height: 42px;
 }
 

@@ -23,27 +23,29 @@
                                      rendered="#{systemNameManagedBean.currentEntity.status!='V'}" update="toolbar"/>
                 </f:facet>
             </p:toolbar>
-            <p:panel id="panelHead">
-                <p:panelGrid id="plgHead" columns="2" columnClasses="Wid20,Wid80" styleClass="plgHead Wid100">
-                    <f:facet name="header">
-                        系统维护－查看
-                    </f:facet>
-                    <h:outputText value="名称"/>
-                    <h:outputText value="#{systemNameManagedBean.currentEntity.name}" title="Name"/>
-                    <h:outputText value="排序"/>
-                    <h:outputText value="#{systemNameManagedBean.currentEntity.sortid}" title="Sortid"/>
-                    <h:outputText value="备注"/>
-                    <h:outputText value="#{systemNameManagedBean.currentEntity.descript}" title="Descript"/>
-                    <h:outputText value="状态"/>
-                    <h:outputText value="#{systemNameManagedBean.currentEntity.status}" title="Status"/>
-                    <h:outputText value="创建人员"/>
-                    <h:outputText value="#{systemNameManagedBean.currentEntity.creator}" title="Creator"/>
-                    <h:outputText value="创建日期"/>
-                    <h:outputText value="#{systemNameManagedBean.currentEntity.credate}" title="Credate">
-                        <f:convertDateTime pattern="yyyy/MM/dd HH:mm:ss" />
-                    </h:outputText>
-                </p:panelGrid>
-            </p:panel>
+            <p:panelGrid id="plgHead" columns="2" columnClasses="Wid20,Wid80" styleClass="plgHead Wid100">
+                <f:facet name="header">
+                    系统维护－查看
+                </f:facet>
+                <h:outputText value="名称"/>
+                <h:outputText value="#{systemNameManagedBean.currentEntity.name}" title="Name"/>
+                <h:outputText value="排序"/>
+                <h:outputText value="#{systemNameManagedBean.currentEntity.sortid}" title="Sortid"/>
+                <h:outputText value="AppId"/>
+                <h:outputText id="appid" value="#{systemNameManagedBean.currentEntity.appid}" title="appid" />
+                <h:outputText value="Token"/>
+                <h:outputText id="token" value="#{systemNameManagedBean.currentEntity.token}" title="token"/>
+                <h:outputText value="备注"/>
+                <h:outputText value="#{systemNameManagedBean.currentEntity.descript}" title="Descript"/>
+                <h:outputText value="状态"/>
+                <h:outputText value="#{systemNameManagedBean.currentEntity.status}" title="Status"/>
+                <h:outputText value="创建人员"/>
+                <h:outputText value="#{systemNameManagedBean.currentEntity.creator}" title="Creator"/>
+                <h:outputText value="创建日期"/>
+                <h:outputText value="#{systemNameManagedBean.currentEntity.credate}" title="Credate">
+                    <f:convertDateTime pattern="yyyy/MM/dd HH:mm:ss" />
+                </h:outputText>
+            </p:panelGrid>
         </h:form>
 
     </ui:define>

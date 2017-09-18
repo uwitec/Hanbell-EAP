@@ -12,6 +12,12 @@
             <p:toolbar id="toolbar" styleClass="topToolbar">
                 <f:facet name="left">
                     <p:button id="btnReturn" value="返回" outcome="billprint" icon="ui-icon-restore"/>
+                    <p:commandButton id="btnPrev" value="向前" actionListener="#{billPrintManagedBean.toPrev()}" icon="ui-icon-carat-1-w"
+                                     process="@this" update="formOne"
+                                     rendered="#{billPrintManagedBean.hasPrev}"/>
+                    <p:commandButton id="btnNext" value="向后" actionListener="#{billPrintManagedBean.toNext()}" icon="ui-icon-carat-1-e"
+                                     process="@this" update="formOne"
+                                     rendered="#{billPrintManagedBean.hasNext}"/>
                 </f:facet>
                 <f:facet name="right">
                     <p:commandButton id="btnSave" value="保存" actionListener="#{billPrintManagedBean.update()}" icon="ui-icon-save"
@@ -45,10 +51,18 @@
                     <p:column>
                         <p:inputText id="remark" value="#{billPrintManagedBean.currentEntity.remark}" title="Remark" />
                     </p:column>
+                    <p:column><p:outputLabel value="联系人" for="contacter"/></p:column>
+                    <p:column>
+                        <p:inputText id="contacter" value="#{billPrintManagedBean.currentEntity.contacter}" title="contacter" />
+                    </p:column>
+                </p:row>
+                <p:row>
                     <p:column><h:outputText value="状态"/></p:column>
                     <p:column>
                         <h:outputText id="status" value="#{billPrintManagedBean.currentEntity.status}" title="Status" />
                     </p:column>
+                    <p:column></p:column>
+                    <p:column></p:column>
                 </p:row>
             </p:panelGrid>
             <p:tabView id="tabView" styleClass="tabView">
@@ -72,13 +86,32 @@
                         <p:row>
                             <p:column><h:outputText value="发票编号" /></p:column>
                             <p:column>
-                                <h:outputText id="assetno" value="#{billPrintManagedBean.currentDetail.billno}" title="billno" />
+                                <h:outputText id="billno" value="#{billPrintManagedBean.currentDetail.billno}" title="billno" />
                             </p:column>
                             <p:column><h:outputText value="发票日期"/></p:column>
                             <p:column>
-                                <h:outputText id="assetDesc" value="#{billPrintManagedBean.currentDetail.billdate}" title="billdate" >
+                                <h:outputText id="billdate" value="#{billPrintManagedBean.currentDetail.billdate}" title="billdate" >
                                     <f:convertDateTime pattern="yyyy/MM/dd"/>
                                 </h:outputText>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column><h:outputText value="发票金额" /></p:column>
+                            <p:column>
+                                <h:outputText id="extaxes" value="#{billPrintManagedBean.currentDetail.extaxes}" title="extaxes" />
+                            </p:column>
+                            <p:column><h:outputText value="发票税额"/></p:column>
+                            <p:column>
+                                <h:outputText id="taxes" value="#{billPrintManagedBean.currentDetail.taxes}" title="taxes" />
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column><p:outputLabel value="发票总额" for="amts" /></p:column>
+                            <p:column>
+                                <p:inputText id="amts" value="#{billPrintManagedBean.currentDetail.amts}" title="amts" />
+                            </p:column>
+                            <p:column></p:column>
+                            <p:column>
                             </p:column>
                         </p:row>
                     </p:panelGrid>
