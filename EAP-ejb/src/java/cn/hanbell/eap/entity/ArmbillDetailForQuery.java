@@ -5,12 +5,14 @@
  */
 package cn.hanbell.eap.entity;
 
-import com.lightshell.comm.FormDetailEntity;
+import com.lightshell.comm.BaseEntity;
 import java.math.BigDecimal;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -28,10 +30,18 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "armbilldetail")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "ArmbillDetail.findAll", query = "SELECT a FROM ArmbillDetail a"),
-    @NamedQuery(name = "ArmbillDetail.findById", query = "SELECT a FROM ArmbillDetail a WHERE a.id = :id"),
-    @NamedQuery(name = "ArmbillDetail.findByPId", query = "SELECT a FROM ArmbillDetail a WHERE a.pid = :pid ORDER BY a.seq")})
-public class ArmbillDetail extends FormDetailEntity {
+    @NamedQuery(name = "ArmbillDetailForQuery.findAll", query = "SELECT a FROM ArmbillDetailForQuery a"),
+    @NamedQuery(name = "ArmbillDetailForQuery.findById", query = "SELECT a FROM ArmbillDetailForQuery a WHERE a.id = :id"),
+    @NamedQuery(name = "ArmbillDetailForQuery.findByPId", query = "SELECT a FROM ArmbillDetailForQuery a WHERE a.armbill.formid = :pid ORDER BY a.seq")})
+public class ArmbillDetailForQuery extends BaseEntity {
+
+    @JoinColumn(name = "pid", referencedColumnName = "formid")
+    @ManyToOne
+    private Armbill armbill;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "seq")
+    private int seq;
 
     @Basic(optional = false)
     @NotNull
@@ -51,22 +61,10 @@ public class ArmbillDetail extends FormDetailEntity {
     @Column(name = "amts")
     private BigDecimal amts;
 
-    public ArmbillDetail() {
+    public ArmbillDetailForQuery() {
         this.extaxes = BigDecimal.ZERO;
         this.taxes = BigDecimal.ZERO;
         this.amts = BigDecimal.ZERO;
-    }
-
-    public ArmbillDetail(Integer id) {
-        this.id = id;
-    }
-
-    public ArmbillDetail(Integer id, String pid, int seq, String billno, BigDecimal amts) {
-        this.id = id;
-        this.pid = pid;
-        this.seq = seq;
-        this.billno = billno;
-        this.amts = amts;
     }
 
     public int getSeq() {
@@ -133,10 +131,10 @@ public class ArmbillDetail extends FormDetailEntity {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof ArmbillDetail)) {
+        if (!(object instanceof ArmbillDetailForQuery)) {
             return false;
         }
-        ArmbillDetail other = (ArmbillDetail) object;
+        ArmbillDetailForQuery other = (ArmbillDetailForQuery) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -146,6 +144,20 @@ public class ArmbillDetail extends FormDetailEntity {
     @Override
     public String toString() {
         return "cn.hanbell.eap.entity.ArmbillDetail[ id=" + id + " ]";
+    }
+
+    /**
+     * @return the armbill
+     */
+    public Armbill getArmbill() {
+        return armbill;
+    }
+
+    /**
+     * @param armbill the armbill to set
+     */
+    public void setArmbill(Armbill armbill) {
+        this.armbill = armbill;
     }
 
 }
