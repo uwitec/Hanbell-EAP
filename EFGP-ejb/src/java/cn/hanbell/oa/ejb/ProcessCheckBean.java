@@ -27,7 +27,7 @@ public class ProcessCheckBean extends SuperEJBForEFGP<ProcessCheck> {
 
     public List<ProcessCheck> findByPSN(String serialNumber) {
         StringBuilder sb = new StringBuilder();
-        sb.append("Select ProcessInstance.serialNumber, ProcessInstance.currentState, Users.id ,Users.userName,WorkItem.workItemName, \n"
+        sb.append("Select ProcessInstance.serialNumber, WorkItem.currentState, Users.id ,Users.userName,WorkItem.workItemName, \n"
                 + "       dbo.WorkItem.createdTime, WorkItem.completedTime from ProcessInstance \n"
                 + "inner join WorkItem on WorkItem.contextOID=ProcessInstance.contextOID\n"
                 + "inner join Users on Users.OID =  WorkItem.performerOID \n"
@@ -37,7 +37,7 @@ public class ProcessCheckBean extends SuperEJBForEFGP<ProcessCheck> {
                 + "inner join ParticipantActivityInstance on ParticipantActivityInstance.contextOID=ProcessInstance.contextOID and WorkItem.containerOID=ParticipantActivityInstance.OID and ParticipantActivityInstance.definitionId=ActivityDefinition.id\n"
                 + "left join ReassignWorkItemAuditData on ReassignWorkItemAuditData.sourceOID = WorkItem.OID\n"
                 + "Where ProcessInstance.serialNumber = '" + serialNumber + "'");
-        sb.append(" UNION Select ProcessInstance.serialNumber, ProcessInstance.currentState, Users.id , Users.userName,WorkItem.workItemName,\n"
+        sb.append(" UNION Select ProcessInstance.serialNumber, WorkItem.currentState, Users.id , Users.userName,WorkItem.workItemName,\n"
                 + "        dbo.WorkItem.createdTime, WorkItem.completedTime from ProcessInstance \n"
                 + "inner join WorkItem on WorkItem.contextOID=ProcessInstance.contextOID\n"
                 + "inner join Users on Users.OID =  WorkItem.performerOID \n"
