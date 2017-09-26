@@ -3,25 +3,23 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cn.hanbell.oa.ejb;
+package cn.hanbell.eap.ejb;
 
-import cn.hanbell.oa.comm.SuperEJBForEFGP;
-import cn.hanbell.oa.entity.OrganizationUnit;
+import cn.hanbell.eap.comm.SuperEJBForEAP;
+import cn.hanbell.eap.entity.ArmbillDetailForQuery;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
-import javax.inject.Named;
 
 /**
  *
  * @author C0160
  */
-@Named
 @Stateless
 @LocalBean
-public class OrganizationUnitBean extends SuperEJBForEFGP<OrganizationUnit> {
+public class ArmbillDetailForQueryBean extends SuperEJBForEAP<ArmbillDetailForQuery> {
 
-    public OrganizationUnitBean() {
-        super(OrganizationUnit.class);
+    public ArmbillDetailForQueryBean() {
+        super(ArmbillDetailForQuery.class);
     }
 
 }

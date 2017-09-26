@@ -5,17 +5,18 @@
  */
 package cn.hanbell.eap.ejb;
 
-
 import cn.hanbell.eap.comm.SuperEJBForEAP;
 import cn.hanbell.eap.entity.Company;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
+import javax.inject.Named;
 import javax.persistence.Query;
 
 /**
  *
  * @author C0160
  */
+@Named
 @Stateless
 @LocalBean
 public class CompanyBean extends SuperEJBForEAP<Company> {

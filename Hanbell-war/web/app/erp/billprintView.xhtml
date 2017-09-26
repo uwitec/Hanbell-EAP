@@ -67,12 +67,14 @@
                     </p:column>
                 </p:row>
                 <p:row>
+                    <p:column><h:outputText value="领取人"/></p:column>
+                    <p:column>
+                        <h:outputText id="creator" value="#{billPrintManagedBean.currentEntity.creator}" title="creator" />
+                    </p:column>
                     <p:column><h:outputText value="状态"/></p:column>
                     <p:column>
                         <h:outputText id="status" value="#{billPrintManagedBean.currentEntity.status}" title="Status" />
                     </p:column>
-                    <p:column></p:column>
-                    <p:column></p:column>
                 </p:row>
             </p:panelGrid>
             <p:tabView id="tabView" styleClass="tabView">

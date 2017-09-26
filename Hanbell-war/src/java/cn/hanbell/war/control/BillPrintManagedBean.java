@@ -34,9 +34,10 @@ public class BillPrintManagedBean extends FormMultiBean<Armbill, ArmbillDetail> 
 
     @EJB
     protected ArmbillDetailBean armbillDetailBean;
-
     @EJB
     protected ArmbillBean armbillBean;
+
+    private String queryCreator;
 
     /**
      * Creates a new instance of BillPrintManagedBean
@@ -54,20 +55,22 @@ public class BillPrintManagedBean extends FormMultiBean<Armbill, ArmbillDetail> 
 
     @Override
     public void init() {
+        queryCreator = userManagedBean.getCurrentUser().getUsername();
         superEJB = armbillBean;
         detailEJB = armbillDetailBean;
         model = new ArmbillModel(armbillBean, userManagedBean.getCompany());
         model.getFilterFields().put("status", "N");
+        model.getFilterFields().put("creator", getQueryCreator());
         model.getSortFields().put("status", "ASC");
         model.getSortFields().put("formid", "DESC");
         super.init();
     }
 
-    public void print(String design) throws Exception {
+    public void print(String rptdesign) throws Exception {
         if (currentPrgGrant == null || entityList == null || entityList.isEmpty()) {
             return;
         }
-        String reportName, outputName;
+        String reportName, outputName, reportFormat;
         //设置报表名称
         reportName = reportPath + currentPrgGrant.getSysprg().getRptdesign();
         //设置导出文件名称
@@ -123,6 +126,9 @@ public class BillPrintManagedBean extends FormMultiBean<Armbill, ArmbillDetail> 
             if (queryDateEnd != null) {
                 this.model.getFilterFields().put("formdateEnd", queryDateEnd);
             }
+            if (getQueryCreator() != null && !"".equals(queryCreator)) {
+                this.model.getFilterFields().put("creator", getQueryCreator());
+            }
             if (queryState != null && !"ALL".equals(queryState)) {
                 this.model.getFilterFields().put("status", queryState);
             }
@@ -132,7 +138,24 @@ public class BillPrintManagedBean extends FormMultiBean<Armbill, ArmbillDetail> 
     @Override
     public void reset() {
         super.reset();
+        queryCreator = userManagedBean.getCurrentUser().getUsername();
         model.getFilterFields().put("status", "N");
+        model.getFilterFields().put("creator", getQueryCreator());
+    }
+
+    /**
+     * @return the queryCreator
+     */
+    public String getQueryCreator() {
+        return queryCreator;
+    }
+
+
+    /**
+     * @param queryCreator the queryCreator to set
+     */
+    public void setQueryCreator(String queryCreator) {
+        this.queryCreator = queryCreator;
     }
 
 }

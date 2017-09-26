@@ -327,7 +327,6 @@ public class InvhadBean extends SuperEJBForERP<Invhad> {
                 invtrn.setItclscode(invdta.getItclscode());
                 invtrn.setIndate(indate);
                 invtrn.setCfmdate(indate);
-
                 //加入库存出入新增列表
                 addedDetail.add(invdta);
                 //加入交易历史新增列表
