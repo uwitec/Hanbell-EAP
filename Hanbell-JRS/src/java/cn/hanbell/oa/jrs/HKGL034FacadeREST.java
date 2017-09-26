@@ -5,13 +5,16 @@
  */
 package cn.hanbell.oa.jrs;
 
+import cn.hanbell.oa.app.OvertimeApplication;
 import cn.hanbell.jrs.ResponseMessage;
 import cn.hanbell.jrs.SuperRESTForEFGP;
+import cn.hanbell.oa.app.MCHKGL034;
 import cn.hanbell.oa.comm.SuperEJBForEFGP;
 import cn.hanbell.oa.ejb.HKGL034Bean;
 import cn.hanbell.oa.entity.HKGL034;
 import cn.hanbell.oa.model.HKGL034DetailModel;
 import cn.hanbell.oa.model.HKGL034Model;
+import cn.hanbell.oa.app.OvertimeApplicationDetail;
 import cn.hanbell.util.BaseLib;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -146,6 +149,7 @@ public class HKGL034FacadeREST extends SuperRESTForEFGP<HKGL034> {
                 m.setFacno(entity.getHead().getCompany());
                 m.setHdnFacno(m.getFacno());
                 int seq = 0;
+                for (cn.hanbell.oa.app.MCHKGL034Detail oad : entity.getBody()) {
                     seq++;
                     d = new HKGL034DetailModel();
                     d.setSeq(String.valueOf(seq));
