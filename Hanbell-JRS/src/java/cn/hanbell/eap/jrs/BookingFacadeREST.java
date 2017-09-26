@@ -36,6 +36,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 /**
@@ -66,10 +67,8 @@ public class BookingFacadeREST extends SuperRESTForEAP<Booking> {
         return bookingBean;
     }
 
-    @POST
-    @Consumes({MediaType.APPLICATION_JSON})
-    @Produces({MediaType.APPLICATION_JSON})
-    public ResponseMessage create(Booking entity) {
+    @Override
+    public ResponseMessage create(Booking entity, @QueryParam("appid") String appid, @QueryParam("token") String token) {
         SystemProgram p = systemProgramBean.findBySystemAndAPI("EAP", "booking");
         String formid = bookingBean.getFormId(BaseLib.getDate(), p.getNolead(), p.getNoformat(), p.getNoseqlen());
         entity.setFormid(formid);

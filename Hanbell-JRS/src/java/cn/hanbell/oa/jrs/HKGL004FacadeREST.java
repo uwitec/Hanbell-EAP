@@ -5,7 +5,6 @@
  */
 package cn.hanbell.oa.jrs;
 
-import cn.hanbell.oa.model.LeaveApplication;
 import cn.hanbell.jrs.ResponseMessage;
 import cn.hanbell.jrs.SuperREST;
 import cn.hanbell.oa.ejb.HKGL004Bean;

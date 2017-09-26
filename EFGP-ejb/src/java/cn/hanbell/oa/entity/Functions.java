@@ -38,6 +38,10 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Functions.findByIsMain", query = "SELECT f FROM Functions f WHERE f.isMain = :isMain")})
 public class Functions implements Serializable {
 
+    @JoinColumn(name = "occupantOID", referencedColumnName = "OID", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private Users users;
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -164,6 +168,20 @@ public class Functions implements Serializable {
     @Override
     public String toString() {
         return "cn.hanbell.oa.entity.Functions[ oid=" + oid + " ]";
+    }
+
+    /**
+     * @return the users
+     */
+    public Users getUsers() {
+        return users;
+    }
+
+    /**
+     * @param users the users to set
+     */
+    public void setUsers(Users users) {
+        this.users = users;
     }
 
 }

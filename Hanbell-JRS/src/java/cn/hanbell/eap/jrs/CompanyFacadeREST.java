@@ -5,10 +5,11 @@
  */
 package cn.hanbell.eap.jrs;
 
-import cn.hanbell.eap.ejb.BookingKindBean;
-import cn.hanbell.eap.entity.BookingKind;
+import cn.hanbell.eap.ejb.CompanyBean;
+import cn.hanbell.eap.entity.Company;
 import cn.hanbell.jrs.SuperRESTForEAP;
 import com.lightshell.comm.SuperEJB;
+import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.ws.rs.Path;
 
@@ -16,20 +17,20 @@ import javax.ws.rs.Path;
  *
  * @author C0160
  */
-@Path("eap/bookingkind")
+@Path("eap/company")
 @javax.enterprise.context.RequestScoped
-public class BookingKindFacadeREST extends SuperRESTForEAP<BookingKind> {
+public class CompanyFacadeREST extends SuperRESTForEAP<Company> {
 
-    @Inject
-    private BookingKindBean bookingKindBean;
+    @EJB
+    private CompanyBean companyBean;
 
-    public BookingKindFacadeREST() {
-        super(BookingKind.class);
+    public CompanyFacadeREST() {
+        super(Company.class);
     }
 
     @Override
     protected SuperEJB getSuperEJB() {
-        return bookingKindBean;
+        return companyBean;
     }
 
 }
