@@ -219,86 +219,95 @@ public class InvmasBean extends SuperEJBForERP<Invmas> {
             for (int i = 0; i < details.size(); i++) {
 
                 SHBERPINV140Detail detail = details.get(i);
-
-                this.setCompany(h.getFacno1());
-                Invmas m = findByItnbr(detail.getItnbr());
-                m.setItcls(detail.getItcls());                                  //设置品号大类
-                m.setItdsc(detail.getItdsc());                                  //设置中文品名
-                m.setSpdsc(detail.getSpdsc());                                  //设置中文规格
-                m.setEitdsc(detail.getEitdsc());                                //设置英文品名
-                m.setEspdsc(detail.getEspdsc());                                //设置英文规格
-                m.setSitdsc(detail.getSitdsc());                                //设置品号简名
-                m.setUnmsr1(detail.getUnmsr1());                                //设置单位一
-                m.setUnmsr2(detail.getUnmsr2());                                //设置单位二
-                m.setMorpcode(detail.getMorpcode());                            //设置自制采购码
-                m.setFvco(detail.getFvco().charAt(0));                          //设置换算率属性
-                if (detail.getRate2().length() > 0) {
-                    m.setRate2(BigDecimal.valueOf(Double.parseDouble(detail.getRate2())));      //设置换算率
-                } else {
-                    m.setRate2(null);
-                }
-                m.setItdsc2(detail.getItdsc2());
-                m.setSpdsc2(detail.getSpdsc2());
-                m.setIndate(BaseLib.getDate());
-                m.setUserno(h.getApplyuser());
-                this.getEntityManager().detach(m);
-                invclsBean.setCompany(h.getFacno2());
-                Invcls c = invclsBean.findByItcls(detail.getItcls());
-                m.setInvcls(c);
-                m.setItclscode(c.getItclscode());
-                setCompany(h.getFacno2());
-                persist(m);
-                this.getEntityManager().flush();
-
-                //同步MES资料
-                if (h.getFacno2().equals("C") || h.getFacno2().equals("K")) {
-                    Scminvmas scm = new Scminvmas();
-                    scm.setItnbr(detail.getItnbr());
-                    scm.setItdsc(detail.getItdsc());
-                    scm.setProducttype(detail.getProducttype());
-                    scm.setLevel1(detail.getLevel1());
-                    scm.setLevel2(detail.getLevel2());
-                    scm.setTracetype(detail.getTracetype());
-                    scm.setLotid(detail.getLotid());
-                    scm.setCompid(detail.getCompid());
-                    scm.setLno(detail.getLno());
-                    scm.setWno(detail.getWno());
-                    scm.setGetseq(detail.getGetseq());
-                    scm.setPrinttype(detail.getPrinttype());
-                    scm.setQcdata(detail.getQcdata());
-                    scm.setQcdatanum(detail.getQcdatanum());
-                    scm.setAsrstype(detail.getAsrstype());
-                    scm.setSelfprint(detail.getSelfprint());
-                    scm.setTransflag("N");
-                    scm.setTranstime(BaseLib.getDate().toString());
-                    scm.setDeydetyn("N");
-                    scminvmasBean.setCompany(h.getFacno2());
-                    scminvmasBean.persist(scm);
-                }
-
-                //同步分公司
-                if (h.getFacno2().equals("C")) {
-                    if (c.getNrcode().equals('0')) {
-                        m.setDirrvyn('Y');
+                this.setCompany(h.getFacno2());
+                if (null == this.findByItnbr(detail.getItnbr())) {
+                    this.getEntityManager().flush();
+                    this.setCompany(h.getFacno1());
+                    Invmas m;
+                    if ("A".equals(h.getFacno1())) {
+                        m = findByItnbr(detail.getBitnbr());
+                    } else {
+                        m = findByItnbr(detail.getItnbr());
                     }
-                    syncNJBean.persist(m, null);
-                    syncNJBean.getEntityManager().flush();
+                    m.setItcls(detail.getItcls());                                  //设置品号大类
+                    m.setItdsc(detail.getItdsc());                                  //设置中文品名
+                    m.setSpdsc(detail.getSpdsc());                                  //设置中文规格
+                    m.setEitdsc(detail.getEitdsc());                                //设置英文品名
+                    m.setEspdsc(detail.getEspdsc());                                //设置英文规格
+                    m.setSitdsc(detail.getSitdsc());                                //设置品号简名
+                    m.setUnmsr1(detail.getUnmsr1());                                //设置单位一
+                    m.setUnmsr2(detail.getUnmsr2());                                //设置单位二
+                    m.setMorpcode(detail.getMorpcode());                            //设置自制采购码
+                    m.setFvco(detail.getFvco().charAt(0));                          //设置换算率属性
+                    if (detail.getRate2().length() > 0) {
+                        m.setRate2(BigDecimal.valueOf(Double.parseDouble(detail.getRate2())));      //设置换算率
+                    } else {
+                        m.setRate2(null);
+                    }
+                    m.setItdsc2(detail.getItdsc2());
+                    m.setSpdsc2(detail.getSpdsc2());
+                    m.setIndate(BaseLib.getDate());
+                    m.setUserno(h.getApplyuser());
+                    this.getEntityManager().detach(m);
+                    invclsBean.setCompany(h.getFacno2());
+                    Invcls c = invclsBean.findByItcls(detail.getItcls());
+                    m.setInvcls(c);
+                    m.setItclscode(c.getItclscode());
+                    setCompany(h.getFacno2());
+                    persist(m);
+                    this.getEntityManager().flush();
 
-                    syncGZBean.persist(m, null);
-                    syncGZBean.getEntityManager().flush();
+                    //同步MES资料
+                    if (h.getFacno2().equals("C") || h.getFacno2().equals("K")) {
+                        Scminvmas scm = new Scminvmas();
+                        scm.setItnbr(detail.getItnbr());
+                        scm.setItdsc(detail.getItdsc());
+                        scm.setProducttype(detail.getProducttype());
+                        scm.setLevel1(detail.getLevel1());
+                        scm.setLevel2(detail.getLevel2());
+                        scm.setTracetype(detail.getTracetype());
+                        scm.setLotid(detail.getLotid());
+                        scm.setCompid(detail.getCompid());
+                        scm.setLno(detail.getLno());
+                        scm.setWno(detail.getWno());
+                        scm.setGetseq(detail.getGetseq());
+                        scm.setPrinttype(detail.getPrinttype());
+                        scm.setQcdata(detail.getQcdata());
+                        scm.setQcdatanum(detail.getQcdatanum());
+                        scm.setAsrstype(detail.getAsrstype());
+                        scm.setSelfprint(detail.getSelfprint());
+                        scm.setTransflag("N");
+                        scm.setTranstime(BaseLib.getDate().toString());
+                        scm.setDeydetyn("N");
+                        scminvmasBean.setCompany(h.getFacno2());
+                        scminvmasBean.persist(scm);
+                    }
 
-                    syncJNBean.persist(m, null);
-                    syncJNBean.getEntityManager().flush();
+                    //同步分公司
+                    if (h.getFacno2().equals("C")) {
+                        if (c.getNrcode().equals('0')) {
+                            m.setDirrvyn('Y');
+                        }
+                        syncNJBean.persist(m, null);
+                        syncNJBean.getEntityManager().flush();
 
-                    syncCQBean.persist(m, null);
-                    syncCQBean.getEntityManager().flush();
+                        syncGZBean.persist(m, null);
+                        syncGZBean.getEntityManager().flush();
+
+                        syncJNBean.persist(m, null);
+                        syncJNBean.getEntityManager().flush();
+
+                        syncCQBean.persist(m, null);
+                        syncCQBean.getEntityManager().flush();
+                    }
                 }
+
             }
 
             return true;
         } catch (Exception ex) {
             Logger.getLogger(InvmasBean.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
+            throw new RuntimeException(ex);
         }
     }
 
