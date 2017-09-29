@@ -73,6 +73,85 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "HKJH001.findByFpperson", query = "SELECT h FROM HKJH001 h WHERE h.fpperson = :fpperson")})
 public class HKJH001 implements Serializable {
 
+    @Size(max = 255)
+    @Column(name = "tp")
+    private String tp;
+    @Size(max = 255)
+    @Column(name = "tpaddress")
+    private String tpaddress;
+    @Size(max = 255)
+    @Column(name = "tpmail")
+    private String tpmail;
+    @Size(max = 255)
+    @Column(name = "tpbankno")
+    private String tpbankno;
+    @Size(max = 255)
+    @Column(name = "tpphone")
+    private String tpphone;
+    @Size(max = 255)
+    @Column(name = "tpbank")
+    private String tpbank;
+    @Size(max = 255)
+    @Column(name = "tpperson")
+    private String tpperson;
+    @Size(max = 255)
+    @Column(name = "warrantydate")
+    private String warrantydate;
+    @Size(max = 255)
+    @Column(name = "ffpmail")
+    private String ffpmail;
+    @Size(max = 255)
+    @Column(name = "ffp")
+    private String ffp;
+    @Size(max = 255)
+    @Column(name = "ffpperson")
+    private String ffpperson;
+    @Size(max = 255)
+    @Column(name = "ffpbankno")
+    private String ffpbankno;
+    @Size(max = 255)
+    @Column(name = "ifpay")
+    private String ifpay;
+    @Size(max = 255)
+    @Column(name = "ffpaddress")
+    private String ffpaddress;
+    @Size(max = 255)
+    @Column(name = "ffpbank")
+    private String ffpbank;
+    @Size(max = 255)
+    @Column(name = "ffpphone")
+    private String ffpphone;
+    @Size(max = 255)
+    @Column(name = "warrantyyear")
+    private String warrantyyear;
+    @Size(max = 255)
+    @Column(name = "anyone")
+    private String anyone;
+    @Size(max = 255)
+    @Column(name = "person3")
+    private String person3;
+    @Size(max = 255)
+    @Column(name = "person4")
+    private String person4;
+    @Size(max = 255)
+    @Column(name = "person1")
+    private String person1;
+    @Size(max = 255)
+    @Column(name = "person2")
+    private String person2;
+    @Size(max = 255)
+    @Column(name = "code2")
+    private String code2;
+    @Size(max = 255)
+    @Column(name = "code1")
+    private String code1;
+    @Size(max = 255)
+    @Column(name = "code4")
+    private String code4;
+    @Size(max = 255)
+    @Column(name = "code3")
+    private String code3;
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -576,6 +655,214 @@ public class HKJH001 implements Serializable {
      */
     public void setKind3(String kind3) {
         this.kind3 = kind3;
+    }
+
+    public String getTp() {
+        return tp;
+    }
+
+    public void setTp(String tp) {
+        this.tp = tp;
+    }
+
+    public String getTpaddress() {
+        return tpaddress;
+    }
+
+    public void setTpaddress(String tpaddress) {
+        this.tpaddress = tpaddress;
+    }
+
+    public String getTpmail() {
+        return tpmail;
+    }
+
+    public void setTpmail(String tpmail) {
+        this.tpmail = tpmail;
+    }
+
+    public String getTpbankno() {
+        return tpbankno;
+    }
+
+    public void setTpbankno(String tpbankno) {
+        this.tpbankno = tpbankno;
+    }
+
+    public String getTpphone() {
+        return tpphone;
+    }
+
+    public void setTpphone(String tpphone) {
+        this.tpphone = tpphone;
+    }
+
+    public String getTpbank() {
+        return tpbank;
+    }
+
+    public void setTpbank(String tpbank) {
+        this.tpbank = tpbank;
+    }
+
+    public String getTpperson() {
+        return tpperson;
+    }
+
+    public void setTpperson(String tpperson) {
+        this.tpperson = tpperson;
+    }
+
+    public String getWarrantydate() {
+        return warrantydate;
+    }
+
+    public void setWarrantydate(String warrantydate) {
+        this.warrantydate = warrantydate;
+    }
+
+    public String getFfpmail() {
+        return ffpmail;
+    }
+
+    public void setFfpmail(String ffpmail) {
+        this.ffpmail = ffpmail;
+    }
+
+    public String getFfp() {
+        return ffp;
+    }
+
+    public void setFfp(String ffp) {
+        this.ffp = ffp;
+    }
+
+    public String getFfpperson() {
+        return ffpperson;
+    }
+
+    public void setFfpperson(String ffpperson) {
+        this.ffpperson = ffpperson;
+    }
+
+    public String getFfpbankno() {
+        return ffpbankno;
+    }
+
+    public void setFfpbankno(String ffpbankno) {
+        this.ffpbankno = ffpbankno;
+    }
+
+    public String getIfpay() {
+        return ifpay;
+    }
+
+    public void setIfpay(String ifpay) {
+        this.ifpay = ifpay;
+    }
+
+    public String getFfpaddress() {
+        return ffpaddress;
+    }
+
+    public void setFfpaddress(String ffpaddress) {
+        this.ffpaddress = ffpaddress;
+    }
+
+    public String getFfpbank() {
+        return ffpbank;
+    }
+
+    public void setFfpbank(String ffpbank) {
+        this.ffpbank = ffpbank;
+    }
+
+    public String getFfpphone() {
+        return ffpphone;
+    }
+
+    public void setFfpphone(String ffpphone) {
+        this.ffpphone = ffpphone;
+    }
+
+    public String getWarrantyyear() {
+        return warrantyyear;
+    }
+
+    public void setWarrantyyear(String warrantyyear) {
+        this.warrantyyear = warrantyyear;
+    }
+
+    public String getAnyone() {
+        return anyone;
+    }
+
+    public void setAnyone(String anyone) {
+        this.anyone = anyone;
+    }
+
+    public String getPerson3() {
+        return person3;
+    }
+
+    public void setPerson3(String person3) {
+        this.person3 = person3;
+    }
+
+    public String getPerson4() {
+        return person4;
+    }
+
+    public void setPerson4(String person4) {
+        this.person4 = person4;
+    }
+
+    public String getPerson1() {
+        return person1;
+    }
+
+    public void setPerson1(String person1) {
+        this.person1 = person1;
+    }
+
+    public String getPerson2() {
+        return person2;
+    }
+
+    public void setPerson2(String person2) {
+        this.person2 = person2;
+    }
+
+    public String getCode2() {
+        return code2;
+    }
+
+    public void setCode2(String code2) {
+        this.code2 = code2;
+    }
+
+    public String getCode1() {
+        return code1;
+    }
+
+    public void setCode1(String code1) {
+        this.code1 = code1;
+    }
+
+    public String getCode4() {
+        return code4;
+    }
+
+    public void setCode4(String code4) {
+        this.code4 = code4;
+    }
+
+    public String getCode3() {
+        return code3;
+    }
+
+    public void setCode3(String code3) {
+        this.code3 = code3;
     }
     
 }
