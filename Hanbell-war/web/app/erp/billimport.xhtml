@@ -98,7 +98,7 @@
                     <f:facet name="header">
                         <h:outputText value="金额"/>
                     </f:facet>
-                    <h:outputText value="#{item.accamt}"/>
+                    <h:outputText value="#{item.bilamt + item.biltax}"/>
                 </p:column>
             </p:dataTable>
             <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">

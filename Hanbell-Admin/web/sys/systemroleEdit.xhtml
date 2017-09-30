@@ -19,77 +19,75 @@
                                      process="@this,plgHead" update="formOne"/>
                 </f:facet>
             </p:toolbar>
-            <p:panel id="panelHead">
-                <p:panelGrid id="plgHead" columns="4" columnClasses="Wid20,Wid30,Wid20,Wid30" styleClass="plgHead Wid100">
-                    <f:facet name="header">
-                        角色群组－修改
-                    </f:facet>
-                    <p:column><p:outputLabel value="群组编号" for="roleno" /></p:column>
-                    <p:column>
-                        <p:inputText id="roleno" value="#{systemRoleManagedBean.currentEntity.roleno}" title="roleno"
-                                     required="true" requiredMessage="编号不能为空" disabled="#{systemRoleManagedBean.currentPrgGrant.sysprg.noauto}"/>
-                    </p:column>
-                    <p:column><p:outputLabel value="群组简称" for="rolename" /></p:column>
-                    <p:column>
-                        <p:inputText id="rolename" value="#{systemRoleManagedBean.currentEntity.rolename}" title="rolename"
-                                     required="true" requiredMessage="简称不能为空"/>
-                    </p:column>
-                </p:panelGrid>
-                <p:tabView id="tabView" styleClass="tabView">
-                    <p:tab title="群组人员">
-                        <p:toolbar id="detailToolbar" styleClass="detailToolbar">
-                            <f:facet name="left">
-                                <p:commandButton id="btnAddDetail" widgetVar="btnAddDetail" value="添加" actionListener="#{systemRoleManagedBean.createDetail()}" icon="ui-icon-plus"
-                                                 oncomplete="PF('btnAddDetail').disable();PF('btnDeleteDetail').disable();PF('btnSaveDetail').enable();"
-                                                 process="@this" update="formOne:tabView:plgDetail"/>
-                                <p:commandButton id="btnDeleteDetail" widgetVar="btnDeleteDetail" value="删除" actionListener="#{systemRoleManagedBean.deleteDetail()}" icon="ui-icon-trash"
-                                                 oncomplete="PF('btnAddDetail').enable();PF('btnDeleteDetail').disable();PF('btnSaveDetail').disable();"
-                                                 process="@this" update=":formOne:tabView:plgDetail,:formOne:tabView:tableList" />
-                            </f:facet>
-                            <f:facet name="right">
-                                <p:commandButton id="btnSaveDetail" widgetVar="btnSaveDetail" value="确定" actionListener="#{systemRoleManagedBean.doConfirmDetail()}" icon="ui-icon-check"
-                                                 onsuccess="PF('btnAddDetail').enable();PF('btnDeleteDetail').disable();PF('btnSaveDetail').disable();"
-                                                 process="@this,:formOne:tabView:plgDetail" update=":formOne:tabView:plgDetail,:formOne:tabView:tableList"/>
-                            </f:facet>
-                        </p:toolbar>
-                        <p:panelGrid id="plgDetail" columns="4" columnClasses="Wid20,Wid30,Wid20,Wid30" styleClass="plgDetail Wid100">
-                            <p:column><p:outputLabel value="群组成员" for="systemUser" /></p:column>
-                            <p:column>
-                                <p:inputText id="systemUser" value="#{systemRoleManagedBean.currentDetail.systemUser.username}" title="contacter" styleClass="inputWithButton"
-                                             required="true" requiredMessage="请输入群组成员"  readonly="true" />
-                                <p:commandButton id="btnSalesorderdetailSelect" actionListener="#{systemRoleManagedBean.openDialog('sysuserSelect')}" icon="ui-icon-search"
-                                                 process="@this" >
-                                    <p:ajax event="dialogReturn" listener="#{systemRoleManagedBean.handleDialogReturnWhenDetailEdit}"
-                                            process="@this" update="systemUser" />
-                                </p:commandButton>
-                            </p:column>
-                            <p:column></p:column>
-                            <p:column>
+            <p:panelGrid id="plgHead" columns="4" columnClasses="Wid20,Wid30,Wid20,Wid30" styleClass="plgHead Wid100">
+                <f:facet name="header">
+                    角色群组－修改
+                </f:facet>
+                <p:column><p:outputLabel value="群组编号" for="roleno" /></p:column>
+                <p:column>
+                    <p:inputText id="roleno" value="#{systemRoleManagedBean.currentEntity.roleno}" title="roleno"
+                                 required="true" requiredMessage="编号不能为空" disabled="#{systemRoleManagedBean.currentPrgGrant.sysprg.noauto}"/>
+                </p:column>
+                <p:column><p:outputLabel value="群组简称" for="rolename" /></p:column>
+                <p:column>
+                    <p:inputText id="rolename" value="#{systemRoleManagedBean.currentEntity.rolename}" title="rolename"
+                                 required="true" requiredMessage="简称不能为空"/>
+                </p:column>
+            </p:panelGrid>
+            <p:tabView id="tabView" styleClass="tabView">
+                <p:tab title="群组人员">
+                    <p:toolbar id="detailToolbar" styleClass="detailToolbar">
+                        <f:facet name="left">
+                            <p:commandButton id="btnAddDetail" widgetVar="btnAddDetail" value="添加" actionListener="#{systemRoleManagedBean.createDetail()}" icon="ui-icon-plus"
+                                             oncomplete="PF('btnAddDetail').disable();PF('btnDeleteDetail').disable();PF('btnSaveDetail').enable();"
+                                             process="@this" update="formOne:tabView:plgDetail"/>
+                            <p:commandButton id="btnDeleteDetail" widgetVar="btnDeleteDetail" value="删除" actionListener="#{systemRoleManagedBean.deleteDetail()}" icon="ui-icon-trash"
+                                             oncomplete="PF('btnAddDetail').enable();PF('btnDeleteDetail').disable();PF('btnSaveDetail').disable();"
+                                             process="@this" update=":formOne:tabView:plgDetail,:formOne:tabView:tableList" />
+                        </f:facet>
+                        <f:facet name="right">
+                            <p:commandButton id="btnSaveDetail" widgetVar="btnSaveDetail" value="确定" actionListener="#{systemRoleManagedBean.doConfirmDetail()}" icon="ui-icon-check"
+                                             onsuccess="PF('btnAddDetail').enable();PF('btnDeleteDetail').disable();PF('btnSaveDetail').disable();"
+                                             process="@this,:formOne:tabView:plgDetail" update=":formOne:tabView:plgDetail,:formOne:tabView:tableList"/>
+                        </f:facet>
+                    </p:toolbar>
+                    <p:panelGrid id="plgDetail" columns="4" columnClasses="Wid20,Wid30,Wid20,Wid30" styleClass="plgDetail Wid100">
+                        <p:column><p:outputLabel value="群组成员" for="systemUser" /></p:column>
+                        <p:column>
+                            <p:inputText id="systemUser" value="#{systemRoleManagedBean.currentDetail.systemUser.username}" title="contacter" styleClass="inputWithButton"
+                                         required="true" requiredMessage="请输入群组成员"  readonly="true" />
+                            <p:commandButton id="btnSalesorderdetailSelect" actionListener="#{systemRoleManagedBean.openDialog('sysuserSelect')}" icon="ui-icon-search"
+                                             process="@this" >
+                                <p:ajax event="dialogReturn" listener="#{systemRoleManagedBean.handleDialogReturnWhenDetailEdit}"
+                                        process="@this" update="systemUser" />
+                            </p:commandButton>
+                        </p:column>
+                        <p:column></p:column>
+                        <p:column>
 
-                            </p:column>
-                        </p:panelGrid>
-                        <p:dataTable id="tableList" value="#{systemRoleManagedBean.detailList}" var="item" styleClass="tableList Mtop10"
-                                     selectionMode="single" selection="#{systemRoleManagedBean.currentDetail}" rowKey="#{item.seq}" >
-                            <p:ajax event="rowSelect"  update=":formOne:tabView:plgDetail" oncomplete="PF('btnAddDetail').disable();PF('btnDeleteDetail').enable();PF('btnSaveDetail').enable();" />
-                            <p:ajax event="rowUnselect"  update=":formOne:tabView:plgDetail" oncomplete="" />
-                            <p:column headerText="账号" styleClass="Wid20">
-                                <h:outputText value="#{item.systemUser.userid}"/>
-                            </p:column>
-                            <p:column headerText="姓名" styleClass="Wid20">
-                                <h:outputText value="#{item.systemUser.username}"/>
-                            </p:column>
-                            <p:column headerText="上一次登录" styleClass="Wid20">
-                                <h:outputText value="#{item.systemUser.newestlogin}">
-                                    <f:convertDateTime pattern="yyyy-MM-dd"/>
-                                </h:outputText>
-                            </p:column>
-                            <p:column styleClass="Wid40">
+                        </p:column>
+                    </p:panelGrid>
+                    <p:dataTable id="tableList" value="#{systemRoleManagedBean.detailList}" var="item" styleClass="tableList Mtop10"
+                                 selectionMode="single" selection="#{systemRoleManagedBean.currentDetail}" rowKey="#{item.seq}" >
+                        <p:ajax event="rowSelect"  update=":formOne:tabView:plgDetail" oncomplete="PF('btnAddDetail').disable();PF('btnDeleteDetail').enable();PF('btnSaveDetail').enable();" />
+                        <p:ajax event="rowUnselect"  update=":formOne:tabView:plgDetail" oncomplete="" />
+                        <p:column headerText="账号" styleClass="Wid20">
+                            <h:outputText value="#{item.systemUser.userid}"/>
+                        </p:column>
+                        <p:column headerText="姓名" styleClass="Wid20">
+                            <h:outputText value="#{item.systemUser.username}"/>
+                        </p:column>
+                        <p:column headerText="上一次登录" styleClass="Wid20">
+                            <h:outputText value="#{item.systemUser.newestlogin}">
+                                <f:convertDateTime pattern="yyyy-MM-dd"/>
+                            </h:outputText>
+                        </p:column>
+                        <p:column styleClass="Wid40">
 
-                            </p:column>
-                        </p:dataTable>
-                    </p:tab>
-                </p:tabView>
-            </p:panel>
+                        </p:column>
+                    </p:dataTable>
+                </p:tab>
+            </p:tabView>
         </h:form>
 
     </ui:define>

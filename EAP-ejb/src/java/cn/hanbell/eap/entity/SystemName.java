@@ -27,6 +27,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "SystemName.findAll", query = "SELECT s FROM SystemName s ORDER BY s.sortid"),
     @NamedQuery(name = "SystemName.findById", query = "SELECT s FROM SystemName s WHERE s.id = :id"),
     @NamedQuery(name = "SystemName.findByName", query = "SELECT s FROM SystemName s WHERE s.name = :name"),
+    @NamedQuery(name = "SystemName.findByAppidAndToken", query = "SELECT s FROM SystemName s WHERE s.appid = :appid AND s.token =:token"),
     @NamedQuery(name = "SystemName.findByStatus", query = "SELECT s FROM SystemName s WHERE s.status = :status ORDER BY s.sortid")})
 public class SystemName extends SuperEntity {
 
@@ -42,27 +43,23 @@ public class SystemName extends SuperEntity {
     @Size(max = 50)
     @Column(name = "descript")
     private String descript;
+    @Size(max = 20)
+    @Column(name = "appid")
+    private String appid;
+    @Size(max = 32)
+    @Column(name = "token")
+    private String token;
+    @Size(max = 32)
+    @Column(name = "secret")
+    private String secret;
 
     public SystemName() {
     }
 
-    public SystemName(Integer id) {
-        this.id = id;
-    }
-
-    public SystemName(Integer id, String name, int sortid, String status) {
-        this.id = id;
+    public SystemName(String name, int sortid, String status) {
         this.name = name;
         this.sortid = sortid;
         this.status = status;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -87,6 +84,48 @@ public class SystemName extends SuperEntity {
 
     public void setDescript(String descript) {
         this.descript = descript;
+    }
+
+    /**
+     * @return the appid
+     */
+    public String getAppid() {
+        return appid;
+    }
+
+    /**
+     * @param appid the appid to set
+     */
+    public void setAppid(String appid) {
+        this.appid = appid;
+    }
+
+    /**
+     * @return the token
+     */
+    public String getToken() {
+        return token;
+    }
+
+    /**
+     * @param token the token to set
+     */
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    /**
+     * @return the secret
+     */
+    public String getSecret() {
+        return secret;
+    }
+
+    /**
+     * @param secret the secret to set
+     */
+    public void setSecret(String secret) {
+        this.secret = secret;
     }
 
     @Override
