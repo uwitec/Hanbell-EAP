@@ -297,24 +297,32 @@ public class InvmasBean extends SuperEJBForERP<Invmas> {
                     if (c.getNrcode().equals('0')) {
                         m.setDirrvyn('Y');
                     }
-                    syncNJBean.persist(m, null);
-                    syncNJBean.getEntityManager().flush();
 
-                    syncGZBean.persist(m, null);
-                    syncGZBean.getEntityManager().flush();
+                    //同步分公司
+                    if (h.getFacno2().equals("C")) {
+                        if (c.getNrcode().equals('0')) {
+                            m.setDirrvyn('Y');
+                        }
+                        syncNJBean.persist(m, null);
+                        syncNJBean.getEntityManager().flush();
 
-                    syncJNBean.persist(m, null);
-                    syncJNBean.getEntityManager().flush();
+                        syncGZBean.persist(m, null);
+                        syncGZBean.getEntityManager().flush();
 
-                    syncCQBean.persist(m, null);
-                    syncCQBean.getEntityManager().flush();
+                        syncJNBean.persist(m, null);
+                        syncJNBean.getEntityManager().flush();
+
+                        syncCQBean.persist(m, null);
+                        syncCQBean.getEntityManager().flush();
+                    }
                 }
+
             }
 
             return true;
         } catch (Exception ex) {
             Logger.getLogger(InvmasBean.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
+            throw new RuntimeException(ex);
         }
     }
 
