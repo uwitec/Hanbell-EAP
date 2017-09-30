@@ -83,7 +83,7 @@ public class HZCW028Bean extends SuperEJBForEFGP<HZCW028> {
                         String[] split = detail.getRemark().split(",");
                         for (String s : split) {
                             Pormy p = pormyBean.findByMY002(s);
-                            if (p != null && "".equals(p.getMy026())) {
+                            if (p != null && "".equals(p.getMy024())) {
                                 p.setMy012("3");
                                 p.setMy024(BaseLib.formatDate("yyyyMMdd", BaseLib.getDate()));
                                 pormyBean.update(p);
@@ -91,7 +91,7 @@ public class HZCW028Bean extends SuperEJBForEFGP<HZCW028> {
                         }
                     } else {
                         Pormy p = pormyBean.findByMY002(detail.getRemark());
-                        if (p != null && "".equals(p.getMy026())) {
+                        if (p != null && "".equals(p.getMy024())) {
                             p.setMy012("3");
                             p.setMy024(BaseLib.formatDate("yyyyMMdd", BaseLib.getDate()));
                             pormyBean.update(p);
