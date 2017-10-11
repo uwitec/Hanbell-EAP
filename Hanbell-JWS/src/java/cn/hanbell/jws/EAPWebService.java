@@ -143,42 +143,44 @@ public class EAPWebService {
             //表身循环
             for (int i = 0; i < details.size(); i++) {
                 HZJS034Detail detail = details.get(i);
-                WARMB m = new WARMB();
-                m.setCompany(h.getFacno());
-                m.setCreator(h.getEmpl());
-                m.setMb001(detail.getItnbr());                                  //设置件号
-                m.setMb008(detail.getItcls());                                  //设置品号大类
-                m.setMb002(detail.getItdsc());                                  //设置中文品名
-                m.setMb003(detail.getSpdsc());                                  //设置中文规格
-                m.setMb004(detail.getUnmsr1());                                 //设置单位一
-                m.setMb029(detail.getEitdsc());
-                m.setMb030(detail.getEspdsc());
-                if (null != detail.getMorpcode()) {
-                    switch (detail.getMorpcode()) {
-                        case "W":
-                            m.setMb010("M");
-                            break;
-                        case "H":
-                            m.setMb010("Y");
-                            break;
-                        case "A":
-                            m.setMb010("S");
-                            break;
-                        default:
-                            m.setMb010(detail.getMorpcode());                   //设置自制采购码
-                            break;
+                if (null == warmbBean.findByMB001(detail.getItnbr())) {
+                    WARMB m = new WARMB();
+                    m.setCompany(h.getFacno());
+                    m.setCreator(h.getEmpl());
+                    m.setMb001(detail.getItnbr());                                  //设置件号
+                    m.setMb008(detail.getItcls());                                  //设置品号大类
+                    m.setMb002(detail.getItdsc());                                  //设置中文品名
+                    m.setMb003(detail.getSpdsc());                                  //设置中文规格
+                    m.setMb004(detail.getUnmsr1());                                 //设置单位一
+                    m.setMb029(detail.getEitdsc());
+                    m.setMb030(detail.getEspdsc());
+                    if (null != detail.getMorpcode()) {
+                        switch (detail.getMorpcode()) {
+                            case "W":
+                                m.setMb010("M");
+                                break;
+                            case "H":
+                                m.setMb010("Y");
+                                break;
+                            case "A":
+                                m.setMb010("S");
+                                break;
+                            default:
+                                m.setMb010(detail.getMorpcode());                   //设置自制采购码
+                                break;
+                        }
                     }
+                    m.setMb028("Y");                                                //设置产品序号管理
+                    m.setMb050("Y");                                                //设置需核销
+                    invclswahBean.setCompany(h.getFacno());
+                    Invclswah invclswah = invclswahBean.findByInvclswahPK(h.getFacno(), "1", detail.getItcls());
+                    if (invclswah != null) {
+                        m.setMb011(invclswah.getDefwah());
+                    }
+                    m.setMb033(detail.getItnbr());
+                    m.setMb057(BaseLib.formatDate("yyyyMMdd", BaseLib.getDate()));  //设置生效日期日期
+                    warmbBean.persist(m);
                 }
-                m.setMb028("Y");                                                //设置产品序号管理
-                m.setMb050("Y");                                                //设置需核销
-                invclswahBean.setCompany(h.getFacno());
-                Invclswah invclswah = invclswahBean.findByInvclswahPK(h.getFacno(), "1", detail.getItcls());
-                if (invclswah != null) {
-                    m.setMb011(invclswah.getDefwah());
-                }
-                m.setMb033(detail.getItnbr());
-                m.setMb057(BaseLib.formatDate("yyyyMMdd", BaseLib.getDate()));  //设置生效日期日期
-                warmbBean.persist(m);
             }
             ret = true;
         } catch (Exception ex) {
