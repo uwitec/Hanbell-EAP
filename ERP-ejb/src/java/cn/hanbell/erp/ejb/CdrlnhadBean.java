@@ -140,7 +140,25 @@ public class CdrlnhadBean extends SuperEJBForERP<Cdrlnhad> {
                 cdrlndta.setBvarnr(e.getTa036());
                 cdrlndta.setAsrsQty(BigDecimal.ZERO);
                 cdrlndta.setAsrsSta(0);
-
+                //按ERP逻辑重新设置批号
+                switch (m.getInvcls().getNrcode()) {
+                    case '0':
+                        cdrlndta.setFixnr("");
+                        cdrlndta.setVarnr("");
+                        cdrlndta.setBfixnr("");
+                        cdrlndta.setBvarnr("");
+                        break;
+                    case '1':
+                        cdrlndta.setVarnr("");
+                        cdrlndta.setBvarnr("");
+                        break;
+                    case '2':
+                        cdrlndta.setFixnr("");
+                        cdrlndta.setBfixnr("");
+                        break;
+                    default:
+                        break;
+                }
                 addedDetail.add(cdrlndta);
             }
             cdrobdouBean.setCompany(facno);
