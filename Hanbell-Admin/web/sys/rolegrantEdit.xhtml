@@ -68,7 +68,7 @@
                                              converter="systemModuleConverter" required="true" requiredMessage="请选择模块.">
                                 <!-- TODO: update below reference to list of available items-->
                                 <f:selectItem itemLabel="Select One" itemValue="" />
-                                <f:selectItems value="#{roleGrantManagedBean.moduleList}" var="m" itemLabel="#{m.name}" itemValue="#{m}"/>
+                                <f:selectItems value="#{roleGrantManagedBean.moduleList}" var="m" itemLabel="#{m.sysname}-#{m.name}" itemValue="#{m}"/>
                             </p:selectOneMenu>
                         </p:column>
                         <p:column></p:column>

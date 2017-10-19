@@ -35,6 +35,8 @@ public class SystemProgramManagedBean extends SuperSingleBean<SystemProgram> {
     private List<SystemName> systemNameList;
     private List<SystemModule> systemModuleList;
 
+    private String querySystemName;
+
     public SystemProgramManagedBean() {
         super(SystemProgram.class);
     }
@@ -74,11 +76,17 @@ public class SystemProgramManagedBean extends SuperSingleBean<SystemProgram> {
     @Override
     public void query() {
         this.model.getFilterFields().clear();
+        if (this.queryFormId != null && !"".equals(this.queryFormId)) {
+            this.model.getFilterFields().put("api", this.queryFormId);
+        }
         if (this.queryName != null && !"".equals(this.queryName)) {
             this.model.getFilterFields().put("name", this.queryName);
         }
-        if (this.queryFormId != null && !"".equals(this.queryFormId)) {
-            this.model.getFilterFields().put("api", this.queryFormId);
+        if (this.querySystemName != null && !"".equals(this.querySystemName)) {
+            this.model.getFilterFields().put("sysname", this.querySystemName);
+        }
+        if (this.queryState != null && !"ALL".equals(this.queryState)) {
+            this.model.getFilterFields().put("status", this.queryState);
         }
     }
 
@@ -136,6 +144,20 @@ public class SystemProgramManagedBean extends SuperSingleBean<SystemProgram> {
      */
     public List<SystemModule> getSystemModuleList() {
         return systemModuleList;
+    }
+
+    /**
+     * @return the querySystemName
+     */
+    public String getQuerySystemName() {
+        return querySystemName;
+    }
+
+    /**
+     * @param querySystemName the querySystemName to set
+     */
+    public void setQuerySystemName(String querySystemName) {
+        this.querySystemName = querySystemName;
     }
 
 }
