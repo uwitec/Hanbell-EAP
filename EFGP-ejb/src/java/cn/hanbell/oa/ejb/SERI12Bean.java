@@ -54,6 +54,9 @@ public class SERI12Bean extends SuperEJBForEFGP<SERI12> {
         String BQ133;
         String BQ134;
         String BQ035;
+        //反写CRM结案人员和时间
+        String BQ037;
+        String BQ038;
         //List<Seri12> seri12 = findByFSN(h.getFormSerialNumber());
         BQ001 = h.getBq001();
         BQ035 = h.getBq035();
@@ -142,6 +145,8 @@ public class SERI12Bean extends SuperEJBForEFGP<SERI12> {
                     break;
             }
         }
+        BQ037 = h.getBq037();
+        BQ038 = h.getBq038();
         SERBQ BQ;
         BQ = serbqBean.findByBq001(BQ001);
         if (BQ == null) {
@@ -156,6 +161,8 @@ public class SERI12Bean extends SuperEJBForEFGP<SERI12> {
         BQ.setBq133(BQ133);
         BQ.setBq134(BQ134);
         BQ.setBq059("3");
+        BQ.setBq037(BQ037);
+        BQ.setBq038(BQ038);
 
         serbqBean.update(BQ);
 
