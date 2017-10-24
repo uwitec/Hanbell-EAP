@@ -13,7 +13,11 @@ import cn.hanbell.crm.entity.SERBRPK;
 import cn.hanbell.oa.comm.SuperEJBForEFGP;
 import cn.hanbell.oa.entity.SERI12;
 import cn.hanbell.oa.entity.SERI12grid1SERI12;
+import cn.hanbell.util.BaseLib;
+import java.text.ParseException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
@@ -38,8 +42,6 @@ public class SERI12Bean extends SuperEJBForEFGP<SERI12> {
     public SERI12Bean() {
         super(SERI12.class);
     }
-
-
 
     public boolean updateSerbq(String psn) {
         SERI12 h = findByPSN(psn);
@@ -161,19 +163,26 @@ public class SERI12Bean extends SuperEJBForEFGP<SERI12> {
         BQ.setBq133(BQ133);
         BQ.setBq134(BQ134);
         BQ.setBq059("3");
-        BQ.setBq037(BQ037);
+
+        String aa;
+        try {
+            aa = BaseLib.formatDate("yyyyMMdd", BaseLib.getDate("yyyy/MM/dd", BQ037));
+        } catch (ParseException ex) {
+            aa = "";
+        }
+        BQ.setBq037(aa);
         BQ.setBq038(BQ038);
 
         serbqBean.update(BQ);
 
         List<SERI12grid1SERI12> detail1 = seri12grid1seri12Bean.findByFSN(h.getFormSerialNumber());
-        for (int i = 1; (i-1) < detail1.size(); i++) {
+        for (int i = 1; (i - 1) < detail1.size(); i++) {
             SERBR BR;
             String a = "0001";
-            if (i< 10){
-            a = "000" + i;
-            }else{
-              a = "00" + i;  
+            if (i < 10) {
+                a = "000" + i;
+            } else {
+                a = "00" + i;
             }
             BR = serbrBean.findByPK(BQ001, a);
             BR.setBr007(BQ035);
