@@ -8,8 +8,12 @@ package cn.hanbell.jws;
 import cn.hanbell.crm.ejb.WARMBBean;
 import cn.hanbell.crm.entity.WARMB;
 import cn.hanbell.eam.ejb.AssetApplyBean;
+import cn.hanbell.eam.ejb.AssetCategoryBean;
+import cn.hanbell.eam.ejb.AssetItemBean;
 import cn.hanbell.eam.entity.AssetApply;
 import cn.hanbell.eam.entity.AssetApplyDetail;
+import cn.hanbell.eam.entity.AssetCategory;
+import cn.hanbell.eam.entity.AssetItem;
 import cn.hanbell.eap.ejb.DepartmentBean;
 import cn.hanbell.eap.ejb.SystemUserBean;
 import cn.hanbell.eap.entity.Department;
@@ -71,6 +75,10 @@ public class EAPWebService {
     //EJBForEAM
     @EJB
     private AssetApplyBean assetApplyBean;
+    @EJB
+    private AssetCategoryBean assetCategoryBean;
+    @EJB
+    private AssetItemBean assetItemBean;
 
     //EJBForEFGP
     @EJB
@@ -361,6 +369,55 @@ public class EAPWebService {
             }
         } catch (Exception ex) {
             Logger.getLogger(EAPWebService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (ret) {
+            return "200";
+        } else {
+            return "404";
+        }
+    }
+
+    @WebMethod(operationName = "createEAMAssetItemByOAJS034")
+    public String createEAMAssetItemByOAJS034(@WebParam(name = "psn") String psn) {
+        Boolean ret = false;
+        try {
+            HZJS034 h = hzjs034Bean.findByPSN(psn);
+            if (h == null) {
+                throw new NullPointerException();
+            }
+            if (!h.getGenre1().equals("ZC")) {
+                return "200";
+            }
+            hzjs034Bean.setDetail(h.getFormSerialNumber());
+            List<HZJS034Detail> details = hzjs034Bean.getDetailList();
+            AssetItem ai;
+            AssetCategory ac;
+            for (HZJS034Detail detail : details) {
+                if (detail.getItnbr().substring(0, 2).equals("B1")) {
+                    continue;
+                }
+                ai = assetItemBean.findByItemno(detail.getItnbr());
+                if (ai != null) {
+                    continue;
+                }
+                ac = assetCategoryBean.findByCategory(detail.getItcls());
+                if (ac == null) {
+                    continue;
+                }
+                ai = new AssetItem();
+                ai.setCategory(ac);
+                ai.setItemno(detail.getItnbr());
+                ai.setItemdesc(detail.getItdsc());
+                ai.setItemspec(detail.getSpdsc());
+                ai.setUnit(detail.getUnmsr1());
+                ai.setStatus("N");
+                ai.setCreator(h.getEmpl());
+                ai.setCredateToNow();
+                assetItemBean.persist(ai);
+            }
+            ret = true;
+        } catch (Exception ex) {
+            Logger.getLogger(SHBERPWebService.class.getName()).log(Level.SEVERE, null, ex);
         }
         if (ret) {
             return "200";

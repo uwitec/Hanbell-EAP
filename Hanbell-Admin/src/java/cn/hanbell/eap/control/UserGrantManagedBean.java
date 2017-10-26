@@ -353,6 +353,16 @@ public class UserGrantManagedBean extends SuperSingleBean<SystemUser> {
     }
 
     @Override
+    public void query() {
+        if (queryFormId != null && !"".equals(queryFormId)) {
+            model.getFilterFields().put("userid", queryFormId);
+        }
+        if (queryName != null && !"".equals(queryName)) {
+            model.getFilterFields().put("username", queryName);
+        }
+    }
+
+    @Override
     protected void setToolBar() {
         if (currentEntity != null && currentEntity.getStatus() != null) {
             switch (currentEntity.getStatus()) {
