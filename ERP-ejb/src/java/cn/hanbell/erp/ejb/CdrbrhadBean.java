@@ -10,8 +10,6 @@ import cn.hanbell.erp.entity.Cdrbrdta;
 import cn.hanbell.erp.entity.CdrbrdtaPK;
 import cn.hanbell.erp.entity.Cdrbrhad;
 import cn.hanbell.erp.entity.CdrbrhadPK;
-import cn.hanbell.erp.entity.Cdrlnhad;
-import cn.hanbell.erp.entity.Cdrobdou;
 import cn.hanbell.erp.entity.Invbal;
 import cn.hanbell.erp.entity.Invbat;
 import cn.hanbell.erp.entity.Invmas;
@@ -145,17 +143,37 @@ public class CdrbrhadBean extends SuperEJBForERP<Cdrbrhad> {
                 cdrbrdta.setPyhbrdate(BaseLib.getDate("yyyy/MM/dd", detail.getPrebkdate()));
                 cdrbrdta.setProno(h.getProno());
                 cdrbrdta.setAsrsSta(0);
+                cdrbrdta.setDmark1(detail.getDmark1());
                 cdrbrdta.setDmark2(detail.getDmark2());
-                cdrbrdtaBean.setCompany(facno);
-                cdrbrdtaBean.persist(cdrbrdta);
-
-                //更新ERP invbat/invbal
                 Invmas m = invmasBean.findByItnbr(cdrbrdta.getItnbr());
                 if (m == null) {
                     throw new RuntimeException(cdrbrdta.getItnbr() + "ERP中不存在");
                 }
-                invbal = new Invbal(facno, prono, cdrbrdta.getItnbr(), "JCZC");
+                 //按ERP逻辑重新设置批号
+                switch (m.getInvcls().getNrcode()) {
+                    case '0':
+                        cdrbrdta.setFixnr("");
+                        cdrbrdta.setVarnr("");
+                        cdrbrdta.setDmark1("");
+                        cdrbrdta.setDmark2("");
+                        break;
+                    case '1':
+                        cdrbrdta.setVarnr("");
+                        cdrbrdta.setDmark2("");
+                        break;
+                    case '2':
+                        cdrbrdta.setFixnr("");
+                        cdrbrdta.setDmark1("");
+                        break;
+                    default:
+                        break;
+                }
+                
+                cdrbrdtaBean.setCompany(facno);
+                cdrbrdtaBean.persist(cdrbrdta);
 
+                //更新ERP invbat/invbal   
+                invbal = new Invbal(facno, prono, cdrbrdta.getItnbr(), "JCZC");
                 invbal.setItcls(m.getItcls());
                 invbal.setItclscode(m.getItclscode());
                 invbal.setPreqy1(cdrbrdta.getBrpqy1());
