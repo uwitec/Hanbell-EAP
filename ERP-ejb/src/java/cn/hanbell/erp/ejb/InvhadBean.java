@@ -156,6 +156,21 @@ public class InvhadBean extends SuperEJBForERP<Invhad> {
                 invdta.setWareh(detail.getWareh());
                 invdta.setIocode('1');
                 invdta.setVarnr(detail.getVarnr());
+                //按ERP逻辑重新设置批号
+                switch (m.getInvcls().getNrcode()) {
+                    case '0':
+                        invdta.setFixnr("");
+                        invdta.setVarnr("");
+                        break;
+                    case '1':
+                        invdta.setVarnr("");
+                        break;
+                    case '2':
+                        invdta.setFixnr("");
+                        break;
+                    default:
+                        break;
+                }
                 invdtaBean.setCompany(facno);
                 invdtaBean.persist(invdta);
                 invdtaBean.getEntityManager().flush();
