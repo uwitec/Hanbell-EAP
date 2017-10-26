@@ -15,10 +15,11 @@ import java.util.List;
  *
  * @author C1587
  */
-public class HKGL039Report extends SuperMultiReportBean<HKGL039Bean, HKGL039, HKGL039Detail>{
+public class HKGL039Report extends SuperMultiReportBean<HKGL039Bean, HKGL039, HKGL039Detail> {
+
     public HKGL039Report() {
 
-}
+    }
 
     @Override
     public List<HKGL039Detail> getDetail(Object o) throws Exception {
@@ -31,16 +32,5 @@ public class HKGL039Report extends SuperMultiReportBean<HKGL039Bean, HKGL039, HK
     public HKGL039 getEntity(Object o) throws Exception {
         return superEJB.findByPSN(o);
     }
- /*   
-        @Override
-    public List<HKGL039Detail> getDetail(Object o) throws Exception {
-        this.superEJB.setDetailList(o);
-        return this.superEJB.getDetailList();
-    }
 
-    @Override
-    public HKGL039 getEntity(Object o) throws Exception {
-        return this.superEJB.findByPSN(o);
-    }
-*/
 }
