@@ -25,6 +25,7 @@ public class BillExportQueryBean extends SuperQueryBean<ArmbillDetailForQuery> {
     private ArmbillDetailForQueryBean armbillDetailForQueryBean;
 
     private String queryCreator;
+    private String queryDeptno;
 
     public BillExportQueryBean() {
         super(ArmbillDetailForQuery.class);
@@ -55,6 +56,9 @@ public class BillExportQueryBean extends SuperQueryBean<ArmbillDetailForQuery> {
             if (queryCreator != null && !"".equals(queryCreator)) {
                 this.model.getFilterFields().put("armbill.creator", queryCreator);
             }
+            if (queryDeptno != null && !"".equals(queryDeptno)) {
+                this.model.getFilterFields().put("armbill.deptno", queryDeptno);
+            }
             if (queryState != null && !"ALL".equals(queryState)) {
                 this.model.getFilterFields().put("armbill.status", queryState);
             }
@@ -80,6 +84,20 @@ public class BillExportQueryBean extends SuperQueryBean<ArmbillDetailForQuery> {
      */
     public void setQueryCreator(String queryCreator) {
         this.queryCreator = queryCreator;
+    }
+
+    /**
+     * @return the queryDeptno
+     */
+    public String getQueryDeptno() {
+        return queryDeptno;
+    }
+
+    /**
+     * @param queryDeptno the queryDeptno to set
+     */
+    public void setQueryDeptno(String queryDeptno) {
+        this.queryDeptno = queryDeptno;
     }
 
 }
