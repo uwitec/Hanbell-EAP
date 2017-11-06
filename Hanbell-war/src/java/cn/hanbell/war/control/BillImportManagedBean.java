@@ -83,6 +83,7 @@ public class BillImportManagedBean extends BillPrintManagedBean {
         b.setCustomerno(a.getCusno());
         b.setCustomer(a.getCdrcus().getCusds());
         b.setDeptno(a.getDepno());
+        b.setUserno(a.getMancode());
         b.setStatus("N");
         b.setCreator(this.userManagedBean.getCurrentUser().getUsername());
         b.setCredate(getDate());

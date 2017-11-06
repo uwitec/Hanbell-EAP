@@ -88,11 +88,17 @@
                     </f:facet>
                     <h:outputText value="#{item.cdrcus.cusno}"/>
                 </p:column>
-                <p:column styleClass="Wid40">
+                <p:column styleClass="Wid30">
                     <f:facet name="header">
                         <h:outputText value="客户全称"/>
                     </f:facet>
                     <h:outputText value="#{item.cdrcus.cusds}"/>
+                </p:column>
+                <p:column styleClass="Wid10">
+                    <f:facet name="header">
+                        <h:outputText value="业务部门"/>
+                    </f:facet>
+                    <h:outputText value="#{item.depno}"/>
                 </p:column>
                 <p:column styleClass="Wid20"  style="text-align: right">
                     <f:facet name="header">

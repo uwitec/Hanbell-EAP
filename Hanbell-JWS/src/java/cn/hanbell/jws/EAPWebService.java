@@ -8,12 +8,18 @@ package cn.hanbell.jws;
 import cn.hanbell.crm.ejb.WARMBBean;
 import cn.hanbell.crm.entity.WARMB;
 import cn.hanbell.eam.ejb.AssetApplyBean;
+import cn.hanbell.eam.ejb.AssetCardBean;
 import cn.hanbell.eam.ejb.AssetCategoryBean;
 import cn.hanbell.eam.ejb.AssetItemBean;
+import cn.hanbell.eam.ejb.AssetScrapBean;
+import cn.hanbell.eam.ejb.WarehouseBean;
 import cn.hanbell.eam.entity.AssetApply;
 import cn.hanbell.eam.entity.AssetApplyDetail;
+import cn.hanbell.eam.entity.AssetCard;
 import cn.hanbell.eam.entity.AssetCategory;
 import cn.hanbell.eam.entity.AssetItem;
+import cn.hanbell.eam.entity.AssetScrap;
+import cn.hanbell.eam.entity.AssetScrapDetail;
 import cn.hanbell.eap.ejb.DepartmentBean;
 import cn.hanbell.eap.ejb.SystemUserBean;
 import cn.hanbell.eap.entity.Department;
@@ -28,6 +34,7 @@ import cn.hanbell.oa.ejb.HKGL038Bean;
 import cn.hanbell.oa.ejb.HKJH001Bean;
 import cn.hanbell.oa.ejb.HZCW028Bean;
 import cn.hanbell.oa.ejb.HZCW033Bean;
+import cn.hanbell.oa.ejb.HZCW034Bean;
 import cn.hanbell.oa.ejb.HZJS034Bean;
 import cn.hanbell.oa.ejb.SERI12Bean;
 import cn.hanbell.oa.ejb.SHBERPPURX141Bean;
@@ -36,6 +43,8 @@ import cn.hanbell.oa.ejb.WARMI05Bean;
 import cn.hanbell.oa.ejb.WorkFlowBean;
 import cn.hanbell.oa.entity.HKCW002;
 import cn.hanbell.oa.entity.HKCW002Detail;
+import cn.hanbell.oa.entity.HZCW034;
+import cn.hanbell.oa.entity.HZCW034Detail;
 import cn.hanbell.oa.entity.HZJS034;
 import cn.hanbell.oa.entity.HZJS034Detail;
 import cn.hanbell.oa.entity.SHBERPINV140;
@@ -76,9 +85,15 @@ public class EAPWebService {
     @EJB
     private AssetApplyBean assetApplyBean;
     @EJB
+    private AssetCardBean assetCardBean;
+    @EJB
     private AssetCategoryBean assetCategoryBean;
     @EJB
     private AssetItemBean assetItemBean;
+    @EJB
+    private AssetScrapBean assetScrapBean;
+    @EJB
+    private WarehouseBean warehouseBean;
 
     //EJBForEFGP
     @EJB
@@ -91,6 +106,8 @@ public class EAPWebService {
     private HZCW028Bean hzcw028Bean;
     @EJB
     private HZCW033Bean hzcw033Bean;
+    @EJB
+    private HZCW034Bean hzcw034Bean;
     @EJB
     private HKFW006Bean hkfw006Bean;
     @EJB
@@ -424,6 +441,158 @@ public class EAPWebService {
         } else {
             return "404";
         }
+    }
+
+    @WebMethod(operationName = "createEAMAssetItemByOAHZJS034")
+    public String createEAMAssetItemByOAHZJS034(@WebParam(name = "psn") String psn) {
+        Boolean ret = false;
+        try {
+            HZJS034 h = hzjs034Bean.findByPSN(psn);
+            if (h == null) {
+                throw new NullPointerException();
+            }
+            if (!h.getGenre1().equals("ZC")) {
+                return "200";
+            }
+            hzjs034Bean.setDetail(h.getFormSerialNumber());
+            List<HZJS034Detail> details = hzjs034Bean.getDetailList();
+            AssetItem ai;
+            AssetCategory ac;
+            for (HZJS034Detail detail : details) {
+                if (detail.getItnbr().substring(0, 2).equals("B1")) {
+                    continue;
+                }
+                ai = assetItemBean.findByItemno(detail.getItnbr());
+                if (ai != null) {
+                    continue;
+                }
+                ac = assetCategoryBean.findByCategory(detail.getItcls());
+                if (ac == null) {
+                    continue;
+                }
+                ai = new AssetItem();
+                ai.setCategory(ac);
+                ai.setItemno(detail.getItnbr());
+                ai.setItemdesc(detail.getItdsc());
+                ai.setItemspec(detail.getSpdsc());
+                ai.setUnit(detail.getUnmsr1());
+                ai.setStatus("N");
+                ai.setCreator(h.getEmpl());
+                ai.setCredateToNow();
+                assetItemBean.persist(ai);
+            }
+            ret = true;
+        } catch (Exception ex) {
+            Logger.getLogger(SHBERPWebService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (ret) {
+            return "200";
+        } else {
+            return "404";
+        }
+    }
+
+    @WebMethod(operationName = "createEAMAssetScrapByOAHZCW034")
+    public String createEAMAssetScrapByOAHZCW034(@WebParam(name = "psn") String psn) {
+        Boolean ret = false;
+        HZCW034 e;
+        List<HZCW034Detail> detailList;
+        try {
+            e = hzcw034Bean.findByPSN(psn);
+            if (e == null) {
+                throw new NullPointerException(psn + "不存在");
+            } else if (e.getSourceno() != null && !"".equals(e.getSourceno())) {
+                return "200";
+            }
+            hzcw034Bean.setDetail(e.getFormSerialNumber());
+            detailList = hzcw034Bean.getDetailList();
+            if (detailList == null || detailList.isEmpty()) {
+                throw new NullPointerException(psn + "没有明细资料");
+            }
+            Department dept;
+            AssetCard ac;
+            AssetItem ai;
+            AssetScrap as;
+            AssetScrapDetail asd;
+            List<AssetScrapDetail> asdList = new ArrayList<>();
+            int i = 0;
+            for (HZCW034Detail d : detailList) {
+                ac = assetCardBean.findByAssetno(d.getAssetno());
+                ai = assetItemBean.findByItemno(d.getItnbr());
+                if (ac == null) {
+                    throw new RuntimeException(d.getAssetno() + "EAM中不存在");
+                } else if (ac.getScrap()) {
+                    throw new RuntimeException(d.getAssetno() + "EAM中已报废");
+                }
+                if (ai == null) {
+                    throw new RuntimeException(d.getItnbr() + "EAM中不存在");
+                }
+                i++;
+                asd = new AssetScrapDetail();
+                asd.setSeq(i);
+                asd.setAssetCard(ac);
+                asd.setAssetno(d.getAssetno());
+                asd.setAssetItem(ai);
+                asd.setQty(com.lightshell.comm.BaseLib.convertObject(BigDecimal.class, d.getScrapqty()));
+                asd.setUnit(ac.getUnit());
+                asd.setPrice(com.lightshell.comm.BaseLib.convertObject(BigDecimal.class, d.getPrice()));
+                asd.setAmts(com.lightshell.comm.BaseLib.convertObject(BigDecimal.class, d.getAmts()));
+                asd.setSurplusValue(com.lightshell.comm.BaseLib.convertObject(BigDecimal.class, d.getSurplusValue()));
+                asd.setUserno(d.getUserno());
+                asd.setUsername(d.getUsername());
+                asd.setDeptno(d.getDeptno());
+                asd.setDeptname(d.getDeptname());
+                asd.setBuyDate(BaseLib.getDate("yyyy/MM/dd", d.getBuyDatetxt()));
+                asd.setUsed(Integer.parseInt(d.getUsetime()));
+                asd.setWarehouse(warehouseBean.findByWarehouseno(d.getWarehouseno()));
+                asd.setWarehouse2(warehouseBean.findByWarehouseno(d.getWarehouseno2()));
+                asd.setSrcapi("EFGP");
+                asd.setSrcformid(d.getFormSerialNumber());
+                asd.setSrcseq(Integer.parseInt(d.getSeq()));
+                asdList.add(asd);
+            }
+            as = new AssetScrap();
+            as.setCompany(e.getFacno());
+            as.setFormdate(e.getApplydate());
+            as.setDeptno(e.getApplydept());
+            dept = departmentBean.findByDeptno(e.getApplydept());
+            if (dept != null) {
+                as.setDeptname(dept.getDept());
+            }
+            if (e.getCountsum() != null) {
+                as.setTotalAmts(BigDecimal.valueOf(e.getCountsum()));
+            } else {
+                as.setTotalAmts(BigDecimal.ZERO);
+            }
+            if (e.getRsum() != null) {
+                as.setSurplusValue(BigDecimal.valueOf(e.getRsum()));
+            } else {
+                as.setSurplusValue(BigDecimal.ZERO);
+            }
+            as.setReason(e.getMark());
+            as.setRemark(psn);
+            as.setStatus("N");
+            as.setCreator(e.getCreator());
+            as.setCredateToNow();
+            String formid = assetScrapBean.initAssetScrap(as, asdList);
+            if (formid != null && !"".equals(formid)) {
+                e.setSourceno(formid);
+                hzcw034Bean.update(e);//记录EAM单号
+                as.setStatus("V");
+                assetScrapBean.verify(as);//抛转后直接确认
+                ret = true;
+            } else {
+                ret = false;
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(psn).log(Level.SEVERE, null, ex);
+        }
+        if (ret) {
+            return "200";
+        } else {
+            return "404";
+        }
+
     }
 
     @WebMethod(operationName = "createOAHKCG007ByOAHKCW002")
