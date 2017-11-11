@@ -10,6 +10,7 @@ import cn.hanbell.crm.entity.WARMB;
 import cn.hanbell.eam.ejb.AssetApplyBean;
 import cn.hanbell.eam.ejb.AssetCardBean;
 import cn.hanbell.eam.ejb.AssetCategoryBean;
+import cn.hanbell.eam.ejb.AssetDisposeBean;
 import cn.hanbell.eam.ejb.AssetItemBean;
 import cn.hanbell.eam.ejb.AssetScrapBean;
 import cn.hanbell.eam.ejb.WarehouseBean;
@@ -17,6 +18,8 @@ import cn.hanbell.eam.entity.AssetApply;
 import cn.hanbell.eam.entity.AssetApplyDetail;
 import cn.hanbell.eam.entity.AssetCard;
 import cn.hanbell.eam.entity.AssetCategory;
+import cn.hanbell.eam.entity.AssetDispose;
+import cn.hanbell.eam.entity.AssetDisposeDetail;
 import cn.hanbell.eam.entity.AssetItem;
 import cn.hanbell.eam.entity.AssetScrap;
 import cn.hanbell.eam.entity.AssetScrapDetail;
@@ -88,6 +91,8 @@ public class EAPWebService {
     private AssetCardBean assetCardBean;
     @EJB
     private AssetCategoryBean assetCategoryBean;
+    @EJB
+    private AssetDisposeBean assetDisposeBean;
     @EJB
     private AssetItemBean assetItemBean;
     @EJB
@@ -394,6 +399,202 @@ public class EAPWebService {
         }
     }
 
+    @WebMethod(operationName = "createEAMAssetDisposeByEAMAssetScrap")
+    public String createEAMAssetDisposeByEAMAssetScrap(@WebParam(name = "formid") String formid) {
+        Boolean ret = false;
+        HZCW034 e;
+        try {
+            AssetScrap as;
+            List<AssetScrapDetail> asdList;
+            as = assetScrapBean.findByFormId(formid);
+            if (as == null) {
+                throw new NullPointerException(formid + "不存在");
+            }
+            assetScrapBean.setDetail(as.getFormid());
+            asdList = assetScrapBean.getDetailList();
+            if (asdList == null || asdList.isEmpty()) {
+                return "200";
+            }
+            String assetno;
+            AssetDispose ad;
+            AssetDisposeDetail add;
+            List<AssetDisposeDetail> addList = new ArrayList<>();
+            int i = 0;
+            for (AssetScrapDetail d : asdList) {
+                i++;
+                add = new AssetDisposeDetail();
+                add.setSeq(i);
+                if (d.getAssetItem().getCategory().getNoauto()) {
+                    //资产编号
+                    add.setAssetCard(d.getAssetCard());
+                    add.setAssetno(d.getAssetno());
+                } else {
+                    //单据编号
+                    assetno = d.getPid() + "-" + BaseLib.formatString("0000", String.valueOf(d.getSeq()));
+                    AssetCard ac = assetCardBean.findByAssetno(assetno);
+                    if (ac == null) {
+                        throw new NullPointerException(assetno + "资产卡片不存在");
+                    }
+                    add.setAssetCard(ac);
+                    add.setAssetno(ac.getFormid());
+                }
+                add.setAssetItem(d.getAssetItem());
+                add.setQty(d.getQty());
+                add.setUnit(d.getUnit());
+                add.setBuyPrice(d.getPrice());
+                add.setBuyAmts(d.getAmts());
+                add.setBuyDate(d.getBuyDate());
+                add.setSurplusValue(d.getSurplusValue());
+                add.setAmts(BigDecimal.ZERO);
+                add.setUserno(d.getUserno());
+                add.setUsername(d.getUsername());
+                add.setDeptno(d.getDeptno());
+                add.setDeptname(d.getDeptname());
+                add.setUsed(d.getUsed());
+                add.setWarehouse(d.getWarehouse2());
+                add.setSrcapi("assetscrap");
+                add.setSrcformid(d.getPid());
+                add.setSrcseq(d.getSeq());
+                add.setRelapi(d.getSrcapi());
+                add.setRelformid(d.getSrcformid());
+                add.setRelseq(d.getSrcseq());
+                addList.add(add);
+            }
+            ad = new AssetDispose();
+            ad.setCompany(as.getCompany());
+            ad.setFormdate(BaseLib.getDate());
+            ad.setDeptno(as.getDeptno());
+            ad.setDeptname(as.getDeptname());
+            //处置总额
+            ad.setTotalAmts(BigDecimal.ZERO);
+            //残值总额
+            ad.setSurplusValue(BigDecimal.ZERO);
+            ad.setReason(as.getReason());
+            ad.setRemark(as.getRemark());
+            ad.setStatus("N");
+            ad.setCreator(as.getCfmuser());
+            ad.setCredateToNow();
+            String id = assetDisposeBean.initAssetDispose(ad, addList);
+            if (id != null && !"".equals(id)) {
+                ad.setStatus("V");
+                assetDisposeBean.verify(ad);//抛转后直接确认
+                ret = true;
+            } else {
+                ret = false;
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(formid).log(Level.SEVERE, null, ex);
+        }
+        if (ret) {
+            return "200";
+        } else {
+            return "404";
+        }
+
+    }
+
+    @WebMethod(operationName = "createEAMAssetDisposeByOAHZCW034")
+    public String createEAMAssetDisposeByOAHZCW034(@WebParam(name = "psn") String psn) {
+        Boolean ret = false;
+        HZCW034 e;
+        try {
+            e = hzcw034Bean.findByPSN(psn);
+            if (e == null) {
+                throw new NullPointerException(psn + "不存在");
+            } else if (e.getSourceno() == null || "".equals(e.getSourceno())) {
+                return "200";
+            }
+            AssetScrap as;
+            List<AssetScrapDetail> asdList;
+            as = assetScrapBean.findByFormId(e.getSourceno());
+            if (as == null) {
+                throw new NullPointerException(e.getSourceno() + "不存在");
+            }
+            assetScrapBean.setDetail(as.getFormid());
+            asdList = assetScrapBean.getDetailList();
+            if (asdList == null || asdList.isEmpty()) {
+                return "200";
+            }
+            String assetno;
+            AssetDispose ad;
+            AssetDisposeDetail add;
+            List<AssetDisposeDetail> addList = new ArrayList<>();
+            int i = 0;
+            for (AssetScrapDetail d : asdList) {
+                i++;
+                add = new AssetDisposeDetail();
+                add.setSeq(i);
+                if (d.getAssetItem().getCategory().getNoauto()) {
+                    //资产编号
+                    add.setAssetCard(d.getAssetCard());
+                    add.setAssetno(d.getAssetno());
+                } else {
+                    //单据编号
+                    assetno = d.getPid() + "-" + BaseLib.formatString("0000", String.valueOf(d.getSeq()));
+                    AssetCard ac = assetCardBean.findByAssetno(assetno);
+                    if (ac == null) {
+                        throw new NullPointerException(assetno + "资产卡片不存在");
+                    }
+                    add.setAssetCard(ac);
+                    add.setAssetno(ac.getFormid());
+                }
+                add.setAssetItem(d.getAssetItem());
+                add.setQty(d.getQty());
+                add.setUnit(d.getUnit());
+                add.setBuyPrice(d.getPrice());
+                add.setBuyAmts(d.getAmts());
+                add.setBuyDate(d.getBuyDate());
+                add.setSurplusValue(d.getSurplusValue());
+                add.setAmts(BigDecimal.ZERO);
+                add.setUserno(d.getUserno());
+                add.setUsername(d.getUsername());
+                add.setDeptno(d.getDeptno());
+                add.setDeptname(d.getDeptname());
+                add.setUsed(d.getUsed());
+                add.setWarehouse(d.getWarehouse2());
+                add.setSrcapi("assetscrap");
+                add.setSrcformid(d.getPid());
+                add.setSrcseq(d.getSeq());
+                add.setRelapi(d.getSrcapi());
+                add.setRelformid(d.getSrcformid());
+                add.setRelseq(d.getSrcseq());
+                addList.add(add);
+            }
+            ad = new AssetDispose();
+            ad.setCompany(e.getFacno());
+            ad.setFormdate(BaseLib.getDate());
+            ad.setDeptno(as.getDeptno());
+            ad.setDeptname(as.getDeptname());
+            //处置总额
+            ad.setTotalAmts(BigDecimal.ZERO);
+            //残值总额
+            ad.setSurplusValue(BigDecimal.ZERO);
+            ad.setReason(as.getReason());
+            ad.setRemark(as.getRemark());
+            ad.setStatus("N");
+            ad.setCreator(e.getCreator());
+            ad.setCredateToNow();
+            String formid = assetDisposeBean.initAssetDispose(ad, addList);
+            if (formid != null && !"".equals(formid)) {
+                e.setSourceno(formid);
+                hzcw034Bean.update(e);//记录EAM单号
+                ad.setStatus("V");
+                assetDisposeBean.verify(ad);//抛转后直接确认
+                ret = true;
+            } else {
+                ret = false;
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(psn).log(Level.SEVERE, null, ex);
+        }
+        if (ret) {
+            return "200";
+        } else {
+            return "404";
+        }
+
+    }
+
     @WebMethod(operationName = "createEAMAssetItemByOAJS034")
     public String createEAMAssetItemByOAJS034(@WebParam(name = "psn") String psn) {
         Boolean ret = false;
@@ -668,6 +869,34 @@ public class EAPWebService {
         } else {
             return "404";
         }
+    }
+
+    @WebMethod(operationName = "rollbackEAMAssetDisposeByOAHZCW034")
+    public String rollbackEAMAssetDisposeByOAHZCW034(@WebParam(name = "psn") String psn) {
+        Boolean ret = false;
+        HZCW034 e;
+        try {
+            e = hzcw034Bean.findByPSN(psn);
+            if (e == null) {
+                throw new NullPointerException(psn + "不存在");
+            } else if (e.getSourceno() == null || "".equals(e.getSourceno())) {
+                return "200";
+            }
+            AssetDispose ad = assetDisposeBean.findByFormId(e.getSourceno());
+            if (ad == null) {
+                throw new NullPointerException(e.getSourceno() + "不存在");
+            }
+            assetDisposeBean.unverify(ad);
+            ret = true;
+        } catch (Exception ex) {
+            Logger.getLogger(psn).log(Level.SEVERE, null, ex);
+        }
+        if (ret) {
+            return "200";
+        } else {
+            return "404";
+        }
+
     }
 
     @WebMethod(operationName = "updateCRMPORMYByOABXD")
