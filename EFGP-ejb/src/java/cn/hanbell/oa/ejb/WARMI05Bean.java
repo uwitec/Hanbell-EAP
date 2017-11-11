@@ -10,6 +10,7 @@ import cn.hanbell.crm.ejb.WARTBBean;
 import cn.hanbell.crm.entity.WARTA;
 import cn.hanbell.crm.entity.WARTB;
 import cn.hanbell.oa.comm.SuperEJBForEFGP;
+import cn.hanbell.oa.entity.ProcessInstance;
 import cn.hanbell.oa.entity.WARMI05;
 import cn.hanbell.oa.entity.WARMI05Detail;
 import java.math.BigDecimal;
@@ -29,6 +30,9 @@ public class WARMI05Bean extends SuperEJBForEFGP<WARMI05> {
 
     @EJB
     private WARMI05DetailBean warmi05DetailBean;
+
+    @EJB
+    private ProcessInstanceBean processInstanceBean;
 
     @EJB
     private WARTBBean wartbBean;
@@ -104,7 +108,8 @@ public class WARMI05Bean extends SuperEJBForEFGP<WARMI05> {
         return true;
 
     }
-	public boolean initWARTB(String psn) {
+
+    public boolean initWARTB(String psn) {
         WARMI05 w = findByPSN(psn);
         if (w == null) {
             throw new NullPointerException();
@@ -117,5 +122,24 @@ public class WARMI05Bean extends SuperEJBForEFGP<WARMI05> {
         ta.setTa200("0");
         wartaBean.update(ta);
         return true;
+    }
+
+    public boolean updatesubject(String psn) {
+        WARMI05 w = findByPSN(psn);
+        if (w == null) {
+            throw new NullPointerException();
         }
+        String TA032C;
+        String TA039;
+        String TA036;
+        TA032C = w.getTa032c();
+        TA039 = w.getTa039();
+        TA036 = w.getTa036();
+        TA032C = TA032C + "" + TA039 + "" + TA036;
+        ProcessInstance PI;
+        PI = processInstanceBean.findBySerialNumber(w.getProcessSerialNumber());
+        PI.setSubject(TA032C);
+        processInstanceBean.update(PI);
+        return true;
+    }
 }

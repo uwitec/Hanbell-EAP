@@ -1018,4 +1018,19 @@ public class EAPWebService {
             return "404";
         }
     }
+    
+    @WebMethod(operationName = "updateOAProcessInstanceByOAWARMI05")
+    public String updateOAProcessInstanceByOAWARMI05(@WebParam(name = "psn") String psn) {
+        Boolean ret = false;
+        try {
+            ret = warmi05Bean.updatesubject(psn);
+        } catch (Exception ex) {
+            Logger.getLogger(SHBERPWebService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (ret) {
+            return "200";
+        } else {
+            return "404";
+        }
+    }
 }
