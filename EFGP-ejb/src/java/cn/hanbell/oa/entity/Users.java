@@ -5,6 +5,8 @@
  */
 package cn.hanbell.oa.entity;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -16,6 +18,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -41,6 +44,19 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Users.findByPhoneNumber", query = "SELECT u FROM Users u WHERE u.phoneNumber = :phoneNumber"),
     @NamedQuery(name = "Users.findByWorkflowServerOID", query = "SELECT u FROM Users u WHERE u.workflowServerOID = :workflowServerOID")})
 public class Users implements Serializable {
+
+    @Transient
+    @JsonInclude(Include.ALWAYS)
+    private String company;
+    @Transient
+    @JsonInclude(Include.ALWAYS)
+    private String deptno;
+    @Transient
+    @JsonInclude(Include.ALWAYS)
+    private String deptname;
+    @Transient
+    @JsonInclude(Include.ALWAYS)
+    private Title title;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -120,22 +136,6 @@ public class Users implements Serializable {
     private Date lastUptPwdDate;
 
     public Users() {
-    }
-
-    public Users(String oid) {
-        this.oid = oid;
-    }
-
-    public Users(String oid, String id, String userName, int objectVersion, String password, String identificationType, String localeString, int enableSubstitute, int mailingFrequencyType) {
-        this.oid = oid;
-        this.id = id;
-        this.userName = userName;
-        this.objectVersion = objectVersion;
-        this.password = password;
-        this.identificationType = identificationType;
-        this.localeString = localeString;
-        this.enableSubstitute = enableSubstitute;
-        this.mailingFrequencyType = mailingFrequencyType;
     }
 
     public String getOid() {
@@ -322,5 +322,61 @@ public class Users implements Serializable {
     public String toString() {
         return "cn.hanbell.oa.entity.Users[ oid=" + oid + " ]";
     }
-    
+
+    /**
+     * @return the company
+     */
+    public String getCompany() {
+        return company;
+    }
+
+    /**
+     * @param company the company to set
+     */
+    public void setCompany(String company) {
+        this.company = company;
+    }
+
+    /**
+     * @return the deptno
+     */
+    public String getDeptno() {
+        return deptno;
+    }
+
+    /**
+     * @param deptno the deptno to set
+     */
+    public void setDeptno(String deptno) {
+        this.deptno = deptno;
+    }
+
+    /**
+     * @return the deptname
+     */
+    public String getDeptname() {
+        return deptname;
+    }
+
+    /**
+     * @param deptname the deptname to set
+     */
+    public void setDeptname(String deptname) {
+        this.deptname = deptname;
+    }
+
+    /**
+     * @return the title
+     */
+    public Title getTitle() {
+        return title;
+    }
+
+    /**
+     * @param title the title to set
+     */
+    public void setTitle(Title title) {
+        this.title = title;
+    }
+
 }

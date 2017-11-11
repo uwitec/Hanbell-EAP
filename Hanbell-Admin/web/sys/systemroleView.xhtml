@@ -25,44 +25,42 @@
                                      rendered="#{systemRoleManagedBean.currentEntity.status!='V'}" process="@this" update="toolbar"/>
                 </f:facet>
             </p:toolbar>
-            <p:panel id="panelHead">
-                <p:panelGrid id="plgHead" columns="4" columnClasses="Wid20,Wid30,Wid20,Wid30"  styleClass="plgHead Wid100">
-                    <f:facet name="header">
-                        角色群组-查看
-                    </f:facet>
-                    <p:column styleClass="Wid20"><h:outputText value="群组编号"/></p:column>
-                    <p:column styleClass="Wid30">
-                        <h:outputText id="roleno" value="#{systemRoleManagedBean.currentEntity.roleno}" title="roleno"/>
-                    </p:column>
-                    <p:column styleClass="Wid20"><h:outputText value="群组简称"/></p:column>
-                    <p:column styleClass="Wid30">
-                        <h:outputText id="rolename" value="#{systemRoleManagedBean.currentEntity.rolename}" title="rolename"/>
-                    </p:column>
-                </p:panelGrid>
-                <p:tabView id="tabView" styleClass="tabView">
-                    <p:tab title="群组人员">
-                        <p:dataTable id="tableList" value="#{systemRoleManagedBean.detailList}" var="item" styleClass="tableList Mtop10"
-                                     selectionMode="single" selection="#{systemRoleManagedBean.currentDetail}" rowKey="#{item.seq}" >
-                            <p:ajax event="rowSelect"  update="" oncomplete="" />
-                            <p:ajax event="rowUnselect"  update="" oncomplete="" />
-                            <p:column headerText="账号" styleClass="Wid20">
-                                <h:outputText value="#{item.systemUser.userid}"/>
-                            </p:column>
-                            <p:column headerText="姓名" styleClass="Wid20">
-                                <h:outputText value="#{item.systemUser.username}"/>
-                            </p:column>
-                            <p:column headerText="上一次登录" styleClass="Wid20">
-                                <h:outputText value="#{item.systemUser.newestlogin}">
-                                    <f:convertDateTime pattern="yyyy-MM-dd"/>
-                                </h:outputText>
-                            </p:column>
-                            <p:column styleClass="Wid40">
+            <p:panelGrid id="plgHead" columns="4" columnClasses="Wid20,Wid30,Wid20,Wid30"  styleClass="plgHead Wid100">
+                <f:facet name="header">
+                    角色群组-查看
+                </f:facet>
+                <p:column styleClass="Wid20"><h:outputText value="群组编号"/></p:column>
+                <p:column styleClass="Wid30">
+                    <h:outputText id="roleno" value="#{systemRoleManagedBean.currentEntity.roleno}" title="roleno"/>
+                </p:column>
+                <p:column styleClass="Wid20"><h:outputText value="群组简称"/></p:column>
+                <p:column styleClass="Wid30">
+                    <h:outputText id="rolename" value="#{systemRoleManagedBean.currentEntity.rolename}" title="rolename"/>
+                </p:column>
+            </p:panelGrid>
+            <p:tabView id="tabView" styleClass="tabView">
+                <p:tab title="群组人员">
+                    <p:dataTable id="tableList" value="#{systemRoleManagedBean.detailList}" var="item" styleClass="tableList Mtop10"
+                                 selectionMode="single" selection="#{systemRoleManagedBean.currentDetail}" rowKey="#{item.seq}" >
+                        <p:ajax event="rowSelect"  update="" oncomplete="" />
+                        <p:ajax event="rowUnselect"  update="" oncomplete="" />
+                        <p:column headerText="账号" styleClass="Wid20">
+                            <h:outputText value="#{item.systemUser.userid}"/>
+                        </p:column>
+                        <p:column headerText="姓名" styleClass="Wid20">
+                            <h:outputText value="#{item.systemUser.username}"/>
+                        </p:column>
+                        <p:column headerText="上一次登录" styleClass="Wid20">
+                            <h:outputText value="#{item.systemUser.newestlogin}">
+                                <f:convertDateTime pattern="yyyy-MM-dd"/>
+                            </h:outputText>
+                        </p:column>
+                        <p:column styleClass="Wid40">
 
-                            </p:column>
-                        </p:dataTable>
-                    </p:tab>
-                </p:tabView>
-            </p:panel>
+                        </p:column>
+                    </p:dataTable>
+                </p:tab>
+            </p:tabView>
         </h:form>
 
     </ui:define>

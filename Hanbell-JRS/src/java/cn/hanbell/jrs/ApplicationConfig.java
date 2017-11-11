@@ -30,12 +30,12 @@ public class ApplicationConfig extends Application {
     private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(cn.hanbell.eap.jrs.BookingFacadeREST.class);
         resources.add(cn.hanbell.eap.jrs.BookingKindFacadeREST.class);
+        resources.add(cn.hanbell.eap.jrs.CompanyFacadeREST.class);
         resources.add(cn.hanbell.erp.jrs.ArmhadFacadeREST.class);
         resources.add(cn.hanbell.erp.jrs.ArmhadSumFacadeREST.class);
         resources.add(cn.hanbell.erp.jrs.CdrcusFacadeREST.class);
         resources.add(cn.hanbell.erp.jrs.CdrdmasFacadeREST.class);
         resources.add(cn.hanbell.erp.jrs.CdrscheduleFacadeREST.class);
-        resources.add(cn.hanbell.erp.jrs.CompanyFacadeREST.class);
         resources.add(cn.hanbell.erp.jrs.InvbalFacadeREST.class);
         resources.add(cn.hanbell.erp.jrs.InvwhFacadeREST.class);
         resources.add(cn.hanbell.erp.jrs.ItemCategoryFacadeREST.class);
@@ -48,8 +48,10 @@ public class ApplicationConfig extends Application {
         resources.add(cn.hanbell.erp.jrs.PricingPolicyFacadeREST.class);
         resources.add(cn.hanbell.erp.jrs.SecuserFacadeREST.class);
         resources.add(cn.hanbell.jrs.CORSFilter.class);
+        resources.add(cn.hanbell.oa.jrs.FunctionsFacadeREST.class);
         resources.add(cn.hanbell.oa.jrs.HKGL004FacadeREST.class);
         resources.add(cn.hanbell.oa.jrs.HKGL034FacadeREST.class);
+        resources.add(cn.hanbell.oa.jrs.OrganizationUnitFacadeREST.class);
         resources.add(cn.hanbell.oa.jrs.UsersFacadeREST.class);
     }
 

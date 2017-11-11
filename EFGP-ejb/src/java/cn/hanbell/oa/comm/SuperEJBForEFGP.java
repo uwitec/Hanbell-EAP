@@ -114,6 +114,13 @@ public abstract class SuperEJBForEFGP<T> extends SuperEJB<T> {
         this.userFunction = functionsBean.findByUserOID(currentUser.getOid());
         this.organizationUnit = userFunction.getOrganizationUnit();
         this.userTitle = titleBean.findByOUOIDAndUserOID(organizationUnit.getOid(), getCurrentUser().getOid());
+        if (organizationUnit != null) {
+            this.currentUser.setDeptno(organizationUnit.getId());
+            this.currentUser.setDeptname(organizationUnit.getOrganizationUnitName());
+        }
+        if (userTitle != null) {
+            this.currentUser.setTitle(userTitle);
+        }
     }
 
     /**

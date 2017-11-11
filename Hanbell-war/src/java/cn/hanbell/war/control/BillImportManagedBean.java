@@ -83,6 +83,7 @@ public class BillImportManagedBean extends BillPrintManagedBean {
         b.setCustomerno(a.getCusno());
         b.setCustomer(a.getCdrcus().getCusds());
         b.setDeptno(a.getDepno());
+        b.setUserno(a.getMancode());
         b.setStatus("N");
         b.setCreator(this.userManagedBean.getCurrentUser().getUsername());
         b.setCredate(getDate());
@@ -95,7 +96,7 @@ public class BillImportManagedBean extends BillPrintManagedBean {
             bd.setBilldate(e.getBildat());
             bd.setExtaxes(e.getBilamt());
             bd.setTaxes(e.getBiltax());
-            bd.setAmts(e.getAccamt());
+            bd.setAmts(e.getBilamt().add(e.getBiltax()));
             armbillDetails.add(bd);
         }
         try {
@@ -104,7 +105,7 @@ public class BillImportManagedBean extends BillPrintManagedBean {
                 this.armbilSelected.clear();
                 this.armbilList.clear();
                 showInfoMsg("Info", "成功生成发票回执单" + formid);
-            }else{
+            } else {
                 showErrorMsg("Error", "产生发票回执资料失败");
             }
         } catch (Exception ex) {

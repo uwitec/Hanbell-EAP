@@ -22,9 +22,9 @@
                 <f:facet name="right">
                     <p:commandButton id="btnPrint" value="打印" actionListener="#{billPrintManagedBean.print()}" icon="ui-icon-print"
                                      process="@this" rendered="#{billPrintManagedBean.doPrt}"/>
-                    <p:commandButton id="btnVerify" value="审核" action="#{billPrintManagedBean.verify()}" icon="ui-icon-check"
+                    <p:commandButton id="btnVerify" value="签收" action="#{billPrintManagedBean.verify()}" icon="ui-icon-check"
                                      process="@this" rendered="#{billPrintManagedBean.doCfm}" update="toolbar">
-                        <p:confirm header="系统提示" message="审核吗?" icon="ui-icon-alert" />
+                        <p:confirm header="系统提示" message="签收吗?" icon="ui-icon-alert" />
                     </p:commandButton>
                     <p:commandButton id="btnUnverify" value="还原" actionListener="#{billPrintManagedBean.unverify()}" icon="ui-icon-lock-open"
                                      process="@this" rendered="#{billPrintManagedBean.doUnCfm}"  update="toolbar">
@@ -58,8 +58,22 @@
                 </p:row>
                 <p:row>
                     <p:column><h:outputText value="快递单号"/></p:column>
-                    <p:column colspan="3">
+                    <p:column>
                         <h:outputText id="remark" value="#{billPrintManagedBean.currentEntity.remark}" title="remark" />
+                    </p:column>
+                    <p:column><h:outputText value="联系人"/></p:column>
+                    <p:column>
+                        <h:outputText id="contacter" value="#{billPrintManagedBean.currentEntity.contacter}" title="contacter" />
+                    </p:column>
+                </p:row>
+                <p:row>
+                    <p:column><h:outputText value="领取人"/></p:column>
+                    <p:column>
+                        <h:outputText id="creator" value="#{billPrintManagedBean.currentEntity.creator}" title="creator" />
+                    </p:column>
+                    <p:column><h:outputText value="状态"/></p:column>
+                    <p:column>
+                        <h:outputText id="status" value="#{billPrintManagedBean.currentEntity.status}" title="Status" />
                     </p:column>
                 </p:row>
             </p:panelGrid>

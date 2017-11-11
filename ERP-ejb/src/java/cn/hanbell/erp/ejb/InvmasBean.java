@@ -197,7 +197,7 @@ public class InvmasBean extends SuperEJBForERP<Invmas> {
                         syncCQBean.persist(m, null);
                         syncCQBean.getEntityManager().flush();
                     }
-                } 
+                }
 
             }
             return true;
@@ -219,9 +219,24 @@ public class InvmasBean extends SuperEJBForERP<Invmas> {
             for (int i = 0; i < details.size(); i++) {
 
                 SHBERPINV140Detail detail = details.get(i);
-
-                this.setCompany(h.getFacno1());
-                Invmas m = findByItnbr(detail.getItnbr());
+                Invmas m;
+                setCompany(h.getFacno1());
+                //处理THB转SHB时中间加了一码逻辑
+                if (h.getFacno1().equals("A")) {
+                    m = findByItnbr(detail.getBitnbr());
+                    m.setItnbr(detail.getItnbr());
+                    m.setEitdsc("");
+                    m.setEspdsc("");
+                    m.setPocode(' ');
+                    m.setJityn('N');
+                    m.setNEcnnewitnbr("");
+                    m.setNEcnno("");
+                } else {
+                    m = findByItnbr(detail.getItnbr());
+                }
+                if (m == null) {
+                    throw new RuntimeException("ERP中找不到" + detail.getBitnbr());
+                }
                 m.setItcls(detail.getItcls());                                  //设置品号大类
                 m.setItdsc(detail.getItdsc());                                  //设置中文品名
                 m.setSpdsc(detail.getSpdsc());                                  //设置中文规格
@@ -246,6 +261,7 @@ public class InvmasBean extends SuperEJBForERP<Invmas> {
                 Invcls c = invclsBean.findByItcls(detail.getItcls());
                 m.setInvcls(c);
                 m.setItclscode(c.getItclscode());
+
                 setCompany(h.getFacno2());
                 persist(m);
                 this.getEntityManager().flush();
@@ -281,25 +297,32 @@ public class InvmasBean extends SuperEJBForERP<Invmas> {
                     if (c.getNrcode().equals('0')) {
                         m.setDirrvyn('Y');
                     }
-                    syncNJBean.persist(m, null);
-                    syncNJBean.getEntityManager().flush();
 
-                    syncGZBean.persist(m, null);
-                    syncGZBean.getEntityManager().flush();
+                    //同步分公司
+                    if (h.getFacno2().equals("C")) {
+                        if (c.getNrcode().equals('0')) {
+                            m.setDirrvyn('Y');
+                        }
+                        syncNJBean.persist(m, null);
+                        syncNJBean.getEntityManager().flush();
 
-                    syncJNBean.persist(m, null);
-                    syncJNBean.getEntityManager().flush();
+                        syncGZBean.persist(m, null);
+                        syncGZBean.getEntityManager().flush();
 
-                    syncCQBean.persist(m, null);
-                    syncCQBean.getEntityManager().flush();
+                        syncJNBean.persist(m, null);
+                        syncJNBean.getEntityManager().flush();
 
+                        syncCQBean.persist(m, null);
+                        syncCQBean.getEntityManager().flush();
+                    }
                 }
+
             }
 
             return true;
         } catch (Exception ex) {
             Logger.getLogger(InvmasBean.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
+            throw new RuntimeException(ex);
         }
     }
 

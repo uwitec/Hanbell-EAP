@@ -107,6 +107,9 @@ public class HKFW006Cdrn30 implements Serializable {
     @Column(name = "hdDetail")
     private String hdDetail;
     @Size(max = 255)
+    @Column(name = "dmark1")
+    private String dmark1;
+    @Size(max = 255)
     @Column(name = "dmark2")
     private String dmark2;
     @Size(max = 255)
@@ -483,6 +486,14 @@ public class HKFW006Cdrn30 implements Serializable {
 
     public void setPzcdrn30(String pzcdrn30) {
         this.pzcdrn30 = pzcdrn30;
+    }
+
+    public String getDmark1() {
+        return dmark1;
+    }
+
+    public void setDmark1(String dmark1) {
+        this.dmark1 = dmark1;
     }
     
 }

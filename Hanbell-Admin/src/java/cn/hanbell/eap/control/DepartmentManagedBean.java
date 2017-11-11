@@ -85,7 +85,7 @@ public class DepartmentManagedBean extends SuperSingleBean<Department> {
         if (rootDepartment != null && !rootDepartment.isEmpty()) {
             for (Department p : rootDepartment) {
                 TreeNode n = new DefaultTreeNode(p, getRootNode());
-                n.setExpanded(true);
+                //n.setExpanded(true);
                 initTree(p, n);
             }
         }
@@ -96,7 +96,7 @@ public class DepartmentManagedBean extends SuperSingleBean<Department> {
         if (departments != null && !departments.isEmpty()) {
             for (Department p : departments) {
                 TreeNode n = new DefaultTreeNode(p, node);
-                n.setExpanded(true);
+                //n.setExpanded(true);
                 initTree(p, n);
             }
         }
