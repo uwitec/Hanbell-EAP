@@ -28,13 +28,13 @@ public class HKGL039Bean extends SuperEJBForEFGP<HKGL039> {
     public HKGL039Bean() {
         super(HKGL039.class);
     }
+
     public List<HKGL039Detail> getDetailList(Object value) {
-         return hkglDetailBean.findByFSN(value);
+        return hkglDetailBean.findByFSN(value);
     }
 
     public void setDetailList(Object value) {
-        this.detailList = hkglDetailBean.findByFSN(value) ;
+        this.detailList = hkglDetailBean.findByFSN(value);
     }
 
-    
 }
