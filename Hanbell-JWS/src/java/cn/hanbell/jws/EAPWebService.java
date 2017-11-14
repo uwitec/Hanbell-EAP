@@ -576,7 +576,7 @@ public class EAPWebService {
             ad.setCredateToNow();
             String formid = assetDisposeBean.initAssetDispose(ad, addList);
             if (formid != null && !"".equals(formid)) {
-                e.setSourceno(formid);
+                e.setDisposeno(formid);
                 hzcw034Bean.update(e);//记录EAM单号
                 ad.setStatus("V");
                 assetDisposeBean.verify(ad);//抛转后直接确认
@@ -1023,7 +1023,7 @@ public class EAPWebService {
     public String updateOAProcessInstanceByOAWARMI05(@WebParam(name = "psn") String psn) {
         Boolean ret = false;
         try {
-            ret = warmi05Bean.updatesubject(psn);
+            ret = warmi05Bean.updateSubject(psn);
         } catch (Exception ex) {
             Logger.getLogger(SHBERPWebService.class.getName()).log(Level.SEVERE, null, ex);
         }
