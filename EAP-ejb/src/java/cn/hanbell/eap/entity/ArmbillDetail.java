@@ -50,6 +50,9 @@ public class ArmbillDetail extends FormDetailEntity {
     @NotNull
     @Column(name = "amts")
     private BigDecimal amts;
+    @Size(max = 200)
+    @Column(name = "remark")
+    private String remark;
 
     public ArmbillDetail() {
         this.extaxes = BigDecimal.ZERO;
@@ -121,6 +124,20 @@ public class ArmbillDetail extends FormDetailEntity {
 
     public void setAmts(BigDecimal amts) {
         this.amts = amts;
+    }
+
+    /**
+     * @return the remark
+     */
+    public String getRemark() {
+        return remark;
+    }
+
+    /**
+     * @param remark the remark to set
+     */
+    public void setRemark(String remark) {
+        this.remark = remark;
     }
 
     @Override
