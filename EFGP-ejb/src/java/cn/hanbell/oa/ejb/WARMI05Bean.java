@@ -124,7 +124,7 @@ public class WARMI05Bean extends SuperEJBForEFGP<WARMI05> {
         return true;
     }
 
-    public boolean updatesubject(String psn) {
+    public boolean updateSubject(String psn) {
         WARMI05 w = findByPSN(psn);
         if (w == null) {
             throw new NullPointerException();

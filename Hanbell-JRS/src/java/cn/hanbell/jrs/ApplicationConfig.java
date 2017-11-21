@@ -51,8 +51,10 @@ public class ApplicationConfig extends Application {
         resources.add(cn.hanbell.oa.jrs.FunctionsFacadeREST.class);
         resources.add(cn.hanbell.oa.jrs.HKGL004FacadeREST.class);
         resources.add(cn.hanbell.oa.jrs.HKGL034FacadeREST.class);
+        resources.add(cn.hanbell.oa.jrs.LeaveKindFacadeREST.class);
         resources.add(cn.hanbell.oa.jrs.OrganizationUnitFacadeREST.class);
         resources.add(cn.hanbell.oa.jrs.UsersFacadeREST.class);
+        resources.add(cn.hanbell.oa.jrs.WorkTypeFacadeREST.class);
     }
 
 }
