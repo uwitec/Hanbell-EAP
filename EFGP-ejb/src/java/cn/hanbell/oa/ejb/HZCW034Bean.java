@@ -41,4 +41,12 @@ public class HZCW034Bean extends SuperEJBForEFGP<HZCW034> {
         return detailList;
     }
 
+    public List<HZCW034Detail> getDetailList(Object value) {
+         detailList = hzcw034DetailBean.findByFSN(value);
+        if (detailList == null) {
+            detailList = new ArrayList<>();
+        }
+        return detailList;
+    }
+
 }
