@@ -11,6 +11,8 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -35,6 +37,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class HZCW034 implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    @JoinColumn(name = "applyuser", referencedColumnName = "id", insertable = false, updatable = false)
+    @ManyToOne(optional = true)
+    private Users applyuser1;
+    @JoinColumn(name = "applydept", referencedColumnName = "id", insertable = false, updatable = false)
+    @ManyToOne(optional = true)
+    private OrganizationUnit applydept1;
     @Id
     @Basic(optional = false)
     @NotNull
@@ -299,6 +307,34 @@ public class HZCW034 implements Serializable {
      */
     public void setDisposeno(String disposeno) {
         this.disposeno = disposeno;
+    }
+
+    /**
+     * @return the applyuser1
+     */
+    public Users getApplyuser1() {
+        return applyuser1;
+    }
+
+    /**
+     * @param applyuser1 the applyuser1 to set
+     */
+    public void setApplyuser1(Users applyuser1) {
+        this.applyuser1 = applyuser1;
+    }
+
+    /**
+     * @return the applydept1
+     */
+    public OrganizationUnit getApplydept1() {
+        return applydept1;
+    }
+
+    /**
+     * @param applydept1 the applydept1 to set
+     */
+    public void setApplydept1(OrganizationUnit applydept1) {
+        this.applydept1 = applydept1;
     }
 
 }
