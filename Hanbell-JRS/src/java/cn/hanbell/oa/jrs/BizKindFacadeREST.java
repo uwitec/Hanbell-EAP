@@ -18,11 +18,11 @@ import javax.ws.rs.core.Response;
  *
  * @author C0160
  */
-@Path("efgp/leavekind")
+@Path("efgp/bizkind")
 @javax.enterprise.context.RequestScoped
-public class LeaveKindFacadeREST extends SuperRESTForEFGP<KV> {
+public class BizKindFacadeREST extends SuperRESTForEFGP<KV> {
 
-    public LeaveKindFacadeREST() {
+    public BizKindFacadeREST() {
         super(KV.class);
     }
 
@@ -36,19 +36,11 @@ public class LeaveKindFacadeREST extends SuperRESTForEFGP<KV> {
         if (isAuthorized(appid, token)) {
             try {
                 List<KV> dataList = new ArrayList<>();
-                dataList.add(new KV("1", "年休假"));
-                dataList.add(new KV("2", "事假"));
-                dataList.add(new KV("3", "病假"));
-                dataList.add(new KV("4", "婚假"));
-                dataList.add(new KV("5", "产检假"));
-                dataList.add(new KV("6", "产假"));
-                dataList.add(new KV("7", "陪产假"));
-                dataList.add(new KV("8", "哺乳假"));
-                dataList.add(new KV("9", "无薪假"));
-                dataList.add(new KV("10", "工伤假"));
-                dataList.add(new KV("11", "公假"));
-                dataList.add(new KV("12", "丧假"));
-                dataList.add(new KV("13", "补休假"));
+                dataList.add(new KV("1", "业务推展"));
+                dataList.add(new KV("2", "售后服务"));
+                dataList.add(new KV("3", "厂商洽谈"));
+                dataList.add(new KV("4", "培训"));
+                dataList.add(new KV("7", "其他"));
                 return dataList;
             } catch (Exception ex) {
                 throw new WebApplicationException(Response.Status.NOT_FOUND);

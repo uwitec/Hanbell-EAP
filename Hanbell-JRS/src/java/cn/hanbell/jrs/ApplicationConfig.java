@@ -48,9 +48,13 @@ public class ApplicationConfig extends Application {
         resources.add(cn.hanbell.erp.jrs.PricingPolicyFacadeREST.class);
         resources.add(cn.hanbell.erp.jrs.SecuserFacadeREST.class);
         resources.add(cn.hanbell.jrs.CORSFilter.class);
+        resources.add(cn.hanbell.oa.jrs.BizDestinationFacadeREST.class);
+        resources.add(cn.hanbell.oa.jrs.BizKindFacadeREST.class);
+        resources.add(cn.hanbell.oa.jrs.BizVehicleFacadeREST.class);
         resources.add(cn.hanbell.oa.jrs.FunctionsFacadeREST.class);
         resources.add(cn.hanbell.oa.jrs.HKGL004FacadeREST.class);
         resources.add(cn.hanbell.oa.jrs.HKGL034FacadeREST.class);
+        resources.add(cn.hanbell.oa.jrs.HZGL004FacadeREST.class);
         resources.add(cn.hanbell.oa.jrs.LeaveKindFacadeREST.class);
         resources.add(cn.hanbell.oa.jrs.OrganizationUnitFacadeREST.class);
         resources.add(cn.hanbell.oa.jrs.UsersFacadeREST.class);
