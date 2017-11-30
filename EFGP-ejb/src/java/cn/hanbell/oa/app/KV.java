@@ -9,16 +9,16 @@ package cn.hanbell.oa.app;
  *
  * @author C0160
  */
-public class LeaveKind {
+public class KV {
 
     private String k;
     private String v;
 
-    public LeaveKind() {
+    public KV() {
 
     }
 
-    public LeaveKind(String k, String v) {
+    public KV(String k, String v) {
         this.k = k;
         this.v = v;
     }

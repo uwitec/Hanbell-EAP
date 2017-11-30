@@ -60,6 +60,9 @@ public class ArmbillDetailForQuery extends BaseEntity {
     @NotNull
     @Column(name = "amts")
     private BigDecimal amts;
+    @Size(max = 200)
+    @Column(name = "remark")
+    private String remark;
 
     public ArmbillDetailForQuery() {
         this.extaxes = BigDecimal.ZERO;
@@ -119,6 +122,20 @@ public class ArmbillDetailForQuery extends BaseEntity {
 
     public void setAmts(BigDecimal amts) {
         this.amts = amts;
+    }
+
+    /**
+     * @return the remark
+     */
+    public String getRemark() {
+        return remark;
+    }
+
+    /**
+     * @param remark the remark to set
+     */
+    public void setRemark(String remark) {
+        this.remark = remark;
     }
 
     @Override
