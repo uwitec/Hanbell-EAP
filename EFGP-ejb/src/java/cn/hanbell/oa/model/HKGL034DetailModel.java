@@ -17,42 +17,18 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class HKGL034DetailModel implements Serializable {
 
-    @Size(max = 255)
-    @Column(name = "seq")
     private String seq;
-    @Size(max = 255)
-    @Column(name = "dept_txt")
-    private String deptTxt;
-    @Size(max = 255)
-    @Column(name = "dept_lbl")
-    private String deptLbl;
-    @Size(max = 255)
-    @Column(name = "employee")
+    private String dept_txt;
+    private String dept_lbl;
     private String employee;
-    @Size(max = 255)
-    @Column(name = "employeeName")
     private String employeeName;
-    @Size(max = 255)
-    @Column(name = "content")
     private String content;
-    @Size(max = 255)
-    @Column(name = "date1_txt")
-    private String date1Txt;
-    @Size(max = 255)
-    @Column(name = "time1_txt")
-    private String time1Txt;
-    @Size(max = 255)
-    @Column(name = "time2_txt")
-    private String time2Txt;
-    @Size(max = 255)
-    @Column(name = "hour")
+    private String date1_txt;
+    private String time1_txt;
+    private String time2_txt;
     private String hour;
-    @Size(max = 255)
-    @Column(name = "hdn_dinner")
-    private String hdnDinner;
-    @Size(max = 255)
-    @Column(name = "hdn_lunch")
-    private String hdnLunch;
+    private String hdn_dinner;
+    private String hdn_lunch;
 
     public HKGL034DetailModel() {
     }
@@ -72,31 +48,31 @@ public class HKGL034DetailModel implements Serializable {
     }
 
     /**
-     * @return the deptTxt
+     * @return the dept_txt
      */
-    public String getDeptTxt() {
-        return deptTxt;
+    public String getDept_txt() {
+        return dept_txt;
     }
 
     /**
-     * @param deptTxt the deptTxt to set
+     * @param dept_txt the dept_txt to set
      */
-    public void setDeptTxt(String deptTxt) {
-        this.deptTxt = deptTxt;
+    public void setDept_txt(String dept_txt) {
+        this.dept_txt = dept_txt;
     }
 
     /**
-     * @return the deptLbl
+     * @return the dept_lbl
      */
-    public String getDeptLbl() {
-        return deptLbl;
+    public String getDept_lbl() {
+        return dept_lbl;
     }
 
     /**
-     * @param deptLbl the deptLbl to set
+     * @param dept_lbl the dept_lbl to set
      */
-    public void setDeptLbl(String deptLbl) {
-        this.deptLbl = deptLbl;
+    public void setDept_lbl(String dept_lbl) {
+        this.dept_lbl = dept_lbl;
     }
 
     /**
@@ -142,45 +118,45 @@ public class HKGL034DetailModel implements Serializable {
     }
 
     /**
-     * @return the date1Txt
+     * @return the date1_txt
      */
-    public String getDate1Txt() {
-        return date1Txt;
+    public String getDate1_txt() {
+        return date1_txt;
     }
 
     /**
-     * @param date1Txt the date1Txt to set
+     * @param date1_txt the date1_txt to set
      */
-    public void setDate1Txt(String date1Txt) {
-        this.date1Txt = date1Txt;
+    public void setDate1_txt(String date1_txt) {
+        this.date1_txt = date1_txt;
     }
 
     /**
-     * @return the time1Txt
+     * @return the time1_txt
      */
-    public String getTime1Txt() {
-        return time1Txt;
+    public String getTime1_txt() {
+        return time1_txt;
     }
 
     /**
-     * @param time1Txt the time1Txt to set
+     * @param time1_txt the time1_txt to set
      */
-    public void setTime1Txt(String time1Txt) {
-        this.time1Txt = time1Txt;
+    public void setTime1_txt(String time1_txt) {
+        this.time1_txt = time1_txt;
     }
 
     /**
-     * @return the time2Txt
+     * @return the time2_txt
      */
-    public String getTime2Txt() {
-        return time2Txt;
+    public String getTime2_txt() {
+        return time2_txt;
     }
 
     /**
-     * @param time2Txt the time2Txt to set
+     * @param time2_txt the time2_txt to set
      */
-    public void setTime2Txt(String time2Txt) {
-        this.time2Txt = time2Txt;
+    public void setTime2_txt(String time2_txt) {
+        this.time2_txt = time2_txt;
     }
 
     /**
@@ -198,34 +174,33 @@ public class HKGL034DetailModel implements Serializable {
     }
 
     /**
-     * @return the hdnDinner
+     * @return the hdn_dinner
      */
-    public String getHdnDinner() {
-        return hdnDinner;
+    public String getHdn_dinner() {
+        return hdn_dinner;
     }
 
     /**
-     * @param hdnDinner the hdnDinner to set
+     * @param hdn_dinner the hdn_dinner to set
      */
-    public void setHdnDinner(String hdnDinner) {
-        this.hdnDinner = hdnDinner;
+    public void setHdn_dinner(String hdn_dinner) {
+        this.hdn_dinner = hdn_dinner;
     }
 
     /**
-     * @return the hdnLunch
+     * @return the hdn_lunch
      */
-    public String getHdnLunch() {
-        return hdnLunch;
+    public String getHdn_lunch() {
+        return hdn_lunch;
     }
 
     /**
-     * @param hdnLunch the hdnLunch to set
+     * @param hdn_lunch the hdn_lunch to set
      */
-    public void setHdnLunch(String hdnLunch) {
-        this.hdnLunch = hdnLunch;
+    public void setHdn_lunch(String hdn_lunch) {
+        this.hdn_lunch = hdn_lunch;
     }
 
-    
     @Override
     public int hashCode() {
         int hash = 0;

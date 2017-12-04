@@ -12,6 +12,7 @@ import cn.hanbell.oa.app.MCHKGL004;
 import cn.hanbell.oa.ejb.HKGL004Bean;
 import cn.hanbell.oa.ejb.WorkFlowBean;
 import cn.hanbell.oa.entity.HKGL004;
+import cn.hanbell.oa.entity.OrganizationUnit;
 import cn.hanbell.oa.model.HKGL004Model;
 import cn.hanbell.util.BaseLib;
 import cn.hanbell.util.SuperEJB;
@@ -56,24 +57,24 @@ public class HKGL004FacadeREST extends SuperREST<HKGL004> {
         }
         try {
             workFlowBean.initUserInfo(entity.getEmployee());
-            HKGL004Model la = new HKGL004Model();
 
+            HKGL004Model la = new HKGL004Model();
             la.setApplyDate(BaseLib.getDate());
             la.setApplyUser(workFlowBean.getCurrentUser().getId());
-            la.setHdnApplyUser(workFlowBean.getCurrentUser().getUserName());
+            la.setHdn_applyUser(workFlowBean.getCurrentUser().getUserName());
             la.setApplyDept(workFlowBean.getUserFunction().getOrganizationUnit().getId());
-            la.setHdnApplyDept(workFlowBean.getUserFunction().getOrganizationUnit().getOrganizationUnitName());
+            la.setHdn_applyDept(workFlowBean.getUserFunction().getOrganizationUnit().getOrganizationUnitName());
             //根据部门编号代出公司编号
             la.setFacno(workFlowBean.getCompanyByDeptId(la.getApplyDept()));
-
+            la.setHdn_facno(la.getFacno());
             la.setLeana(entity.getFormType());
-            la.setHdnLeana(entity.getFormTypeDesc());
+            la.setHdn_leana(entity.getFormTypeDesc());
             la.setLeano(entity.getFormKind());
-            la.setHdnLeano(entity.getFormKindDesc());
+            la.setHdn_leano(entity.getFormKindDesc());
             la.setLeatp(entity.getWorkType());
-            la.setHdnLeatp(entity.getWorkTypeDesc());
+            la.setHdn_leatp(entity.getWorkTypeDesc());
             la.setEmployee(workFlowBean.getCurrentUser().getId());
-            la.setHdnEmployee(workFlowBean.getCurrentUser().getUserName());
+            la.setHdn_employee(workFlowBean.getCurrentUser().getUserName());
             la.setDate1(BaseLib.getDate("yyyy-MM-dd", entity.getDate1()));
             la.setTime1(entity.getTime1());
             la.setDate2(BaseLib.getDate("yyyy-MM-dd", entity.getDate2()));
@@ -83,8 +84,9 @@ public class HKGL004FacadeREST extends SuperREST<HKGL004> {
             la.setLeaday3(entity.getLeaveMinute());
             la.setUserTitle(workFlowBean.getUserTitle().getTitleDefinition().getTitleDefinitionName());
             la.setReason(entity.getReason());
+
             String formInstance = workFlowBean.buildXmlForEFGP("HK_GL004", la, null);
-            String subject = la.getHdnEmployee() + entity.getDate1() + "开始请假" + entity.getLeaveDay() + "天" + entity.getLeaveHour() + "时" + entity.getLeaveMinute() + "分";
+            String subject = la.getHdn_employee() + entity.getDate1() + "开始请假" + entity.getLeaveDay() + "天" + entity.getLeaveHour() + "时" + entity.getLeaveMinute() + "分";
             String msg = workFlowBean.invokeProcess(workFlowBean.hostAdd, workFlowBean.hostPort, "PKG_HK_GL004", formInstance, subject);
             String[] rm = msg.split("\\$");
             if (rm.length == 2) {
@@ -106,25 +108,30 @@ public class HKGL004FacadeREST extends SuperREST<HKGL004> {
             throw new WebApplicationException(Response.Status.BAD_REQUEST);
         }
         try {
+            //初始化发起人
             workFlowBean.initUserInfo(entity.getApplyUser());
+            //实例化对象
             HKGL004Model la = new HKGL004Model();
-
             la.setFacno(entity.getCompany());
+            la.setHdn_facno(entity.getCompany());
             la.setApplyDate(BaseLib.getDate());
             la.setApplyUser(workFlowBean.getCurrentUser().getId());
-            la.setHdnApplyUser(workFlowBean.getCurrentUser().getUserName());
-            la.setApplyDept(workFlowBean.getUserFunction().getOrganizationUnit().getId());
-            la.setHdnApplyDept(workFlowBean.getUserFunction().getOrganizationUnit().getOrganizationUnitName());
+            la.setHdn_applyUser(workFlowBean.getCurrentUser().getUserName());
+            OrganizationUnit ou = workFlowBean.findOrgUnitByDeptno(entity.getApplyDept());
+            if (ou == null) {
+                throw new NullPointerException(entity.getApplyDept() + "不存在");
+            }
+            la.setApplyDept(ou.getId());
+            la.setHdn_applyDept(ou.getOrganizationUnitName());
             //根据部门编号代出公司编号
-
             la.setLeana(entity.getFormType());
-            la.setHdnLeana(entity.getFormTypeDesc());
+            la.setHdn_leana(entity.getFormTypeDesc());
             la.setLeano(entity.getFormKind());
-            la.setHdnLeano(entity.getFormKindDesc());
+            la.setHdn_leano(entity.getFormKindDesc());
             la.setLeatp(entity.getWorkType());
-            la.setHdnLeatp(entity.getWorkTypeDesc());
+            la.setHdn_leatp(entity.getWorkTypeDesc());
             la.setEmployee(workFlowBean.getCurrentUser().getId());
-            la.setHdnEmployee(workFlowBean.getCurrentUser().getUserName());
+            la.setHdn_employee(workFlowBean.getCurrentUser().getUserName());
             la.setDate1(BaseLib.getDate("yyyy-MM-dd", entity.getStartDate()));
             la.setTime1(entity.getStartTime());
             la.setDate2(BaseLib.getDate("yyyy-MM-dd", entity.getEndDate()));
@@ -134,8 +141,9 @@ public class HKGL004FacadeREST extends SuperREST<HKGL004> {
             la.setLeaday3(entity.getLeaveMinute());
             la.setUserTitle(workFlowBean.getUserTitle().getTitleDefinition().getTitleDefinitionName());
             la.setReason(entity.getReason());
+            //发起流程
             String formInstance = workFlowBean.buildXmlForEFGP("HK_GL004", la, null);
-            String subject = la.getHdnEmployee() + entity.getStartDate() + "开始请假" + entity.getLeaveDay() + "天" + entity.getLeaveHour() + "时" + entity.getLeaveMinute() + "分";
+            String subject = la.getHdn_employee() + entity.getStartDate() + "开始请假" + entity.getLeaveDay() + "天" + entity.getLeaveHour() + "时" + entity.getLeaveMinute() + "分";
             String msg = workFlowBean.invokeProcess(workFlowBean.hostAdd, workFlowBean.hostPort, "PKG_HK_GL004", formInstance, subject);
             String[] rm = msg.split("\\$");
             if (rm.length == 2) {

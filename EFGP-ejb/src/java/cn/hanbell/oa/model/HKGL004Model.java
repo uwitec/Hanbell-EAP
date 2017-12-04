@@ -21,99 +21,44 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement
 public class HKGL004Model implements Serializable {
-    
-    @Size(max = 255)
-    @Column(name = "facno")
+
     private String facno;
-    @Column(name = "applyDate")
-    @Temporal(TemporalType.TIMESTAMP)
+    private String hdn_facno;
     private Date applyDate;
-    @Size(max = 255)
-    @Column(name = "applyUser")
     private String applyUser;
-    @Size(max = 255)
-    @Column(name = "applyDept")
+    private String hdn_applyUser;
     private String applyDept;
-    
-    @Size(max = 255)
-    @Column(name = "hdn_facno")
-    private String hdnFacno;
-    @Size(max = 255)
-    @Column(name = "hdn_applyDept")
-    private String hdnApplyDept;
-    @Size(max = 255)
-    @Column(name = "hdn_applyUser")
-    private String hdnApplyUser;
-    
-    @Size(max = 255)
-    @Column(name = "leana")
+    private String hdn_applyDept;
+
     private String leana;
-    @Size(max = 255)
-    @Column(name = "leano")
+    private String hdn_leana;
     private String leano;
-    @Size(max = 255)
-    @Column(name = "leatp")
+    private String hdn_leano;
     private String leatp;
-    
-    @Size(max = 255)
-    @Column(name = "hdn_leana")
-    private String hdnLeana;
-    @Size(max = 255)
-    @Column(name = "hdn_leano")
-    private String hdnLeano;
-    @Size(max = 255)
-    @Column(name = "hdn_leatp")
-    private String hdnLeatp;
-    
-    @Size(max = 255)
-    @Column(name = "day")
-    private String day;
-    @Size(max = 255)
-    @Column(name = "userTitle")
-    private String userTitle;
-    @Column(name = "leaday1")
-    private Double leaday1;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "leaday2")
-    private Double leaday2;
-    @Column(name = "leaday3")
-    private Double leaday3;
-    
-    @Column(name = "date1")
-    @Temporal(TemporalType.DATE)
-    private Date date1;
-    @Column(name = "date2")
-    @Temporal(TemporalType.DATE)
-    private Date date2;
-    @Size(max = 255)
-    @Column(name = "time1")
-    private String time1;
-    @Size(max = 255)
-    @Column(name = "time2")
-    private String time2;
-    
-    @Id
-    @Basic(optional = false)
-    @Size(max = 255)
-    @Column(name = "employee")
+    private String hdn_leatp;
+
     private String employee;
-    @Size(max = 255)
-    @Column(name = "reason")
+    private String hdn_employee;
+    private String day;
+    private String userTitle;
+    private Double leaday1;
+    private Double leaday2;
+    private Double leaday3;
+    private Date date1;
+    private Date date2;
+    private String time1;
+    private String time2;
     private String reason;
-    
-    @Size(max = 255)
-    @Column(name = "hdn_employee")
-    private String hdnEmployee;
-    
+
     public HKGL004Model() {
     }
-    
+
     @Override
     public int hashCode() {
         int hash = 0;
         return hash;
     }
-    
+
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -126,7 +71,7 @@ public class HKGL004Model implements Serializable {
         }
         return true;
     }
-    
+
     @Override
     public String toString() {
         return "cn.hanbell.oa.entity.HKGL004";
@@ -189,45 +134,45 @@ public class HKGL004Model implements Serializable {
     }
 
     /**
-     * @return the hdnFacno
+     * @return the hdn_facno
      */
-    public String getHdnFacno() {
-        return hdnFacno;
+    public String getHdn_facno() {
+        return hdn_facno;
     }
 
     /**
-     * @param hdnFacno the hdnFacno to set
+     * @param hdn_facno the hdn_facno to set
      */
-    public void setHdnFacno(String hdnFacno) {
-        this.hdnFacno = hdnFacno;
+    public void setHdn_facno(String hdn_facno) {
+        this.hdn_facno = hdn_facno;
     }
 
     /**
-     * @return the hdnApplyDept
+     * @return the hdn_applyDept
      */
-    public String getHdnApplyDept() {
-        return hdnApplyDept;
+    public String getHdn_applyDept() {
+        return hdn_applyDept;
     }
 
     /**
-     * @param hdnApplyDept the hdnApplyDept to set
+     * @param hdn_applyDept the hdn_applyDept to set
      */
-    public void setHdnApplyDept(String hdnApplyDept) {
-        this.hdnApplyDept = hdnApplyDept;
+    public void setHdn_applyDept(String hdn_applyDept) {
+        this.hdn_applyDept = hdn_applyDept;
     }
 
     /**
-     * @return the hdnApplyUser
+     * @return the hdn_applyUser
      */
-    public String getHdnApplyUser() {
-        return hdnApplyUser;
+    public String getHdn_applyUser() {
+        return hdn_applyUser;
     }
 
     /**
-     * @param hdnApplyUser the hdnApplyUser to set
+     * @param hdn_applyUser the hdn_applyUser to set
      */
-    public void setHdnApplyUser(String hdnApplyUser) {
-        this.hdnApplyUser = hdnApplyUser;
+    public void setHdn_applyUser(String hdn_applyUser) {
+        this.hdn_applyUser = hdn_applyUser;
     }
 
     /**
@@ -273,45 +218,45 @@ public class HKGL004Model implements Serializable {
     }
 
     /**
-     * @return the hdnLeana
+     * @return the hdn_leana
      */
-    public String getHdnLeana() {
-        return hdnLeana;
+    public String getHdn_leana() {
+        return hdn_leana;
     }
 
     /**
-     * @param hdnLeana the hdnLeana to set
+     * @param hdn_leana the hdn_leana to set
      */
-    public void setHdnLeana(String hdnLeana) {
-        this.hdnLeana = hdnLeana;
+    public void setHdn_leana(String hdn_leana) {
+        this.hdn_leana = hdn_leana;
     }
 
     /**
-     * @return the hdnLeano
+     * @return the hdn_leano
      */
-    public String getHdnLeano() {
-        return hdnLeano;
+    public String getHdn_leano() {
+        return hdn_leano;
     }
 
     /**
-     * @param hdnLeano the hdnLeano to set
+     * @param hdn_leano the hdn_leano to set
      */
-    public void setHdnLeano(String hdnLeano) {
-        this.hdnLeano = hdnLeano;
+    public void setHdn_leano(String hdn_leano) {
+        this.hdn_leano = hdn_leano;
     }
 
     /**
-     * @return the hdnLeatp
+     * @return the hdn_leatp
      */
-    public String getHdnLeatp() {
-        return hdnLeatp;
+    public String getHdn_leatp() {
+        return hdn_leatp;
     }
 
     /**
-     * @param hdnLeatp the hdnLeatp to set
+     * @param hdn_leatp the hdn_leatp to set
      */
-    public void setHdnLeatp(String hdnLeatp) {
-        this.hdnLeatp = hdnLeatp;
+    public void setHdn_leatp(String hdn_leatp) {
+        this.hdn_leatp = hdn_leatp;
     }
 
     /**
@@ -469,17 +414,17 @@ public class HKGL004Model implements Serializable {
     }
 
     /**
-     * @return the hdnEmployee
+     * @return the hdn_employee
      */
-    public String getHdnEmployee() {
-        return hdnEmployee;
+    public String getHdn_employee() {
+        return hdn_employee;
     }
 
     /**
-     * @param hdnEmployee the hdnEmployee to set
+     * @param hdn_employee the hdn_employee to set
      */
-    public void setHdnEmployee(String hdnEmployee) {
-        this.hdnEmployee = hdnEmployee;
+    public void setHdn_employee(String hdn_employee) {
+        this.hdn_employee = hdn_employee;
     }
-    
+
 }
