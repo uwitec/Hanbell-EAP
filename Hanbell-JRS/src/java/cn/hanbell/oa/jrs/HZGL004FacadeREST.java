@@ -5,7 +5,6 @@
  */
 package cn.hanbell.oa.jrs;
 
-import cn.hanbell.oa.app.LeaveApplication;
 import cn.hanbell.jrs.ResponseMessage;
 import cn.hanbell.jrs.SuperREST;
 import cn.hanbell.oa.app.MCHZGL004;
@@ -13,6 +12,7 @@ import cn.hanbell.oa.app.MCHZGL004BizDetail;
 import cn.hanbell.oa.ejb.HZGL004Bean;
 import cn.hanbell.oa.ejb.WorkFlowBean;
 import cn.hanbell.oa.entity.HZGL004;
+import cn.hanbell.oa.entity.OrganizationUnit;
 import cn.hanbell.oa.model.HZGL004BizDetailModel;
 import cn.hanbell.oa.model.HZGL004Model;
 import cn.hanbell.util.BaseLib;
@@ -21,7 +21,6 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import javax.ejb.EJB;
-import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -66,21 +65,31 @@ public class HZGL004FacadeREST extends SuperREST<HZGL004> {
         LinkedHashMap<String, List<?>> details = new LinkedHashMap<>();
         details.put("bizDetail", detailList);
         try {
+            //初始化发起人
             workFlowBean.initUserInfo(entity.getApplyUser());
+            //实例化对象
             m = new HZGL004Model();
             m.setFacno(entity.getCompany());
             m.setApplyDate(BaseLib.getDate());
             m.setApplyUser(workFlowBean.getCurrentUser().getId());
             m.setHdn_applyUser(workFlowBean.getCurrentUser().getUserName());
-            m.setApplyDept(workFlowBean.getUserFunction().getOrganizationUnit().getId());
-            m.setHdn_applyDept(workFlowBean.getUserFunction().getOrganizationUnit().getOrganizationUnitName());
+            OrganizationUnit ou = workFlowBean.findOrgUnitByDeptno(entity.getApplyDept());
+            if (ou == null) {
+                throw new NullPointerException(entity.getApplyDept() + "不存在");
+            }
+            m.setApplyDept(ou.getId());
+            m.setHdn_applyDept(ou.getOrganizationUnitName());
             m.setFormType(entity.getFormType());
-            if(!"7".equals(entity.getFormType())){
+            if ("7".equals(entity.getFormType())) {
+                m.setOtherType(entity.getOtherType());
+            } else {
                 m.setOtherType("");
             }
             m.setHdn_formType(entity.getFormTypeDesc());
             m.setVehicle(entity.getVehicle());
-            if(!"6".equals(entity.getFormType())){
+            if ("6".equals(entity.getVehicle())) {
+                m.setOtherVehicle(entity.getOtherVehicle());
+            } else {
                 m.setOtherVehicle("");
             }
             m.setHdn_vehicle(entity.getVehicleDesc());
@@ -108,9 +117,9 @@ public class HZGL004FacadeREST extends SuperREST<HZGL004> {
                 d.setUserTitle(m.getUserTitle());
                 detailList.add(d);
             }
-
+            //发起流程
             String formInstance = workFlowBean.buildXmlForEFGP("HZ_GL004", m, details);
-            String subject = m.getHdn_applyUser()+ entity.getStartDate() + "开始出差" + entity.getDays() + "天";
+            String subject = m.getHdn_applyUser() + entity.getStartDate() + "开始出差" + entity.getDays() + "天";
             String msg = workFlowBean.invokeProcess(workFlowBean.hostAdd, workFlowBean.hostPort, "PKG_HZ_GL004", formInstance, subject);
             String[] rm = msg.split("\\$");
             if (rm.length == 2) {

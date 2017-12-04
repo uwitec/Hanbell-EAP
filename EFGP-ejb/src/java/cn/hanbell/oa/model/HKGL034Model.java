@@ -20,34 +20,17 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class HKGL034Model implements Serializable {
 
-    @Size(max = 255)
-    @Column(name = "facno")
-    private String facno;
-    @Size(max = 255)
-    @Column(name = "hdn_facno")
-    private String hdnFacno;
-    @Column(name = "applyDate")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date applyDate;
-    @Size(max = 255)
-    @Column(name = "applyUser")
-    private String applyUser;
-    @Size(max = 255)
-    @Column(name = "hdn_applyUser")
-    private String hdnApplyUser;
-    @Size(max = 255)
-    @Column(name = "applyDept")
-    private String applyDept;
-    @Size(max = 255)
-    @Column(name = "hdn_applyDept")
-    private String hdnApplyDept;
 
-    @Size(max = 255)
-    @Column(name = "type")
+    private String facno;
+    private String hdn_facno;
+    private Date applyDate;
+    private String applyUser;
+    private String hdn_applyUser;
+    private String applyDept;
+    private String hdn_applyDept;
+
     private String type;
-    @Size(max = 255)
-    @Column(name = "hdn_type")
-    private String hdnType;
+    private String hdn_type;
 
     public HKGL034Model() {
     }
@@ -77,25 +60,25 @@ public class HKGL034Model implements Serializable {
     }
 
     /**
-     * @return the hdnFacno
+     * @return the hdn_facno
      */
-    public String getHdnFacno() {
-        return hdnFacno;
+    public String getHdn_facno() {
+        return hdn_facno;
     }
 
     /**
-     * @param hdnFacno the hdnFacno to set
+     * @param hdn_facno the hdn_facno to set
      */
-    public void setHdnFacno(String hdnFacno) {
-        this.hdnFacno = hdnFacno;
+    public void setHdn_facno(String hdn_facno) {
+        this.hdn_facno = hdn_facno;
     }
 
-    public String getHdnApplyUser() {
-        return hdnApplyUser;
+    public String getHdn_applyUser() {
+        return hdn_applyUser;
     }
 
-    public void setHdnApplyUser(String hdnApplyUser) {
-        this.hdnApplyUser = hdnApplyUser;
+    public void setHdn_applyUser(String hdn_applyUser) {
+        this.hdn_applyUser = hdn_applyUser;
     }
 
     public String getApplyUser() {
@@ -106,12 +89,12 @@ public class HKGL034Model implements Serializable {
         this.applyUser = applyUser;
     }
 
-    public String getHdnType() {
-        return hdnType;
+    public String getHdn_type() {
+        return hdn_type;
     }
 
-    public void setHdnType(String hdnType) {
-        this.hdnType = hdnType;
+    public void setHdn_type(String hdn_type) {
+        this.hdn_type = hdn_type;
     }
 
     public String getApplyDept() {
@@ -122,12 +105,12 @@ public class HKGL034Model implements Serializable {
         this.applyDept = applyDept;
     }
 
-    public String getHdnApplyDept() {
-        return hdnApplyDept;
+    public String getHdn_applyDept() {
+        return hdn_applyDept;
     }
 
-    public void setHdnApplyDept(String hdnApplyDept) {
-        this.hdnApplyDept = hdnApplyDept;
+    public void setHdn_applyDept(String hdn_applyDept) {
+        this.hdn_applyDept = hdn_applyDept;
     }
 
     @Override
