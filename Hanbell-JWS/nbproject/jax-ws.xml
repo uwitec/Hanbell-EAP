@@ -13,6 +13,9 @@
     <service name="EAPWebService">
       <implementation-class>cn.hanbell.jws.EAPWebService</implementation-class>
     </service>
+    <service name="VHBERPWebService">
+      <implementation-class>cn.hanbell.jws.VHBERPWebService</implementation-class>
+    </service>
   </services>
   <clients>
   </clients>

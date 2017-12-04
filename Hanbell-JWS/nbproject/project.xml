@@ -39,6 +39,9 @@
                 <library dirs="100">
                     <file>${reference.PLM-ejb.dist}</file>
                 </library>
+                <library dirs="100">
+                    <file>${reference.VHBERP-ejb.dist}</file>
+                </library>
             </web-module-libraries>
             <web-module-additional-libraries/>
             <source-roots>
@@ -99,6 +102,14 @@
             </reference>
             <reference>
                 <foreign-project>PLM-ejb</foreign-project>
+                <artifact-type>jar</artifact-type>
+                <script>build.xml</script>
+                <target>dist</target>
+                <clean-target>clean</clean-target>
+                <id>dist</id>
+            </reference>
+            <reference>
+                <foreign-project>VHBERP-ejb</foreign-project>
                 <artifact-type>jar</artifact-type>
                 <script>build.xml</script>
                 <target>dist</target>
