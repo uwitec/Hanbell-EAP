@@ -83,7 +83,13 @@ public class HKGL038Detail implements Serializable {
     @Size(max = 255)
     @Column(name = "formSerialNumber")
     private String formSerialNumber;
-
+    @Size(max = 255)
+    @Column(name = "ycyy")
+    private String ycyy;
+    @Column(name = "unprice")
+    private Double unprice;
+    @Column(name = "cost ")
+    private Double cost;
     public HKGL038Detail() {
     }
 
@@ -219,6 +225,30 @@ public class HKGL038Detail implements Serializable {
     @Override
     public String toString() {
         return "cn.hanbell.oa.comm.HKGL038Detail[ oid=" + oid + " ]";
+    }
+
+    public String getYcyy() {
+        return ycyy;
+    }
+
+    public void setYcyy(String ycyy) {
+        this.ycyy = ycyy;
+    }
+
+    public Double getUnprice() {
+        return unprice;
+    }
+
+    public void setUnprice(Double unprice) {
+        this.unprice = unprice;
+    }
+
+    public Double getCost() {
+        return cost;
+    }
+
+    public void setCost(Double cost) {
+        this.cost = cost;
     }
 
 }
