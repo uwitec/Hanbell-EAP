@@ -5,7 +5,6 @@
  */
 package cn.hanbell.eap.control;
 
-
 import cn.hanbell.eap.ejb.SystemGrantModuleBean;
 import cn.hanbell.eap.ejb.SystemGrantPrgBean;
 import cn.hanbell.eap.ejb.SystemModuleBean;
@@ -329,6 +328,7 @@ public class RoleGrantManagedBean extends SuperSingleBean<SystemRole> {
         moduleList = sysmoduleBean.findAll();
         superEJB = systemRoleBean;
         setModel(new SystemRoleModel(systemRoleBean));
+        model.getSortFields().put("roleno", "ASC");
         super.init();
     }
 

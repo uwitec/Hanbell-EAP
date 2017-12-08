@@ -12,6 +12,8 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -47,6 +49,14 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Cdrhad.findByHmark3", query = "SELECT c FROM Cdrhad c WHERE c.hmark3 = :hmark3"),
     @NamedQuery(name = "Cdrhad.findByHmark4", query = "SELECT c FROM Cdrhad c WHERE c.hmark4 = :hmark4")})
 public class Cdrhad implements Serializable {
+
+    @JoinColumn(name = "cusno", referencedColumnName = "cusno", insertable = false, updatable = false)
+    @ManyToOne
+    private Cdrcus cdrcus;
+    @JoinColumn(name = "mancode", referencedColumnName = "userno", insertable = false, updatable = false)
+    @ManyToOne(optional = true)
+    private Secuser secuser;
+
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected CdrhadPK cdrhadPK;
@@ -792,5 +802,19 @@ public class Cdrhad implements Serializable {
     public String toString() {
         return "shberp.entity.Cdrhad[ cdrhadPK=" + cdrhadPK + " ]";
     }
-    
+
+    /**
+     * @return the cdrcus
+     */
+    public Cdrcus getCdrcus() {
+        return cdrcus;
+    }
+
+    /**
+     * @return the secuser
+     */
+    public Secuser getSecuser() {
+        return secuser;
+    }
+
 }

@@ -17,7 +17,7 @@ import javax.validation.constraints.Size;
  * @author C0160
  */
 @Embeddable
-public class CdrhmasPK implements Serializable {
+public class CdrlotPK implements Serializable {
 
     @Basic(optional = false)
     @NotNull
@@ -27,15 +27,25 @@ public class CdrhmasPK implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 18)
-    @Column(name = "cdrno")
-    private String cdrno;
+    @Column(name = "shpno")
+    private String shpno;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "trseq")
+    private short trseq;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "seq")
+    private short seq;
 
-    public CdrhmasPK() {
+    public CdrlotPK() {
     }
 
-    public CdrhmasPK(String facno, String cdrno) {
+    public CdrlotPK(String facno, String shpno, short trseq, short seq) {
         this.facno = facno;
-        this.cdrno = cdrno;
+        this.shpno = shpno;
+        this.trseq = trseq;
+        this.seq = seq;
     }
 
     public String getFacno() {
@@ -46,33 +56,57 @@ public class CdrhmasPK implements Serializable {
         this.facno = facno;
     }
 
-    public String getCdrno() {
-        return cdrno;
+    public String getShpno() {
+        return shpno;
     }
 
-    public void setCdrno(String cdrno) {
-        this.cdrno = cdrno;
+    public void setShpno(String shpno) {
+        this.shpno = shpno;
+    }
+
+    public short getTrseq() {
+        return trseq;
+    }
+
+    public void setTrseq(short trseq) {
+        this.trseq = trseq;
+    }
+
+    public short getSeq() {
+        return seq;
+    }
+
+    public void setSeq(short seq) {
+        this.seq = seq;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
         hash += (facno != null ? facno.hashCode() : 0);
-        hash += (cdrno != null ? cdrno.hashCode() : 0);
+        hash += (shpno != null ? shpno.hashCode() : 0);
+        hash += (int) trseq;
+        hash += (int) seq;
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof CdrhmasPK)) {
+        if (!(object instanceof CdrlotPK)) {
             return false;
         }
-        CdrhmasPK other = (CdrhmasPK) object;
+        CdrlotPK other = (CdrlotPK) object;
         if ((this.facno == null && other.facno != null) || (this.facno != null && !this.facno.equals(other.facno))) {
             return false;
         }
-        if ((this.cdrno == null && other.cdrno != null) || (this.cdrno != null && !this.cdrno.equals(other.cdrno))) {
+        if ((this.shpno == null && other.shpno != null) || (this.shpno != null && !this.shpno.equals(other.shpno))) {
+            return false;
+        }
+        if (this.trseq != other.trseq) {
+            return false;
+        }
+        if (this.seq != other.seq) {
             return false;
         }
         return true;
@@ -80,7 +114,7 @@ public class CdrhmasPK implements Serializable {
 
     @Override
     public String toString() {
-        return "shberp.entity.CdrhmasPK[ facno=" + facno + ", cdrno=" + cdrno + " ]";
+        return "cn.hanbell.erp.entity.CdrlotPK[ facno=" + facno + ", shpno=" + shpno + ", trseq=" + trseq + ", seq=" + seq + " ]";
     }
-
+    
 }

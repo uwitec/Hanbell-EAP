@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "SystemRole.getRowCount", query = "SELECT COUNT(s) FROM SystemRole s"),
-    @NamedQuery(name = "SystemRole.findAll", query = "SELECT s FROM SystemRole s"),
+    @NamedQuery(name = "SystemRole.findAll", query = "SELECT s FROM SystemRole s ORDER BY s.roleno"),
     @NamedQuery(name = "SystemRole.findById", query = "SELECT s FROM SystemRole s WHERE s.id = :id"),
     @NamedQuery(name = "SystemRole.findByRoleno", query = "SELECT s FROM SystemRole s WHERE s.roleno = :roleno"),
     @NamedQuery(name = "SystemRole.findByRolename", query = "SELECT s FROM SystemRole s WHERE s.rolename = :rolename"),

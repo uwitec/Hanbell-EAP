@@ -38,29 +38,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Cdrdta.findByItnbrcus", query = "SELECT c FROM Cdrdta c WHERE c.itnbrcus = :itnbrcus"),
     @NamedQuery(name = "Cdrdta.findByProno", query = "SELECT c FROM Cdrdta c WHERE c.prono = :prono"),
     @NamedQuery(name = "Cdrdta.findByWareh", query = "SELECT c FROM Cdrdta c WHERE c.wareh = :wareh"),
-    @NamedQuery(name = "Cdrdta.findByFixnr", query = "SELECT c FROM Cdrdta c WHERE c.fixnr = :fixnr"),
-    @NamedQuery(name = "Cdrdta.findByVarnr", query = "SELECT c FROM Cdrdta c WHERE c.varnr = :varnr"),
-    @NamedQuery(name = "Cdrdta.findByShpqy1", query = "SELECT c FROM Cdrdta c WHERE c.shpqy1 = :shpqy1"),
-    @NamedQuery(name = "Cdrdta.findByShpqy2", query = "SELECT c FROM Cdrdta c WHERE c.shpqy2 = :shpqy2"),
-    @NamedQuery(name = "Cdrdta.findByArmqy", query = "SELECT c FROM Cdrdta c WHERE c.armqy = :armqy"),
-    @NamedQuery(name = "Cdrdta.findByUnpris", query = "SELECT c FROM Cdrdta c WHERE c.unpris = :unpris"),
-    @NamedQuery(name = "Cdrdta.findByUnprisrccode", query = "SELECT c FROM Cdrdta c WHERE c.unprisrccode = :unprisrccode"),
-    @NamedQuery(name = "Cdrdta.findByShpamts", query = "SELECT c FROM Cdrdta c WHERE c.shpamts = :shpamts"),
-    @NamedQuery(name = "Cdrdta.findByIvoamts", query = "SELECT c FROM Cdrdta c WHERE c.ivoamts = :ivoamts"),
-    @NamedQuery(name = "Cdrdta.findByDmark1", query = "SELECT c FROM Cdrdta c WHERE c.dmark1 = :dmark1"),
-    @NamedQuery(name = "Cdrdta.findByDmark2", query = "SELECT c FROM Cdrdta c WHERE c.dmark2 = :dmark2"),
-    @NamedQuery(name = "Cdrdta.findByDmark3", query = "SELECT c FROM Cdrdta c WHERE c.dmark3 = :dmark3"),
-    @NamedQuery(name = "Cdrdta.findByDmark4", query = "SELECT c FROM Cdrdta c WHERE c.dmark4 = :dmark4"),
-    @NamedQuery(name = "Cdrdta.findByUnmsr9", query = "SELECT c FROM Cdrdta c WHERE c.unmsr9 = :unmsr9"),
-    @NamedQuery(name = "Cdrdta.findByTrtype", query = "SELECT c FROM Cdrdta c WHERE c.trtype = :trtype"),
-    @NamedQuery(name = "Cdrdta.findByCusmark", query = "SELECT c FROM Cdrdta c WHERE c.cusmark = :cusmark"),
-    @NamedQuery(name = "Cdrdta.findByCuslable", query = "SELECT c FROM Cdrdta c WHERE c.cuslable = :cuslable"),
-    @NamedQuery(name = "Cdrdta.findByIslableprt", query = "SELECT c FROM Cdrdta c WHERE c.islableprt = :islableprt"),
-    @NamedQuery(name = "Cdrdta.findByMatecode", query = "SELECT c FROM Cdrdta c WHERE c.matecode = :matecode"),
-    @NamedQuery(name = "Cdrdta.findByPsamts", query = "SELECT c FROM Cdrdta c WHERE c.psamts = :psamts"),
-    @NamedQuery(name = "Cdrdta.findByMsamts", query = "SELECT c FROM Cdrdta c WHERE c.msamts = :msamts"),
-    @NamedQuery(name = "Cdrdta.findByIssevdta", query = "SELECT c FROM Cdrdta c WHERE c.issevdta = :issevdta")})
+    @NamedQuery(name = "Cdrdta.findByTrtype", query = "SELECT c FROM Cdrdta c WHERE c.trtype = :trtype")})
 public class Cdrdta implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected CdrdtaPK cdrdtaPK;
@@ -458,5 +438,5 @@ public class Cdrdta implements Serializable {
     public String toString() {
         return "shberp.entity.Cdrdta[ cdrdtaPK=" + cdrdtaPK + " ]";
     }
-    
+
 }

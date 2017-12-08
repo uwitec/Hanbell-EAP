@@ -21,15 +21,8 @@ import javax.ws.rs.Path;
 @Path("shberp/invwh")
 public class InvwhFacadeREST extends SuperRESTForERP<Invwh> {
 
-    @PersistenceContext(unitName = "RESTPU_shberp")
-    private EntityManager em;
-
     public InvwhFacadeREST() {
         super(Invwh.class);
-    }
-
-    protected EntityManager getEntityManager() {
-        return em;
     }
 
     @Override
