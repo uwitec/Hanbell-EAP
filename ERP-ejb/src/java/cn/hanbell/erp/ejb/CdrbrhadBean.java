@@ -139,6 +139,7 @@ public class CdrbrhadBean extends SuperEJBForERP<Cdrbrhad> {
                 cdrbrdta.setVarnr(detail.getVarnr());
                 cdrbrdta.setFixnr(detail.getFixnr());
                 cdrbrdta.setBrpqy1(BigDecimal.valueOf(Double.parseDouble(detail.getBrpqy1())));
+                cdrbrdta.setBrpqy2(BigDecimal.ZERO);
                 cdrbrdta.setBrdate(cdrbrhad.getBrdate());
                 cdrbrdta.setPyhbrdate(BaseLib.getDate("yyyy/MM/dd", detail.getPrebkdate()));
                 cdrbrdta.setProno(h.getProno());

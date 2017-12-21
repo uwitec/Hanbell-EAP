@@ -69,7 +69,7 @@ if(master!=null){
                 </structure>
                 <structure>
                     <property name="position">6</property>
-                    <property name="name">remark</property>
+                    <property name="name">expressno</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
@@ -97,6 +97,11 @@ if(master!=null){
                     <property name="name">amts</property>
                     <property name="dataType">float</property>
                 </structure>
+                <structure>
+                    <property name="position">12</property>
+                    <property name="name">remark</property>
+                    <property name="dataType">string</property>
+                </structure>
             </list-property>
             <list-property name="columnHints">
                 <structure>
@@ -115,7 +120,7 @@ if(master!=null){
                     <property name="columnName">customer</property>
                 </structure>
                 <structure>
-                    <property name="columnName">remark</property>
+                    <property name="columnName">expressno</property>
                 </structure>
                 <structure>
                     <property name="columnName">creator</property>
@@ -131,6 +136,9 @@ if(master!=null){
                 </structure>
                 <structure>
                     <property name="columnName">amts</property>
+                </structure>
+                <structure>
+                    <property name="columnName">remark</property>
                 </structure>
             </list-property>
             <structure name="cachedMetaData">
@@ -162,7 +170,7 @@ if(master!=null){
                     </structure>
                     <structure>
                         <property name="position">6</property>
-                        <property name="name">remark</property>
+                        <property name="name">expressno</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
@@ -190,6 +198,11 @@ if(master!=null){
                         <property name="name">amts</property>
                         <property name="dataType">float</property>
                     </structure>
+                    <structure>
+                        <property name="position">12</property>
+                        <property name="name">remark</property>
+                        <property name="dataType">string</property>
+                    </structure>
                 </list-property>
             </structure>
             <property name="dataSource">scriptDS</property>
@@ -207,6 +220,7 @@ i = 0;]]></method>
 	dataSetRow["billno"] = detail.get(currentRow).getBillno();
 	dataSetRow["billdate"] = detail.get(currentRow).getBilldate();	
 	dataSetRow["amts"] = detail.get(currentRow).getAmts();
+	dataSetRow["remark"] = detail.get(currentRow).getRemark();
 	currentRow++;
 	return true;
 
@@ -606,6 +620,12 @@ return false;]]></method>
                     <expression name="expression" type="javascript">dataSetRow["amts"]</expression>
                     <property name="dataType">float</property>
                 </structure>
+                <structure>
+                    <property name="name">remark</property>
+                    <text-property name="displayName">remark</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["remark"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
             </list-property>
             <column id="336">
                 <property name="width">0.5in</property>
@@ -763,6 +783,9 @@ return false;]]></method>
                         <property name="borderRightWidth">thin</property>
                         <property name="borderTopStyle">solid</property>
                         <property name="borderTopWidth">thin</property>
+                        <data id="475">
+                            <property name="resultSetColumn">remark</property>
+                        </data>
                     </cell>
                 </row>
             </detail>

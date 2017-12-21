@@ -65,7 +65,7 @@ public abstract class FormMultiBean<T extends FormEntity, D1 extends FormDetailE
         fc = FacesContext.getCurrentInstance();
         ec = fc.getExternalContext();
         appDataPath = ec.getRealPath("/") + ec.getInitParameter("cn.hanbell.web.appdatapath");
-        appResPath = ec.getRealPath("/") + ec.getInitParameter("cn.hanbell.web.appimgpath");
+        appResPath = ec.getRealPath("/") + ec.getInitParameter("cn.hanbell.web.apprespath");
         reportPath = ec.getRealPath("/") + ec.getInitParameter("cn.hanbell.web.reportpath");
         reportOutputFormat = ec.getInitParameter("cn.hanbell.web.reportoutputformat");
         reportOutputPath = ec.getRealPath("/") + ec.getInitParameter("cn.hanbell.web.reportoutputpath");

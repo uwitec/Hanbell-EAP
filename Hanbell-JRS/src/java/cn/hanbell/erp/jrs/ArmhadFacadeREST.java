@@ -5,14 +5,14 @@
  */
 package cn.hanbell.erp.jrs;
 
+import cn.hanbell.erp.ejb.ArmhadBean;
 import cn.hanbell.erp.entity.Armhad;
 import cn.hanbell.erp.entity.ArmhadPK;
 import cn.hanbell.jrs.SuperRESTForERP;
 import cn.hanbell.util.SuperEJB;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -28,8 +28,8 @@ import javax.ws.rs.core.PathSegment;
 @Path("shberp/armhad")
 public class ArmhadFacadeREST extends SuperRESTForERP<Armhad> {
 
-    @PersistenceContext(unitName = "RESTPU_shberp")
-    private EntityManager em;
+    @EJB
+    private ArmhadBean armhadBean;
 
     private ArmhadPK getPrimaryKey(PathSegment pathSegment) {
         /*
@@ -92,31 +92,27 @@ public class ArmhadFacadeREST extends SuperRESTForERP<Armhad> {
         Query query;
         switch (state) {
             case "N":
-                query = em.createNamedQuery("Armhad.findByCusnoDefault");
+                query = armhadBean.getEntityManager().createNamedQuery("Armhad.findByCusnoDefault");
                 query.setParameter("cusno", cusno);
                 break;
             case "Y":
-                query = em.createNamedQuery("Cdrschedule.findByCusnoClosed");
+                query = armhadBean.getEntityManager().createNamedQuery("Cdrschedule.findByCusnoClosed");
                 query.setParameter("cusno", cusno);
                 break;
             case "A":
-                query = em.createNamedQuery("Armhad.findByCusnoAll");
+                query = armhadBean.getEntityManager().createNamedQuery("Armhad.findByCusnoAll");
                 query.setParameter("cusno", cusno);
                 break;
             default:
-                query = em.createNamedQuery("Armhad.findByCusnoDefault");
+                query = armhadBean.getEntityManager().createNamedQuery("Armhad.findByCusnoDefault");
                 query.setParameter("cusno", cusno);
         }
         return query.getResultList();
     }
 
-    protected EntityManager getEntityManager() {
-        return em;
-    }
-
     @Override
     protected SuperEJB getSuperEJB() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return armhadBean;
     }
 
 }

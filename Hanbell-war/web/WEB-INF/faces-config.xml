@@ -68,12 +68,13 @@
         <description>系统整合平台一级导航</description>
         <from-view-id>/*</from-view-id>
         <navigation-case>
-            <description>发票回执打印</description>
+            <description>销货发票导入</description>
             <from-outcome>billimport</from-outcome>
             <to-view-id>/app/erp/billimport.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
+            <description>发票回执打印</description>
             <from-outcome>billprint</from-outcome>
             <to-view-id>/app/erp/billprint.xhtml</to-view-id>
             <redirect/>
@@ -92,6 +93,18 @@
             <description>ERP权限查询</description>
             <from-outcome>secusergrant</from-outcome>
             <to-view-id>/app/erp/secusergrant.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <description>销货资料导入</description>
+            <from-outcome>shipmentimport</from-outcome>
+            <to-view-id>/app/erp/shipmentimport.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <description>销货条码打印</description>
+            <from-outcome>shipmentprint</from-outcome>
+            <to-view-id>/app/erp/shipmentprint.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
     </navigation-rule>

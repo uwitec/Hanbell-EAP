@@ -628,7 +628,7 @@ public class EAPWebService {
                 ai.setItemdesc(detail.getItdsc());
                 ai.setItemspec(detail.getSpdsc());
                 ai.setUnit(detail.getUnmsr1());
-                ai.setStatus("N");
+                ai.setStatus("V");
                 ai.setCreator(h.getEmpl());
                 ai.setCredateToNow();
                 assetItemBean.persist(ai);

@@ -15,6 +15,7 @@ import cn.hanbell.oa.entity.HKGL034;
 import cn.hanbell.oa.model.HKGL034DetailModel;
 import cn.hanbell.oa.model.HKGL034Model;
 import cn.hanbell.oa.app.OvertimeApplicationDetail;
+import cn.hanbell.oa.entity.OrganizationUnit;
 import cn.hanbell.util.BaseLib;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -68,36 +69,36 @@ public class HKGL034FacadeREST extends SuperRESTForEFGP<HKGL034> {
                 m = new HKGL034Model();
                 m.setApplyDate(BaseLib.getDate());
                 m.setApplyUser(workFlowBean.getCurrentUser().getId());
-                m.setHdnApplyUser(workFlowBean.getCurrentUser().getUserName());
+                m.setHdn_applyUser(workFlowBean.getCurrentUser().getUserName());
                 m.setApplyDept(workFlowBean.getUserFunction().getOrganizationUnit().getId());
-                m.setHdnApplyDept(workFlowBean.getUserFunction().getOrganizationUnit().getOrganizationUnitName());
+                m.setHdn_applyDept(workFlowBean.getUserFunction().getOrganizationUnit().getOrganizationUnitName());
                 m.setType(entity.getFormType());
-                m.setHdnType(entity.getFormTypeDesc());
+                m.setHdn_type(entity.getFormTypeDesc());
                 //根据部门设置公司
                 m.setFacno(workFlowBean.getCompanyByDeptId(m.getApplyDept()));
-                m.setHdnFacno(m.getFacno());
+                m.setHdn_facno(m.getFacno());
 
                 for (OvertimeApplicationDetail oad : entity.getDetailList()) {
                     d = new HKGL034DetailModel();
                     d.setSeq(oad.getSeq());
-                    d.setDeptTxt(workFlowBean.getUserFunction().getOrganizationUnit().getId());
-                    d.setDeptLbl(workFlowBean.getUserFunction().getOrganizationUnit().getOrganizationUnitName());
+                    d.setDept_txt(workFlowBean.getUserFunction().getOrganizationUnit().getId());
+                    d.setDept_lbl(workFlowBean.getUserFunction().getOrganizationUnit().getOrganizationUnitName());
                     d.setEmployee(workFlowBean.getCurrentUser().getId());
                     d.setEmployeeName(workFlowBean.getCurrentUser().getUserName());
                     d.setContent(oad.getContent());
-                    d.setDate1Txt(oad.getDate1());
-                    d.setTime1Txt(oad.getTime1());
-                    d.setTime2Txt(oad.getTime2());
+                    d.setDate1_txt(oad.getDate1());
+                    d.setTime1_txt(oad.getTime1());
+                    d.setTime2_txt(oad.getTime2());
                     d.setHour(oad.getHour());
                     if (oad.getLunch()) {
-                        d.setHdnLunch("用餐");
+                        d.setHdn_lunch("用餐");
                     } else {
-                        d.setHdnLunch("不用餐");
+                        d.setHdn_lunch("不用餐");
                     }
                     if (oad.getDinner()) {
-                        d.setHdnDinner("用餐");
+                        d.setHdn_dinner("用餐");
                     } else {
-                        d.setHdnDinner("不用餐");
+                        d.setHdn_dinner("不用餐");
                     }
                     detailList.add(d);
                 }
@@ -136,45 +137,49 @@ public class HKGL034FacadeREST extends SuperRESTForEFGP<HKGL034> {
             try {
                 //初始化发起人
                 workFlowBean.initUserInfo(entity.getHead().getId());
-
+                //实例化对象
                 m = new HKGL034Model();
                 m.setApplyDate(BaseLib.getDate());
                 m.setApplyUser(workFlowBean.getCurrentUser().getId());
-                m.setHdnApplyUser(workFlowBean.getCurrentUser().getUserName());
-                m.setApplyDept(workFlowBean.getUserFunction().getOrganizationUnit().getId());
-                m.setHdnApplyDept(workFlowBean.getUserFunction().getOrganizationUnit().getOrganizationUnitName());
+                m.setHdn_applyUser(workFlowBean.getCurrentUser().getUserName());
+                OrganizationUnit ou = workFlowBean.findOrgUnitByDeptno(entity.getHead().getDeptno());
+                if (ou == null) {
+                    throw new NullPointerException(entity.getHead().getDeptno() + "不存在");
+                }
+                m.setApplyDept(ou.getId());
+                m.setHdn_applyDept(ou.getOrganizationUnitName());
                 m.setType(entity.getHead().getFormType());
-                m.setHdnType(entity.getHead().getFormTypeDesc());
+                m.setHdn_type(entity.getHead().getFormTypeDesc());
                 //根据部门设置公司
                 m.setFacno(entity.getHead().getCompany());
-                m.setHdnFacno(m.getFacno());
+                m.setHdn_facno(m.getFacno());
                 int seq = 0;
                 for (cn.hanbell.oa.app.MCHKGL034Detail oad : entity.getBody()) {
                     seq++;
                     d = new HKGL034DetailModel();
                     d.setSeq(String.valueOf(seq));
-                    d.setDeptTxt(workFlowBean.getUserFunction().getOrganizationUnit().getId());
-                    d.setDeptLbl(workFlowBean.getUserFunction().getOrganizationUnit().getOrganizationUnitName());
+                    d.setDept_txt(workFlowBean.getUserFunction().getOrganizationUnit().getId());
+                    d.setDept_lbl(workFlowBean.getUserFunction().getOrganizationUnit().getOrganizationUnitName());
                     d.setEmployee(workFlowBean.getCurrentUser().getId());
                     d.setEmployeeName(workFlowBean.getCurrentUser().getUserName());
                     d.setContent(oad.getNote());
-                    d.setDate1Txt(oad.getDate());
-                    d.setTime1Txt(oad.getStarttime());
-                    d.setTime2Txt(oad.getEndtime());
+                    d.setDate1_txt(oad.getDate());
+                    d.setTime1_txt(oad.getStarttime());
+                    d.setTime2_txt(oad.getEndtime());
                     d.setHour(oad.getWorktime());
                     if (oad.getLunch().equals("Y")) {
-                        d.setHdnLunch("用餐");
+                        d.setHdn_lunch("用餐");
                     } else {
-                        d.setHdnLunch("不用餐");
+                        d.setHdn_lunch("不用餐");
                     }
                     if (oad.getDinner().equals("Y")) {
-                        d.setHdnDinner("用餐");
+                        d.setHdn_dinner("用餐");
                     } else {
-                        d.setHdnDinner("不用餐");
+                        d.setHdn_dinner("不用餐");
                     }
                     detailList.add(d);
                 }
-
+                //发起流程
                 String formInstance = workFlowBean.buildXmlForEFGP("HK_GL034", m, details);
                 String subject = workFlowBean.getCurrentUser().getUserName() + "加班申请";
                 String msg = workFlowBean.invokeProcess(workFlowBean.hostAdd, workFlowBean.hostPort, "PKG_HK_GL034", formInstance, subject);

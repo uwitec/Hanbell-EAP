@@ -88,32 +88,36 @@
                         <p:row>
                             <p:column><h:outputText value="发票编号" /></p:column>
                             <p:column>
-                                <h:outputText id="billno" value="#{billPrintManagedBean.currentDetail.billno}" title="billno" />
+                                <p:inputText id="billno" value="#{billPrintManagedBean.currentDetail.billno}" title="billno"
+                                             required="true" requiredMessage="请输入发票编号" />
                             </p:column>
                             <p:column><h:outputText value="发票日期"/></p:column>
                             <p:column>
-                                <h:outputText id="billdate" value="#{billPrintManagedBean.currentDetail.billdate}" title="billdate" >
-                                    <f:convertDateTime pattern="yyyy/MM/dd"/>
-                                </h:outputText>
+                                <p:calendar id="billdate" value="#{billPrintManagedBean.currentDetail.billdate}" title="billdate"
+                                            pattern="yyyy/MM/dd" required="true" requiredMessage="请输入发票日期"/>
                             </p:column>
                         </p:row>
                         <p:row>
                             <p:column><h:outputText value="发票金额" /></p:column>
                             <p:column>
-                                <h:outputText id="extaxes" value="#{billPrintManagedBean.currentDetail.extaxes}" title="extaxes" />
+                                <p:inputText id="extaxes" value="#{billPrintManagedBean.currentDetail.extaxes}" title="extaxes"
+                                             required="true" requiredMessage="请输入发票金额" />
                             </p:column>
                             <p:column><h:outputText value="发票税额"/></p:column>
                             <p:column>
-                                <h:outputText id="taxes" value="#{billPrintManagedBean.currentDetail.taxes}" title="taxes" />
+                                <p:inputText id="taxes" value="#{billPrintManagedBean.currentDetail.taxes}" title="taxes"
+                                             required="true" requiredMessage="请输入发票税额" />
                             </p:column>
                         </p:row>
                         <p:row>
                             <p:column><p:outputLabel value="发票总额" for="amts" /></p:column>
                             <p:column>
-                                <p:inputText id="amts" value="#{billPrintManagedBean.currentDetail.amts}" title="amts" />
+                                <p:inputText id="amts" value="#{billPrintManagedBean.currentDetail.amts}" title="amts"
+                                             required="true" requiredMessage="请输入发票总额" />
                             </p:column>
-                            <p:column></p:column>
+                            <p:column><p:outputLabel value="备注" for="dremark" /></p:column>
                             <p:column>
+                                <p:inputText id="dremark" value="#{billPrintManagedBean.currentDetail.remark}" title="dremark" />
                             </p:column>
                         </p:row>
                     </p:panelGrid>
@@ -145,6 +149,7 @@
                             <f:facet name="header">
                                 <h:outputText value="备注"/>
                             </f:facet>
+                            <h:outputText value="#{item.remark}"/>
                         </p:column>
                     </p:dataTable>
                 </p:tab>

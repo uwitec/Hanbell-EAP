@@ -152,7 +152,7 @@ public class BillPrintManagedBean extends FormMultiBean<Armbill, ArmbillDetail> 
     public void setEntityList(List<Armbill> entityList) {
         super.setEntityList(entityList);
         if (entityList != null && !entityList.isEmpty()) {
-            currentEntity = entityList.get(0);
+            setCurrentEntity(entityList.get(0));
         }
     }
 

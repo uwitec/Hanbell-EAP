@@ -5,11 +5,13 @@
  */
 package cn.hanbell.erp.jrs;
 
+import cn.hanbell.erp.ejb.CdrdmasBean;
 import cn.hanbell.erp.entity.Cdrdmas;
 import cn.hanbell.erp.entity.CdrdmasPK;
 import cn.hanbell.jrs.SuperRESTForERP;
 import cn.hanbell.util.SuperEJB;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -29,8 +31,8 @@ import javax.ws.rs.core.PathSegment;
 @Path("shberp/cdrdmas")
 public class CdrdmasFacadeREST extends SuperRESTForERP<Cdrdmas> {
 
-    @PersistenceContext(unitName = "RESTPU_shberp")
-    private EntityManager em;
+    @EJB
+    private CdrdmasBean cdrdmasBean;
 
     private CdrdmasPK getPrimaryKey(PathSegment pathSegment) {
         /*
@@ -74,19 +76,15 @@ public class CdrdmasFacadeREST extends SuperRESTForERP<Cdrdmas> {
     @Path("{cusno}/{itnbrcus}/{count}")
     @Produces({"application/xml", "application/json"})
     public List<Cdrdmas> findByCustomerAndItnbrcus(@PathParam("cusno") String cusno, @PathParam("itnbrcus") String itnbrcus, @PathParam("count") int count) {
-        Query query = em.createNamedQuery("Cdrdmas.findByCusnoAndItnbrcus").setFirstResult(0).setMaxResults(count);
+        Query query = cdrdmasBean.getEntityManager().createNamedQuery("Cdrdmas.findByCusnoAndItnbrcus").setFirstResult(0).setMaxResults(count);
         query.setParameter("cusno", cusno);
         query.setParameter("itnbrcus", "%" + itnbrcus + "%");
         return query.getResultList();
     }
 
-    protected EntityManager getEntityManager() {
-        return em;
-    }
-
     @Override
     protected SuperEJB getSuperEJB() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return cdrdmasBean;
     }
 
 }

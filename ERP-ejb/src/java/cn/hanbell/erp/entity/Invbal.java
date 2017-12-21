@@ -39,7 +39,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Invbal implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    //@AttributeOverride(name = "wareh", column = @Column(name = "wareh"))
     @EmbeddedId
     protected InvbalPK invbalPK;
     @MapsId("wareh")//映射主键中的属性,转成对象

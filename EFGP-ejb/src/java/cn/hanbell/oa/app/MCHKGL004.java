@@ -26,6 +26,7 @@ public class MCHKGL004 implements Serializable {
     private Long id;
     private String company;
     private String applyUser;
+    private String applyDept;
     private String formType;
     private String formTypeDesc;
     private String formKind;
@@ -78,6 +79,20 @@ public class MCHKGL004 implements Serializable {
      */
     public void setApplyUser(String applyUser) {
         this.applyUser = applyUser;
+    }
+
+    /**
+     * @return the applyDept
+     */
+    public String getApplyDept() {
+        return applyDept;
+    }
+
+    /**
+     * @param applyDept the applyDept to set
+     */
+    public void setApplyDept(String applyDept) {
+        this.applyDept = applyDept;
     }
 
     /**

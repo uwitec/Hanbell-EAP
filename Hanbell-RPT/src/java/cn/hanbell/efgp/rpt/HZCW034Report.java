@@ -23,8 +23,6 @@ public class HZCW034Report extends SuperMultiReportBean<HZCW034Bean, HZCW034, HZ
 
     @Override
     public List<HZCW034Detail> getDetail(Object o) throws Exception {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-       // this.superEJB.setDetail(o);
         return this.superEJB.getDetailList(o);
     }
 
