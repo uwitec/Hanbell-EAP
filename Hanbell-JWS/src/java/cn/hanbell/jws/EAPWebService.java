@@ -42,7 +42,6 @@ import cn.hanbell.oa.ejb.HZJS034Bean;
 import cn.hanbell.oa.ejb.SERI12Bean;
 import cn.hanbell.oa.ejb.SHBERPPURX141Bean;
 import cn.hanbell.oa.ejb.SHBINV140Bean;
-import cn.hanbell.oa.ejb.VHTV002Bean;
 import cn.hanbell.oa.ejb.WARMI05Bean;
 import cn.hanbell.oa.ejb.WorkFlowBean;
 import cn.hanbell.oa.entity.HKCW002;
@@ -128,8 +127,6 @@ public class EAPWebService {
     private SHBERPPURX141Bean shberppurx141Bean;
     @EJB
     private SHBINV140Bean shbinv140Bean;
-    @EJB
-    private VHTV002Bean vhtv002Bean;
     @EJB
     private WARMI05Bean warmi05Bean;
 
@@ -1029,20 +1026,6 @@ public class EAPWebService {
             ret = warmi05Bean.updateSubject(psn);
         } catch (Exception ex) {
             Logger.getLogger(SHBERPWebService.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        if (ret) {
-            return "200";
-        } else {
-            return "404";
-        }
-    }
-        @WebMethod(operationName = "updateOAVHTV001ByOAVHTV002")
-    public String updateOAVHTV001ByOAVHTV002(@WebParam(name = "psn") String psn) {
-        Boolean ret = false;
-        try {
-            ret = vhtv002Bean.updatevhtv002(psn);
-        } catch (Exception ex) {
-            Logger.getLogger(EAPWebService.class.getName()).log(Level.SEVERE, null, ex);
         }
         if (ret) {
             return "200";
