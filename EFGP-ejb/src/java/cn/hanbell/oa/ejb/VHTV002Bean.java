@@ -37,14 +37,16 @@ public class VHTV002Bean extends SuperEJBForEFGP<VHTV002> {
         if (h == null) {
             throw new NullPointerException();
         }
-        Double TotaltaxInclusiveRMB = h.getTotaltaxInclusiveRMB();
-        Double TaxInclusive = h.getTaxInclusive();
+        //Double TotaltaxInclusiveRMB = h.getTotaltaxInclusiveRMB();
+        //Double TaxInclusive = h.getTaxInclusive();
         String FSN = h.getFormSerialNumber();
         List<VHTV002reDetail> details = vhtv002redetailBean.findByFSN(FSN);
         VHTV002reDetail detail = details.get(0);
+        Double TaxInclusive = Double.parseDouble(detail.getTaxInclusive());
+        Double Refund =  Double.parseDouble(detail.getRefund()); 
         String LoanNo = detail.getLoanNo();
         VHTV001 VH = vhtv001Bean.findByPSN(LoanNo);
-        VH.setArrears(VH.getArrears() - TotaltaxInclusiveRMB - TaxInclusive);
+        VH.setArrears(VH.getArrears() - Refund - TaxInclusive);
         vhtv001Bean.update(VH);
         return true;
     }
