@@ -458,6 +458,38 @@ public class SHBERPWebService {
         }
     }
 
+    //客户
+    @WebMethod(operationName = "updateCustomerByOAHKJH003")
+    public String updateCustomerByOAHKJH003(@WebParam(name = "psn") String psn) {
+        Boolean ret = false;
+        try {
+            ret = cdrcusBean.cloneByOAHKJH003(psn);
+        } catch (Exception ex) {
+            Logger.getLogger(SHBERPWebService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (ret) {
+            return "200";
+        } else {
+            return "404";
+        }
+    }
+
+    //厂商
+    @WebMethod(operationName = "updateManufacturerByOAHKJH004")
+    public String updateManufacturerByOAHKJH004(@WebParam(name = "psn") String psn) {
+        Boolean ret = false;
+        try {
+           ret = purvdrBean.cloneByOAHKJH004(psn);
+        } catch (Exception ex) {
+            Logger.getLogger(SHBERPWebService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (ret) {
+            return "200";
+        } else {
+            return "404";
+        }
+    }
+
     @WebMethod(operationName = "updateINV140ByOAHKJS001")
     public String updateINV140ByOAHKJS001(@WebParam(name = "psn") String psn) {
         Boolean ret = false;

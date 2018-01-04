@@ -304,6 +304,10 @@ public class Cdrcus implements Serializable {
         this.cusno = cusno;
     }
 
+    public Cdrcus(String facno2, String cusno) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     public String getCusno() {
         return cusno;
     }

@@ -16,8 +16,11 @@ import cn.hanbell.erp.entity.Invwh;
 import cn.hanbell.erp.entity.Invwhclk;
 import cn.hanbell.erp.entity.Miscode;
 import cn.hanbell.erp.entity.Transwah;
+import cn.hanbell.oa.ejb.HKJH003Bean;
 import cn.hanbell.oa.ejb.HKYX006Bean;
 import cn.hanbell.oa.ejb.HKYX007Bean;
+import cn.hanbell.oa.entity.HKJH003;
+import cn.hanbell.oa.entity.HKJH003Detail;
 import cn.hanbell.oa.entity.HKYX006;
 import cn.hanbell.oa.entity.HKYX007;
 import cn.hanbell.util.BaseLib;
@@ -48,6 +51,8 @@ public class CdrcusBean extends SuperEJBForERP<Cdrcus> {
     private HKYX006Bean beanHKYX006;
     @EJB
     private HKYX007Bean beanHKYX007;
+    @EJB
+    private HKJH003Bean beanHKJH003;
     @EJB
     private CRMGGBean beanCRMGG;
 
@@ -92,6 +97,17 @@ public class CdrcusBean extends SuperEJBForERP<Cdrcus> {
         super(Cdrcus.class);
     }
 
+    public Cdrcus findByCusno(String cusno) {
+        Query query = getEntityManager().createNamedQuery("Cdrcus.findByCusno");
+        query.setParameter("cusno", cusno);
+        try {
+            Object o = query.getSingleResult();
+            return (Cdrcus) o;
+        } catch (Exception ex) {
+            return null;
+        }
+    }
+
     public List<Cdrcus> findByMan(String userno) {
         List<Cdrcus> cdrcusList = new ArrayList<>();
         List<Cdrcusman> results = cdrcusmanBean.findByMan(userno);
@@ -112,6 +128,84 @@ public class CdrcusBean extends SuperEJBForERP<Cdrcus> {
             }
         }
         return cdrcusList;
+    }
+
+    public boolean cloneByOAHKJH003(String psn) {
+        //表头
+        HKJH003 e = beanHKJH003.findByPSN(psn);
+        if (e == null) {
+            throw new NullPointerException(psn + "不存在");
+        }
+        List<HKJH003Detail> detailList = beanHKJH003.findCustomers(e.getFormSerialNumber());
+        String facno1, facno2, cusno;
+        facno1 = e.getFacno1();
+        facno2 = e.getFacno2();
+        try {
+            if (detailList == null || detailList.isEmpty()) {
+                throw new NullPointerException("客户明细资料不存在");
+            }
+            detailAdded.put(transwahBean, transwahAdded);
+            detailAdded.put(invwhclkBean, invwhclkAdded);
+            detailAdded.put(invwhBean, invwhAdded);
+            detailAdded.put(cdrcusmanBean, cdrcusmanAdded);
+            detailAdded.put(cdrscusBean, cdrscusAdded);
+            detailAdded.put(cdrivoBean, cdrivoAdded);
+            detailAdded.put(miscodeBean, miscodeAdded);
+
+            for (HKJH003Detail c : detailList) {
+                cusno = c.getCusno();
+                setCompany(facno2);
+                cdrcus = findByCusno(cusno);
+                if (cdrcus != null) {
+                    continue;
+                }
+                setCompany(facno1);
+                cdrscusBean.setCompany(facno1);
+                cdrivoBean.setCompany(facno1);
+                miscodeBean.setCompany(facno1);
+                invwhclkBean.setCompany(facno1);
+                invwhBean.setCompany(facno1);
+                transwahBean.setCompany(facno1);
+                cdrcusmanBean.setCompany(facno1);
+                cdrcus = findByCusno(cusno);
+                cdrscusAdded.addAll(cdrscusBean.findByCusno(cusno));
+                cdrivoAdded.addAll(cdrivoBean.findByCusno(cusno));
+                invwhclkAdded.addAll(invwhclkBean.findByWareh("JC" + cusno));
+
+                Invwh invwh = invwhBean.findByWareh("JC" + cusno);
+                if (invwh != null) {
+                    invwhAdded.add(invwh);
+                }
+                transwahAdded.addAll(transwahBean.findByCusno(cusno));
+                Miscode code = miscodeBean.findByPK("CA", cusno);
+                if (code != null) {
+                    miscodeAdded.add(code);
+                }
+                Cdrcusman man = cdrcusmanBean.findByPK(facno1, cusno);
+                if (man != null) {
+                    cdrcusmanAdded.add(man);
+                }
+                setCompany(facno2);
+                cdrcusmanBean.setCompany(facno2);
+                cdrivoBean.setCompany(facno2);
+                cdrscusBean.setCompany(facno2);
+                miscodeBean.setCompany(facno2);
+                invwhBean.setCompany(facno2);
+                invwhclkBean.setCompany(facno2);
+                transwahBean.setCompany(facno2);
+                if (cdrcus != null) {
+                    persist(cdrcus, detailAdded);
+                    resetObjects();
+                } else {
+                    throw new NullPointerException("客户资料不存在");
+                }
+            }
+            return true;
+        } catch (Exception ex) {
+            resetObjects();
+            Logger.getLogger(CdrcusBean.class.getName()).log(Level.SEVERE, null, ex);
+            throw new RuntimeException(ex);
+        }
     }
 
     @Override

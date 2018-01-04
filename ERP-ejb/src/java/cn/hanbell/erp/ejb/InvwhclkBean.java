@@ -7,8 +7,10 @@ package cn.hanbell.erp.ejb;
 
 import cn.hanbell.erp.comm.SuperEJBForERP;
 import cn.hanbell.erp.entity.Invwhclk;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
+import javax.persistence.Query;
 
 /**
  *
@@ -20,6 +22,17 @@ public class InvwhclkBean extends SuperEJBForERP<Invwhclk> {
 
     public InvwhclkBean() {
         super(Invwhclk.class);
+    }
+
+    public List<Invwhclk> findByWareh(String wareh) {
+        Query query = getEntityManager().createNamedQuery("Invwhclk.findByWareh");
+        query.setParameter("wareh", wareh);
+        try {
+            return query.getResultList();
+        } catch (Exception ex) {
+            return null;
+        }
+
     }
 
 }
