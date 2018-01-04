@@ -136,7 +136,7 @@ public class CdrcusBean extends SuperEJBForERP<Cdrcus> {
         if (e == null) {
             throw new NullPointerException(psn + "不存在");
         }
-        List<HKJH003Detail> detailList = beanHKJH003.findCustomers(e.getFormSerialNumber());
+        List<HKJH003Detail> detailList = beanHKJH003.findDetail(e.getFormSerialNumber());
         String facno1, facno2, cusno;
         facno1 = e.getFacno1();
         facno2 = e.getFacno2();

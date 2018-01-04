@@ -74,7 +74,7 @@ public class PurvdrBean extends SuperEJBForERP<Purvdr> {
         if (h == null) {
             throw new NullPointerException(psn + "不存在");
         }
-        List<HKJH004Detail> detailList = beanHKJH004.findMstFSN(h.getFormSerialNumber());
+        List<HKJH004Detail> detailList = beanHKJH004.findDetail(h.getFormSerialNumber());
         try {
             //判断当前detail里是否为空
             String facno1, facno2, vdrno;
@@ -102,9 +102,9 @@ public class PurvdrBean extends SuperEJBForERP<Purvdr> {
                 //取出数据
                 purvdr = findByVdrno(vdrno);
                 purvdrBuyerList.addAll(purvdrBuyerBean.findByVdrno(vdrno));
-                Miscode man = miscodeBean.findByPK("CA", vdrno);
-                if (man != null) {
-                    miscodeAdded.add(man);
+                Miscode code = miscodeBean.findByPK("PJ", vdrno);
+                if (code != null) {
+                    miscodeAdded.add(code);
                 }
 
                 setCompany(facno2);//设置为目的公司

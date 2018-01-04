@@ -28,7 +28,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "HKJH003Detail.findAll", query = "SELECT h FROM HKJH003Detail h"),
     @NamedQuery(name = "HKJH003Detail.findByOID", query = "SELECT h FROM HKJH003Detail h WHERE h.oid = :oid"),
     @NamedQuery(name = "HKJH003Detail.findByReason", query = "SELECT h FROM HKJH003Detail h WHERE h.reason = :reason"),
-    @NamedQuery(name = "HKJH003Detail.findByAddress", query = "SELECT h FROM HKJH003Detail h WHERE h.address = :address"),
+    @NamedQuery(name = "HKJH003Detail.findByCusds", query = "SELECT h FROM HKJH003Detail h WHERE h.cusds = :cusds"),
     @NamedQuery(name = "HKJH003Detail.findBySeq", query = "SELECT h FROM HKJH003Detail h WHERE h.seq = :seq"),
     @NamedQuery(name = "HKJH003Detail.findByCusna", query = "SELECT h FROM HKJH003Detail h WHERE h.cusna = :cusna"),
     @NamedQuery(name = "HKJH003Detail.findByCusno", query = "SELECT h FROM HKJH003Detail h WHERE h.cusno = :cusno"),
@@ -46,8 +46,8 @@ public class HKJH003Detail implements Serializable {
     @Column(name = "reason")
     private String reason;
     @Size(max = 255)
-    @Column(name = "address")
-    private String address;
+    @Column(name = "cusds")
+    private String cusds;
     @Size(max = 255)
     @Column(name = "seq")
     private String seq;
@@ -84,12 +84,12 @@ public class HKJH003Detail implements Serializable {
         this.reason = reason;
     }
 
-    public String getAddress() {
-        return address;
+    public String getCusds() {
+        return cusds;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setCusds(String cusds) {
+        this.cusds = cusds;
     }
 
     public String getSeq() {
@@ -148,5 +148,5 @@ public class HKJH003Detail implements Serializable {
     public String toString() {
         return "cn.hanbell.oa.entity.HKJH003Detail[ oid=" + oid + " ]";
     }
-    
+
 }

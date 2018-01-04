@@ -216,6 +216,22 @@ public class SHBERPWebService {
         }
     }
 
+    //客户
+    @WebMethod(operationName = "createCustomerByOAHKJH003")
+    public String createCustomerByOAHKJH003(@WebParam(name = "psn") String psn) {
+        Boolean ret = false;
+        try {
+            ret = cdrcusBean.cloneByOAHKJH003(psn);
+        } catch (Exception ex) {
+            Logger.getLogger(SHBERPWebService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (ret) {
+            return "200";
+        } else {
+            return "404";
+        }
+    }
+
     @WebMethod(operationName = "createCustomerByOAPSN")
     public String createCustomerByOAPSN(@WebParam(name = "psn") String psn) {
         Boolean ret = false;
@@ -326,6 +342,22 @@ public class SHBERPWebService {
         Boolean ret = false;
         try {
             ret = purhaskBean.initByOAQGD(psn);
+        } catch (Exception ex) {
+            Logger.getLogger(SHBERPWebService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (ret) {
+            return "200";
+        } else {
+            return "404";
+        }
+    }
+
+    //厂商
+    @WebMethod(operationName = "createPurvdrByOAHKJH004")
+    public String createPurvdrByOAHKJH004(@WebParam(name = "psn") String psn) {
+        Boolean ret = false;
+        try {
+            ret = purvdrBean.cloneByOAHKJH004(psn);
         } catch (Exception ex) {
             Logger.getLogger(SHBERPWebService.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -448,38 +480,6 @@ public class SHBERPWebService {
         Boolean ret = false;
         try {
             ret = cdrcusBean.updateByOAPSN(psn);
-        } catch (Exception ex) {
-            Logger.getLogger(SHBERPWebService.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        if (ret) {
-            return "200";
-        } else {
-            return "404";
-        }
-    }
-
-    //客户
-    @WebMethod(operationName = "updateCustomerByOAHKJH003")
-    public String updateCustomerByOAHKJH003(@WebParam(name = "psn") String psn) {
-        Boolean ret = false;
-        try {
-            ret = cdrcusBean.cloneByOAHKJH003(psn);
-        } catch (Exception ex) {
-            Logger.getLogger(SHBERPWebService.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        if (ret) {
-            return "200";
-        } else {
-            return "404";
-        }
-    }
-
-    //厂商
-    @WebMethod(operationName = "updateManufacturerByOAHKJH004")
-    public String updateManufacturerByOAHKJH004(@WebParam(name = "psn") String psn) {
-        Boolean ret = false;
-        try {
-           ret = purvdrBean.cloneByOAHKJH004(psn);
         } catch (Exception ex) {
             Logger.getLogger(SHBERPWebService.class.getName()).log(Level.SEVERE, null, ex);
         }

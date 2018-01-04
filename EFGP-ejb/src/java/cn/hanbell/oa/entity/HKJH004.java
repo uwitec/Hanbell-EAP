@@ -31,7 +31,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "HKJH004.findAll", query = "SELECT h FROM HKJH004 h"),
     @NamedQuery(name = "HKJH004.findByCreateTime", query = "SELECT h FROM HKJH004 h WHERE h.createTime = :createTime"),
     @NamedQuery(name = "HKJH004.findByOID", query = "SELECT h FROM HKJH004 h WHERE h.oid = :oid"),
-    @NamedQuery(name = "HKJH004.findByFacno3", query = "SELECT h FROM HKJH004 h WHERE h.facno3 = :facno3"),
+    @NamedQuery(name = "HKJH004.findByFacno", query = "SELECT h FROM HKJH004 h WHERE h.facno = :facno"),
     @NamedQuery(name = "HKJH004.findByReason", query = "SELECT h FROM HKJH004 h WHERE h.reason = :reason"),
     @NamedQuery(name = "HKJH004.findByFacno1", query = "SELECT h FROM HKJH004 h WHERE h.facno1 = :facno1"),
     @NamedQuery(name = "HKJH004.findByFacno2", query = "SELECT h FROM HKJH004 h WHERE h.facno2 = :facno2"),
@@ -56,8 +56,8 @@ public class HKJH004 implements Serializable {
     @Column(name = "OID")
     private String oid;
     @Size(max = 255)
-    @Column(name = "facno3")
-    private String facno3;
+    @Column(name = "facno")
+    private String facno;
     @Size(max = 255)
     @Column(name = "reason")
     private String reason;
@@ -115,12 +115,12 @@ public class HKJH004 implements Serializable {
         this.oid = oid;
     }
 
-    public String getFacno3() {
-        return facno3;
+    public String getFacno() {
+        return facno;
     }
 
-    public void setFacno3(String facno3) {
-        this.facno3 = facno3;
+    public void setFacno(String facno) {
+        this.facno = facno;
     }
 
     public String getReason() {
@@ -235,5 +235,5 @@ public class HKJH004 implements Serializable {
     public String toString() {
         return "cn.hanbell.oa.entity.HKJH004[ oid=" + oid + " ]";
     }
-    
+
 }

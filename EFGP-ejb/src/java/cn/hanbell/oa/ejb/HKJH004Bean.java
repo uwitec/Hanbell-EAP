@@ -30,7 +30,7 @@ public class HKJH004Bean extends SuperEJBForEFGP<HKJH004> {
         super(HKJH004.class);
     }
 
-    public List<HKJH004Detail> findMstFSN(String fsn) {;
+    public List<HKJH004Detail> findDetail(String fsn) {;
         detailList = khjh004DetailBean.findByFSN(fsn);
         return detailList;
     }

@@ -31,13 +31,13 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "HKJH003.findAll", query = "SELECT h FROM HKJH003 h"),
     @NamedQuery(name = "HKJH003.findByCreateTime", query = "SELECT h FROM HKJH003 h WHERE h.createTime = :createTime"),
     @NamedQuery(name = "HKJH003.findByOID", query = "SELECT h FROM HKJH003 h WHERE h.oid = :oid"),
-    @NamedQuery(name = "HKJH003.findByFacno3", query = "SELECT h FROM HKJH003 h WHERE h.facno3 = :facno3"),
+    @NamedQuery(name = "HKJH003.findByFacno", query = "SELECT h FROM HKJH003 h WHERE h.facno = :facno"),
     @NamedQuery(name = "HKJH003.findByReason", query = "SELECT h FROM HKJH003 h WHERE h.reason = :reason"),
     @NamedQuery(name = "HKJH003.findByFacno1", query = "SELECT h FROM HKJH003 h WHERE h.facno1 = :facno1"),
     @NamedQuery(name = "HKJH003.findByFacno2", query = "SELECT h FROM HKJH003 h WHERE h.facno2 = :facno2"),
     @NamedQuery(name = "HKJH003.findByCusna", query = "SELECT h FROM HKJH003 h WHERE h.cusna = :cusna"),
     @NamedQuery(name = "HKJH003.findBySerialNumber", query = "SELECT h FROM HKJH003 h WHERE h.serialNumber = :serialNumber"),
-    @NamedQuery(name = "HKJH003.findByAddress", query = "SELECT h FROM HKJH003 h WHERE h.address = :address"),
+    @NamedQuery(name = "HKJH003.findByCusds", query = "SELECT h FROM HKJH003 h WHERE h.cusds = :cusds"),
     @NamedQuery(name = "HKJH003.findByApplyuser", query = "SELECT h FROM HKJH003 h WHERE h.applyuser = :applyuser"),
     @NamedQuery(name = "HKJH003.findByCusno", query = "SELECT h FROM HKJH003 h WHERE h.cusno = :cusno"),
     @NamedQuery(name = "HKJH003.findByDept", query = "SELECT h FROM HKJH003 h WHERE h.dept = :dept"),
@@ -56,8 +56,8 @@ public class HKJH003 implements Serializable {
     @Column(name = "OID")
     private String oid;
     @Size(max = 255)
-    @Column(name = "facno3")
-    private String facno3;
+    @Column(name = "facno")
+    private String facno;
     @Size(max = 255)
     @Column(name = "reason")
     private String reason;
@@ -74,8 +74,8 @@ public class HKJH003 implements Serializable {
     @Column(name = "SerialNumber")
     private String serialNumber;
     @Size(max = 255)
-    @Column(name = "address")
-    private String address;
+    @Column(name = "cusds")
+    private String cusds;
     @Size(max = 255)
     @Column(name = "applyuser")
     private String applyuser;
@@ -115,12 +115,12 @@ public class HKJH003 implements Serializable {
         this.oid = oid;
     }
 
-    public String getFacno3() {
-        return facno3;
+    public String getFacno() {
+        return facno;
     }
 
-    public void setFacno3(String facno3) {
-        this.facno3 = facno3;
+    public void setFacno(String facno) {
+        this.facno = facno;
     }
 
     public String getReason() {
@@ -163,12 +163,12 @@ public class HKJH003 implements Serializable {
         this.serialNumber = serialNumber;
     }
 
-    public String getAddress() {
-        return address;
+    public String getCusds() {
+        return cusds;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setCusds(String cusds) {
+        this.cusds = cusds;
     }
 
     public String getApplyuser() {
@@ -235,5 +235,5 @@ public class HKJH003 implements Serializable {
     public String toString() {
         return "cn.hanbell.oa.entity.HKJH003[ oid=" + oid + " ]";
     }
-    
+
 }
