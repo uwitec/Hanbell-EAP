@@ -288,6 +288,7 @@ currentRow = 0;]]></method>
             <method name="fetch"><![CDATA[if(detail==undefined || detail==null){
 	return false;
 }
+if(detail.size() <=6){
 if (currentRow<6){
 	if(currentRow < detail.size()){
 		dataSetRow["formid"] = master.getFormSerialNumber();
@@ -320,6 +321,27 @@ if (currentRow<6){
 	dataSetRow["pzno"] = master.getPzzh();	
 	currentRow++;
 	return true;	
+	}
+}else if(detail.size() >6){
+   if(currentRow < detail.size()){
+		dataSetRow["formid"] = master.getFormSerialNumber();
+		dataSetRow["formdate"] = master.getCreatedate();	
+		dataSetRow["cusno"] = master.getCusno();	
+		dataSetRow["customer"] = master.getVdrd();	
+		dataSetRow["rectype"] = master.getSkxz();
+		dataSetRow["chamts"] = master.getDx();
+		dataSetRow["currency"] = detail.get(currentRow).getBibi();	
+		dataSetRow["summary"] = detail.get(currentRow).getZy();
+		dataSetRow["billno"] = detail.get(currentRow).getFphm();	
+		dataSetRow["amts"] = detail.get(currentRow).getYsje();	
+		dataSetRow["recamts"] = detail.get(currentRow).getSsje();
+		dataSetRow["paytype"] = master.getBfkfs();	
+		dataSetRow["bankname"] = master.getBttbankno();	
+		dataSetRow["acctno"] = detail.get(currentRow).getAcctno();	
+		dataSetRow["pzno"] = master.getPzzh();	
+		currentRow++;
+		return true;
+	}
 }
 
 return false;]]></method>
