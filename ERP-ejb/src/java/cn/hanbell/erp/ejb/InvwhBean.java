@@ -9,6 +9,7 @@ import cn.hanbell.erp.comm.SuperEJBForERP;
 import cn.hanbell.erp.entity.Invwh;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
+import javax.persistence.Query;
 
 /**
  *
@@ -20,6 +21,17 @@ public class InvwhBean extends SuperEJBForERP<Invwh> {
 
     public InvwhBean() {
         super(Invwh.class);
+    }
+
+    public Invwh findByWareh(String wareh) {
+        Query query = getEntityManager().createNamedQuery("Invwh.findByWareh");
+        query.setParameter("wareh", wareh);
+        try {
+            Object o = query.getSingleResult();
+            return (Invwh) o;
+        } catch (Exception ex) {
+            return null;
+        }
     }
 
 }

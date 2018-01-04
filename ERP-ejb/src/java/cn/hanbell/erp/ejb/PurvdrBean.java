@@ -11,8 +11,11 @@ import cn.hanbell.erp.entity.Purvdr;
 import cn.hanbell.erp.entity.PurvdrBuyer;
 import cn.hanbell.oa.ejb.HKCG016Bean;
 import cn.hanbell.oa.ejb.HKCG017Bean;
+import cn.hanbell.oa.ejb.HKJH004Bean;
 import cn.hanbell.oa.entity.HKCG016;
 import cn.hanbell.oa.entity.HKCG017;
+import cn.hanbell.oa.entity.HKJH004;
+import cn.hanbell.oa.entity.HKJH004Detail;
 import cn.hanbell.util.BaseLib;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -45,6 +48,8 @@ public class PurvdrBean extends SuperEJBForERP<Purvdr> {
     private HKCG016Bean beanHKCG016;
 
     @EJB
+    private HKJH004Bean beanHKJH004;
+    @EJB
     private HKCG017Bean beanHKCG017;
 
     @EJB
@@ -56,8 +61,65 @@ public class PurvdrBean extends SuperEJBForERP<Purvdr> {
     @EJB
     private SyncCQBean syncCQBean;
 
+    private Purvdr purvdr;
+
     public PurvdrBean() {
         super(Purvdr.class);
+    }
+
+    public Boolean cloneByOAHKJH004(String psn) {
+        //定义表头
+        HKJH004 h = beanHKJH004.findByPSN(psn);
+        //判断当前表是否存在
+        if (h == null) {
+            throw new NullPointerException(psn + "不存在");
+        }
+        List<HKJH004Detail> detailList = beanHKJH004.findDetail(h.getFormSerialNumber());
+        try {
+            //判断当前detail里是否为空
+            String facno1, facno2, vdrno;
+            facno1 = h.getFacno1();
+            facno2 = h.getFacno2();
+            if (detailList == null || detailList.isEmpty()) {
+                throw new NullPointerException("厂商明细表不存在!");
+            }
+            //当前对象的处理
+            details.put(purvdrBuyerBean, purvdrBuyerList);
+            details.put(miscodeBean, miscodeAdded);
+            //循环detail里的数据
+            for (HKJH004Detail v : detailList) {
+                vdrno = v.getVdrno();
+                setCompany(facno2);
+                purvdr = findByVdrno(vdrno);//确认并找到厂商的编号
+                if (purvdr != null) {//不为空就不做处理 继续执行
+                    continue;
+                }
+                //设置来源的公司
+                setCompany(facno1);
+                purvdrBuyerBean.setCompany(facno1);
+                miscodeBean.setCompany(facno1);
+
+                //取出数据
+                purvdr = findByVdrno(vdrno);
+                purvdrBuyerList.addAll(purvdrBuyerBean.findByVdrno(vdrno));
+                Miscode code = miscodeBean.findByPK("PJ", vdrno);
+                if (code != null) {
+                    miscodeAdded.add(code);
+                }
+
+                setCompany(facno2);//设置为目的公司
+                purvdrBuyerBean.setCompany(facno2);//设置存放的目的公司
+                miscodeBean.setCompany(facno2);//设置存放的目的公司
+
+                persist(purvdr, details);//新增到这个目的公司去
+                resetObjects();//如果循环之后，存在前一个对象的数据，就用这个方法清除
+            }
+        } catch (Exception ex) {
+            resetObjects();
+            Logger.getLogger(PurvdrBean.class.getName()).log(Level.SEVERE, null, ex);
+            throw new RuntimeException(ex);
+        }
+        return true;
     }
 
     public Purvdr findByVdrno(String vdrno) {
